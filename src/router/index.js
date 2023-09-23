@@ -1,12 +1,12 @@
 import {createRouter, createWebHistory} from "vue-router"
-
 //引入组件
+import homePage from "../views/homePage.vue";
 
 //配置信息中需要页面的相关配置
 const routes = [
     {
         path: "/",
-        component: homeView,
+        component: homePage,
     },
 ]
 
