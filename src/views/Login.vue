@@ -19,7 +19,7 @@
         <el-button type="primary" @click="submitForm('ruleForm')" style="width: 110px">登录</el-button>
         <el-button @click="resetForm('ruleForm')" style="width: 110px">修改密码</el-button>
         <router-link to="/register">
-          <el-button style="margin-left:10px;width: 110px">注册</el-button>
+          <el-button type="primary" style="margin-left:10px;width: 110px">注册</el-button>
         </router-link>
       </div>
     </el-card>
