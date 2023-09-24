@@ -1,28 +1,30 @@
 <template>
   <div class="backgroundImage"></div>
   <!--登录框板块-->
-  <div>
+  <div class="card">
     <el-card class="box-card">
-      <h2 style="text-align: center">登录</h2>
-      <!--进行双向绑定/提供的属性在错误时显示错误图标/rules属性表单验证/添加的引用，通过$refs访问组件/设置表单标签的位置和宽度/添加一个类-->
-      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="top" label-width="70px" class="login-from">
-        <!--prop：表单要验证的数据-->
-        <el-form-item label="学号" prop="studentID">
-          <el-input v-model="ruleForm.studentID"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
-        </el-form-item>
-      </el-form>
-      <!--按钮-->
-      <div class="buttonGroup" style="text-align: center;">
-        <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
-        <router-link to="/register">
-          <el-button style="margin-left:10px">注册</el-button>
-        </router-link>
-      </div>
-      <div style="text-align: center;">
-        <el-button @click="resetForm('ruleForm')" style="margin-top: 10px;">修改密码</el-button>
+      <div>
+        <h2 style="text-align: center">登录</h2>
+        <!--进行双向绑定/提供的属性在错误时显示错误图标/rules属性表单验证/添加的引用，通过$refs访问组件/设置表单标签的位置和宽度/添加一个类-->
+        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="top" label-width="70px" class="login-from">
+          <!--prop：表单要验证的数据-->
+          <el-form-item label="学号" prop="studentID">
+            <el-input v-model="ruleForm.studentID"></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+          </el-form-item>
+        </el-form>
+        <!--按钮-->
+        <div class="buttonGroup" style="text-align: center;">
+          <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+          <router-link to="/register">
+            <el-button style="margin-left:10px">注册</el-button>
+          </router-link>
+        </div>
+        <div style="text-align: center;">
+          <el-button @click="resetForm('ruleForm')" style="margin-top: 10px;">修改密码</el-button>
+        </div>
       </div>
     </el-card>
   </div>
@@ -67,6 +69,7 @@ export default {
 </script>
 
 <style scoped>
+
 /*背景图片*/
 .backgroundImage {
   background-image: url("../assets/Image_2.png");
@@ -79,14 +82,18 @@ export default {
   top: 0;
   left: 0;
 }
+.card{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 /*表单框*/
 .box-card {
+  position: relative;
   margin: auto auto;
   width: 410px;
   height: 350px;
-  position: absolute;
-  top: 25%;
-  left: 35%;
   backdrop-filter: blur(10px);
   background-color: rgba(220, 220, 220, 0.1);
   padding: 20px;
