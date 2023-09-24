@@ -79,7 +79,6 @@ export default {
   top: 0;
   left: 0;
 }
-
 /*表单框*/
 .box-card {
   margin: auto auto;
@@ -87,7 +86,11 @@ export default {
   height: 350px;
   position: absolute;
   top: 25%;
-  left: 10%;
+  left: 35%;
+  backdrop-filter: blur(10px);
+  background-color: rgba(220, 220, 220, 0.1);
+  padding: 20px;
+  border-radius: 10px;
 }
 
 .login-from {
