@@ -1,41 +1,27 @@
 <template>
-  <div>
+  <div class="backgroundImage"></div>
+  <!--注册框板块-->
+  <div class="card">
     <el-card class="box-card">
-      <h2>注册</h2>
-      <el-form
-          :model="ruleForm"
-          status-icon
-          :rules="rules"
-          ref="ruleForm"
-          label-position="left"
-          label-width="80px"
-          class="demo-ruleForm"
-      >
-        <el-form-item label="用户名" prop="uname">
-          <el-input v-model="ruleForm.uname"></el-input>
+      <h2 style="text-align: center">注册</h2>
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="top" label-width="70px" class="demo-ruleForm">
+        <el-form-item label="学号" prop="studentID">
+          <el-input v-model="ruleForm.studentID"></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="pass">
-          <el-input
-              type="password"
-              v-model="ruleForm.pass"
-              autocomplete="off"
-          ></el-input>
+        <el-form-item label="密码" prop="password">
+          <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="确认密码" prop="password">
-          <el-input
-              type="password"
-              v-model="ruleForm.password"
-              autocomplete="off"
-          ></el-input>
+        <el-form-item label="确认密码" prop="password_2">
+          <el-input type="password" v-model="ruleForm.password_2" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
-      <div class="btnGroup">
-        <el-button type="primary" @click="submitForm('ruleForm')"
-        >提交
-        </el-button
-        >
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
-        <el-button @click="goBack">返回</el-button>
+      <!--按钮-->
+      <div style="text-align: center;">
+        <el-button @click="resetForm('ruleForm')" style="width: 110px">重置</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')" style="width: 110px">提交</el-button>
+        <router-link to="/">
+          <el-button style="margin-left:10px;width: 110px">返回</el-button>
+        </router-link>
       </div>
     </el-card>
   </div>
@@ -48,7 +34,7 @@ export default {
       if (value === "") {
         callback(new Error("请输入密码"));
       } else {
-        if (this.ruleForm.checkPass !== "") {
+        if (this.ruleForm.password !== "") {
           this.$refs.ruleForm.validateField("checkPass");
         }
         callback();
@@ -57,7 +43,7 @@ export default {
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
-      } else if (value !== this.ruleForm.pass) {
+      } else if (value !== this.ruleForm.password) {
         callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
@@ -65,16 +51,18 @@ export default {
     };
     return {
       ruleForm: {
-        uname: "",
-        pass: "",
+        studentID: "",
         password: "",
+        password_2: "",
       },
       rules: {
-        uname: [
+        studentID: [
           {required: true, message: "用户名不能为空！", trigger: "blur"},
         ],
-        pass: [{required: true, validator: validatePass, trigger: "blur"}],
         password: [
+          {required: true, validator: validatePass, trigger: "blur"}
+        ],
+        password_2: [
           {required: true, validator: validatePass2, trigger: "blur"},
         ],
       },
@@ -94,20 +82,46 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-    goBack() {
-      this.$router.go(-1);
-    },
   },
 };
 </script>
 
 <style scoped>
-.box-card {
-  margin: auto auto;
-  width: 400px;
+/*背景图片*/
+.backgroundImage {
+  background-image: url("../assets/Image_2.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-.login-from {
+/*父组件*/
+.card {
+  /*无论网页大小始终居中*/
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*表单框*/
+.box-card {
+  /*居中*/
   margin: auto auto;
+  /*宽度高度*/
+  width: 400px;
+  height: 370px;
+  /*毛玻璃效果*/
+  backdrop-filter: blur(10px);
+  background-color: rgba(220, 220, 220, 0.1);
+  /*内边距*/
+  padding: 20px;
+  /*圆角*/
+  border-radius: 20px;
 }
 </style>
