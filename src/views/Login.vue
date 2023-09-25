@@ -50,7 +50,8 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!");
+          //alert("submit!");
+          window.location.href = "/home";
         } else {
           console.log("error submit!!");
           return false;

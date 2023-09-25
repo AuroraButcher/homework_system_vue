@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from "vue-router"
 //引入组件
 import login from "../views/Login.vue";
 import register from "../views/Register.vue";
+import home from "../views/Home.vue";
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -12,6 +13,10 @@ const routes = [
     {
         path: "/register",
         component: register,
+    },
+    {
+        path: "/home",
+        component: home,
     },
 ]
 
