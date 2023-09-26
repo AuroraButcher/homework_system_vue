@@ -100,9 +100,8 @@ export default {
   /*内边距*/
   padding: 20px;
   /*圆角*/
-  border-radius: 20px;
+//border-radius: 20px; //background-image: url("../assets/Image_2.png"); //background-size: cover; //width: 100%; //height: 100%;
 }
-
 .login-from {
   margin: auto auto;
 }

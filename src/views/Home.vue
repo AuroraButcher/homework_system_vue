@@ -1,12 +1,16 @@
 <template>
-  <div class="app">
-    <SideMenu>
-      <p>这里是侧边栏的内容。</p>
-      <h1>你你----你</h1>
-    </SideMenu>
-    <div class="content">
-      <!-- 这里是页面主要的内容部分 -->
-    </div>
+  <div class="common-layout">
+    <el-container>
+      <el-header>Header</el-header>
+      <el-container>
+        <el-aside width="200px">
+          <SideMenu></SideMenu>
+        </el-aside>
+        <el-main>
+          <h1>你好</h1>
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
@@ -21,8 +25,7 @@ export default {
 </script>
 
 <style>
-.app {
-  display: flex;
-  flex-direction: row;
+body {
+  background-image: url("../assets/Image_1.png");
 }
 </style>
