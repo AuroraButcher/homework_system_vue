@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import {Fold,Expand} from "@element-plus/icons-vue";
+import {Expand, Fold} from "@element-plus/icons-vue";
 
 export default {
   components: {Fold,Expand},
@@ -118,7 +118,6 @@ export default {
       .shrinkBtn {
         position: fixed;
         left: -29px;
-        top: 38px;
         color: #151d41;
         margin-left: 100px;
         transition: 0.5s;

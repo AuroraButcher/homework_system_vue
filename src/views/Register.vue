@@ -3,7 +3,7 @@
   <!--注册框板块-->
   <div class="card">
     <el-card class="box-card">
-      <h2 style="text-align: center">注册</h2>
+      <h1 style="text-align: center;margin-top: -10px">注册</h1>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="top" label-width="70px" class="demo-ruleForm">
         <el-form-item label="学号" prop="studentID">
           <el-input v-model="ruleForm.studentID"></el-input>
@@ -16,12 +16,12 @@
         </el-form-item>
       </el-form>
       <!--按钮-->
-      <div style="text-align: center;">
-        <el-button @click="resetForm('ruleForm')" style="width: 110px">重置</el-button>
-        <el-button type="primary" @click="submitForm('ruleForm')" style="width: 110px">提交</el-button>
-        <router-link to="/">
-          <el-button style="margin-left:10px;width: 110px">返回</el-button>
-        </router-link>
+      <div style="text-align: center">
+        <el-link type="primary" href="/login">已有账号?立即登录</el-link>
+      </div>
+      <div style="text-align: center;margin-top: 10px;">
+        <el-button @click="resetForm('ruleForm')" style="width: 140px">重置</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')" style="width: 140px">提交</el-button>
       </div>
     </el-card>
   </div>
@@ -90,9 +90,7 @@ export default {
 <style scoped>
 /*背景图片*/
 .backgroundImage {
-  background-image: url("../assets/Image_2.png");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background: url("../assets/Image_2.png") no-repeat fixed;
   background-size: cover;
   width: 100%;
   height: 100%;
@@ -112,10 +110,13 @@ export default {
 
 /*表单框*/
 .box-card {
-  /*居中*/
-  margin: auto auto;
+  /*无论网页大小始终居中*/
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   /*宽度高度*/
-  width: 400px;
+  width: 350px;
   height: 370px;
   /*毛玻璃效果*/
   backdrop-filter: blur(10px);
@@ -124,7 +125,6 @@ export default {
   padding: 20px;
   /*圆角*/
   border-radius: 20px;
-  background-image: url("../assets/Image_2.png");
-  background-size: cover;
+//background-image: url("../assets/Image_2.png"); //background-size: cover;
 }
 </style>
