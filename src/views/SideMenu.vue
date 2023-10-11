@@ -1,125 +1,154 @@
 <template>
-  <div class="shell">
-    <a href="#" class="box">
-      <el-icon>
-        <Expand/>
-      </el-icon>
-      <span>展开</span></a>
-    <a href="#" class="box">
-      <el-icon>
-        <UserFilled/>
-      </el-icon>
-      <span>昵称</span></a>
-    <a href="#" class="box">
-      <el-icon>
-        <HomeFilled/>
-      </el-icon>
-      <span>首页</span></a>
-    <a href="#" class="box">
-      <el-icon>
-        <Bell/>
-      </el-icon>
-      <span>提醒</span></a>
-    <a href="#" class="box">
-      <el-icon>
-        <Star/>
-      </el-icon>
-      <span>收藏</span></a>
-    <a href="#" class="box">
-      <el-icon>
-        <Message/>
-      </el-icon>
-      <span>消息</span></a>
-    <a href="#" class="box">
-      <el-icon>
-        <DArrowRight/>
-      </el-icon>
-      <span>退出</span></a>
+  <div class="left-nav">
+    <!-- <button @click="isCollapse=!isCollapse">展开</button> -->
+    <div class="nav-logo">
+      <span>
+        <!-- <i class="el-icon-platform-eleme logo"></i> -->
+        <span>菜单</span>
+      </span>
+      <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
+        <el-button v-show="!isCollapse" class="el-icon-s-fold" @click="isCollapse=true"><el-icon><Fold /></el-icon></el-button>
+        <el-button v-show="isCollapse" class="el-icon-s-fold shrinkBtn" @click="isCollapse=false"><el-icon><Expand /></el-icon></el-button>
+      </el-radio-group>
+    </div>
+    <el-menu
+        class="el-menu-vertical-demo"
+        :unique-opened="true"
+        router
+        background-color=rgb(242,242,242)
+        text-color=rgb(0,0,0)
+        :collapse="isCollapse"
+    >
+      <el-menu-item index="/home">
+        <span style="color: black;">首页</span>
+      </el-menu-item>
+      <el-sub-menu v-for="(item,index) in menuList" :index="'' + index" :key="index">
+        <template #title>
+          <el-icon><Expand /></el-icon>
+          <span>{{ item.authName }}</span>
+        </template>
+        <el-menu-item
+            v-for="(subItem,index) in item.children"
+            :key="index"
+        >
+          <span>{{ subItem.authName }}</span>
+        </el-menu-item>
+      </el-sub-menu>
+    </el-menu>
   </div>
 </template>
 
 <script>
+import {Fold,Expand} from "@element-plus/icons-vue";
+
 export default {
-  name: 'Sidebar',
-}
+  components: {Fold,Expand},
+  data() {
+    return {
+      menuList: [
+        {
+          id: 0,
+          authName: "通讯录",
+          icon: "el-icon-s-custom",
+          children: [
+            {
+              authName: "用户与部门管理",
+              id: 1,
+              path: "department",
+              parentid: 0
+            },
+            { authName: "通讯录设置", id: 2, path: "adrbook", parentid: 0 }
+          ]
+        },
+        {
+          id: 1,
+          authName: "数据报表",
+          icon: "el-icon-s-claim",
+          children: [
+            { authName: "数据概览", id: 1, path: "overview", parentid: 1 },
+            { authName: "员工活跃数据", id: 2, path: "employees", parentid: 1 }
+          ]
+        },
+        {
+          id: 2,
+          authName: "企业设置",
+          icon: "el-icon-office-building",
+          children: [
+            {
+              authName: "企业信息管理",
+              id: 1,
+              path: "information",
+              parentid: 2
+            },
+            { authName: "权限管理", id: 2, path: "authority", parentid: 2 },
+            { authName: "团队邀请设置", id: 3, path: "team", parentid: 2 },
+            { authName: "安全策略", id: 4, path: "safety", parentid: 2 },
+            { authName: "管理员日志", id: 5, path: "journal", parentid: 2 }
+          ]
+        }
+      ],
+      isCollapse: false
+    };
+  },
+  methods: {}
+};
 </script>
 
-<style scoped>
-* {
-  padding: 0;
-  margin: 0;
-  text-decoration: none;
-}
+<style lang="less" scoped>
+.left-nav {
+  .nav-logo {
+    height: 60px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 60px;
+    margin-top: 16px;
+    .logo {
+      font-size: 30px;
+    }
+    img {
+      width: 28px;
+      margin: 5px;
+    }
+    .el-radio-group {
+      font-size: 20px;
+      margin-top: 20px;
+      margin-left: 21px;
+      .shrinkBtn {
+        position: fixed;
+        left: -29px;
+        top: 38px;
+        color: #151d41;
+        margin-left: 100px;
+        transition: 0.5s;
+      }
+    }
+  }
+  .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+  }
 
-body {
-  background-color: rgb(255, 255, 255);
-  display: flex;
-  justify-content: space-evenly;
-  height: 100vh;
-  align-items: center;
+  .el-menu-vertical-demo {
+    border: none;
+    .el-menu-item {
+      span {
+        color: #909399;
+        font-size: 16px;
+      }
+    }
+    .el-submenu {
+      span {
+        color: #909399;
+        font-size: 16px;
+      }
+      .el-menu-item {
+        span {
+          color: #909399;
+          font-size: 14px;
+        }
+      }
+    }
+  }
 }
-
-.shell {
-  width: 70px;
-  height: 600px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-color: rgb(26, 34, 77);
-  border-radius: 10px;
-  transition: .3s;
-  overflow: hidden;
-}
-
-.box {
-  display: block;
-  height: 15%;
-  width: 85%;
-  margin: 9px;
-  border-radius: 5px;
-  position: relative;
-  transition: .3s;
-  color: rgb(255, 255, 255);
-}
-
-.box i {
-  font-size: 50px;
-  position: absolute;
-  margin: 5px 0 0 5px;
-}
-
-.box:nth-child(1)::before,
-.box:nth-child(S)::before {
-  content: '';
-  display: block;
-  width: 100%;
-  height: 2px;
-  background-color: rgb(137, 135, 180);
-  position: absolute;
-  bottom: -10px;
-}
-
-.box span {
-  position: relative;
-  top: 22px;
-  left: 80px;
-  font: 500 20px '';
-  opacity: 0;
-  transition: .1s;
-}
-
-.shell:hover {
-  width: 200px;
-}
-
-.box:hover {
-  background-color: rgb(42, 27, 175);
-  color: rgb(255, 255, 255);
-}
-
-.shell:hover span {
-  opacity: 1;
-}
-
 </style>
