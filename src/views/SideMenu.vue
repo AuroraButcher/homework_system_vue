@@ -1,6 +1,7 @@
 <template>
   <div class="left-nav">
     <div class="nav-logo">
+      <span>菜单</span>
       <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
         <el-button v-show="!isCollapse" class="el-icon-s-fold" @click="isCollapse=true">
           <el-icon>
@@ -13,30 +14,22 @@
           </el-icon>
         </el-button>
       </el-radio-group>
-      <span>
-        <span>菜单</span>
-      </span>
     </div>
-    <el-menu
-        class="el-menu-vertical-demo"
-        :unique-opened="true"
-        router
-        background-color=rgb(242,242,242)
-        text-color=rgb(0,0,0)
-        :collapse="isCollapse"
-    >
+    <el-menu class="el-menu-vertical-demo" :unique-opened="true" router background-color=rgb(242,242,242) text-color=rgb(0,0,0) :collapse="isCollapse">
       <el-menu-item index="/home">
+        <el-icon>
+          <HomeFilled/>
+        </el-icon>
         <span style="color: black;">首页</span>
       </el-menu-item>
-      <el-sub-menu v-for="(item,index) in menuList" :index="'' + index" :key="index">
+      <el-sub-menu v-for="(item,index) in menuList" :index="'/' + index" :key="index">
         <template #title>
-          <el-icon><Expand /></el-icon>
+          <el-icon>
+            <DataBoard/>
+          </el-icon>
           <span>{{ item.authName }}</span>
         </template>
-        <el-menu-item
-            v-for="(subItem,index) in item.children"
-            :key="index"
-        >
+        <el-menu-item v-for="(subItem,index) in item.children " :index=" '/' + subItem.path " :key="index">
           <span>{{ subItem.authName }}</span>
         </el-menu-item>
       </el-sub-menu>
@@ -45,51 +38,86 @@
 </template>
 
 <script>
-import {Expand, Fold} from "@element-plus/icons-vue";
+import {DataBoard, Expand, Fold, HomeFilled} from "@element-plus/icons-vue";
 
 export default {
-  components: {Fold,Expand},
+  components: {DataBoard, HomeFilled, Fold, Expand},
   data() {
     return {
       menuList: [
         {
           id: 0,
-          authName: "通讯录",
+          authName: "课程管理",
           icon: "el-icon-s-custom",
           children: [
             {
               authName: "用户与部门管理",
               id: 1,
-              path: "department",
-              parentid: 0
+              path: "login",
+              parentId: 0
             },
-            { authName: "通讯录设置", id: 2, path: "adrbook", parentid: 0 }
+            {
+              authName: "通讯录设置",
+              id: 2,
+              path: "adrbook",
+              parentId: 0
+            }
           ]
         },
         {
           id: 1,
-          authName: "数据报表",
+          authName: "作业管理",
           icon: "el-icon-s-claim",
           children: [
-            { authName: "数据概览", id: 1, path: "overview", parentid: 1 },
-            { authName: "员工活跃数据", id: 2, path: "employees", parentid: 1 }
+            {
+              authName: "数据概览",
+              id: 1,
+              path: "overview",
+              parentId: 1
+            },
+            {
+              authName: "员工活跃数据",
+              id: 2,
+              path: "employees",
+              parentId: 1
+            }
           ]
         },
         {
           id: 2,
-          authName: "企业设置",
+          authName: "互评打分",
           icon: "el-icon-office-building",
           children: [
             {
               authName: "企业信息管理",
               id: 1,
               path: "information",
-              parentid: 2
+              parentId: 2
             },
-            { authName: "权限管理", id: 2, path: "authority", parentid: 2 },
-            { authName: "团队邀请设置", id: 3, path: "team", parentid: 2 },
-            { authName: "安全策略", id: 4, path: "safety", parentid: 2 },
-            { authName: "管理员日志", id: 5, path: "journal", parentid: 2 }
+            {
+              authName: "权限管理",
+              id: 2,
+              path: "authority",
+              parentId: 2
+            },
+            {
+              authName: "团队邀请设置",
+              id: 3,
+              path: "team",
+              parentId: 2
+            },
+            {
+              authName: "安全策略",
+              id: 4,
+              path: "safety",
+              parentId: 2
+            },
+            {
+              authName: "管理员日志",
+              id: 5,
+              path: "journal",
+              parentId: 2
+            }
           ]
         }
       ],
@@ -110,7 +138,7 @@ export default {
     align-items: center;
     line-height: 60px;
     margin-top: 16px;
-    background-color: rgb(242, 242, 242);
+
 
     .logo {
       font-size: 30px;

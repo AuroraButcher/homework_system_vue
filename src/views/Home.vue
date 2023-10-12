@@ -6,7 +6,7 @@
         <!--logo及名称-->
         <div class="logo-style">
           <img src="../assets/XiHe.png" alt="羲和作业互评系统" width="50">
-          <span style="font-size: 25px;font-family:华文行楷">羲和作业互评系统</span>
+          <span style="font-size: 25px;font-family:华文行楷,fangsong">羲和作业互评系统</span>
         </div>
       </el-header>
       <el-container>
@@ -42,7 +42,6 @@ body {
   height: 50px;
   background-color: rgb(242, 242, 242);
 }
-
 .logo-style {
   display: flex;
   align-items: center;
@@ -50,5 +49,9 @@ body {
 
 .side-style {
   width: 200px;
+}
+
+.main-style {
+
 }
 </style>
