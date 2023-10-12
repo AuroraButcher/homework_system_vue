@@ -1,15 +1,21 @@
 <template>
   <div class="left-nav">
-    <!-- <button @click="isCollapse=!isCollapse">展开</button> -->
     <div class="nav-logo">
+      <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
+        <el-button v-show="!isCollapse" class="el-icon-s-fold" @click="isCollapse=true">
+          <el-icon>
+            <Fold/>
+          </el-icon>
+        </el-button>
+        <el-button v-show="isCollapse" class="el-icon-s-fold shrinkBtn" @click="isCollapse=false">
+          <el-icon>
+            <Expand/>
+          </el-icon>
+        </el-button>
+      </el-radio-group>
       <span>
-        <!-- <i class="el-icon-platform-eleme logo"></i> -->
         <span>菜单</span>
       </span>
-      <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-        <el-button v-show="!isCollapse" class="el-icon-s-fold" @click="isCollapse=true"><el-icon><Fold /></el-icon></el-button>
-        <el-button v-show="isCollapse" class="el-icon-s-fold shrinkBtn" @click="isCollapse=false"><el-icon><Expand /></el-icon></el-button>
-      </el-radio-group>
     </div>
     <el-menu
         class="el-menu-vertical-demo"
@@ -104,13 +110,17 @@ export default {
     align-items: center;
     line-height: 60px;
     margin-top: 16px;
+    background-color: rgb(242, 242, 242);
+
     .logo {
       font-size: 30px;
     }
+
     img {
       width: 28px;
       margin: 5px;
     }
+
     .el-radio-group {
       font-size: 20px;
       margin-top: 20px;
@@ -118,7 +128,7 @@ export default {
       .shrinkBtn {
         position: fixed;
         left: -29px;
-        color: #151d41;
+        color: rgb(0, 0, 0);
         margin-left: 100px;
         transition: 0.5s;
       }
@@ -132,18 +142,18 @@ export default {
     border: none;
     .el-menu-item {
       span {
-        color: #909399;
+        color: rgb(0, 0, 0);
         font-size: 16px;
       }
     }
     .el-submenu {
       span {
-        color: #909399;
+        color: rgb(0, 0, 0);
         font-size: 16px;
       }
       .el-menu-item {
         span {
-          color: #909399;
+          color: rgb(0, 0, 0);
           font-size: 14px;
         }
       }
