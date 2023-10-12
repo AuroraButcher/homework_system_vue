@@ -90,7 +90,7 @@ export default {
 <style scoped>
 /*背景图片*/
 .backgroundImage {
-  background: url("../assets/Image_2.png") no-repeat fixed;
+  background: url("../assets/Image_1.png") no-repeat fixed;
   background-size: cover;
   width: 100%;
   height: 100%;
@@ -119,12 +119,11 @@ export default {
   width: 350px;
   height: 370px;
   /*毛玻璃效果*/
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(30px);
   background-color: rgba(220, 220, 220, 0.1);
   /*内边距*/
   padding: 20px;
   /*圆角*/
   border-radius: 20px;
-//background-image: url("../assets/Image_2.png"); //background-size: cover;
 }
 </style>
