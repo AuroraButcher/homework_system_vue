@@ -15,7 +15,12 @@
         </el-button>
       </el-radio-group>
     </div>
-    <el-menu class="el-menu-vertical-demo" :unique-opened="true" router background-color=rgb(242,242,242) text-color=rgb(0,0,0) :collapse="isCollapse">
+    <el-menu class="el-menu-vertical-demo"
+             :unique-opened="true"
+             router
+             background-color=rgb(242,242,242)
+             text-color=rgb(0,0,0)
+             :collapse="isCollapse">
       <el-menu-item index="/home">
         <el-icon>
           <HomeFilled/>

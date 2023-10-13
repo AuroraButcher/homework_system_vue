@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import api from '../api/index'
+
 export default {
   data() {
     return {
@@ -47,12 +49,20 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           window.location.href = "/home";
+
+          /*api.postStuRegister().then(res=>{
+            if(res.data.message==='success'){
+              window.location.href = "/home";
+            }
+          })*/
+
         } else {
           console.log("error submit!!");
           return false;
         }
       });
     },
+
   },
 };
 </script>
