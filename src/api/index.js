@@ -6,8 +6,15 @@ const api = {
     getUrl() {
         return axios.get(path.baseUrl + path.otherUrl);
     },
-    postStuRegister(){
-        return axios.post(path.baseUrl+path.publicUrl+'student/login')
+    post(url,data){
+        return axios.post(path.baseUrl+path.publicUrl+url,data)
     }
+}
+function paramsToFormData(params) {
+    const formData = new FormData();
+    Object.entries(params).forEach(([key, value]) => {
+        formData.append(key, value);
+    });
+    return formData;
 }
 export default api

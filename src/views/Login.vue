@@ -6,8 +6,8 @@
     <!--进行双向绑定/提供的属性在错误时显示错误图标/rules属性表单验证/添加的引用，通过$refs访问组件/设置表单标签的位置和宽度/添加一个类-->
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="top" label-width="70px" class="login-from">
       <!--prop：表单要验证的数据-->
-      <el-form-item label="学号：" prop="studentID">
-        <el-input v-model="ruleForm.studentID"></el-input>
+      <el-form-item label="学号：" prop="number">
+        <el-input v-model="ruleForm.number"></el-input>
       </el-form-item>
       <el-form-item label="密码：" prop="password">
         <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
@@ -28,14 +28,15 @@ import api from '../api/index'
 export default {
   data() {
     return {
+      dialogVisible: false,
       //对象
       ruleForm: {
-        studentID: "",
+        number: "",
         password: "",
       },
       //规则
       rules: {
-        studentID: [
+        number: [
           {required: true, message: "用户名不能为空！", trigger: "blur"},
         ],
         password: [
@@ -48,13 +49,23 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          window.location.href = "/home";
+          //window.location.href = "/home";
+          this.ruleForm.number=parseInt(this.ruleForm.number)
 
-          /*api.postStuRegister().then(res=>{
-            if(res.data.message==='success'){
+          api.post('student/login',this.ruleForm).then((response) => {
+            // 请求成功的处理逻辑
+            console.log(response.data);
+            if(response.data.code!==20000){
+              window.alert("登录失败");
+            }
+            else {
               window.location.href = "/home";
             }
-          })*/
+          })
+              .catch(error => {
+                // 请求失败的处理逻辑
+                console.error(error);
+              });
 
         } else {
           console.log("error submit!!");
@@ -62,7 +73,9 @@ export default {
         }
       });
     },
-
+    closeDialog() {
+      this.dialogVisible = false;
+    }
   },
 };
 </script>
