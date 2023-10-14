@@ -7,7 +7,7 @@
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="top" label-width="70px" class="login-from">
       <!--prop：表单要验证的数据-->
       <el-form-item label="学号：" prop="number">
-        <el-input v-model="ruleForm.number"></el-input>
+        <el-input type="text" v-model="ruleForm.number"></el-input>
       </el-form-item>
       <el-form-item label="密码：" prop="password">
         <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>

@@ -5,19 +5,25 @@
     <el-card class="box-card">
       <h1 style="text-align: center;margin-top: -10px">注册</h1>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="top" label-width="70px" class="demo-ruleForm">
-        <el-form-item label="学号" prop="studentID">
-          <el-input v-model="ruleForm.studentID"></el-input>
+        <el-form-item label="学号" prop="number">
+          <el-input v-model="ruleForm.number"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
           <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="确认密码" prop="password_2">
-          <el-input type="password" v-model="ruleForm.password_2" autocomplete="off"></el-input>
+        <el-input type="password" v-model="ruleForm.password_2" autocomplete="off"></el-input>
+      </el-form-item>
+        <el-form-item label="邮箱验证码" prop="captcha">
+          <div style="display: flex; justify-content: space-between;">
+            <el-input class="captcha" type="text" v-model="ruleForm.captcha" autocomplete="off"></el-input>
+            <el-link class="send" type="primary" @click="captcha('ruleForm')">发送验证码</el-link>
+          </div>
         </el-form-item>
       </el-form>
       <!--按钮-->
       <div style="text-align: center">
-        <el-link type="primary" href="/login">已有账号?立即登录</el-link>
+        <el-link type="primary" href="/student/login">已有账号?立即登录</el-link>
       </div>
       <div style="text-align: center;margin-top: 10px;">
         <el-button @click="resetForm('ruleForm')" style="width: 140px">重置</el-button>
@@ -28,6 +34,8 @@
 </template>
 
 <script>
+import api from '../api/index'
+
 export default {
   name: "register",
   data() {
@@ -52,13 +60,14 @@ export default {
     };
     return {
       ruleForm: {
-        studentID: "",
+        number: "",
         password: "",
         password_2: "",
+        captcha:"",
       },
       rules: {
-        studentID: [
-          {required: true, message: "用户名不能为空！", trigger: "blur"},
+        number: [
+          {required: true, message: "学号不能为空！", trigger: "blur"},
         ],
         password: [
           {required: true, validator: validatePass, trigger: "blur"}
@@ -83,6 +92,18 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
+    captcha(formName){
+      const regex = /^\d{8}$/; // 8位数字的正则表达式
+      if(regex.test(this.ruleForm.number)){
+        api.post('mail/send/register?id='+this.ruleForm.number).then(res=>{
+          if(res.data.code===20000){
+            alert("发送成功")
+          }else {
+            alert("发送失败")
+          }
+        })
+      }
+    }
   },
 };
 </script>
@@ -117,7 +138,6 @@ export default {
   transform: translate(-50%, -50%);
   /*宽度高度*/
   width: 350px;
-  height: 370px;
   /*毛玻璃效果*/
   backdrop-filter: blur(30px);
   background-color: rgba(220, 220, 220, 0.1);
@@ -125,5 +145,13 @@ export default {
   padding: 20px;
   /*圆角*/
   border-radius: 20px;
+}
+.captcha{
+  width: 200px;
+}
+.send{
+  border: 1px solid #66ccff;
+  width: 70px;
+  margin-left: 36px;
 }
 </style>
