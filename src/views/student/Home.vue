@@ -5,7 +5,7 @@
       <el-header class="header-style">
         <!--logo及名称-->
         <div class="logo-style">
-          <img src="../../assets/XiHe.png" alt="羲和作业互评系统" width="50">
+          <img src="../../assets/logo_1.png" alt="羲和作业互评系统" width="50">
           <span style="font-size: 25px;font-family:华文行楷,fangsong">羲和作业互评系统</span>
         </div>
       </el-header>
@@ -39,8 +39,13 @@ body {
 }
 
 .header-style {
+  /*高度*/
   height: 50px;
-  background-color: rgb(242, 242, 242);
+  /*背景颜色*/
+  background-color: rgb(67, 142, 185);
+  border-color: red;
+  /*圆角*/
+  border-radius: 5px;
 }
 .logo-style {
   display: flex;

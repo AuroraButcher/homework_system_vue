@@ -2,26 +2,29 @@ import {createRouter, createWebHistory} from "vue-router"
 //引入组件
 import login from "../views/Login.vue";
 import register from "../views/Register.vue";
+import changePassword from "../views/ChangePassword.vue";
 import studentHome from "../views/student/Home.vue";
 
 //配置信息中需要页面的相关配置
 const routes = [
-    {
-        path: "/",
-        redirect: "/student/login",
-    },
-    {
-        path: "/student/login",
-        component: login,
-    },
-    {
-        path: "/register",
-        component: register,
-    },
-    {
-        path: "/home",
-        component: studentHome,
-    },
+    // 总界面
+    {path: "/", redirect: "/login",},
+    // 登录界面
+    {path: "/login", component: login,},
+    // 注册界面
+    {path: "/register", component: register,},
+    // 修改密码界面
+    {path: "/changePassword", component: changePassword},
+
+
+    // 学生端
+    // 首页
+    {path: "/student/home", component: studentHome,},
+
+    //教师端
+
+
+    //管理员端
 ]
 
 const router = createRouter({

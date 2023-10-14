@@ -84,7 +84,7 @@ export default {
               // TODO 这里要改成对应的网址
               if (this.role === "student") {
                 //学生
-                window.location.href = "/home";
+                window.location.href = "/student/home";
               } else if (this.role === "teacher") {
                 //老师
               } else {
