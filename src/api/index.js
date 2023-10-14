@@ -3,18 +3,8 @@ import path from "./path";
 
 const api = {
     //地址
-    getUrl() {
-        return axios.get(path.baseUrl + path.otherUrl);
+    getStudentLogin(ruleForm) {
+        return axios.post(path.baseUrl + path.student + path.LoginUrl, {number: ruleForm.number, password: ruleForm.password});
     },
-    post(url,data){
-        return axios.post(path.baseUrl+path.publicUrl+url,data)
-    }
-}
-function paramsToFormData(params) {
-    const formData = new FormData();
-    Object.entries(params).forEach(([key, value]) => {
-        formData.append(key, value);
-    });
-    return formData;
 }
 export default api

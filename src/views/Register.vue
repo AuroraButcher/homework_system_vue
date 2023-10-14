@@ -4,7 +4,7 @@
   <div class="card">
     <el-card class="box-card">
       <h1 style="text-align: center;margin-top: -10px">注册</h1>
-      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="top" label-width="70px" class="demo-ruleForm">
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left" label-width="100px" class="demo-ruleForm">
         <el-form-item label="学号" prop="number">
           <el-input v-model="ruleForm.number"></el-input>
         </el-form-item>
@@ -12,12 +12,12 @@
           <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="确认密码" prop="password_2">
-        <el-input type="password" v-model="ruleForm.password_2" autocomplete="off"></el-input>
-      </el-form-item>
+          <el-input type="password" v-model="ruleForm.password_2" autocomplete="off"></el-input>
+        </el-form-item>
         <el-form-item label="邮箱验证码" prop="captcha">
           <div style="display: flex; justify-content: space-between;">
             <el-input class="captcha" type="text" v-model="ruleForm.captcha" autocomplete="off"></el-input>
-            <el-link class="send" type="primary" @click="captcha('ruleForm')">发送验证码</el-link>
+            <el-button class="send" type="primary" @click="captcha('ruleForm')">发送验证码</el-button>
           </div>
         </el-form-item>
       </el-form>
@@ -137,7 +137,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   /*宽度高度*/
-  width: 350px;
+  width: 450px;
   /*毛玻璃效果*/
   backdrop-filter: blur(30px);
   background-color: rgba(220, 220, 220, 0.1);
@@ -146,12 +146,14 @@ export default {
   /*圆角*/
   border-radius: 20px;
 }
-.captcha{
+
+.captcha {
   width: 200px;
 }
-.send{
+
+.send {
   border: 1px solid #66ccff;
-  width: 70px;
-  margin-left: 36px;
+  width: 100px;
+  margin-left: 10px;
 }
 </style>

@@ -48,17 +48,16 @@ instance.interceptors.request.use(
 //获取数据之前
 instance.interceptors.response.use(
     response => {
-        //response.status === 200 ? response: Promise.reject(response)
-        if(response.status===200) {
-            console.log('success')
-            return response
+        if (response.status === 200) {
+            return response;
+        } else {
+            return Promise.reject(response);
         }
-        else return Promise.reject(response)
     },
     error => {
         const {response} = error;
         errorHandle(response.status, response.info);
-        return error
+        return error;
     }
 )
 export default instance
