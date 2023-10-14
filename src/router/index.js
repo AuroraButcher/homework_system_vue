@@ -3,7 +3,7 @@ import {createRouter, createWebHistory} from "vue-router"
 import login from "../views/Login.vue";
 import register from "../views/Register.vue";
 import changePassword from "../views/ChangePassword.vue";
-import studentHome from "../views/student/Home.vue";
+import studentHome from "../views/Home.vue";
 
 //配置信息中需要页面的相关配置
 const routes = [

@@ -5,7 +5,7 @@
       <el-header class="header-style">
         <!--logo及名称-->
         <div class="logo-style">
-          <img src="../../assets/logo_1.png" alt="羲和作业互评系统" width="50">
+          <img src="../assets/logo_1.png" alt="羲和作业互评系统" width="50">
           <span style="font-size: 25px;font-family:华文行楷,fangsong">羲和作业互评系统</span>
         </div>
       </el-header>
@@ -35,7 +35,7 @@ export default {
 
 <style scoped>
 body {
-  background-image: url("../../assets/Image_1.png");
+  background-image: url("../assets/Image_1.png");
 }
 
 .header-style {
