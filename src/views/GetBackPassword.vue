@@ -29,14 +29,14 @@
       <el-form-item label="邮箱验证码" prop="captcha">
         <div style="display: flex; justify-content: space-between;">
           <el-input class="captcha" type="text" v-model="ruleForm.captcha"></el-input>
-          <el-button class="sendCode" type="primary" @click="captcha('ruleForm')">发送验证码</el-button>
+          <el-button class="sendCode" type="primary" @click="captcha()">发送验证码</el-button>
         </div>
       </el-form-item>
     </el-form>
 
     <!--按钮-->
     <div style="display: flex; justify-content: space-between;">
-      <el-button type="primary" @click="goBack(formName)" class="getBackButton">返回登录</el-button>
+      <el-button type="primary" @click="goBack()" class="getBackButton">返回登录</el-button>
       <el-button type="primary" @click="submitForm('ruleForm')" class="getBackButton">找回密码</el-button>
     </div>
   </el-card>
@@ -92,16 +92,16 @@ export default {
       });
     },
     // 返回登录页
-    goBack(formName) {
+    goBack() {
       window.location.href = "/login";
     },
     // 发送邮箱验证码
-    captcha(formName) {
+    captcha() {
       const regex = /^\d{8}$/; // 8位数字的正则表达式
       if (regex.test(this.ruleForm.number)) {
         api.sendCode(this.ruleForm.number).then(response => {
           if (response.data.code === 20000) {
-            console.log("发送成功")
+            ElMessage.success("验证码发送成功");
           } else {
             ElMessage.error("邮箱验证码发送失败")
           }

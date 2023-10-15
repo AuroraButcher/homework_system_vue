@@ -25,7 +25,7 @@
       <el-form-item label="邮箱验证码" prop="captcha">
         <div style="display: flex; justify-content: space-between;">
           <el-input class="captcha" type="text" v-model="ruleForm.captcha"></el-input>
-          <el-button class="sendCode" type="primary" @click="captcha('ruleForm')">发送验证码</el-button>
+          <el-button class="sendCode" type="primary" @click="captcha()">发送验证码</el-button>
         </div>
       </el-form-item>
     </el-form>
@@ -108,14 +108,15 @@ export default {
         }
       });
     },
-    captcha(formName){
-      const regex = /^\d{8}$/; // 8位数字的正则表达式
-      if(regex.test(this.ruleForm.number)) {
+    captcha() {
+      // 8位数字的正则表达式
+      const regex = /^\d{8}$/;
+      if (regex.test(this.ruleForm.number)) {
         api.sendCode(this.ruleForm.number).then(response => {
           if (response.data.code === 20000) {
-            console.log("发送成功")
+            ElMessage.success("验证码发送成功");
           } else {
-            ElMessage.error("邮箱验证码发送失败")
+            ElMessage.error("验证码发送失败");
           }
         })
       }
