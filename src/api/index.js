@@ -12,7 +12,11 @@ const api = {
             params: {
                 code: ruleForm.captcha,
             }
-        })
+        });
+    },
+    // 教师注册
+    teacherRegister(ruleForm) {
+        return axios.post(path.baseUrl + path.teacher + path.RegisterUrl, {number: ruleForm.number, password: ruleForm.password});
     },
     sendCode(number) {
         return axios.post(path.baseUrl + path.sendCode, null, {

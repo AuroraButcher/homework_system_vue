@@ -28,7 +28,7 @@
     </el-form>
     <!--修改密码、注册跳转链接-->
     <div style="display: flex; justify-content: space-between;">
-      <el-link type="primary" href="/changePassword">忘记密码?点击找回</el-link>
+      <el-link type="primary" href="/getBackPassword">忘记密码?点击找回</el-link>
       <el-link type="primary" href="/register">还未注册?点击注册</el-link>
     </div>
     <!--登录按钮-->
@@ -54,7 +54,6 @@ export default {
         number: "",
         password: "",
       },
-      token:"",
       //表单验证规则
       rules: {
         number: [
@@ -78,9 +77,7 @@ export default {
               // TODO 这里要改成对应的网址
               if (this.role === "student") {
                 //学生
-                Cookie.set('number',this.ruleForm.number)
-                this.token=response.data.data.token
-                //this.$store.set_token(store.state,this.token)
+                Cookie.set('number', this.ruleForm.number);
                 window.location.href = "/student/home";
               } else if (this.role === "teacher") {
                 //老师

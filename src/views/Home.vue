@@ -91,8 +91,4 @@ body {
 .side-style {
   width: 200px;
 }
-
-.main-style {
-
-}
 </style>

@@ -1,11 +1,10 @@
 import {createRouter, createWebHistory} from "vue-router"
 //引入组件
+import Cookie from "js-cookie";
 import login from "../views/Login.vue";
 import register from "../views/Register.vue";
 import getBackPassword from "../views/GetBackPassword.vue";
 import studentHome from "../views/Home.vue";
-import Cookie from "js-cookie";
-
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -13,29 +12,35 @@ const routes = [
     {
         path: "/",
         redirect: "/login",
-        name:'origin'},
+        name: 'origin',
+    },
     // 登录界面
     {
         path: "/login",
         component: login,
-        name:'login'},
+        name: 'login',
+    },
     // 注册界面
     {
         path: "/register",
         component: register,
-        name:'register'},
+        name: 'register',
+    },
     // 修改密码界面
     {
-        path: "/changePassword",
+        path: "/getBackPassword",
         component: getBackPassword,
-        name:'changePassword'},
+        name: 'getBackPassword',
+    },
 
 
     // 学生端
     // 首页
     {
         path: "/student/home",
-        component: studentHome,},
+        component: studentHome,
+        name: 'studentHome',
+    },
 
     //教师端
 
@@ -45,17 +50,18 @@ const routes = [
 
 const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes,
 })
 
 //全局前置路由守卫
 router.beforeEach((to, from, next) => {
     // 获取token
-    const token = Cookie.get('number')
+    const token = Cookie.get('number');
     if(!token&& (to.name !== 'login' && to.name !== 'register')){
-        next({ name: 'login' })
+        next({name: 'login'});
     }else {
-        next()
+        next();
     }
 })
+
 export default router
