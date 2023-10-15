@@ -39,6 +39,7 @@
 <script>
 import api from "../api";
 import {ElMessage} from "element-plus";
+import Cookie from 'js-cookie';
 
 export default {
   name: "login",
@@ -76,6 +77,7 @@ export default {
               // TODO 这里要改成对应的网址
               if (this.role === "student") {
                 //学生
+                Cookie.set('number',this.ruleForm.number)
                 window.location.href = "/student/home";
               } else if (this.role === "teacher") {
                 //老师

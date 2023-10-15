@@ -7,6 +7,18 @@
         <div class="logo-style">
           <img src="../assets/logo_1.png" alt="羲和作业互评系统" width="50">
           <span style="font-size: 25px;font-family:华文行楷,fangsong">羲和作业互评系统</span>
+<!--          下拉框-->
+          <el-dropdown class="dropdown">
+            <el-button type="primary">
+              {{showNumber}}
+              <el-icon class="el-icon--right"><arrow-down /></el-icon>
+            </el-button>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item @click="logout">退出</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
         </div>
       </el-header>
       <el-container>
@@ -25,11 +37,25 @@
 
 <script>
 import SideMenu from "./SideMenu.vue";
+import { ArrowDown } from '@element-plus/icons-vue'
+import Cookie from 'js-cookie';
 
 export default {
+  data(){
+    return{
+      showNumber:Cookie.get('number'),
+    }
+  },
   components: {
+    ArrowDown,
     'SideMenu': SideMenu,
   },
+  methods:{
+    logout(){
+      Cookie.remove('number')
+      window.location.href = "/";
+    }
+  }
 }
 </script>
 
@@ -37,7 +63,15 @@ export default {
 body {
   background-image: url("../assets/Image_1.png");
 }
-
+.example-showcase .el-dropdown-link {
+  cursor: pointer;
+  color: var(--el-color-primary);
+  display: flex;
+  align-items: center;
+}
+.dropdown{
+  margin-left: auto;
+}
 .header-style {
   /*高度*/
   height: 50px;
