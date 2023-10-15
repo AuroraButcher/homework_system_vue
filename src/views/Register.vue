@@ -34,7 +34,7 @@
       <el-link type="primary" href="/login">已有账号?立即登录</el-link>
     </div>
     <div style="text-align: center;margin-top: 10px;">
-      <el-button type="primary" @click="submitForm('ruleForm')" style="width: 140px">提交</el-button>
+      <el-button type="primary" @click="submitForm('ruleForm')" style="width: 100%">提交</el-button>
     </div>
   </el-card>
 </template>
