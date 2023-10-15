@@ -7,6 +7,7 @@ const base = {
     student: '/student',
     //其他网址
     LoginUrl: '/login',
-    RegisterUrl: '/register'
+    RegisterUrl: '/register',
+    sendCode: '/mail/send/register'
 }
 export default base

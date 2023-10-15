@@ -2,7 +2,7 @@ import {createRouter, createWebHistory} from "vue-router"
 //引入组件
 import login from "../views/Login.vue";
 import register from "../views/Register.vue";
-import changePassword from "../views/ChangePassword.vue";
+import getBackPassword from "../views/GetBackPassword.vue";
 import studentHome from "../views/Home.vue";
 
 //配置信息中需要页面的相关配置
@@ -14,7 +14,7 @@ const routes = [
     // 注册界面
     {path: "/register", component: register,},
     // 修改密码界面
-    {path: "/changePassword", component: changePassword},
+    {path: "/changePassword", component: getBackPassword},
 
 
     // 学生端

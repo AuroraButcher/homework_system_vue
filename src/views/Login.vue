@@ -2,16 +2,15 @@
   <!--背景图片-->
   <div class="backgroundImage"></div>
 
-
   <!--登录板块-->
   <el-card class="box-card">
     <!--登录标题-->
     <h1 style="text-align: center;margin-top: -10px">登录</h1>
     <!--进行双向绑定/提供的属性在错误时显示错误图标/rules属性表单验证/添加的引用，通过$refs访问组件/设置表单标签的位置和宽度/添加一个类-->
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left" label-width="70px" class="login-from">
+    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left" label-width="100px">
       <!--prop：表单要验证的数据-->
-      <!--学号-->
-      <el-form-item label="学号：" prop="number">
+      <!--学工号-->
+      <el-form-item label="学工号：" prop="number">
         <el-input type="text" v-model="ruleForm.number"></el-input>
       </el-form-item>
       <!--密码，autocomplete表示不自动填充密码-->
@@ -29,7 +28,7 @@
     </el-form>
     <!--修改密码、注册跳转链接-->
     <div style="display: flex; justify-content: space-between;">
-      <el-link type="primary">忘记密码?</el-link>
+      <el-link type="primary" href="/changePassword">忘记密码?点击找回</el-link>
       <el-link type="primary" href="/register">还未注册?点击注册</el-link>
     </div>
     <!--登录按钮-->
@@ -42,6 +41,7 @@ import api from "../api";
 import {ElMessage} from "element-plus";
 
 export default {
+  name: "login",
   data() {
     return {
       //属性
@@ -56,18 +56,10 @@ export default {
       //表单验证规则
       rules: {
         number: [
-          {
-            required: true,
-            message: "用户名不能为空！",
-            trigger: "change"
-          },
+          {required: true, message: "用户名不能为空！", trigger: "change"},
         ],
         password: [
-          {
-            required: true,
-            message: "密码不能为空！",
-            trigger: "change"
-          },
+          {required: true, message: "密码不能为空！", trigger: "change"},
         ],
       },
     };
@@ -113,7 +105,7 @@ export default {
 <style scoped>
 /*背景图片*/
 .backgroundImage {
-  background: url("../assets/Image_1.png") no-repeat fixed;
+  background: url("../assets/Image_2.png") no-repeat fixed;
   background-size: cover;
   width: 100%;
   height: 100%;
@@ -130,8 +122,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   /*宽度高度*/
-  width: 350px;
-  height: 320px;
+  width: 400px;
   /*毛玻璃效果*/
   backdrop-filter: blur(30px);
   background-color: rgba(220, 220, 220, 0.1);

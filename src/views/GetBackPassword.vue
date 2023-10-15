@@ -2,24 +2,28 @@
   <!--背景图片-->
   <div class="backgroundImage"></div>
 
-  <!--注册板块-->
+  <!--找回密码板块-->
   <el-card class="box-card">
-    <!--注册标题-->
-    <h1 style="text-align: center;margin-top: -10px">注册</h1>
+    <!--找回密码标题-->
+    <h1 style="text-align: center;margin-top: -10px">找回密码</h1>
     <!--进行双向绑定/提供的属性在错误时显示错误图标/rules属性表单验证/添加的引用，通过$refs访问组件/设置表单标签的位置和宽度/添加一个类-->
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left" label-width="100px">
       <!--prop：表单要验证的数据-->
       <!--学工号-->
-      <el-form-item label="学工号" prop="number">
-        <el-input v-model="ruleForm.number"></el-input>
+      <el-form-item label="学工号：" prop="number">
+        <el-input type="text" v-model="ruleForm.number"></el-input>
       </el-form-item>
-      <!--密码，autocomplete表示不自动填充密码-->
-      <el-form-item label="密码" prop="password">
-        <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+      <!--新密码，autocomplete表示不自动填充密码-->
+      <el-form-item label="新密码：" prop="password">
+        <el-input type="password" v-model="ruleForm.password"></el-input>
       </el-form-item>
-      <!--再次输入以确认密码-->
-      <el-form-item label="确认密码" prop="password_2">
-        <el-input type="password" v-model="ruleForm.password_2" autocomplete="off"></el-input>
+      <!--角色，default：管理员-->
+      <el-form-item label="角色：">
+        <el-radio-group v-model="role">
+          <el-radio label="administrator">管理员</el-radio>
+          <el-radio label="teacher">教师</el-radio>
+          <el-radio label="student">学生</el-radio>
+        </el-radio-group>
       </el-form-item>
       <!--邮箱验证码-->
       <el-form-item label="邮箱验证码" prop="captcha">
@@ -29,60 +33,39 @@
         </div>
       </el-form-item>
     </el-form>
+
     <!--按钮-->
-    <div style="text-align: center">
-      <el-link type="primary" href="/login">已有账号?立即登录</el-link>
-    </div>
-    <div style="text-align: center;margin-top: 10px;">
-      <el-button type="primary" @click="submitForm('ruleForm')" style="width: 140px">提交</el-button>
+    <div style="display: flex; justify-content: space-between;">
+      <el-button type="primary" @click="goBack(formName)" class="getBackButton">返回登录</el-button>
+      <el-button type="primary" @click="submitForm('ruleForm')" class="getBackButton">找回密码</el-button>
     </div>
   </el-card>
 </template>
 
 <script>
-import api from '../api/index'
+import api from "../api";
 import {ElMessage, ElMessageBox} from "element-plus";
 
 export default {
-  name: "register",
   data() {
-    // 判断
-    const validatePass = (rule, value, callback) => {
-
-      if (value === "") {
-        // 验证第一次是否输入密码
-        callback(new Error("请输入密码"));
-      } else {
-        callback();
-      }
-    };
-    const validatePass2 = (rule, value, callback) => {
-      if (value === "") {
-        // 验证第二次是否输入密码
-        callback(new Error("请再次输入密码"));
-      } else if (value !== this.ruleForm.password) {
-        // 验证两次密码是否一致
-        callback(new Error("两次输入密码不一致!"));
-      } else {
-        callback();
-      }
-    };
     return {
+      //属性
+      //角色
+      role: "administrator",
+      //对象
+      //表单属性
       ruleForm: {
         number: "",
         password: "",
-        password_2: "",
-        captcha:"",
+        captcha: "",
       },
+      //表单验证规则
       rules: {
         number: [
-          {required: true, message: "学号不能为空！", trigger: "change"},
+          {required: true, message: "用户名不能为空！", trigger: "change"},
         ],
         password: [
-          {required: true, validator: validatePass, trigger: "change"}
-        ],
-        password_2: [
-          {required: true, validator: validatePass2, trigger: "change"},
+          {required: true, message: "密码不能为空！", trigger: "change"},
         ],
         captcha: [
           {required: true, message: "尚未输入邮箱验证码！", trigger: "change"},
@@ -91,11 +74,11 @@ export default {
     };
   },
   methods: {
+    //点击找回密码按钮执行的方法
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          // 验证成功，弹出确认框，点击后跳转
-          ElMessageBox.alert('注册成功，点击“OK”进行跳转', '消息', {
+          ElMessageBox.alert('更改密码成功，点击“OK”跳转登录', '消息', {
             confirmButtonText: 'OK',
             callback: action => {
               if (action === 'confirm') {
@@ -104,13 +87,18 @@ export default {
             }
           })
         } else {
-          ElMessage.error("error：您不能注册");
+          ElMessage.error("error：找回密码失败");
         }
       });
     },
-    captcha(formName){
+    // 返回登录页
+    goBack(formName) {
+      window.location.href = "/login";
+    },
+    // 发送邮箱验证码
+    captcha(formName) {
       const regex = /^\d{8}$/; // 8位数字的正则表达式
-      if(regex.test(this.ruleForm.number)) {
+      if (regex.test(this.ruleForm.number)) {
         api.sendCode(this.ruleForm.number).then(response => {
           if (response.data.code === 20000) {
             console.log("发送成功")
@@ -149,7 +137,7 @@ export default {
   backdrop-filter: blur(30px);
   background-color: rgba(220, 220, 220, 0.1);
   /*内边距*/
-  padding: 20px;
+  padding: 10px;
   /*圆角*/
   border-radius: 20px;
 }
@@ -164,5 +152,12 @@ export default {
   border: 1px solid #66ccff;
   width: 100px;
   margin-left: 10px;
+}
+
+/*找回密码按钮*/
+.getBackButton {
+  width: 50%;
+  /* 调整上边距，使其离上方更远 */
+  margin-top: 10px;
 }
 </style>

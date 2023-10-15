@@ -6,5 +6,12 @@ const api = {
     getStudentLogin(ruleForm) {
         return axios.post(path.baseUrl + path.student + path.LoginUrl, {number: ruleForm.number, password: ruleForm.password});
     },
+    sendCode(number) {
+        return axios.post(path.baseUrl + path.sendCode, null, {
+            params: {
+                id: number,
+            }
+        });
+    }
 }
 export default api
