@@ -54,6 +54,7 @@ export default {
         number: "",
         password: "",
       },
+      token:"",
       //表单验证规则
       rules: {
         number: [
@@ -78,6 +79,8 @@ export default {
               if (this.role === "student") {
                 //学生
                 Cookie.set('number',this.ruleForm.number)
+                this.token=response.data.data.token
+                //this.$store.set_token(store.state,this.token)
                 window.location.href = "/student/home";
               } else if (this.role === "teacher") {
                 //老师

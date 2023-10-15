@@ -40,6 +40,7 @@ import SideMenu from "./SideMenu.vue";
 import { ArrowDown } from '@element-plus/icons-vue'
 import Cookie from 'js-cookie';
 
+
 export default {
   data(){
     return{
@@ -53,6 +54,7 @@ export default {
   methods:{
     logout(){
       Cookie.remove('number')
+      //this.$store.set_token(store,'')
       window.location.href = "/";
     }
   }
