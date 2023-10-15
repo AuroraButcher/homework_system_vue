@@ -70,7 +70,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // 符合标准
-          api.getStudentLogin(this.ruleForm).then(response => {
+          api.studentLogin(this.ruleForm).then(response => {
             //验证成功，跳转首页
             if (response.data.code === 20000) {
               // TODO 这里要改成对应的网址

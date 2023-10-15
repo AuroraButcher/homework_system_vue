@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import api from '../api/index'
+import api from '../api/index';
 import {ElMessage, ElMessageBox} from "element-plus";
 
 export default {
@@ -91,23 +91,6 @@ export default {
     };
   },
   methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          // 验证成功，弹出确认框，点击后跳转
-          ElMessageBox.alert('注册成功，点击“OK”进行跳转', '消息', {
-            confirmButtonText: 'OK',
-            callback: action => {
-              if (action === 'confirm') {
-                window.location.href = "/login";
-              }
-            }
-          })
-        } else {
-          ElMessage.error("error：您不能注册");
-        }
-      });
-    },
     captcha() {
       // 8位数字的正则表达式
       const regex = /^\d{8}$/;
@@ -120,7 +103,28 @@ export default {
           }
         })
       }
-    }
+    },
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          api.studentRegister(this.ruleForm).then(response => {
+            if (response.data.code === 20000) {
+              // 验证成功，弹出确认框，点击后跳转
+              ElMessageBox.alert('注册成功，点击“OK”进行跳转', '消息', {
+                confirmButtonText: 'OK',
+                callback: action => {
+                  if (action === 'confirm') {
+                    window.location.href = "/login";
+                  }
+                }
+              })
+            }
+          })
+        } else {
+          ElMessage.error("error：您不能注册");
+        }
+      });
+    },
   },
 };
 </script>
