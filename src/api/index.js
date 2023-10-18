@@ -25,5 +25,8 @@ const api = {
             }
         });
     },
+    studentChangePassword(ruleForm){
+        return axios.post(path.baseUrl+path.student+path.changePassword,{number:ruleForm.number,password:ruleForm.newPassword})
+    } ,
 }
 export default api

@@ -8,6 +8,7 @@ const base = {
     //其他网址
     LoginUrl: '/login',
     RegisterUrl: '/register',
-    sendCode: '/mail/send/register'
+    sendCode: '/mail/send/register',
+    changePassword:'/change',
 }
 export default base

@@ -1,4 +1,5 @@
 <template>
+  <change-password v-model="isChange" @changeCancel="isChange=false"/>
   <div class="common-layout">
     <el-container>
       <SideMenu :isCollapse="isCollapse"/>
@@ -9,6 +10,10 @@
             <Expand v-show="isCollapse"/>
             <Fold v-show="!isCollapse"/>
           </el-icon>
+          <div>
+            <span v-show="isCollapse" class="span">展开</span>
+            <span v-show="!isCollapse" class="span">收起</span>
+          </div>
 
           <!--面包屑-->
           <el-breadcrumb separator="/">
@@ -28,14 +33,16 @@
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item>{{ showNumber }}</el-dropdown-item>
-                <el-dropdown-item>修改密码</el-dropdown-item>
-                <el-dropdown-item>注销账号</el-dropdown-item>
+                <el-dropdown-item @click="changePassword">修改密码</el-dropdown-item>
+                <el-dropdown-item @click="deleteAccout">注销账号</el-dropdown-item>
                 <el-dropdown-item @click="logout">退出系统</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
         </el-header>
-        <el-main>Main</el-main>
+        <el-main>
+          1111
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -45,13 +52,15 @@
 import SideMenu from "./SideMenu.vue";
 import {ArrowDown, Expand, Fold} from "@element-plus/icons-vue";
 import Cookie from "js-cookie";
+import ChangePassword from "./ChangePassword.vue";
 
 export default {
-  components: {ArrowDown, Fold, Expand, SideMenu},
+  components: {ChangePassword, ArrowDown, Fold, Expand, SideMenu},
   data() {
     return {
       isCollapse: false,
       showNumber: Cookie.get('number'),
+      isChange:false,
     }
   },
   methods: {
@@ -62,6 +71,9 @@ export default {
       Cookie.remove('number')
       window.location.href = "/";
     },
+    changePassword(){
+      this.isChange=true
+    }
   }
 }
 </script>
@@ -75,9 +87,11 @@ export default {
   display: flex;
   align-items: center;
   background-color: rgb(242, 242, 242);
-
+  .span{
+    margin-right: 10px;
+  }
   .el-icon {
-    margin-right: 16px;
+    margin-right: 5px;
   }
 }
 

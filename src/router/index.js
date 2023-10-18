@@ -5,6 +5,7 @@ import login from "../views/Login.vue";
 import register from "../views/Register.vue";
 import getBackPassword from "../views/GetBackPassword.vue";
 import home from "../views/Home.vue";
+import changePassword from "../views/ChangePassword.vue";
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -37,6 +38,12 @@ const routes = [
         path: "/home",
         component: home,
         name: 'home',
+    },
+    // change
+    {
+        path: "/change",
+        component: changePassword,
+        name: 'change',
     },
 ]
 
