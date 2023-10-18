@@ -26,7 +26,12 @@ const api = {
         });
     },
     studentChangePassword(ruleForm){
-        return axios.post(path.baseUrl+path.student+path.changePassword,{number:ruleForm.number,password:ruleForm.newPassword})
+        return axios.post(path.baseUrl+path.student+path.changePassword,
+                    {number:ruleForm.number,password:ruleForm.newPassword}
+        )
+    } ,
+    deleteAccount(ruleForm){
+        return axios.post(path.baseUrl+path.student+path.delete,{number:ruleForm.number})
     } ,
 }
 export default api

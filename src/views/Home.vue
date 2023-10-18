@@ -1,5 +1,6 @@
 <template>
   <change-password v-model="isChange" @changeCancel="isChange=false"/>
+  <delete-account v-model="isDelete" @deleteAccount="isDelete=false"/>
   <div class="common-layout">
     <el-container>
       <SideMenu :isCollapse="isCollapse"/>
@@ -53,20 +54,16 @@ import SideMenu from "./SideMenu.vue";
 import {ArrowDown, Expand, Fold} from "@element-plus/icons-vue";
 import Cookie from "js-cookie";
 import ChangePassword from "./ChangePassword.vue";
-import deleteAccount from "./DeleteAccount.vue";
+import DeleteAccount from "./DeleteAccount.vue";
 
 export default {
-  computed: {
-    deleteAccount() {
-      return deleteAccount;
-    }
-  },
-  components: {ChangePassword, ArrowDown, Fold, Expand, SideMenu},
+  components: {DeleteAccount, ChangePassword, ArrowDown, Fold, Expand, SideMenu},
   data() {
     return {
       isCollapse: false,
       showNumber: Cookie.get('number'),
       isChange: false,
+      isDelete:false,
     }
   },
   methods: {
@@ -77,8 +74,11 @@ export default {
       Cookie.remove('number')
       window.location.href = "/";
     },
-    changePassword(){
-      this.isChange=true
+    changePassword() {
+      this.isChange = true;
+    },
+    deleteAccount(){
+      this.isDelete=true;
     }
   }
 }

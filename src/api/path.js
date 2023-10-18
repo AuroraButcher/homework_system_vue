@@ -10,5 +10,6 @@ const base = {
     RegisterUrl: '/register',
     sendCode: '/mail/send/register',
     changePassword:'/change',
+    delete:'/delete'
 }
 export default base
