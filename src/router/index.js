@@ -6,6 +6,8 @@ import register from "../views/Register.vue";
 import getBackPassword from "../views/GetBackPassword.vue";
 import home from "../views/Home.vue";
 import changePassword from "../views/ChangePassword.vue";
+import About from "../views/About.vue";
+import abc from "../views/abc.vue";
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -27,7 +29,7 @@ const routes = [
         component: register,
         name: 'register',
     },
-    // 修改密码界面
+    // 找回密码界面
     {
         path: "/getBackPassword",
         component: getBackPassword,
@@ -38,8 +40,20 @@ const routes = [
         path: "/home",
         component: home,
         name: 'home',
+        children: [
+            {
+                path: "/about",
+                component: About,
+                name: 'about',
+            },
+            {
+                path: "/abc",
+                component: abc,
+                name: 'abc',
+            },
+        ]
     },
-    // change
+    // 修改密码界面
     {
         path: "/change",
         component: changePassword,

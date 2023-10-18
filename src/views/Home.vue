@@ -34,14 +34,14 @@
               <el-dropdown-menu>
                 <el-dropdown-item>{{ showNumber }}</el-dropdown-item>
                 <el-dropdown-item @click="changePassword">修改密码</el-dropdown-item>
-                <el-dropdown-item @click="deleteAccout">注销账号</el-dropdown-item>
+                <el-dropdown-item @click="deleteAccount">注销账号</el-dropdown-item>
                 <el-dropdown-item @click="logout">退出系统</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
         </el-header>
         <el-main>
-          1111
+          <RouterView/>
         </el-main>
       </el-container>
     </el-container>
@@ -53,14 +53,20 @@ import SideMenu from "./SideMenu.vue";
 import {ArrowDown, Expand, Fold} from "@element-plus/icons-vue";
 import Cookie from "js-cookie";
 import ChangePassword from "./ChangePassword.vue";
+import deleteAccount from "./DeleteAccount.vue";
 
 export default {
+  computed: {
+    deleteAccount() {
+      return deleteAccount;
+    }
+  },
   components: {ChangePassword, ArrowDown, Fold, Expand, SideMenu},
   data() {
     return {
       isCollapse: false,
       showNumber: Cookie.get('number'),
-      isChange:false,
+      isChange: false,
     }
   },
   methods: {

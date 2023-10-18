@@ -23,13 +23,13 @@
           <span>课程</span>
         </template>
         <!--子菜单选项-->
-        <el-menu-item class="el-menu-item">
+        <el-menu-item class="el-menu-item" index="/about">
           <el-icon>
             <Operation/>
           </el-icon>
           <span>课程1</span>
         </el-menu-item>
-        <el-menu-item class="el-menu-item">
+        <el-menu-item class="el-menu-item" index="/abc">
           <el-icon>
             <Operation/>
           </el-icon>
