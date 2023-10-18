@@ -15,5 +15,4 @@ app.config.globalProperties.$axios = axios
 app.use(router)
 //Element-plus
 app.use(ElementPlus)
-
 app.mount('#app')

@@ -1,196 +1,134 @@
 <template>
-  <div class="left-nav">
-    <div class="nav-logo">
-      <span>菜单</span>
-      <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-        <el-button v-show="!isCollapse" class="el-icon-s-fold" @click="isCollapse=true">
-          <el-icon>
-            <Fold/>
-          </el-icon>
-        </el-button>
-        <el-button v-show="isCollapse" class="el-icon-s-fold shrinkBtn" @click="isCollapse=false">
-          <el-icon>
-            <Expand/>
-          </el-icon>
-        </el-button>
-      </el-radio-group>
-    </div>
-    <el-menu class="el-menu-vertical-demo"
-             :unique-opened="true"
-             router
-             background-color=rgb(242,242,242)
-             text-color=rgb(0,0,0)
-             :collapse="isCollapse">
+  <el-aside class="el-side">
+    <!--总菜单-->
+    <el-menu class="el-menu" router unique-opened :collapse="isCollapse" :collapse-transition="false">
+      <a href="/home" class="logo">
+        <img src="../assets/XiHe.png" alt="logo" class="image">
+        <h1 class="header_1">羲和作业互评</h1>
+      </a>
+      <!--总菜单选项-->
       <el-menu-item index="/home">
-        <el-icon>
+        <el-icon style="font-size: 32px">
           <HomeFilled/>
         </el-icon>
-        <span style="color: black;">首页</span>
+        <span>首页</span>
       </el-menu-item>
-      <el-sub-menu v-for="(item,index) in menuList" :index="'/' + index" :key="index">
+
+      <!--子菜单-->
+      <el-sub-menu index="1">
         <template #title>
-          <el-icon>
-            <DataBoard/>
+          <el-icon style="font-size: 32px">
+            <Operation/>
           </el-icon>
-          <span>{{ item.authName }}</span>
+          <span>课程</span>
         </template>
-        <el-menu-item v-for="(subItem,index) in item.children " :index=" '/' + subItem.path " :key="index">
-          <span>{{ subItem.authName }}</span>
+        <!--子菜单选项-->
+        <el-menu-item class="el-menu-item">
+          <el-icon>
+            <Operation/>
+          </el-icon>
+          <span>课程1</span>
+        </el-menu-item>
+        <el-menu-item class="el-menu-item">
+          <el-icon>
+            <Operation/>
+          </el-icon>
+          <span>课程2</span>
+        </el-menu-item>
+      </el-sub-menu>
+      <el-sub-menu index="2">
+        <template #title>
+          <el-icon style="font-size: 32px">
+            <Notebook/>
+          </el-icon>
+          <span>作业</span>
+        </template>
+        <!--子菜单选项-->
+        <el-menu-item class="el-menu-item">
+          <el-icon>
+            <Notebook/>
+          </el-icon>
+          <span>作业1</span>
+        </el-menu-item>
+        <el-menu-item class="el-menu-item">
+          <el-icon>
+            <Notebook/>
+          </el-icon>
+          <span>作业2</span>
+        </el-menu-item>
+      </el-sub-menu>
+      <el-sub-menu index="3">
+        <template #title>
+          <el-icon style="font-size: 32px">
+            <EditPen/>
+          </el-icon>
+          <span>互评</span>
+        </template>
+        <!--子菜单选项-->
+        <el-menu-item class="el-menu-item">
+          <el-icon>
+            <EditPen/>
+          </el-icon>
+          <span>互评1</span>
+        </el-menu-item>
+        <el-menu-item class="el-menu-item">
+          <el-icon>
+            <EditPen/>
+          </el-icon>
+          <span>互评2</span>
         </el-menu-item>
       </el-sub-menu>
     </el-menu>
-  </div>
+  </el-aside>
 </template>
-
 <script>
-import {DataBoard, Expand, Fold, HomeFilled} from "@element-plus/icons-vue";
-
+import {EditPen, HomeFilled, Notebook, Operation} from "@element-plus/icons-vue";
 export default {
-  components: {DataBoard, HomeFilled, Fold, Expand},
-  data() {
-    return {
-      menuList: [
-        {
-          id: 0,
-          authName: "课程管理",
-          icon: "el-icon-s-custom",
-          children: [
-            {
-              authName: "用户与部门管理",
-              id: 1,
-              path: "login",
-              parentId: 0
-            },
-            {
-              authName: "通讯录设置",
-              id: 2,
-              path: "adrbook",
-              parentId: 0
-            }
-          ]
-        },
-        {
-          id: 1,
-          authName: "作业管理",
-          icon: "el-icon-s-claim",
-          children: [
-            {
-              authName: "数据概览",
-              id: 1,
-              path: "overview",
-              parentId: 1
-            },
-            {
-              authName: "员工活跃数据",
-              id: 2,
-              path: "employees",
-              parentId: 1
-            }
-          ]
-        },
-        {
-          id: 2,
-          authName: "互评打分",
-          icon: "el-icon-office-building",
-          children: [
-            {
-              authName: "企业信息管理",
-              id: 1,
-              path: "information",
-              parentId: 2
-            },
-            {
-              authName: "权限管理",
-              id: 2,
-              path: "authority",
-              parentId: 2
-            },
-            {
-              authName: "团队邀请设置",
-              id: 3,
-              path: "team",
-              parentId: 2
-            },
-            {
-              authName: "安全策略",
-              id: 4,
-              path: "safety",
-              parentId: 2
-            },
-            {
-              authName: "管理员日志",
-              id: 5,
-              path: "journal",
-              parentId: 2
-            }
-          ]
-        }
-      ],
-      isCollapse: false
-    };
-  },
-  methods: {}
-};
+  components: {EditPen, Notebook, Operation, HomeFilled},
+  props: ['isCollapse'],
+}
 </script>
 
-<style lang="less" scoped>
-.left-nav {
-  .nav-logo {
-    height: 60px;
-    padding: 0 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    line-height: 60px;
-    margin-top: 16px;
+<style scoped>
+/*整个侧边*/
+.el-side {
+  background-color: rgb(67, 142, 185);
+  height: 100vh;
+  width: auto;
+}
 
+/*侧边菜单*/
+.el-menu {
+  background-color: rgb(67, 142, 185);
+  border-right: none;
+  width: 200px;
+}
 
-    .logo {
-      font-size: 30px;
-    }
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  text-decoration: none;
+  color: black;
+}
 
-    img {
-      width: 28px;
-      margin: 5px;
-    }
+.image {
+  height: 32px;
+}
 
-    .el-radio-group {
-      font-size: 20px;
-      margin-top: 20px;
-      margin-left: 21px;
-      .shrinkBtn {
-        position: fixed;
-        left: -29px;
-        color: rgb(0, 0, 0);
-        margin-left: 100px;
-        transition: 0.5s;
-      }
-    }
-  }
-  .el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 200px;
-  }
+.el-menu-item {
+  background-color: rgb(67, 142, 185);
+}
 
-  .el-menu-vertical-demo {
-    border: none;
-    .el-menu-item {
-      span {
-        color: rgb(0, 0, 0);
-        font-size: 16px;
-      }
-    }
-    .el-submenu {
-      span {
-        color: rgb(0, 0, 0);
-        font-size: 16px;
-      }
-      .el-menu-item {
-        span {
-          color: rgb(0, 0, 0);
-          font-size: 14px;
-        }
-      }
-    }
+/*.el-menu--collapse表示隐藏*/
+.el-menu.el-menu--collapse {
+  background-color: rgb(67, 142, 185);
+  border-right: none;
+  width: 64px;
+
+  .header_1 {
+    display: none;
   }
 }
 </style>

@@ -1,35 +1,41 @@
 <template>
   <div class="common-layout">
     <el-container>
-      <!--头部-->
-      <el-header class="header-style">
-        <!--logo及名称-->
-        <div class="logo-style">
-          <img src="../assets/logo_1.png" alt="羲和作业互评系统" width="50">
-          <span style="font-size: 25px;font-family:华文行楷,fangsong">羲和作业互评系统</span>
-<!--          下拉框-->
-          <el-dropdown class="dropdown">
-            <el-button type="primary">
-              {{showNumber}}
-              <el-icon class="el-icon--right"><arrow-down /></el-icon>
-            </el-button>
+      <SideMenu :isCollapse="isCollapse"/>
+      <el-container class="header-and-main">
+        <el-header class="el-header">
+          <!--图标-->
+          <el-icon class="el-icon" style="font-size: 28px" @click="changeIsCollapse">
+            <Expand v-show="isCollapse"/>
+            <Fold v-show="!isCollapse"/>
+          </el-icon>
+
+          <!--面包屑-->
+          <el-breadcrumb separator="/">
+            <el-breadcrumb-item :to="{ path: '/home' }">homepage</el-breadcrumb-item>
+            <el-breadcrumb-item>promotion list</el-breadcrumb-item>
+            <el-breadcrumb-item>promotion detail</el-breadcrumb-item>
+          </el-breadcrumb>
+
+          <!--下拉菜单-->
+          <el-dropdown class="el-dropdown">
+            <span class="el-dropdown-link">
+              <el-avatar :size="40" src="src/assets/头像.jpg"/>
+              <el-icon class="el-icon--right">
+                <arrow-down/>
+              </el-icon>
+            </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item @click="logout">退出</el-dropdown-item>
+                <el-dropdown-item>{{ showNumber }}</el-dropdown-item>
+                <el-dropdown-item>修改密码</el-dropdown-item>
+                <el-dropdown-item>注销账号</el-dropdown-item>
+                <el-dropdown-item @click="logout">退出系统</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-        </div>
-      </el-header>
-      <el-container>
-        <!--侧边栏-->
-        <el-aside class="side-style">
-          <SideMenu></SideMenu>
-        </el-aside>
-        <!--主内容-->
-        <el-main class="main-style">
-          <h1>你好</h1>
-        </el-main>
+        </el-header>
+        <el-main>Main</el-main>
       </el-container>
     </el-container>
   </div>
@@ -37,58 +43,51 @@
 
 <script>
 import SideMenu from "./SideMenu.vue";
-import { ArrowDown } from '@element-plus/icons-vue'
-import Cookie from 'js-cookie';
-
+import {ArrowDown, Expand, Fold} from "@element-plus/icons-vue";
+import Cookie from "js-cookie";
 
 export default {
-  data(){
-    return{
-      showNumber:Cookie.get('number'),
+  components: {ArrowDown, Fold, Expand, SideMenu},
+  data() {
+    return {
+      isCollapse: false,
+      showNumber: Cookie.get('number'),
     }
   },
-  components: {
-    ArrowDown,
-    'SideMenu': SideMenu,
-  },
-  methods:{
-    logout(){
+  methods: {
+    changeIsCollapse() {
+      this.isCollapse = !this.isCollapse;
+    },
+    logout() {
       Cookie.remove('number')
-      //this.$store.set_token(store,'')
       window.location.href = "/";
-    }
+    },
   }
 }
 </script>
 
 <style scoped>
-body {
-  background-image: url("../assets/Image_1.png");
-}
-.example-showcase .el-dropdown-link {
-  cursor: pointer;
-  color: var(--el-color-primary);
-  display: flex;
-  align-items: center;
-}
-.dropdown{
-  margin-left: auto;
-}
-.header-style {
-  /*高度*/
-  height: 50px;
-  /*背景颜色*/
-  background-color: rgb(67, 142, 185);
-  border-color: red;
-  /*圆角*/
-  border-radius: 5px;
-}
-.logo-style {
-  display: flex;
-  align-items: center;
+.header-and-main {
+  flex-direction: column;
 }
 
-.side-style {
-  width: 200px;
+.el-header {
+  display: flex;
+  align-items: center;
+  background-color: rgb(242, 242, 242);
+
+  .el-icon {
+    margin-right: 16px;
+  }
+}
+
+.el-dropdown {
+  margin-left: auto;
+
+  .el-dropdown-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 </style>

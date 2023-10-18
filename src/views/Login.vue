@@ -78,7 +78,7 @@ export default {
               if (this.role === "student") {
                 //学生
                 Cookie.set('number', this.ruleForm.number);
-                window.location.href = "/student/home";
+                window.location.href = "/home";
               } else if (this.role === "teacher") {
                 //老师
               } else {

@@ -4,7 +4,7 @@ import Cookie from "js-cookie";
 import login from "../views/Login.vue";
 import register from "../views/Register.vue";
 import getBackPassword from "../views/GetBackPassword.vue";
-import studentHome from "../views/Home.vue";
+import home from "../views/Home.vue";
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -32,20 +32,12 @@ const routes = [
         component: getBackPassword,
         name: 'getBackPassword',
     },
-
-
-    // 学生端
     // 首页
     {
-        path: "/student/home",
-        component: studentHome,
-        name: 'studentHome',
+        path: "/home",
+        component: home,
+        name: 'home',
     },
-
-    //教师端
-
-
-    //管理员端
 ]
 
 const router = createRouter({
