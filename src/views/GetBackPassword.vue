@@ -49,10 +49,8 @@ import {ElMessage, ElMessageBox} from "element-plus";
 export default {
   data() {
     return {
-      //属性
       //角色
       role: "administrator",
-      //对象
       //表单属性
       ruleForm: {
         number: "",
@@ -78,7 +76,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          api.studentChangePassword(this.ruleForm).then(response => {
+          api.getBackPassword(this.ruleForm).then(response => {
             if (response.data.code === 20000) {
               ElMessageBox.alert('更改密码成功，点击“OK”跳转登录', '消息', {
                 confirmButtonText: 'OK',
@@ -105,7 +103,7 @@ export default {
     captcha() {
       const regex = /^\d{8}$/; // 8位数字的正则表达式
       if (regex.test(this.ruleForm.number)) {
-        api.sendCode(this.ruleForm.number).then(response => {
+        api.getBackSendCode(this.ruleForm.number).then(response => {
           if (response.data.code === 20000) {
             ElMessage.success("验证码发送成功");
           } else {

@@ -1,10 +1,10 @@
 <template>
   <el-dialog title="修改密码" class="dialog" width="30%" @close="close('ruleForm')" :before-close="handleClose">
-    <el-form :model="ruleForm" status-icon  :rules="rules" ref="ruleForm" label-position="left" label-width="80px">
+    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left" label-width="100px">
       <!--prop：表单要验证的数据-->
       <!--学工号-->
       <el-form-item label="学工号：" prop="number">
-        <el-input type="text" v-model="ruleForm.number" autocomplete="off" disabled :placeholder=this.ruleForm.numebr></el-input>
+        <el-input type="text" v-model="ruleForm.number" autocomplete="off" disabled :placeholder=this.ruleForm.number></el-input>
       </el-form-item>
       <!--密码，autocomplete表示不自动填充密码-->
       <el-form-item label="密码：" prop="password">
@@ -14,16 +14,14 @@
       <el-form-item label="新密码：" prop="newPassword">
         <el-input type="password" v-model="ruleForm.newPassword" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="确认新密码：" prop="newPassword2">
+      <el-form-item label="再次确认：" prop="newPassword2">
         <el-input type="password" v-model="ruleForm.newPassword2" autocomplete="off"></el-input>
       </el-form-item>
     </el-form>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="cancel">取消</el-button>
-        <el-button type="primary" @click="confirm('ruleForm')">
-          确认
-        </el-button>
+        <el-button type="primary" @click="confirm('ruleForm')">确认</el-button>
       </span>
     </template>
   </el-dialog>
@@ -31,7 +29,7 @@
 
 <script>
 import Cookie from "js-cookie";
-import {ElMessage} from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
 import api from '../api/index'
 
 export default {
@@ -121,13 +119,11 @@ export default {
             cancelButtonText: '取消',
             type: 'warning',
           }
-      )
-          .then(() => {
-            this.$emit('changeCancel',this.change,false)
-          })
-          .catch(() => {
+      ).then(() => {
+        this.$emit('changeCancel', this.change, false)
+      }).catch(() => {
 
-          })
+      });
     }
   }
 }

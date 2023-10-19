@@ -95,7 +95,7 @@ export default {
       // 8位数字的正则表达式
       const regex = /^\d{8}$/;
       if (regex.test(this.ruleForm.number)) {
-        api.sendCode(this.ruleForm.number).then(response => {
+        api.registerSendCode(this.ruleForm.number).then(response => {
           if (response.data.code === 20000) {
             ElMessage.success("验证码发送成功");
           } else {

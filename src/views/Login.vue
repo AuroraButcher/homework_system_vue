@@ -28,7 +28,7 @@
     </el-form>
     <!--修改密码、注册跳转链接-->
     <div style="display: flex; justify-content: space-between;">
-      <el-link type="primary" href="/getBackPassword" disabled>忘记密码?点击找回</el-link>
+      <el-link type="primary" href="/getBackPassword">忘记密码?点击找回</el-link>
       <el-link type="primary" href="/register">还未注册?点击注册</el-link>
     </div>
     <!--登录按钮-->

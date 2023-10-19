@@ -4,7 +4,7 @@
       <!--prop：表单要验证的数据-->
       <!--学工号-->
       <el-form-item label="学工号：" prop="number">
-        <el-input type="text" v-model="ruleForm.number" autocomplete="off" disabled :placeholder=this.ruleForm.numebr></el-input>
+        <el-input type="text" v-model="ruleForm.number" autocomplete="off" disabled :placeholder=this.ruleForm.number></el-input>
       </el-form-item>
       <!--密码，autocomplete表示不自动填充密码-->
       <el-form-item label="密码：" prop="password">
@@ -14,9 +14,7 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="cancel">取消</el-button>
-        <el-button type="primary" @click="confirm('ruleForm')">
-          确认
-        </el-button>
+        <el-button type="primary" @click="confirm('ruleForm')">确认</el-button>
       </span>
     </template>
   </el-dialog>
@@ -25,7 +23,7 @@
 <script>
 import Cookie from "js-cookie";
 import api from "../api";
-import {ElMessage} from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
 
 export default {
   name: "DeleteAccount",

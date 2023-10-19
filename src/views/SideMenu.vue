@@ -92,14 +92,14 @@ export default {
 <style scoped>
 /*整个侧边*/
 .el-side {
-  background-color: rgb(205, 201, 201);
+  background-color: rgb(112, 188, 210);
   height: 100vh;
   width: auto;
 }
 
 /*侧边菜单*/
 .el-menu {
-  background-color: rgb(205, 201, 201);
+  background-color: rgb(112, 188, 210);
   border-right: none;
   width: 200px;
 }
@@ -118,7 +118,7 @@ export default {
 }
 
 .el-menu-item {
-  background-color: rgb(205, 201, 201);
+  background-color: rgb(112, 188, 210);
 }
 
 .el-menu-item:hover {
@@ -127,7 +127,7 @@ export default {
 
 /*.el-menu--collapse表示隐藏*/
 .el-menu.el-menu--collapse {
-  background-color: rgb(205, 201, 201);
+  background-color: rgb(112, 188, 210);
   border-right: none;
   width: 64px;
 
