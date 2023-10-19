@@ -14,8 +14,8 @@
         <el-input type="text" v-model="ruleForm.number"></el-input>
       </el-form-item>
       <!--新密码，autocomplete表示不自动填充密码-->
-      <el-form-item label="新密码：" prop="password">
-        <el-input type="password" v-model="ruleForm.password"></el-input>
+      <el-form-item label="新密码：" prop="newPassword">
+        <el-input type="password" v-model="ruleForm.newPassword"></el-input>
       </el-form-item>
       <!--角色，default：管理员-->
       <el-form-item label="角色：">
@@ -56,7 +56,7 @@ export default {
       //表单属性
       ruleForm: {
         number: "",
-        password: "",
+        newPassword: "",
         captcha: "",
       },
       //表单验证规则
@@ -64,7 +64,7 @@ export default {
         number: [
           {required: true, message: "用户名不能为空！", trigger: "change"},
         ],
-        password: [
+        newPassword: [
           {required: true, message: "密码不能为空！", trigger: "change"},
         ],
         captcha: [
@@ -78,12 +78,18 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          ElMessageBox.alert('更改密码成功，点击“OK”跳转登录', '消息', {
-            confirmButtonText: 'OK',
-            callback: action => {
-              if (action === 'confirm') {
-                window.location.href = "/login";
-              }
+          api.studentChangePassword(this.ruleForm).then(response => {
+            if (response.data.code === 20000) {
+              ElMessageBox.alert('更改密码成功，点击“OK”跳转登录', '消息', {
+                confirmButtonText: 'OK',
+                callback: action => {
+                  if (action === 'confirm') {
+                    window.location.href = "/login";
+                  }
+                }
+              })
+            } else {
+              ElMessage.error("error：找回密码失败");
             }
           })
         } else {
