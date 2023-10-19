@@ -32,7 +32,7 @@ const api = {
     },
     // 找回密码发送邮箱验证码
     getBackSendCode(number) {
-        return axios.post(path.baseUrl + path.resetSendCode, null, {
+        return axios.post(path.baseUrl + path.student + path.resetSendCode, null, {
             params: {
                 id: number,
             }
