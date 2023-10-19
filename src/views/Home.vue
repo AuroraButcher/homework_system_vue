@@ -1,6 +1,8 @@
 <template>
+  <!--修改密码、注销账户-->
   <change-password v-model="isChange" @changeCancel="isChange=false"/>
   <delete-account v-model="isDelete" @deleteAccount="isDelete=false"/>
+  <!--首页-->
   <div class="common-layout">
     <el-container>
       <SideMenu :isCollapse="isCollapse"/>
@@ -42,7 +44,7 @@
           </el-dropdown>
         </el-header>
         <el-main>
-          <RouterView/>
+          <router-view></router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -93,9 +95,11 @@ export default {
   display: flex;
   align-items: center;
   background-color: rgb(242, 242, 242);
-  .span{
+
+  .span {
     margin-right: 10px;
   }
+
   .el-icon {
     margin-right: 5px;
   }
@@ -103,7 +107,6 @@ export default {
 
 .el-dropdown {
   margin-left: auto;
-
   .el-dropdown-link {
     display: flex;
     justify-content: center;

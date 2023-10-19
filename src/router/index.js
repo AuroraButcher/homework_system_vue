@@ -70,9 +70,9 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     // 获取token
     const token = Cookie.get('number');
-    if(!token&& (to.name !== 'login' && to.name !== 'register')){
+    if (!token && (to.name !== 'login' && to.name !== 'register' && to.name !== 'getBackPassword')) {
         next({name: 'login'});
-    }else {
+    } else {
         next();
     }
 })

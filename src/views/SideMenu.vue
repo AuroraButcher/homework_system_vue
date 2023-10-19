@@ -15,7 +15,7 @@
       </el-menu-item>
 
       <!--子菜单-->
-      <el-sub-menu index="1">
+      <el-sub-menu class="el-sub-menu" index="1">
         <template #title>
           <el-icon style="font-size: 32px">
             <Operation/>
@@ -36,7 +36,7 @@
           <span>课程2</span>
         </el-menu-item>
       </el-sub-menu>
-      <el-sub-menu index="2">
+      <el-sub-menu class="el-sub-menu" index="2">
         <template #title>
           <el-icon style="font-size: 32px">
             <Notebook/>
@@ -57,7 +57,7 @@
           <span>作业2</span>
         </el-menu-item>
       </el-sub-menu>
-      <el-sub-menu index="3">
+      <el-sub-menu class="el-sub-menu" index="3">
         <template #title>
           <el-icon style="font-size: 32px">
             <EditPen/>
@@ -92,14 +92,14 @@ export default {
 <style scoped>
 /*整个侧边*/
 .el-side {
-  background-color: rgb(67, 142, 185);
+  background-color: rgb(205, 201, 201);
   height: 100vh;
   width: auto;
 }
 
 /*侧边菜单*/
 .el-menu {
-  background-color: rgb(67, 142, 185);
+  background-color: rgb(205, 201, 201);
   border-right: none;
   width: 200px;
 }
@@ -118,12 +118,16 @@ export default {
 }
 
 .el-menu-item {
-  background-color: rgb(67, 142, 185);
+  background-color: rgb(205, 201, 201);
+}
+
+.el-menu-item:hover {
+  background-color: rgb(230, 230, 250);
 }
 
 /*.el-menu--collapse表示隐藏*/
 .el-menu.el-menu--collapse {
-  background-color: rgb(67, 142, 185);
+  background-color: rgb(205, 201, 201);
   border-right: none;
   width: 64px;
 
