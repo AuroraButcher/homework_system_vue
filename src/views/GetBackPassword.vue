@@ -72,6 +72,19 @@ export default {
     };
   },
   methods: {
+    // 发送邮箱验证码
+    captcha() {
+      const regex = /^\d{8}$/; // 8位数字的正则表达式
+      if (regex.test(this.ruleForm.number)) {
+        api.getBackSendCode(this.ruleForm.number).then(response => {
+          if (response.data.code === 20000) {
+            ElMessage.success("验证码发送成功");
+          } else {
+            ElMessage.error("邮箱验证码发送失败")
+          }
+        })
+      }
+    },
     //点击找回密码按钮执行的方法
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
@@ -99,20 +112,7 @@ export default {
     goBack() {
       window.location.href = "/login";
     },
-    // 发送邮箱验证码
-    captcha() {
-      const regex = /^\d{8}$/; // 8位数字的正则表达式
-      if (regex.test(this.ruleForm.number)) {
-        api.getBackSendCode(this.ruleForm.number).then(response => {
-          if (response.data.code === 20000) {
-            ElMessage.success("验证码发送成功");
-          } else {
-            ElMessage.error("邮箱验证码发送失败")
-          }
-        })
-      }
-    }
-  },
+  }
 };
 </script>
 

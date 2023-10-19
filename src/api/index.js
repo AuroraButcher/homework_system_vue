@@ -24,7 +24,7 @@ const api = {
     },
     // 找回密码
     getBackPassword(ruleForm) {
-        return axios.post(path.baseUrl + path.student + path.getBackPassword, {number: ruleForm.number, password: ruleForm.password}, {
+        return axios.post(path.baseUrl + path.student + path.getBackPassword, {number: ruleForm.number, password: ruleForm.newPassword}, {
             params: {
                 code: ruleForm.captcha,
             }
