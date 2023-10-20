@@ -6,8 +6,8 @@ import register from "../views/Register.vue";
 import getBackPassword from "../views/GetBackPassword.vue";
 import home from "../views/Home.vue";
 import changePassword from "../views/ChangePassword.vue";
-import About from "../views/About.vue";
-import abc from "../views/abc.vue";
+import About from "../views/Student/About.vue";
+import abc from "../views/Student/abc.vue";
 
 //配置信息中需要页面的相关配置
 const routes = [

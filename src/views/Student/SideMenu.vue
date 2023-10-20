@@ -3,7 +3,7 @@
     <!--总菜单-->
     <el-menu class="el-menu" router unique-opened :collapse="isCollapse" :collapse-transition="false">
       <a href="/home" class="logo">
-        <img src="../assets/XiHe.png" alt="logo" class="image">
+        <img src="../../assets/XiHe.png" alt="logo" class="image">
         <h1 class="header_1">羲和作业互评</h1>
       </a>
       <!--总菜单选项-->

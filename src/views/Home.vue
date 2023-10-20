@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import SideMenu from "./SideMenu.vue";
+import SideMenu from "./Student/SideMenu.vue";
 import {ArrowDown, Expand, Fold} from "@element-plus/icons-vue";
 import Cookie from "js-cookie";
 import ChangePassword from "./ChangePassword.vue";
