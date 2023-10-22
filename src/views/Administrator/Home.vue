@@ -57,9 +57,10 @@ import DeleteAccount from "../Base/DeleteAccount.vue";
 import Cookie from "js-cookie";
 import AdministratorSideMenu from "../Administrator/SideMenu.vue";
 import {ArrowDown, Expand, Fold} from "@element-plus/icons-vue";
+import Program from "../Base/Program.vue";
 
 export default {
-  components: {DeleteAccount, ChangePassword, ArrowDown, Fold, Expand, AdministratorSideMenu},
+  components: {Program, DeleteAccount, ChangePassword, ArrowDown, Fold, Expand, AdministratorSideMenu},
   data() {
     return {
       isCollapse: false,

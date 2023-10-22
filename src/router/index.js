@@ -13,6 +13,7 @@ import teacherHome from "../views/Teacher/Home.vue";
 // 管理员端
 import administratorHome from "../views/Administrator/Home.vue";
 import DetailAndChangeInfo from "../views/Administrator/DetailAndChangeInfo.vue";
+import program from "../views/Base/Program.vue";
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -49,8 +50,14 @@ const routes = [
                 component: DetailAndChangeInfo,
                 name: 'DetailedInformationAndChange',
             },
+            {
+                path:'/checkProgram',
+                component: program,
+                name:'checkProgram'
+            }
         ]
     },
+
 ]
 
 const router = createRouter({

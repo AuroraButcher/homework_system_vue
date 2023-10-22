@@ -23,10 +23,11 @@
           <span>课程管理</span>
         </template>
         <!--子菜单选项-->
-        <el-menu-item class="el-menu-item" index="/">
+        <el-menu-item class="el-menu-item" index="/checkProgram" @showDetail="showDetail">
           <el-icon>
             <View/>
           </el-icon>
+
           <span>查看课程</span>
         </el-menu-item>
         <el-menu-item class="el-menu-item" index="/detailedInformationAndChange">
@@ -87,6 +88,14 @@ import {EditPen, HomeFilled, Notebook, Operation, Plus, View} from "@element-plu
 export default {
   components: {View, Plus, EditPen, Notebook, Operation, HomeFilled},
   props: ['isCollapse'],
+  data(){
+
+  },
+  methods:{
+    showDetail(tableData){
+
+    }
+  }
 }
 </script>
 

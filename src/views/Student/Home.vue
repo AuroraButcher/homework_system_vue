@@ -59,7 +59,7 @@ import StudentSideMenu from "./SideMenu.vue";
 import {ArrowDown, Expand, Fold} from "@element-plus/icons-vue";
 
 export default {
-  components: {DeleteAccount, ChangePassword, ArrowDown, Fold, Expand, StudentSideMenu},
+  components: { DeleteAccount, ChangePassword, ArrowDown, Fold, Expand, StudentSideMenu},
   data() {
     return {
       isCollapse: false,
