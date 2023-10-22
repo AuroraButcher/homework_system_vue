@@ -52,8 +52,8 @@
 </template>
 
 <script>
-import ChangePassword from "../Base/ChangePassword.vue";
-import DeleteAccount from "../Base/DeleteAccount.vue";
+import ChangePassword from "../Shared/ChangePassword.vue";
+import DeleteAccount from "../Shared/DeleteAccount.vue";
 import Cookie from "js-cookie";
 import TeacherSideMenu from "../Teacher/SideMenu.vue";
 import {ArrowDown, Expand, Fold} from "@element-plus/icons-vue";

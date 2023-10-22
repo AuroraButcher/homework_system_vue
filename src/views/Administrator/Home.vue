@@ -52,15 +52,15 @@
 </template>
 
 <script>
-import ChangePassword from "../Base/ChangePassword.vue";
-import DeleteAccount from "../Base/DeleteAccount.vue";
+import ChangePassword from "../Shared/ChangePassword.vue";
+import DeleteAccount from "../Shared/DeleteAccount.vue";
 import Cookie from "js-cookie";
 import AdministratorSideMenu from "../Administrator/SideMenu.vue";
 import {ArrowDown, Expand, Fold} from "@element-plus/icons-vue";
-import Program from "../Base/Program.vue";
+import ViewCourse from "./ViewCourse.vue";
 
 export default {
-  components: {Program, DeleteAccount, ChangePassword, ArrowDown, Fold, Expand, AdministratorSideMenu},
+  components: {ViewCourse, DeleteAccount, ChangePassword, ArrowDown, Fold, Expand, AdministratorSideMenu},
   data() {
     return {
       isCollapse: false,

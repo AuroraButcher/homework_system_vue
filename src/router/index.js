@@ -1,19 +1,20 @@
 import {createRouter, createWebHistory} from "vue-router"
 //引入组件
-//基础
+//共享
 import Cookie from "js-cookie";
-import login from "../views/Base/Login.vue";
-import register from "../views/Base/Register.vue";
-import getBackPassword from "../views/Base/GetBackPassword.vue";
-
+import login from "../views/Shared/Login.vue";
+import register from "../views/Shared/Register.vue";
+import getBackPassword from "../views/Shared/GetBackPassword.vue";
+import DetailedCourseInformation from "../views/Shared/DetailedInformation.vue"; //详细信息
 // 学生端
 import studentHome from "../views/Student/Home.vue";
 // 教师端
 import teacherHome from "../views/Teacher/Home.vue";
 // 管理员端
-import administratorHome from "../views/Administrator/Home.vue";
-import DetailAndChangeInfo from "../views/Administrator/DetailAndChangeInfo.vue";
-import program from "../views/Base/Program.vue";
+import administratorHome from "../views/Administrator/Home.vue"; //首页
+import ViewCourse from "../views/Administrator/ViewCourse.vue"; // 查看课程
+import AddCourse from "../views/Administrator/AddCourse.vue"; //添加课程
+import ChangeCourseInformation from "../views/Administrator/ChangeCourseInfo.vue"; //修改信息
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -46,15 +47,25 @@ const routes = [
         name: 'administratorHome',
         children: [
             {
-                path: "/detailedInformationAndChange",
-                component: DetailAndChangeInfo,
-                name: 'DetailedInformationAndChange',
+                path: '/viewCourse',
+                component: ViewCourse,
+                name: 'viewCourse'
             },
             {
-                path:'/checkProgram',
-                component: program,
-                name:'checkProgram'
-            }
+                path: "/addCourse",
+                component: AddCourse,
+                name: 'addCourse',
+            },
+            {
+                path: "/detailedCourseInformation",
+                component: DetailedCourseInformation,
+                name: 'detailedCourseInformation',
+            },
+            {
+                path: "/changeCourseInformation",
+                component: ChangeCourseInformation,
+                name: 'changeCourseInformation',
+            },
         ]
     },
 
