@@ -1,6 +1,6 @@
 <template>
-  <el-dialog title="修改密码" class="dialog" width="30%" @close="close('ruleForm')" :before-close="handleClose">
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left" label-width="100px">
+  <el-dialog title="注销账号" class="dialog" width="30%" @close="close('ruleForm')" :before-close="handleClose">
+    <el-form :model="ruleForm" status-icon  :rules="rules" ref="ruleForm" label-position="left" label-width="80px">
       <!--prop：表单要验证的数据-->
       <!--学工号-->
       <el-form-item label="学工号：" prop="number">
@@ -9,13 +9,6 @@
       <!--密码，autocomplete表示不自动填充密码-->
       <el-form-item label="密码：" prop="password">
         <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
-      </el-form-item>
-      <!-- 新密码-->
-      <el-form-item label="新密码：" prop="newPassword">
-        <el-input type="password" v-model="ruleForm.newPassword" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="再次确认：" prop="newPassword2">
-        <el-input type="password" v-model="ruleForm.newPassword2" autocomplete="off"></el-input>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -29,16 +22,16 @@
 
 <script>
 import Cookie from "js-cookie";
+import api from "../../api";
 import {ElMessage, ElMessageBox} from "element-plus";
-import api from '../api/index'
 
 export default {
-  name: "changePassword",
+  name: "DeleteAccount",
   data(){
     const validateOldPass = (rule, value, callback) => {
       if (value === "") {
         // 验证是否输入旧密码
-        callback(new Error("请输入旧密码"));
+        callback(new Error("请输入密码"));
       } else if (value !== Cookie.get('password')) {
         // 验证两次密码是否一致
         callback(new Error("密码错误"));
@@ -46,61 +39,32 @@ export default {
         callback();
       }
     };
-    const validatePass = (rule, value, callback) => {
-
-      if (value === "") {
-        // 验证第一次是否输入密码
-        callback(new Error("请输入新密码"));
-      } else {
-        callback();
-      }
-    };
-    const validatePass2 = (rule, value, callback) => {
-      if (value === "") {
-        // 验证第二次是否输入密码
-        callback(new Error("请再次输入新密码"));
-      } else if (value !== this.ruleForm.newPassword) {
-        // 验证两次密码是否一致
-        callback(new Error("两次输入密码不一致!"));
-      } else {
-        callback();
-      }
-    };
-    return{
+    return {
       ruleForm:{
         number:Cookie.get('number'),
         password:'',
-        newPassword:'',
-        newPassword2:'',
       },
       rules:{
         password: [
           {required: true,validator: validateOldPass, trigger: "change"},
-        ],
-        newPassword: [
-          {required: true,validator:validatePass, trigger: "change"},
-        ],
-        newPassword2: [
-          {required: true,validator:validatePass2, trigger: "change"},
-        ],
-      }
+        ]}
     }
   },
-  props: ['changeCancel'],
+  props: ['deleteAccount'],
   methods:{
     cancel(){
-      this.$emit('changeCancel',this.change,false)
+      this.$emit('deleteAccount',this.delete,false)
     },
     confirm(formName){
       this.$refs[formName].validate((valid)=>{
         if(valid){
-          api.studentChangePassword(this.ruleForm).then(res=>{
+          api.deleteAccount(this.ruleForm).then(res=>{
             if(res.data.code===20000){
-              ElMessage.success('修改成功')
-              this.$emit('changeCancel',this.change,false)
+              ElMessage.success('注销成功')
+              this.$emit('deleteAccount',this.delete,false)
               console.log(this.ruleForm)
             }else {
-              ElMessage.error("修改失败");
+              ElMessage.error("注销失败");
             }
           })
         }else {
@@ -119,11 +83,13 @@ export default {
             cancelButtonText: '取消',
             type: 'warning',
           }
-      ).then(() => {
-        this.$emit('changeCancel', this.change, false)
-      }).catch(() => {
+      )
+          .then(() => {
+            this.$emit('deleteAccount',this.delete,false)
+          })
+          .catch(() => {
 
-      });
+          })
     }
   }
 }
