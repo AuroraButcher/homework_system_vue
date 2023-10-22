@@ -29,7 +29,7 @@
           </el-icon>
           <span>查看课程</span>
         </el-menu-item>
-        <el-menu-item class="el-menu-item" index="/abc">
+        <el-menu-item class="el-menu-item" index="/detailedInformationAndChange">
           <el-icon>
             <Plus/>
           </el-icon>

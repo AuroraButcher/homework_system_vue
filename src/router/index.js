@@ -45,7 +45,7 @@ const routes = [
         name: 'administratorHome',
         children: [
             {
-                path: "/detailedInfo",
+                path: "/detailedInformationAndChange",
                 component: DetailAndChangeInfo,
                 name: 'DetailedInformationAndChange',
             },

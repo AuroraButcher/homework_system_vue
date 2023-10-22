@@ -5,7 +5,7 @@
   <!--首页-->
   <div class="common-layout">
     <el-container>
-      <StudentSideMenu :isCollapse="isCollapse" v-if="this.role === 'Student'"></StudentSideMenu>
+      <StudentSideMenu :isCollapse="isCollapse"></StudentSideMenu>
       <el-container class="header-and-main">
         <el-header class="el-header">
           <!--图标-->
@@ -62,7 +62,6 @@ export default {
   components: {DeleteAccount, ChangePassword, ArrowDown, Fold, Expand, StudentSideMenu},
   data() {
     return {
-      role: Cookies.get('role'),
       isCollapse: false,
       showNumber: Cookie.get('number'),
       isChange: false,
