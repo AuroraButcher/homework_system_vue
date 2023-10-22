@@ -11,7 +11,7 @@
         <el-icon style="font-size: 32px">
           <HomeFilled/>
         </el-icon>
-        <span>首页</span>
+        <span>学生端首页</span>
       </el-menu-item>
 
       <!--子菜单-->

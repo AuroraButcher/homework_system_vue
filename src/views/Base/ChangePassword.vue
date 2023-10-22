@@ -47,7 +47,6 @@ export default {
       }
     };
     const validatePass = (rule, value, callback) => {
-
       if (value === "") {
         // 验证第一次是否输入密码
         callback(new Error("请输入新密码"));

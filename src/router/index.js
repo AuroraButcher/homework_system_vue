@@ -5,11 +5,14 @@ import Cookie from "js-cookie";
 import login from "../views/Base/Login.vue";
 import register from "../views/Base/Register.vue";
 import getBackPassword from "../views/Base/GetBackPassword.vue";
+
 // 学生端
-import home from "../views/Base/Home.vue";
-import About from "../views/Student/About.vue";
+import studentHome from "../views/Student/Home.vue";
 // 教师端
+import teacherHome from "../views/Teacher/Home.vue";
 // 管理员端
+import administratorHome from "../views/Administrator/Home.vue";
+import DetailAndChangeInfo from "../views/Administrator/DetailAndChangeInfo.vue";
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -25,40 +28,26 @@ const routes = [
 
     // 学生端
     {
-        path: "/home",
-        component: home,
-        name: 'home',
-        children: [
-            {
-                path: "/about",
-                component: About,
-                name: 'about',
-            },
-        ]
+        path: "/studentHome",
+        component: studentHome,
+        name: 'studentHome',
     },
     //教师端
     {
-        path: "/home",
-        component: home,
-        name: 'home',
-        children: [
-            {
-                path: "/about",
-                component: About,
-                name: 'about',
-            },
-        ]
+        path: "/teacherHome",
+        component: teacherHome,
+        name: 'teacherHome',
     },
     // 管理员端
     {
-        path: "/home",
-        component: home,
-        name: 'home',
+        path: "/administratorHome",
+        component: administratorHome,
+        name: 'administratorHome',
         children: [
             {
-                path: "/about",
-                component: About,
-                name: 'about',
+                path: "/detailedInfo",
+                component: DetailAndChangeInfo,
+                name: 'DetailedInformationAndChange',
             },
         ]
     },

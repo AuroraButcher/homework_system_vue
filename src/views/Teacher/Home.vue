@@ -5,7 +5,9 @@
   <!--首页-->
   <div class="common-layout">
     <el-container>
-      <SideMenu :isCollapse="isCollapse"/>
+      <StudentSideMenu :isCollapse="isCollapse" v-if="this.role === 'Student'"></StudentSideMenu>
+      <TeacherSideMenu :isCollapse="isCollapse" v-if="this.role === 'Teacher'"></TeacherSideMenu>
+      <AdministratorSideMenu :isCollapse="isCollapse" v-if="this.role === 'Administrator'"></AdministratorSideMenu>
       <el-container class="header-and-main">
         <el-header class="el-header">
           <!--图标-->
@@ -52,20 +54,21 @@
 </template>
 
 <script>
-import SideMenu from "../Student/SideMenu.vue";
-import {ArrowDown, Expand, Fold} from "@element-plus/icons-vue";
+import ChangePassword from "../Base/ChangePassword.vue";
+import DeleteAccount from "../Base/DeleteAccount.vue";
 import Cookie from "js-cookie";
-import ChangePassword from "./ChangePassword.vue";
-import DeleteAccount from "./DeleteAccount.vue";
+import TeacherSideMenu from "../Teacher/SideMenu.vue";
+import {ArrowDown, Expand, Fold} from "@element-plus/icons-vue";
 
 export default {
-  components: {DeleteAccount, ChangePassword, ArrowDown, Fold, Expand, SideMenu},
+  components: {DeleteAccount, ChangePassword, ArrowDown, Fold, Expand, TeacherSideMenu},
   data() {
     return {
+      role: Cookies.get('role'),
       isCollapse: false,
       showNumber: Cookie.get('number'),
       isChange: false,
-      isDelete:false,
+      isDelete: false,
     }
   },
   methods: {
@@ -79,8 +82,8 @@ export default {
     changePassword() {
       this.isChange = true;
     },
-    deleteAccount(){
-      this.isDelete=true;
+    deleteAccount() {
+      this.isDelete = true;
     }
   }
 }
@@ -107,6 +110,7 @@ export default {
 
 .el-dropdown {
   margin-left: auto;
+
   .el-dropdown-link {
     display: flex;
     justify-content: center;

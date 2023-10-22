@@ -45,10 +45,8 @@ export default {
   name: "login",
   data() {
     return {
-      //属性
       //角色
       role: "administrator",
-      //对象
       //表单属性
       ruleForm: {
         number: "",
@@ -70,32 +68,47 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          // 符合标准
-          api.studentLogin(this.ruleForm).then(response => {
-            //验证成功，跳转首页
-            if (response.data.code === 20000) {
-              // TODO 这里要改成对应的网址
-              if (this.role === "student") {
-                //学生
+          if (this.role === "student") {
+            api.studentLogin(this.ruleForm).then(response => {
+              if (response.data.code === 20000) {
                 Cookie.set('number', this.ruleForm.number);
-                Cookie.set('password',this.ruleForm.password);
-                window.location.href = "/home";
-              } else if (this.role === "teacher") {
-                //老师
+                Cookie.set('password', this.ruleForm.password);
+                Cookie.set('role', this.role);
+                window.location.href = "/studentHome";
               } else {
-                //管理员
+                ElMessage.error(response.data.message);
               }
-            }
-            //验证失败，显示失败信息
-            else {
-              ElMessage.error("error：账号或密码错误");
+            }).catch(error => {
+              console.error(error);
+            });
+          } else if (this.role === "teacher") {
+            /*api.studentLogin(this.ruleForm).then(response => {
+              if (response.data.code === 20000) {*/
+            Cookie.set('number', this.ruleForm.number);
+            Cookie.set('password', this.ruleForm.password);
+            Cookie.set('role', this.role);
+            window.location.href = "/teacherHome";
+            /*} else {
+              ElMessage.error(response.data.message);
             }
           }).catch(error => {
-            // 请求失败的处理逻辑
             console.error(error);
-          });
+          });*/
+          } else {
+            /*api.studentLogin(this.ruleForm).then(response => {
+              if (response.data.code === 20000) {*/
+            Cookie.set('number', this.ruleForm.number);
+            Cookie.set('password', this.ruleForm.password);
+            Cookie.set('role', this.role);
+            window.location.href = "/administratorHome";
+            /*} else {
+              ElMessage.error(response.data.message);
+            }
+          }).catch(error => {
+            console.error(error);
+          });*/
+          }
         } else {
-          // 不符合标准
           console.log("error submit!!");
           return false;
         }
