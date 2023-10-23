@@ -14,7 +14,8 @@ import teacherHome from "../views/Teacher/Home.vue";
 import administratorHome from "../views/Administrator/Home.vue"; //首页
 import ViewCourse from "../views/Administrator/ViewCourse.vue"; // 查看课程
 import AddCourse from "../views/Administrator/AddCourse.vue"; //添加课程
-import ChangeCourseInformation from "../views/Administrator/ChangeCourseInfo.vue"; //修改信息
+import ChangeCourseInformation from "../views/Administrator/ChangeCourseInfo.vue";
+import AdministratorHomePage from "../views/Administrator/AdministratorHomePage.vue"; //修改信息
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -46,6 +47,11 @@ const routes = [
         component: administratorHome,
         name: 'administratorHome',
         children: [
+            {
+                path: '',
+                component: AdministratorHomePage,
+                name: 'HomePage'
+            },
             {
                 path: '/viewCourse',
                 component: ViewCourse,
