@@ -8,14 +8,17 @@ import getBackPassword from "../views/Shared/GetBackPassword.vue";
 import DetailedCourseInformation from "../views/Shared/DetailedInformation.vue"; //详细信息
 // 学生端
 import studentHome from "../views/Student/Home.vue";
+import StudentHomePage from "../views/Student/StudentHomePage.vue";
 // 教师端
 import teacherHome from "../views/Teacher/Home.vue";
+import TeacherHomePage from "../views/Teacher/TeacherHomePage.vue";
 // 管理员端
 import administratorHome from "../views/Administrator/Home.vue"; //首页
+import AdministratorHomePage from "../views/Administrator/AdministratorHomePage.vue";
 import ViewCourse from "../views/Administrator/ViewCourse.vue"; // 查看课程
 import AddCourse from "../views/Administrator/AddCourse.vue"; //添加课程
 import ChangeCourseInformation from "../views/Administrator/ChangeCourseInfo.vue";
-import AdministratorHomePage from "../views/Administrator/AdministratorHomePage.vue"; //修改信息
+
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -34,12 +37,26 @@ const routes = [
         path: "/studentHome",
         component: studentHome,
         name: 'studentHome',
+        children: [
+            {
+                path: '',
+                component: StudentHomePage,
+                name: 'StudentHomePage'
+            },
+        ]
     },
     //教师端
     {
         path: "/teacherHome",
         component: teacherHome,
         name: 'teacherHome',
+        children: [
+            {
+                path: '',
+                component: TeacherHomePage,
+                name: 'TeacherHomePage'
+            },
+        ]
     },
     // 管理员端
     {
@@ -50,7 +67,7 @@ const routes = [
             {
                 path: '',
                 component: AdministratorHomePage,
-                name: 'HomePage'
+                name: 'AdministratorHomePage'
             },
             {
                 path: '/viewCourse',
