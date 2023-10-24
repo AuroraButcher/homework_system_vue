@@ -20,7 +20,7 @@
 
           <!--面包屑-->
           <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/home' }">homepage</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/teacherHome' }">homepage</el-breadcrumb-item>
             <el-breadcrumb-item>promotion list</el-breadcrumb-item>
             <el-breadcrumb-item>promotion detail</el-breadcrumb-item>
           </el-breadcrumb>

@@ -2,7 +2,7 @@
   <el-aside class="el-side">
     <!--总菜单-->
     <el-menu class="el-menu" router unique-opened :collapse="isCollapse" :collapse-transition="false">
-      <a href="/home" class="logo">
+      <a href="/teacherHome" class="logo">
         <img src="../../assets/XiHe.png" alt="logo" class="image">
         <h1 class="header_1">羲和作业互评</h1>
       </a>
@@ -15,7 +15,7 @@
       </el-menu-item>
 
       <!--子菜单-->
-      <el-sub-menu class="el-sub-menu" index="1">
+      <el-sub-menu index="1">
         <template #title>
           <el-icon style="font-size: 32px">
             <Operation/>
@@ -23,20 +23,14 @@
           <span>课程</span>
         </template>
         <!--子菜单选项-->
-        <el-menu-item class="el-menu-item" index="/about">
+        <el-menu-item class="el-menu-item" index="/teacherViewCourse">
           <el-icon>
-            <Operation/>
+            <View/>
           </el-icon>
-          <span>课程1</span>
-        </el-menu-item>
-        <el-menu-item class="el-menu-item" index="/abc">
-          <el-icon>
-            <Operation/>
-          </el-icon>
-          <span>课程2</span>
+          <span>查看教授课程</span>
         </el-menu-item>
       </el-sub-menu>
-      <el-sub-menu class="el-sub-menu" index="2">
+      <el-sub-menu index="2">
         <template #title>
           <el-icon style="font-size: 32px">
             <Notebook/>
@@ -57,7 +51,7 @@
           <span>作业2</span>
         </el-menu-item>
       </el-sub-menu>
-      <el-sub-menu class="el-sub-menu" index="3">
+      <el-sub-menu index="3">
         <template #title>
           <el-icon style="font-size: 32px">
             <EditPen/>
@@ -82,10 +76,10 @@
   </el-aside>
 </template>
 <script>
-import {EditPen, HomeFilled, Notebook, Operation} from "@element-plus/icons-vue";
+import {EditPen, HomeFilled, Notebook, Operation, Promotion, View} from "@element-plus/icons-vue";
 
 export default {
-  components: {EditPen, Notebook, Operation, HomeFilled},
+  components: {Promotion, View, EditPen, Notebook, Operation, HomeFilled},
   props: ['isCollapse'],
 }
 </script>

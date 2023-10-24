@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     onBack() {
-      window.location.href = "/adminViewCourse";
+      window.location.href = "/teacherViewCourse";
     },
   }
 }

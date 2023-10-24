@@ -12,12 +12,14 @@ import StudentHomePage from "../views/Student/StudentHomePage.vue";
 // 教师端
 import teacherHome from "../views/Teacher/Home.vue";
 import TeacherHomePage from "../views/Teacher/TeacherHomePage.vue";
+import TeacherViewCourse from "../views/Teacher/ViewCourse.vue"; // 查看课程
+import TeacherChangeCourseInformation from "../views/Teacher/ChangeCourseInfo.vue";
 // 管理员端
 import administratorHome from "../views/Administrator/Home.vue"; //首页
 import AdministratorHomePage from "../views/Administrator/AdministratorHomePage.vue";
-import ViewCourse from "../views/Administrator/ViewCourse.vue"; // 查看课程
+import AdminViewCourse from "../views/Administrator/ViewCourse.vue"; // 查看课程
 import AddCourse from "../views/Administrator/AddCourse.vue"; //添加课程
-import ChangeCourseInformation from "../views/Administrator/ChangeCourseInfo.vue";
+import AdminChangeCourseInformation from "../views/Administrator/ChangeCourseInfo.vue";
 
 
 //配置信息中需要页面的相关配置
@@ -41,7 +43,7 @@ const routes = [
             {
                 path: '',
                 component: StudentHomePage,
-                name: 'StudentHomePage'
+                name: 'studentHomePage'
             },
         ]
     },
@@ -54,7 +56,22 @@ const routes = [
             {
                 path: '',
                 component: TeacherHomePage,
-                name: 'TeacherHomePage'
+                name: 'teacherHomePage'
+            },
+            {
+                path: '/teacherViewCourse',
+                component: TeacherViewCourse,
+                name: 'teacherViewCourse'
+            },
+            {
+                path: "/teacherDetailedCourseInformation",
+                component: DetailedCourseInformation,
+                name: 'teacherDetailedCourseInformation',
+            },
+            {
+                path: "/teacherChangeCourseInformation",
+                component: TeacherChangeCourseInformation,
+                name: 'teacherChangeCourseInformation',
             },
         ]
     },
@@ -67,27 +84,27 @@ const routes = [
             {
                 path: '',
                 component: AdministratorHomePage,
-                name: 'AdministratorHomePage'
+                name: 'administratorHomePage'
             },
             {
-                path: '/viewCourse',
-                component: ViewCourse,
-                name: 'viewCourse'
+                path: '/adminViewCourse',
+                component: AdminViewCourse,
+                name: 'adminViewCourse'
             },
             {
-                path: "/addCourse",
+                path: "/adminAddCourse",
                 component: AddCourse,
-                name: 'addCourse',
+                name: 'adminAddCourse',
             },
             {
-                path: "/detailedCourseInformation",
+                path: "/adminDetailedCourseInformation",
                 component: DetailedCourseInformation,
-                name: 'detailedCourseInformation',
+                name: 'adminDetailedCourseInformation',
             },
             {
-                path: "/changeCourseInformation",
-                component: ChangeCourseInformation,
-                name: 'changeCourseInformation',
+                path: "/adminChangeCourseInformation",
+                component: AdminChangeCourseInformation,
+                name: 'adminChangeCourseInformation',
             },
         ]
     },

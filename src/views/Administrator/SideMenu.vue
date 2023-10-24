@@ -15,7 +15,7 @@
       </el-menu-item>
 
       <!--子菜单-->
-      <el-sub-menu class="el-sub-menu" index="1">
+      <el-sub-menu index="1">
         <template #title>
           <el-icon style="font-size: 32px">
             <Operation/>
@@ -23,20 +23,20 @@
           <span>课程管理</span>
         </template>
         <!--子菜单选项-->
-        <el-menu-item class="el-menu-item" index="/viewCourse">
+        <el-menu-item class="el-menu-item" index="/adminViewCourse">
           <el-icon>
             <View/>
           </el-icon>
           <span>查看课程</span>
         </el-menu-item>
-        <el-menu-item class="el-menu-item" index="/addCourse">
+        <el-menu-item class="el-menu-item" index="/adminAddCourse">
           <el-icon>
             <Plus/>
           </el-icon>
           <span>添加课程</span>
         </el-menu-item>
       </el-sub-menu>
-      <el-sub-menu class="el-sub-menu" index="2">
+      <el-sub-menu index="2">
         <template #title>
           <el-icon style="font-size: 32px">
             <Notebook/>
@@ -57,7 +57,7 @@
           <span>作业2</span>
         </el-menu-item>
       </el-sub-menu>
-      <el-sub-menu class="el-sub-menu" index="3">
+      <el-sub-menu index="3">
         <template #title>
           <el-icon style="font-size: 32px">
             <EditPen/>

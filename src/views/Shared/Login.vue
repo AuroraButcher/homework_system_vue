@@ -69,42 +69,25 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.role === "student") {
-            api.studentLogin(this.ruleForm).then(response => {
-              if (response.data.code === 20000) {
-                Cookie.set('number', this.ruleForm.number);
-                Cookie.set('password', this.ruleForm.password);
-                window.location.href = "/studentHome";
-              } else {
-                ElMessage.error(response.data.message);
-              }
-            }).catch(error => {
-              console.error(error);
-            });
-          } else if (this.role === "teacher") {
             /*api.studentLogin(this.ruleForm).then(response => {
               if (response.data.code === 20000) {*/
+            Cookie.set('number', this.ruleForm.number);
+            Cookie.set('password', this.ruleForm.password);
+            window.location.href = "/studentHome";
+            /*} else {
+              ElMessage.error(response.data.message);
+            }
+          }).catch(error => {
+            console.error(error);
+          });*/
+          } else if (this.role === "teacher") {
             Cookie.set('number', this.ruleForm.number);
             Cookie.set('password', this.ruleForm.password);
             window.location.href = "/teacherHome";
-            /*} else {
-              ElMessage.error(response.data.message);
-            }
-          }).catch(error => {
-            console.error(error);
-          });*/
           } else {
-            /*api.studentLogin(this.ruleForm).then(response => {
-              if (response.data.code === 20000) {*/
             Cookie.set('number', this.ruleForm.number);
             Cookie.set('password', this.ruleForm.password);
-            Cookie.set('role', this.role);
             window.location.href = "/administratorHome";
-            /*} else {
-              ElMessage.error(response.data.message);
-            }
-          }).catch(error => {
-            console.error(error);
-          });*/
           }
         } else {
           console.log("error submit!!");

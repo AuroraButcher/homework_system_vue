@@ -20,10 +20,8 @@
       <el-table-column label="课程教师" prop="teacher" width="140px"></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template #default>
-          <!--TODO:修改对应的方法-->
           <el-button type="primary" link style="margin-left: 10px" @click="showDetailInfo">详情</el-button>
           <el-button type="primary" link style="margin-left: 10px" @click="showDetailInfo">修改</el-button>
-          <el-button type="primary" link style="margin-left: 10px" @click="showDetailInfo">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -33,34 +31,34 @@
 <script>
 export default {
   name: "checkProgram",
-  data(){
-    return{
-      programName:'',
-      tableData:[
+  data() {
+    return {
+      programName: '',
+      tableData: [
         {
-          no:123,
-          name:'嗡嗡嗡哇',
-          teacher:'Nick'
+          no: 123,
+          name: '嗡嗡嗡哇',
+          teacher: 'Nick'
         },
       ]
     }
   },
   methods: {
     onBack() {
-      window.location.href = "/administratorHome";
+      window.location.href = "/teacherHome";
     },
     showDetailInfo() {
       console.log(this.$store.state.adminViewCourseNumber);
       this.$store.commit('setAdminViewCourse', this.tableData[0].no);
       console.log(this.$store.state.adminViewCourseNumber);
-      window.location.href = "/adminDetailedCourseInformation";
+      window.location.href = "/teacherDetailedCourseInformation";
     }
   },
 }
 </script>
 
 <style scoped>
-  .hang{
-    display: flex;
-  }
+.hang {
+  display: flex;
+}
 </style>
