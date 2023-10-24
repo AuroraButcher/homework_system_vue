@@ -2,56 +2,87 @@
   <el-card>
     <template #header>
       <!--页头-->
-      <el-page-header @back="onBack">
-        <template #content>
-          <span> 添加课程 </span>
-          <el-tag>Add course</el-tag>
-        </template>
-      </el-page-header>
+      <page-header :component="head"/>
     </template>
     <!--表单-->
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left" label-width="100px">
       <!--prop：表单要验证的数据-->
-      <!--学工号-->
-      <el-form-item label="学工号：" prop="number">
-        <el-input type="text" v-model="ruleForm.number"></el-input>
+
+      <div class="form-row">
+        <el-form-item label="课程编号：" prop="cno">
+          <el-input type="text" v-model="ruleForm.number"></el-input>
+        </el-form-item>
+        <el-form-item label="课程名称：" prop="cname">
+          <el-input type="text" v-model="ruleForm.password" autocomplete="off"></el-input>
+        </el-form-item>
+
+        <el-form-item label="教师工号：" prop="tno" >
+          <el-input type="text" v-model="ruleForm.password" autocomplete="off"></el-input>
+        </el-form-item>
+      </div>
+      <div class="form-row2">
+        <el-form-item label="学分：" prop="credit">
+          <el-input type="text" v-model="ruleForm.password" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="学时：" prop="hour">
+          <el-input type="text" v-model="ruleForm.password" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="所属院系：" prop="department">
+          <el-input type="text" v-model="ruleForm.password" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="最大选修人数：" prop="maxnumber">
+          <el-input type="text" v-model="ruleForm.password" autocomplete="off"></el-input>
+        </el-form-item>
+      </div>
+
+      <el-form-item label="课程简介：" prop="introduction">
+        <el-input type="text" v-model="ruleForm.password" autocomplete="off"></el-input>
       </el-form-item>
-      <!--密码，autocomplete表示不自动填充密码-->
-      <el-form-item label="密码：" prop="password">
-        <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
-      </el-form-item>
+<!--      TODO 完成提交按钮功能-->
+      <el-button @click="commit">提交</el-button>
+
     </el-form>
   </el-card>
 </template>
 
 <script>
+import PageHeader from "../Shared/PageHeader.vue";
 export default {
+  components: {PageHeader},
   data() {
     return {
+      head:'添加课程',
       //表单属性
       ruleForm: {
-        number: "",
-        password: "",
+
       },
       //表单验证规则
       rules: {
-        number: [
-          {required: true, message: "用户名不能为空！", trigger: "change"},
-        ],
-        password: [
-          {required: true, message: "密码不能为空！", trigger: "change"},
-        ],
+
       },
     };
   },
   methods: {
-    onBack() {
-      window.location.href = "/administratorHome";
-    },
+    commit(){
+
+    }
   }
 }
 </script>
 
 <style scoped>
-
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.form-row2 {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+.form-row .el-form-item {
+  flex-basis: calc(33.33% - 10px);
+}
 </style>

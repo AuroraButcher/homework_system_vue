@@ -2,12 +2,7 @@
   <el-card>
     <template #header>
       <!--页头-->
-      <el-page-header @back="onBack">
-        <template #content>
-          <span> 查看课程 </span>
-          <el-tag>Add course</el-tag>
-        </template>
-      </el-page-header>
+      <page-header :component='this.head'/>
     </template>
     <div class="hang">
       <el-input v-model="programName" placeholder="请输入课程名称" style="width: 220px;"></el-input>
@@ -22,7 +17,7 @@
         <template #default>
           <!--TODO:修改对应的方法-->
           <el-button type="primary" link style="margin-left: 10px" @click="showDetailInfo">详情</el-button>
-          <el-button type="primary" link style="margin-left: 10px" @click="showDetailInfo">修改</el-button>
+          <el-button type="primary" link style="margin-left: 10px" @click="change">修改</el-button>
           <el-button type="primary" link style="margin-left: 10px" @click="showDetailInfo">删除</el-button>
         </template>
       </el-table-column>
@@ -31,16 +26,19 @@
 </template>
 
 <script>
+import PageHeader from "../Shared/PageHeader.vue";
 export default {
   name: "checkProgram",
+  components: {PageHeader},
   data(){
     return{
       programName:'',
+      head:'查看课程',
       tableData:[
         {
           no:123,
           name:'嗡嗡嗡哇',
-          teacher:'Nick'
+          teacher:'Nick',
         },
       ]
     }
@@ -50,10 +48,11 @@ export default {
       window.location.href = "/administratorHome";
     },
     showDetailInfo() {
-      console.log(this.$store.state.adminViewCourseNumber);
       this.$store.commit('setAdminViewCourse', this.tableData[0].no);
-      console.log(this.$store.state.adminViewCourseNumber);
       window.location.href = "/adminDetailedCourseInformation";
+    },
+    change(){
+      window.location.href='/adminChangeCourseInformation'
     }
   },
 }

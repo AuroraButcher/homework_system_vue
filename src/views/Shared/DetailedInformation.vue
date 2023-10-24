@@ -2,12 +2,7 @@
   <el-card>
     <template #header>
       <!--页头-->
-      <el-page-header @back="onBack">
-        <template #content>
-          <span> 详细信息 </span>
-          <el-tag>Detailed information</el-tag>
-        </template>
-      </el-page-header>
+      <page-header :component="head"/>
     </template>
     <!--详细信息-->
     <el-descriptions :column="2" border>
@@ -27,9 +22,12 @@
 
 <script>
 import {mapState} from 'vuex'
+import PageHeader from "./PageHeader.vue";
 export default {
+  components: {PageHeader},
   data() {
     return {
+      head:'课程详情',
       CourseNumber: 1,
       CourseName: "专业课程实训",
       Department: "软件学院",
