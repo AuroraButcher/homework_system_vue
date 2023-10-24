@@ -1,23 +1,27 @@
 <template>
-  <!--页头-->
-  <el-page-header @back="onBack">
-    <template #content>
-      <span> 添加课程 </span>
-      <el-tag>Add course</el-tag>
+  <el-card>
+    <template #header>
+      <!--页头-->
+      <el-page-header @back="onBack">
+        <template #content>
+          <span> 添加课程 </span>
+          <el-tag>Add course</el-tag>
+        </template>
+      </el-page-header>
     </template>
-  </el-page-header>
-  <!--表单-->
-  <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left" label-width="100px">
-    <!--prop：表单要验证的数据-->
-    <!--学工号-->
-    <el-form-item label="学工号：" prop="number">
-      <el-input type="text" v-model="ruleForm.number"></el-input>
-    </el-form-item>
-    <!--密码，autocomplete表示不自动填充密码-->
-    <el-form-item label="密码：" prop="password">
-      <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
-    </el-form-item>
-  </el-form>
+    <!--表单-->
+    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left" label-width="100px">
+      <!--prop：表单要验证的数据-->
+      <!--学工号-->
+      <el-form-item label="学工号：" prop="number">
+        <el-input type="text" v-model="ruleForm.number"></el-input>
+      </el-form-item>
+      <!--密码，autocomplete表示不自动填充密码-->
+      <el-form-item label="密码：" prop="password">
+        <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+      </el-form-item>
+    </el-form>
+  </el-card>
 </template>
 
 <script>

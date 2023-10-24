@@ -87,14 +87,6 @@ import {EditPen, HomeFilled, Notebook, Operation, Plus, View} from "@element-plu
 export default {
   components: {View, Plus, EditPen, Notebook, Operation, HomeFilled},
   props: ['isCollapse'],
-  data(){
-
-  },
-  methods:{
-    showDetail(tableData){
-
-    }
-  }
 }
 </script>
 

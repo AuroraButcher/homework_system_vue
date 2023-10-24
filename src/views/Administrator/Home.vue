@@ -1,12 +1,13 @@
 <template>
   <!--修改密码、注销账户-->
-  <change-password v-model="isChange" @changeCancel="isChange=false"/>
-  <delete-account v-model="isDelete" @deleteAccount="isDelete=false"/>
+  <ChangePassword v-model="isChange" @changeCancel="isChange=false"/>
+  <DeleteAccount v-model="isDelete" @deleteAccount="isDelete=false"/>
   <!--首页-->
   <div class="common-layout">
     <el-container>
       <AdministratorSideMenu :isCollapse="isCollapse"></AdministratorSideMenu>
       <el-container class="header-and-main">
+        <!--头部-->
         <el-header class="el-header">
           <!--图标-->
           <el-icon class="el-icon" style="font-size: 28px" @click="changeIsCollapse">
@@ -20,9 +21,9 @@
 
           <!--面包屑-->
           <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/home' }">homepage</el-breadcrumb-item>
-            <el-breadcrumb-item>promotion list</el-breadcrumb-item>
-            <el-breadcrumb-item>promotion detail</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/administratorHome' }">homepage</el-breadcrumb-item>
+            <el-breadcrumb-item>待改</el-breadcrumb-item>
+            <el-breadcrumb-item>待改</el-breadcrumb-item>
           </el-breadcrumb>
 
           <!--下拉菜单-->
@@ -52,15 +53,14 @@
 </template>
 
 <script>
-import ChangePassword from "../Shared/ChangePassword.vue";
-import DeleteAccount from "../Shared/DeleteAccount.vue";
-import Cookie from "js-cookie";
 import AdministratorSideMenu from "../Administrator/SideMenu.vue";
+import DeleteAccount from "../Shared/DeleteAccount.vue";
+import ChangePassword from "../Shared/ChangePassword.vue";
+import Cookie from "js-cookie";
 import {ArrowDown, Expand, Fold} from "@element-plus/icons-vue";
-import ViewCourse from "./ViewCourse.vue";
 
 export default {
-  components: {ViewCourse, DeleteAccount, ChangePassword, ArrowDown, Fold, Expand, AdministratorSideMenu},
+  components: {Fold, Expand, ArrowDown, ChangePassword, DeleteAccount, AdministratorSideMenu},
   data() {
     return {
       isCollapse: false,
@@ -83,7 +83,7 @@ export default {
     deleteAccount() {
       this.isDelete = true;
     }
-  }
+  },
 }
 </script>
 
@@ -91,7 +91,6 @@ export default {
 .header-and-main {
   flex-direction: column;
 }
-
 .el-header {
   display: flex;
   align-items: center;

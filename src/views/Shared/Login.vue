@@ -73,7 +73,6 @@ export default {
               if (response.data.code === 20000) {
                 Cookie.set('number', this.ruleForm.number);
                 Cookie.set('password', this.ruleForm.password);
-                Cookie.set('role', this.role);
                 window.location.href = "/studentHome";
               } else {
                 ElMessage.error(response.data.message);
@@ -86,7 +85,6 @@ export default {
               if (response.data.code === 20000) {*/
             Cookie.set('number', this.ruleForm.number);
             Cookie.set('password', this.ruleForm.password);
-            Cookie.set('role', this.role);
             window.location.href = "/teacherHome";
             /*} else {
               ElMessage.error(response.data.message);
@@ -121,7 +119,7 @@ export default {
 <style scoped>
 /*背景图片*/
 .backgroundImage {
-  background: url("../../assets/Image_1.png") no-repeat fixed;
+  background: url("src/assets/Image_1.png") no-repeat fixed;
   background-size: cover;
   width: 100%;
   height: 100%;

@@ -1,34 +1,38 @@
 <template>
-  <!--页头-->
-  <el-page-header @back="onBack">
-    <template #content>
-      <span> 添加课程 </span>
-      <el-tag>Add course</el-tag>
+  <el-card>
+    <template #header>
+      <!--页头-->
+      <el-page-header @back="onBack">
+        <template #content>
+          <span> 查看课程 </span>
+          <el-tag>Add course</el-tag>
+        </template>
+      </el-page-header>
     </template>
-  </el-page-header>
-  <div class="hang">
-    <el-input v-model="programName" style="width: 220px;"></el-input>
-    <el-button style="margin-left: 10px">搜索</el-button>
-    <el-button style="margin-left: auto">添加课程</el-button>
-  </div>
-  <el-table :data="tableData" style="width: 100%">
-    <el-table-column label="课程编号" prop="no" width="140px"></el-table-column>
-    <el-table-column label="课程名称" prop="name" width="140px"></el-table-column>
-    <el-table-column label="课程教师" prop="teacher" width="140px"></el-table-column>
-    <el-table-column fixed="right" label="操作">
-      <template #default>
-        <el-link type="primary" href="/detailedCourseInformation" :underline="false">详情</el-link>
-        <el-link type="primary" href="/changeCourseInformation" :underline="false" style="margin-left: 10px">修改</el-link>
-        <el-button type="primary" link style="margin-left: 10px">删除</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
+    <div class="hang">
+      <el-input v-model="programName" placeholder="请输入课程名称" style="width: 220px;"></el-input>
+      <el-button type="primary" style="margin-left: 10px">搜索</el-button>
+      <el-button type="primary" style="margin-left: auto" @click="turnAddCourse">添加课程</el-button>
+    </div>
+    <hr style="margin-top: 15px;margin-bottom: 15px">
+    <el-table :data="tableData" style="width: 100%">
+      <el-table-column label="课程编号" prop="no" width="140px"></el-table-column>
+      <el-table-column label="课程名称" prop="name" width="140px"></el-table-column>
+      <el-table-column label="课程教师" prop="teacher" width="140px"></el-table-column>
+      <el-table-column fixed="right" label="操作">
+        <template #default>
+          <el-button type="primary" link style="margin-left: 10px" @click="showDetailInfo">详情</el-button>
+          <el-link type="primary" href="/changeCourseInformation" :underline="false" style="margin-left: 10px">修改</el-link>
+          <el-button type="primary" link style="margin-left: 10px">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+  </el-card>
 </template>
 
 <script>
 export default {
   name: "checkProgram",
-  props:['tableData'],
   data(){
     return{
       programName:'',
@@ -43,12 +47,17 @@ export default {
   },
   methods: {
     onBack() {
-      window.location.href = "/administratorHome"
+      window.location.href = "/administratorHome";
     },
-    detail() {
-      this.$emit('showDetail', this.tableData);
+    turnAddCourse() {
+      window.location.href = "/addCourse";
     },
-
+    showDetailInfo() {
+      console.log(this.$store.state.adminViewCourseNumber);
+      this.$store.commit('setAdminViewCourse', this.tableData[0].no);
+      console.log(this.$store.state.adminViewCourseNumber);
+      window.location.href = "/detailedCourseInformation";
+    }
   },
 }
 </script>
