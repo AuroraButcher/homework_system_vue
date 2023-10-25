@@ -6,7 +6,6 @@
   <el-card class="box-card">
     <!--注册标题-->
     <h1 style="text-align: center;margin-top: -10px">注册</h1>
-    <!--进行双向绑定/提供的属性在错误时显示错误图标/rules属性表单验证/添加的引用，通过$refs访问组件/设置表单标签的位置和宽度/添加一个类-->
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left" label-width="100px">
       <!--prop：表单要验证的数据-->
       <!--学工号-->
@@ -48,7 +47,6 @@ export default {
   data() {
     // 判断
     const validatePass = (rule, value, callback) => {
-
       if (value === "") {
         // 验证第一次是否输入密码
         callback(new Error("请输入密码"));
@@ -114,7 +112,7 @@ export default {
                 confirmButtonText: 'OK',
                 callback: action => {
                   if (action === 'confirm') {
-                    window.location.href = "/login";
+                    this.$router.push('/login');
                   }
                 }
               })
@@ -132,7 +130,7 @@ export default {
 <style scoped>
 /*背景图片*/
 .backgroundImage {
-  background: url("../../assets/Image_1.png") no-repeat fixed;
+  background: url("src/assets/Image_1.png") no-repeat fixed;
   background-size: cover;
   width: 100%;
   height: 100%;

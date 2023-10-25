@@ -1,25 +1,24 @@
 import {createRouter, createWebHistory} from "vue-router"
-//引入组件
 //共享
+//用户管理
 import Cookie from "js-cookie";
-import login from "../views/Shared/Login.vue";
-import register from "../views/Shared/Register.vue";
-import getBackPassword from "../views/Shared/GetBackPassword.vue";
-import DetailedCourseInformation from "../views/Shared/DetailedInformation.vue"; //详细信息
+import login from "../views/UserManagerment/Login.vue";
+import register from "../views/UserManagerment/Register.vue";
+import getBackPassword from "../views/UserManagerment/GetBackPassword.vue";
+//基础
+import Home from "../views/Base/Home.vue";
+import HomePage from "../views/Base/HomePage.vue";
+//课程管理
+import DetailedCourseInformation from "../views/CourseManagement/Shared/DetailedInformation.vue";
+
 // 学生端
-import studentHome from "../views/Student/Home.vue";
-import StudentHomePage from "../views/Student/StudentHomePage.vue";
+import StudentViewCourse from "../views/CourseManagement/Student/ViewCourse.vue";
 // 教师端
-import teacherHome from "../views/Teacher/Home.vue";
-import TeacherHomePage from "../views/Teacher/TeacherHomePage.vue";
-import TeacherViewCourse from "../views/Teacher/ViewCourse.vue"; // 查看课程
-import TeacherChangeCourseInformation from "../views/Teacher/ChangeCourseInfo.vue";
+import TeacherViewCourse from "../views/CourseManagement/Teacher/ViewCourse.vue";
 // 管理员端
-import administratorHome from "../views/Administrator/Home.vue"; //首页
-import AdministratorHomePage from "../views/Administrator/AdministratorHomePage.vue";
-import AdminViewCourse from "../views/Administrator/ViewCourse.vue"; // 查看课程
-import AddCourse from "../views/Administrator/AddCourse.vue"; //添加课程
-import AdminChangeCourseInformation from "../views/Administrator/ChangeCourseInfo.vue";
+import AdminViewCourse from "../views/CourseManagement/Administrator/ViewCourse.vue";
+import AddCourse from "../views/CourseManagement/Administrator/AddCourse.vue";
+import ChangeCourseInformation from "../views/CourseManagement/Administrator/ChangeCourseInfo.vue";
 
 
 //配置信息中需要页面的相关配置
@@ -37,25 +36,35 @@ const routes = [
     // 学生端
     {
         path: "/studentHome",
-        component: studentHome,
+        component: Home,
         name: 'studentHome',
         children: [
             {
                 path: '',
-                component: StudentHomePage,
+                component: HomePage,
                 name: 'studentHomePage'
+            },
+            {
+                path: '/studentViewCourse',
+                component: StudentViewCourse,
+                name: 'studentViewCourse'
+            },
+            {
+                path: "/stuCourseInfo",
+                component: DetailedCourseInformation,
+                name: 'stuCourseInfo',
             },
         ]
     },
     //教师端
     {
         path: "/teacherHome",
-        component: teacherHome,
+        component: Home,
         name: 'teacherHome',
         children: [
             {
                 path: '',
-                component: TeacherHomePage,
+                component: HomePage,
                 name: 'teacherHomePage'
             },
             {
@@ -64,27 +73,22 @@ const routes = [
                 name: 'teacherViewCourse'
             },
             {
-                path: "/teacherDetailedCourseInformation",
+                path: "/teaCourseInfo",
                 component: DetailedCourseInformation,
-                name: 'teacherDetailedCourseInformation',
-            },
-            {
-                path: "/teacherChangeCourseInformation",
-                component: TeacherChangeCourseInformation,
-                name: 'teacherChangeCourseInformation',
+                name: 'teaCourseInfo',
             },
         ]
     },
     // 管理员端
     {
-        path: "/administratorHome",
-        component: administratorHome,
-        name: 'administratorHome',
+        path: "/adminHome",
+        component: Home,
+        name: 'adminHome',
         children: [
             {
                 path: '',
-                component: AdministratorHomePage,
-                name: 'administratorHomePage'
+                component: HomePage,
+                name: 'adminHomePage'
             },
             {
                 path: '/adminViewCourse',
@@ -92,19 +96,19 @@ const routes = [
                 name: 'adminViewCourse'
             },
             {
-                path: "/adminAddCourse",
+                path: "/addCourse",
                 component: AddCourse,
-                name: 'adminAddCourse',
+                name: 'addCourse',
             },
             {
-                path: "/adminDetailedCourseInformation",
+                path: "/adminCourseInfo",
                 component: DetailedCourseInformation,
-                name: 'adminDetailedCourseInformation',
+                name: 'adminCourseInfo',
             },
             {
-                path: "/adminChangeCourseInformation",
-                component: AdminChangeCourseInformation,
-                name: 'adminChangeCourseInformation',
+                path: "/changeCourseInfo",
+                component: ChangeCourseInformation,
+                name: 'changeCourseInfo',
             },
         ]
     },

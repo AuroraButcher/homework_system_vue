@@ -95,7 +95,7 @@ export default {
                 confirmButtonText: 'OK',
                 callback: action => {
                   if (action === 'confirm') {
-                    window.location.href = "/login";
+                    this.$router.push('/login');
                   }
                 }
               })
@@ -110,7 +110,7 @@ export default {
     },
     // 返回登录页
     goBack() {
-      window.location.href = "/login";
+      this.$router.push('/login');
     },
   }
 };
@@ -119,7 +119,7 @@ export default {
 <style scoped>
 /*背景图片*/
 .backgroundImage {
-  background: url("../../assets/Image_1.png") no-repeat fixed;
+  background: url("src/assets/Image_1.png") no-repeat fixed;
   background-size: cover;
   width: 100%;
   height: 100%;

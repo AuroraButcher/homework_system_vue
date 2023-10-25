@@ -69,25 +69,31 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.role === "student") {
-            /*api.studentLogin(this.ruleForm).then(response => {
-              if (response.data.code === 20000) {*/
-            Cookie.set('number', this.ruleForm.number);
-            Cookie.set('password', this.ruleForm.password);
-            window.location.href = "/studentHome";
-            /*} else {
-              ElMessage.error(response.data.message);
-            }
-          }).catch(error => {
-            console.error(error);
-          });*/
+            //学生校验
+            api.studentLogin(this.ruleForm).then(response => {
+              if (response.data.code === 20000) {
+                Cookie.set('number', this.ruleForm.number);
+                Cookie.set('password', this.ruleForm.password);
+                this.$store.commit('setRole', this.role);
+                this.$router.push('/studentHome');
+              } else {
+                ElMessage.error(response.data.message);
+              }
+            }).catch(error => {
+              console.error(error);
+            });
           } else if (this.role === "teacher") {
+            // 老师校验
             Cookie.set('number', this.ruleForm.number);
             Cookie.set('password', this.ruleForm.password);
-            window.location.href = "/teacherHome";
+            this.$store.commit('setRole', this.role);
+            this.$router.push('/teacherHome');
           } else {
+            // 管理员校验
             Cookie.set('number', this.ruleForm.number);
             Cookie.set('password', this.ruleForm.password);
-            window.location.href = "/administratorHome";
+            this.$store.commit('setRole', this.role);
+            this.$router.push('/adminHome');
           }
         } else {
           console.log("error submit!!");

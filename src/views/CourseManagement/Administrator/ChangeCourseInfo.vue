@@ -38,19 +38,15 @@
 </template>
 
 <script>
-import PageHeader from "../Shared/PageHeader.vue";
+import PageHeader from "../../Base/PageHeader.vue";
 export default {
   components: {PageHeader},
   data() {
     return {
-      head:'查看课程'
+      head: '修改课程信息'
     };
   },
-  methods: {
-    onBack() {
-      window.location.href = "/adminViewCourse";
-    },
-  }
+  methods: {}
 }
 </script>
 

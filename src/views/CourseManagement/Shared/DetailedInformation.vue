@@ -1,7 +1,6 @@
 <template>
   <el-card>
     <template #header>
-      <!--页头-->
       <page-header :component="head"/>
     </template>
     <!--详细信息-->
@@ -17,17 +16,17 @@
       <el-descriptions-item label="课程简介:">{{ CourseIntroduction }}</el-descriptions-item>
     </el-descriptions>
   </el-card>
-  <el-button @click="showNumber">dianji</el-button>
 </template>
 
 <script>
-import {mapState} from 'vuex'
-import PageHeader from "./PageHeader.vue";
+import {mapState} from 'vuex';
+import PageHeader from "../../Base/PageHeader.vue";
+
 export default {
   components: {PageHeader},
   data() {
     return {
-      head:'课程详情',
+      head: '课程详情',
       CourseNumber: 1,
       CourseName: "专业课程实训",
       Department: "软件学院",
@@ -40,14 +39,7 @@ export default {
           "本课程旨在利用项目实训的方式，随着相关理论课程学习的深入，实践具体的软件工程项目管理及软件测试中的具体方法。"
     }
   },
-  methods: {
-    onBack() {
-      window.location.href = "/viewCourse";
-    },
-    showNumber() {
-      console.log(this.$store.state.adminViewCourseNumber);
-    }
-  },
+  methods: {},
   computed: {
     ...mapState(['adminViewCourseNumber'])
   }

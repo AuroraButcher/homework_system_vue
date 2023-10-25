@@ -1,12 +1,14 @@
 <template>
   <!--修改密码、注销账户-->
-  <change-password v-model="isChange" @changeCancel="isChange=false"/>
-  <delete-account v-model="isDelete" @deleteAccount="isDelete=false"/>
+  <ChangePassword v-model="isChange" @changeCancel="isChange=false"/>
+  <DeleteAccount v-model="isDelete" @deleteAccount="isDelete=false"/>
   <!--首页-->
   <div class="common-layout">
     <el-container>
-      <StudentSideMenu :isCollapse="isCollapse"></StudentSideMenu>
+      <!--侧边栏-->
+      <SideMenu :isCollapse="isCollapse"></SideMenu>
       <el-container class="header-and-main">
+        <!--头部-->
         <el-header class="el-header">
           <!--图标-->
           <el-icon class="el-icon" style="font-size: 28px" @click="changeIsCollapse">
@@ -17,14 +19,14 @@
             <span v-show="isCollapse" class="span">展开</span>
             <span v-show="!isCollapse" class="span">收起</span>
           </div>
-
           <!--面包屑-->
           <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/studentHome' }">homepage</el-breadcrumb-item>
-            <el-breadcrumb-item>promotion list</el-breadcrumb-item>
-            <el-breadcrumb-item>promotion detail</el-breadcrumb-item>
+            <el-breadcrumb-item v-show="role === 'administrator'" :to="{ path: '/adminHome' }">管理员首页</el-breadcrumb-item>
+            <el-breadcrumb-item v-show="role === 'teacher'" :to="{ path: '/teacherHome' }">教师首页</el-breadcrumb-item>
+            <el-breadcrumb-item v-show="role === 'student'" :to="{ path: '/studentHome' }">学生首页</el-breadcrumb-item>
+            <el-breadcrumb-item>待改</el-breadcrumb-item>
+            <el-breadcrumb-item>待改</el-breadcrumb-item>
           </el-breadcrumb>
-
           <!--下拉菜单-->
           <el-dropdown class="el-dropdown">
             <span class="el-dropdown-link">
@@ -52,14 +54,15 @@
 </template>
 
 <script>
-import ChangePassword from "../Shared/ChangePassword.vue";
-import DeleteAccount from "../Shared/DeleteAccount.vue";
+import SideMenu from "./SideMenu.vue";
+import DeleteAccount from "../UserManagerment/DeleteAccount.vue";
+import ChangePassword from "../UserManagerment/ChangePassword.vue";
 import Cookie from "js-cookie";
-import StudentSideMenu from "./SideMenu.vue";
 import {ArrowDown, Expand, Fold} from "@element-plus/icons-vue";
+import {mapState} from "vuex";
 
 export default {
-  components: {DeleteAccount, ChangePassword, ArrowDown, Fold, Expand, StudentSideMenu},
+  components: {Fold, Expand, ArrowDown, ChangePassword, DeleteAccount, SideMenu},
   data() {
     return {
       isCollapse: false,
@@ -74,14 +77,17 @@ export default {
     },
     logout() {
       Cookie.remove('number')
-      window.location.href = "/";
+      this.$router.push('/');
     },
     changePassword() {
       this.isChange = true;
     },
-    deleteAccount(){
-      this.isDelete=true;
+    deleteAccount() {
+      this.isDelete = true;
     }
+  },
+  computed: {
+    ...mapState(['role'])
   }
 }
 </script>
@@ -90,7 +96,6 @@ export default {
 .header-and-main {
   flex-direction: column;
 }
-
 .el-header {
   display: flex;
   align-items: center;
@@ -107,6 +112,7 @@ export default {
 
 .el-dropdown {
   margin-left: auto;
+
   .el-dropdown-link {
     display: flex;
     justify-content: center;

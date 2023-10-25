@@ -2,15 +2,10 @@
   <el-card>
     <template #header>
       <!--页头-->
-      <el-page-header @back="onBack">
-        <template #content>
-          <span> 查看课程 </span>
-          <el-tag>Add course</el-tag>
-        </template>
-      </el-page-header>
+      <page-header :component='head'/>
     </template>
     <div class="hang">
-      <el-input v-model="programName" placeholder="请输入课程名称" style="width: 220px;"></el-input>
+      <el-input v-model="courseName" placeholder="请输入课程名称" style="width: 220px;"></el-input>
       <el-button type="primary" style="margin-left: 10px">搜索</el-button>
     </div>
     <hr style="margin-top: 15px;margin-bottom: 15px">
@@ -20,8 +15,10 @@
       <el-table-column label="课程教师" prop="teacher" width="140px"></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template #default>
+          <!--TODO:修改对应的方法-->
           <el-button type="primary" link style="margin-left: 10px" @click="showDetailInfo">详情</el-button>
-          <el-button type="primary" link style="margin-left: 10px" @click="showDetailInfo">修改</el-button>
+          <el-button type="primary" link style="margin-left: 10px" @click="change">修改</el-button>
+          <el-button type="primary" link style="margin-left: 10px" @click="deleteCourse">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -29,36 +26,40 @@
 </template>
 
 <script>
+import PageHeader from "../../Base/PageHeader.vue";
 export default {
   name: "checkProgram",
-  data() {
+  components: {PageHeader},
+  data(){
     return {
-      programName: '',
+      head: '查看课程',
+      courseName: '',
       tableData: [
         {
           no: 123,
           name: '嗡嗡嗡哇',
-          teacher: 'Nick'
+          teacher: 'Nick',
         },
       ]
     }
   },
   methods: {
-    onBack() {
-      window.location.href = "/teacherHome";
-    },
     showDetailInfo() {
-      console.log(this.$store.state.adminViewCourseNumber);
       this.$store.commit('setAdminViewCourse', this.tableData[0].no);
-      console.log(this.$store.state.adminViewCourseNumber);
-      window.location.href = "/teacherDetailedCourseInformation";
+      this.$router.push('/adminCourseInfo');
+    },
+    change() {
+      this.$router.push('/changeCourseInfo');
+    },
+    deleteCourse() {
+
     }
   },
 }
 </script>
 
 <style scoped>
-.hang {
-  display: flex;
-}
+  .hang{
+    display: flex;
+  }
 </style>

@@ -1,13 +1,10 @@
 <template>
-  <el-card>
+  <el-card class="box-card">
     <template #header>
-      <!--页头-->
       <page-header :component="head"/>
     </template>
     <!--表单-->
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left" label-width="100px">
-      <!--prop：表单要验证的数据-->
-
       <div class="form-row">
         <el-form-item label="课程编号：" prop="cno">
           <el-input type="text" v-model="ruleForm.number"></el-input>
@@ -30,7 +27,7 @@
         <el-form-item label="所属院系：" prop="department">
           <el-input type="text" v-model="ruleForm.password" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="最大选修人数：" prop="maxnumber">
+        <el-form-item label="最大选修人数：" prop="maxNumber">
           <el-input type="text" v-model="ruleForm.password" autocomplete="off"></el-input>
         </el-form-item>
       </div>
@@ -39,14 +36,14 @@
         <el-input type="text" v-model="ruleForm.password" autocomplete="off"></el-input>
       </el-form-item>
 <!--      TODO 完成提交按钮功能-->
-      <el-button @click="commit">提交</el-button>
+      <el-button type="primary" @click="commit">提交</el-button>
 
     </el-form>
   </el-card>
 </template>
 
 <script>
-import PageHeader from "../Shared/PageHeader.vue";
+import PageHeader from "../../Base/PageHeader.vue";
 export default {
   components: {PageHeader},
   data() {
@@ -71,6 +68,10 @@ export default {
 </script>
 
 <style scoped>
+.box-card {
+  height: 100%;
+}
+
 .form-row {
   display: flex;
   justify-content: space-between;
