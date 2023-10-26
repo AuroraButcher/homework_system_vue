@@ -89,8 +89,8 @@ export default {
       this.$store.commit('setAdminViewCourse', scope.row.id);
       this.$router.push('/adminCourseInfo');
     },
-    //修改课程信息
     changeCourse(scope) {
+      this.$store.commit('setAdminViewCourse', scope.row.id);
       this.$router.push('/changeCourseInfo');
     },
     //删除课程
@@ -127,8 +127,11 @@ export default {
     rowClassName({row, rowIndex}) {
       //把每一行的索引放进row
       row.index = rowIndex;
+      // console.log(row)
     },
   },
+  computed:{
+  }
 }
 </script>
 

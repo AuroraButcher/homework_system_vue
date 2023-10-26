@@ -97,7 +97,6 @@ export default {
             if(res.data.code===20000){
               ElMessage.success('修改成功')
               this.$emit('changeCancel',this.change,false)
-              console.log(this.ruleForm)
             }else {
               ElMessage.error("修改失败");
             }

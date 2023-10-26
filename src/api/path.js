@@ -28,5 +28,7 @@ const base = {
     addCourse: '/class/add',
     // 删除课程
     deleteCourse: '/class/delete',
+    //修改课程
+    changeCourse:'/class/modify'
 }
 export default base

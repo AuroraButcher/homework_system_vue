@@ -12,7 +12,7 @@
       <el-descriptions-item label="学时:">{{ Hour }}</el-descriptions-item>
       <el-descriptions-item label="最大选修人数:">{{ MaxNumber }}</el-descriptions-item>
       <el-descriptions-item label="授课教师:">{{ Teacher }}</el-descriptions-item>
-      <el-descriptions-item label="教师邮箱:">{{ Email }}</el-descriptions-item>
+      <el-descriptions-item label="选课人数:">{{ ChooseNum }}</el-descriptions-item>
       <el-descriptions-item label="课程简介:">{{ CourseIntroduction }}</el-descriptions-item>
     </el-descriptions>
   </el-card>
@@ -21,11 +21,22 @@
 <script>
 import {mapState} from 'vuex';
 import PageHeader from "../../Base/PageHeader.vue";
+import api from '../../../api/index.js'
 
 export default {
   components: {PageHeader},
   created() {
-
+    if(this.adminViewCourseNumber!==null){
+      api.showCourseDetail(this.adminViewCourseNumber).then(res=>{
+        if(res.data.code===20000){
+          this.CourseName=res.data.data.info.name
+          this.MaxNumber=res.data.data.info.num
+          this.CourseIntroduction=res.data.data.info.info
+          this.Teacher=res.data.data.info.teacherName
+          this.ChooseNum=res.data.data.info.currentNum
+        }
+      })
+    }
   },
   data() {
     return {
@@ -37,9 +48,8 @@ export default {
       Hour: 32,
       MaxNumber: 180,
       Teacher: "邸晓飞",
-      Email: "xfDi@bjtu.edu.cn",
-      CourseIntroduction: "《专业课程综合实训III》为软件工程专业综合实践模块的一门必修课程，课程设置在第五学期，是一门针对该学期所学《软件项目管理与产品运维》和《软件测试与质量保证》课程的实训课程。\n" +
-          "本课程旨在利用项目实训的方式，随着相关理论课程学习的深入，实践具体的软件工程项目管理及软件测试中的具体方法。",
+      ChooseNum: null,
+      CourseIntroduction: null,
       table:{
         id: null,
         info:null,

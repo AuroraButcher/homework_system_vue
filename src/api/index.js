@@ -73,6 +73,14 @@ const api = {
             }
         })
     },
+    //课程详情
+    showCourseDetail(id){
+        return axios.get(path.baseUrl+path.courseDetail,{
+            params:{
+                id:id
+            }
+        })
+    },
     // 添加课程
     addCourse(ruleForm) {
         return axios.post(path.baseUrl + path.addCourse, {info: ruleForm.info, name: ruleForm.name, teacher: ruleForm.teacher, num: ruleForm.num});
@@ -85,5 +93,14 @@ const api = {
             }
         })
     },
+    //修改课程
+    changeCourse(ruleForm) {
+        return axios.post(path.baseUrl+path.changeCourse,{
+            params:{
+                id:ruleForm.id,
+                info:ruleForm.info
+            }
+        })
+    }
 }
 export default api
