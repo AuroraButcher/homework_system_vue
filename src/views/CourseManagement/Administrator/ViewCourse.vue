@@ -6,7 +6,7 @@
     </template>
     <div class="hang">
       <el-input @keyup.enter="search" v-model="courseName" placeholder="请输入课程名称" style="width: 220px;"></el-input>
-      <el-button type="primary" style="margin-left: 10px" @click="search">搜索</el-button>
+      <el-button type="primary" style="margin-left: 10px" @click="search(this.courseName)">搜索</el-button>
     </div>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="60px"></el-table-column>
@@ -82,8 +82,8 @@ export default {
   },
   methods: {
     //搜索课程
-    search() {
-      this.page.name=this.courseName
+    search(name) {
+      this.page.name=name
       api.showCourse(this.page).then(response => {
         if (response.data.code === 20000) {
           //设置记录总数
@@ -107,22 +107,34 @@ export default {
     },
     //删除课程
     deleteCourse(scope) {
-      api.deleteCourse(scope.row.id).then(response => {
-        if (response.data.code === 20000) {
-          ElMessageBox.alert("删除成功", '消息', {
-            confirmButtonText: 'OK',
-            callback: action => {
-              if (action === 'confirm') {
-                window.location.reload();
+      ElMessageBox.confirm(
+          '你确定你要删除吗?',
+          {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+          }
+      ).then(() => {
+            api.deleteCourse(scope.row.id).then(response => {
+              if (response.data.code === 20000) {
+                ElMessageBox.alert("删除成功", '消息', {
+                  confirmButtonText: 'OK',
+                  callback: action => {
+                    if (action === 'confirm') {
+                      this.search()
+                    }
+                  }
+                })
+              } else {
+                ElMessageBox.alert("删除失败", '消息', {
+                  confirmButtonText: 'OK',
+                })
               }
-            }
+            })
           })
-        } else {
-          ElMessageBox.alert("删除失败", '消息', {
-            confirmButtonText: 'OK',
+          .catch(() => {
           })
-        }
-      })
+
     },
     // 处理页数改变
     handlePageChange() {
