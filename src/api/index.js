@@ -95,10 +95,10 @@ const api = {
     },
     //修改课程
     changeCourse(ruleForm) {
-        return axios.post(path.baseUrl+path.changeCourse,{
-            params:{
-                id:ruleForm.id,
-                info:ruleForm.info
+        return axios.post(path.baseUrl + path.changeCourse, null, {
+            params: {
+                id: ruleForm.id,
+                info: ruleForm.info
             }
         })
     }
