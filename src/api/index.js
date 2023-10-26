@@ -49,5 +49,16 @@ const api = {
     deleteAccount(ruleForm) {
         return axios.post(path.baseUrl + path.student + path.delete, {number: ruleForm.number});
     },
+    //展示课程
+    showCourse(ruleForm){
+        return axios.get(path.baseUrl+path.showCourse,{
+            params:{
+                name:ruleForm.name,
+                teacher:ruleForm.teacher,
+                pageNo:ruleForm.currentPage,
+                pageSize:ruleForm.pageSize,
+            }
+        })
+    }
 }
 export default api

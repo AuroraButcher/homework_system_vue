@@ -19,6 +19,10 @@ const base = {
     // 修改密码
     changePassword: '/change',
     // 删除账户
-    delete: '/delete'
+    delete: '/delete',
+    // 展示课程
+    showCourse: '/class/showList',
+    //课程详情
+    courseDetail:'/class/showInfo'
 }
 export default base
