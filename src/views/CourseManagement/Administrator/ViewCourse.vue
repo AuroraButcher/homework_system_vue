@@ -5,7 +5,7 @@
       <page-header :component='head'/>
     </template>
     <div class="hang">
-      <el-input v-model="courseName" placeholder="请输入课程名称" style="width: 220px;"></el-input>
+      <el-input @keyup.enter="search" v-model="courseName" placeholder="请输入课程名称" style="width: 220px;"></el-input>
       <el-button type="primary" style="margin-left: 10px" @click="search">搜索</el-button>
     </div>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
@@ -59,6 +59,7 @@ export default {
         }
       ],
       page: {
+        name:'',
         currentPage: 1,
         pageSize: 10,
         //记录总数
@@ -82,6 +83,17 @@ export default {
   methods: {
     //搜索课程
     search() {
+      this.page.name=this.courseName
+      api.showCourse(this.page).then(response => {
+        if (response.data.code === 20000) {
+          //设置记录总数
+          this.page.total = response.data.data.classInfo.total;
+          //设置表数据
+          this.tableData = response.data.data.classInfo.records;
+        } else {
+          ElMessage.error(response.data.message);
+        }
+      })
 
     },
     //展示详细信息
