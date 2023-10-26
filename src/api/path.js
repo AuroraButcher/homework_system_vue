@@ -24,6 +24,8 @@ const base = {
     showCourse: '/class/showList',
     // 课程详情
     courseDetail: '/class/showInfo',
+    // 添加课程
+    addCourse: '/class/add',
     // 删除课程
     deleteCourse: '/class/delete',
 }

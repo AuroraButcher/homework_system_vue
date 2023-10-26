@@ -8,55 +8,47 @@
       <el-input v-model="courseName" placeholder="请输入课程名称" style="width: 220px;"></el-input>
       <el-button type="primary" style="margin-left: 10px" @click="search">搜索</el-button>
     </div>
-    <hr style="margin-top: 15px;margin-bottom: 15px">
-    <el-table :data="tableData" style="width: 100%" :row-class-name="rowClassName">
+    <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="60px"></el-table-column>
-      <el-table-column label="课程编号" prop="id" width="140px"></el-table-column>
-      <el-table-column label="课程名称" prop="name" width="140px"></el-table-column>
-      <el-table-column label="课程教师" prop="teacherName" width="140px"></el-table-column>
+      <el-table-column label="课程编号" prop="id" width="100px"></el-table-column>
+      <el-table-column label="课程名称" prop="name" width="200px"></el-table-column>
+      <el-table-column label="课程教师" prop="teacherName" width="100px"></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
-          <!--TODO:修改对应的方法-->
-          <el-button type="primary" link style="margin-left: 10px" @click="showDetailInfo(scope)">详情</el-button>
-          <el-button type="primary" link style="margin-left: 10px" @click="change">修改</el-button>
-          <el-button type="primary" link style="margin-left: 10px" @click="deleteCourse">删除</el-button>
+          <el-link type="primary" link style="margin-left: 10px" @click="showDetailInfo(scope)">详情</el-link>
+          <el-link type="primary" link style="margin-left: 10px" @click="changeCourse(scope)">修改</el-link>
+          <el-link type="primary" link style="margin-left: 10px" @click="deleteCourse(scope)">删除</el-link>
         </template>
       </el-table-column>
     </el-table>
-    <hr>
+    <!--横线-->
+    <hr style="margin-top: 10px">
+    <!--页码-->
     <el-pagination
-      v-model:current-page="page.currentPage"
-      v-model:page-size="page.pageSize"
-      :total="page.total"
-      @current-change="handlePageChange"
-      :hide-on-single-page="false"/>
+        v-model:current-page="page.currentPage"
+        v-model:page-size="page.pageSize"
+        :total="page.total"
+        @current-change="handlePageChange"
+        :hide-on-single-page="false"/>
   </el-card>
 </template>
 
 <script>
 import PageHeader from "../../Base/PageHeader.vue";
 import api from "../../../api/index.js"
-import {ElMessage} from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
 
 export default {
   name: "checkProgram",
-  created() {
-    api.showCourse(this.page).then(res=>{
-      if(res.data.code===20000){
-        this.page.total=res.data.data.classInfo.total
-        this.tableData=res.data.data.classInfo.records
-      }else{
-        ElMessage.error(res.data.message);
-      }
-    })
-  },
   components: {PageHeader},
   data(){
     return {
       head: '查看课程',
       courseName: '',
+      key: 1,
       tableData: [
         {
+          // 课程编号、课程简介、教师编号、课程名称、最大选修人数、现在的数量、教师名称
           "id": null,
           "info": null,
           "teacher": null,
@@ -66,36 +58,67 @@ export default {
           "teacherName": null
         }
       ],
-      page:{
-        currentPage:1,
-        pageSize:10,
-        total:100
+      page: {
+        currentPage: 1,
+        pageSize: 10,
+        //记录总数
+        total: 100,
       },
     }
   },
+  // 展示课程信息
+  created() {
+    api.showCourse(this.page).then(response => {
+      if (response.data.code === 20000) {
+        //设置记录总数
+        this.page.total = response.data.data.classInfo.total;
+        //设置表数据
+        this.tableData = response.data.data.classInfo.records;
+      } else {
+        ElMessage.error(response.data.message);
+      }
+    })
+  },
   methods: {
+    //搜索课程
+    search() {
+
+    },
+    //展示详细信息
     showDetailInfo(scope) {
       this.$store.commit('setAdminViewCourse', scope.row.id);
       this.$router.push('/adminCourseInfo');
-
     },
-    change() {
+    //修改课程信息
+    changeCourse(scope) {
       this.$router.push('/changeCourseInfo');
     },
-    deleteCourse() {
-
+    //删除课程
+    deleteCourse(scope) {
+      api.deleteCourse(scope.row.id).then(response => {
+        if (response.data.code === 20000) {
+          ElMessageBox.alert("删除成功", '消息', {
+            confirmButtonText: 'OK',
+            callback: action => {
+              if (action === 'confirm') {
+                window.location.reload();
+              }
+            }
+          })
+        } else {
+          ElMessageBox.alert("删除失败", '消息', {
+            confirmButtonText: 'OK',
+          })
+        }
+      })
     },
-    search(){
-
-    },
-    handlePageChange(){
-      console.log(this.page.currentPage)
-      api.showCourse(this.page).then(res=>{
-        if(res.data.code===20000){
-          console.log(res.data.data);
+    // 处理页数改变
+    handlePageChange() {
+      api.showCourse(this.page).then(res => {
+        if (res.data.code === 20000) {
           this.page.total = res.data.data.classInfo.total;
           this.tableData = res.data.data.classInfo.records;
-        }else {
+        } else {
           ElMessage.error(res.data.message);
         }
       })
@@ -104,11 +127,8 @@ export default {
     rowClassName({row, rowIndex}) {
       //把每一行的索引放进row
       row.index = rowIndex;
-      // console.log(row)
     },
   },
-  computed:{
-  }
 }
 </script>
 

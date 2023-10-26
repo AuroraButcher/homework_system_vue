@@ -4,82 +4,81 @@
       <page-header :component="head"/>
     </template>
     <!--表单-->
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left" label-width="100px">
-      <div class="form-row">
-        <el-form-item label="课程编号：" prop="cno">
-          <el-input type="text" v-model="ruleForm.number"></el-input>
-        </el-form-item>
-        <el-form-item label="课程名称：" prop="cname">
-          <el-input type="text" v-model="ruleForm.password" autocomplete="off"></el-input>
-        </el-form-item>
-
-        <el-form-item label="教师工号：" prop="tno" >
-          <el-input type="text" v-model="ruleForm.password" autocomplete="off"></el-input>
-        </el-form-item>
-      </div>
-      <div class="form-row2">
-        <el-form-item label="学分：" prop="credit">
-          <el-input type="text" v-model="ruleForm.password" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="学时：" prop="hour">
-          <el-input type="text" v-model="ruleForm.password" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="所属院系：" prop="department">
-          <el-input type="text" v-model="ruleForm.password" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="最大选修人数：" prop="maxNumber">
-          <el-input type="text" v-model="ruleForm.password" autocomplete="off"></el-input>
-        </el-form-item>
-      </div>
-
-      <el-form-item label="课程简介：" prop="introduction">
-        <el-input type="text" v-model="ruleForm.password" autocomplete="off"></el-input>
+    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left" label-width="120px">
+      <el-form-item label="课程名称：" prop="name">
+        <el-input type="text" v-model="ruleForm.name" autocomplete="off"></el-input>
       </el-form-item>
-<!--      TODO 完成提交按钮功能-->
-      <el-button type="primary" @click="commit">提交</el-button>
-
+      <el-form-item label="教师工号：" prop="teacher">
+        <el-input type="text" v-model="ruleForm.teacher" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="课程简介：" prop="info">
+        <el-input type="text" v-model="ruleForm.info"></el-input>
+      </el-form-item>
+      <el-form-item label="最大选课量：" prop="num">
+        <el-input type="text" v-model="ruleForm.num" autocomplete="off"></el-input>
+      </el-form-item>
     </el-form>
+    <el-button type="primary" @click="commit(ruleForm)">提交</el-button>
   </el-card>
 </template>
 
 <script>
 import PageHeader from "../../Base/PageHeader.vue";
+import api from "../../../api";
+import {ElMessage, ElMessageBox} from "element-plus";
+
 export default {
   components: {PageHeader},
   data() {
     return {
-      head:'添加课程',
+      head: '添加课程',
       //表单属性
       ruleForm: {
-
+        info: null,
+        name: null,
+        teacher: null,
+        num: null,
       },
       //表单验证规则
       rules: {
-
+        info: [
+          {required: true, message: "课程简介不能为空！", trigger: "change"}
+        ],
+        name: [
+          {required: true, message: "课程名称不能为空！", trigger: "change"}
+        ],
+        teacher: [
+          {required: true, message: "教师工号不能为空！", trigger: "change"}
+        ],
+        num: [
+          {required: true, message: "最大选课量不能为空！", trigger: "change"}
+        ],
       },
     };
   },
   methods: {
-    commit(){
-
-    }
+    commit(formName) {
+      api.addCourse(this.ruleForm).then(response => {
+        if (response.data.code === 20000) {
+          ElMessageBox.alert(response.data.message, '消息', {
+            confirmButtonText: 'OK',
+            callback: action => {
+              if (action === 'confirm') {
+                this.$refs["ruleForm"].resetFields();
+              }
+            }
+          })
+        } else {
+          ElMessageBox.alert(response.data.message, '消息', {
+            confirmButtonText: 'OK',
+          })
+        }
+      })
+    },
   }
 }
 </script>
 
 <style scoped>
-.form-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-.form-row2 {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  margin-left: 10px;
-}
-.form-row .el-form-item {
-  flex-basis: calc(33.33% - 10px);
-}
+
 </style>

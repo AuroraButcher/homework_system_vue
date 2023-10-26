@@ -63,21 +63,25 @@ const api = {
         return axios.post(path.baseUrl + path.administrator + path.LoginUrl, {username: ruleForm.number, password: ruleForm.password});
     },
     //展示课程
-    showCourse(ruleForm) {
+    showCourse(tableData) {
         return axios.get(path.baseUrl + path.showCourse, {
             params: {
-                name: ruleForm.name,
-                teacher: ruleForm.teacher,
-                pageNo: ruleForm.currentPage,
-                pageSize: ruleForm.pageSize,
+                name: tableData.name,
+                teacher: tableData.teacher,
+                pageNo: tableData.currentPage,
+                pageSize: tableData.pageSize,
             }
         })
     },
+    // 添加课程
+    addCourse(ruleForm) {
+        return axios.post(path.baseUrl + path.addCourse, {info: ruleForm.info, name: ruleForm.name, teacher: ruleForm.teacher, num: ruleForm.num});
+    },
     //删除课程
-    deleteCourse(ruleForm) {
-        return axios.get(path.baseUrl + path.deleteCourse, {
+    deleteCourse(courseId) {
+        return axios.post(path.baseUrl + path.deleteCourse, null, {
             params: {
-                id: ruleForm.number,
+                id: courseId,
             }
         })
     },
