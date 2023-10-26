@@ -92,9 +92,9 @@ export default {
       console.log(this.page.currentPage)
       api.showCourse(this.page).then(res=>{
         if(res.data.code===20000){
-          console.log(res.data.data)
-          this.page.total=res.data.data.classInfo.total
-          this.tableData=res.data.data.classInfo.records
+          console.log(res.data.data);
+          this.page.total = res.data.data.classInfo.total;
+          this.tableData = res.data.data.classInfo.records;
         }else {
           ElMessage.error(res.data.message);
         }

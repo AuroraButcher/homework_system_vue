@@ -18,7 +18,7 @@
         <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
       </el-form-item>
       <!--角色，default：管理员-->
-      <el-form-item label="角色：">
+      <el-form-item label="角色：" required>
         <el-radio-group v-model="role">
           <el-radio label="administrator">管理员</el-radio>
           <el-radio label="teacher">教师</el-radio>
@@ -84,16 +84,32 @@ export default {
             });
           } else if (this.role === "teacher") {
             // 老师校验
+            /*api.teacherLogin(this.ruleForm).then(response => {
+              if (response.data.code === 20000) {*/
             Cookie.set('number', this.ruleForm.number);
             Cookie.set('password', this.ruleForm.password);
             this.$store.commit('setRole', this.role);
             this.$router.push('/teacherHome');
+            /*} else {
+              ElMessage.error(response.data.message);
+            }
+          }).catch(error => {
+            console.error(error);
+          });*/
           } else {
             // 管理员校验
-            Cookie.set('number', this.ruleForm.number);
-            Cookie.set('password', this.ruleForm.password);
-            this.$store.commit('setRole', this.role);
-            this.$router.push('/adminHome');
+            api.adminLogin(this.ruleForm).then(response => {
+              if (response.data.code === 20000) {
+                Cookie.set('number', this.ruleForm.number);
+                Cookie.set('password', this.ruleForm.password);
+                this.$store.commit('setRole', this.role);
+                this.$router.push('/adminHome');
+              } else {
+                ElMessage.error(response.data.message);
+              }
+            }).catch(error => {
+              console.error(error);
+            });
           }
         } else {
           console.log("error submit!!");

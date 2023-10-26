@@ -6,12 +6,7 @@ const store = createStore({
         role: "",
         adminViewCourseNumber: null,
     },
-    // 对Vuex中的数据进行过滤：使用方法
-    getters: {
-        getAdminViewCourseNumber(state) {
-            return state.adminViewCourseNumber;
-        }
-    },
+    getters: {},
     // 进行修改
     mutations: {
         setRole(state, value) {

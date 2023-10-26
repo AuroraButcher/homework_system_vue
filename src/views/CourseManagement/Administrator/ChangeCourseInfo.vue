@@ -4,6 +4,7 @@
       <!--页头-->
       <page-header :component="head"></page-header>
     </template>
+    <!--表单-->
     <el-descriptions :column="2" border>
       <el-descriptions-item label="课程编号:">
         <el-input></el-input>
@@ -33,7 +34,7 @@
         <el-input></el-input>
       </el-descriptions-item>
     </el-descriptions>
-    <el-button>修改</el-button>
+    <el-button type="primary" style="margin-top: 10px">修改</el-button>
   </el-card>
 </template>
 

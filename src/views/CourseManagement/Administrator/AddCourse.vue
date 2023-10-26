@@ -1,5 +1,5 @@
 <template>
-  <el-card class="box-card">
+  <el-card>
     <template #header>
       <page-header :component="head"/>
     </template>
@@ -68,10 +68,6 @@ export default {
 </script>
 
 <style scoped>
-.box-card {
-  height: 100%;
-}
-
 .form-row {
   display: flex;
   justify-content: space-between;

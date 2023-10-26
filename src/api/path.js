@@ -3,7 +3,7 @@ const base = {
     baseUrl: 'http://hyh31.top:3000',
 
     //角色网址
-    administrator: '/administrator',
+    administrator: '/admin',
     teacher: '/teacher',
     student: '/student',
 
@@ -22,7 +22,9 @@ const base = {
     delete: '/delete',
     // 展示课程
     showCourse: '/class/showList',
-    //课程详情
-    courseDetail:'/class/showInfo'
+    // 课程详情
+    courseDetail: '/class/showInfo',
+    // 删除课程
+    deleteCourse: '/class/delete',
 }
 export default base
