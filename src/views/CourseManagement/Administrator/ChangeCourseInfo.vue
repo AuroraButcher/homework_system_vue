@@ -5,29 +5,29 @@
       <page-header :component="head"></page-header>
     </template>
     <!--表单-->
-    <el-form :column="2" border ref=“ruleForm” :model="ruleForm" :rules="rules">
+    <el-form :column="2" border :model="ruleForm" status-icon :rules="rules" ref="ruleForm" >
       <el-form-item label="课程编号:" prop="id">
         <el-input v-model="ruleForm.id" :placeholder="adminViewCourseNumber"></el-input>
       </el-form-item>
-      <el-form-item label="课程名称:" prop="name">
+      <el-form-item label="课程名称:">
         <el-input v-model="ruleForm.name" :placeholder="ruleForm.name"></el-input>
       </el-form-item>
-      <el-form-item label="所属院系:" prop="Department">
+      <el-form-item label="所属院系:">
         <el-input v-model="Department" :placeholder="Department"></el-input>
       </el-form-item>
-      <el-form-item label="学分:" prop="Credits">
+      <el-form-item label="学分:">
         <el-input v-model="Credits" :placeholder="Credits"></el-input>
       </el-form-item>
-      <el-form-item label="学时:" prop="Hour">
+      <el-form-item label="学时:">
         <el-input v-model="Hour" :placeholder="Hour"></el-input>
       </el-form-item>
-      <el-form-item label="最大选修人数:" prop="num">
+      <el-form-item label="最大选修人数:">
         <el-input v-model="ruleForm.num" :placeholder="ruleForm.num"></el-input>
       </el-form-item>
-      <el-form-item label="授课教师:" prop="teacherName">
+      <el-form-item label="授课教师:">
         <el-input v-model="ruleForm.teacherName" :placeholder="ruleForm.teacherName"></el-input>
       </el-form-item>
-      <el-form-item label="选课人数:" prop="currentNum">
+      <el-form-item label="选课人数:">
         <el-input v-model="ruleForm.currentNum" :placeholder="ruleForm.currentNum"></el-input>
       </el-form-item>
       <el-form-item label="课程简介:" prop="info">
@@ -56,13 +56,13 @@ export default {
   data() {
     return {
       head: '修改课程信息',
-      Department:'',
-      Credits:'',
-      Hour:'',
+      Department:'软件学院',
+      Credits:3,
+      Hour:48,
       ruleForm:{
         id:null,
-        name:'',
-        num:'',
+        name:"",
+        num:"",
         teacherName:'',
         currentNum:'',
         info:'',
@@ -71,13 +71,15 @@ export default {
         id: [
           {required: true,message:'不能为空', trigger: "change"},
         ],
+        info: [
+          {required: true,message:'不能为空', trigger: "change"},
+        ],
       }
     };
   },
   methods: {
-    change(ruleForm){
-      console.log(this.ruleForm)
-      this.$refs[ruleForm].validate((valid)=>{
+    change(formName){
+      this.$refs[formName].validate(valid=>{
         if(valid){
           api.changeCourse(this.ruleForm).then(res=>{
             if(res.data.code===20000){
@@ -86,11 +88,8 @@ export default {
               ElMessage.error("修改失败");
             }
           })
-        }else {
-          ElMessage.error("error：密码错误");
         }
       })
-
     }
   },
   computed:{
