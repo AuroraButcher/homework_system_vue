@@ -5,7 +5,7 @@
       <page-header :component="head"></page-header>
     </template>
     <!--表单-->
-    <el-form :model="ruleForm" status-icon :rules="rules" ref=“ruleForm” label-position="left" label-width="120px">
+    <el-form :column="2" border :model="ruleForm" status-icon :rules="rules" ref="ruleForm" >
       <el-form-item label="课程编号:" prop="id">
         <el-input disabled type="text" v-model="ruleForm.id"></el-input>
       </el-form-item>
@@ -55,15 +55,27 @@ export default {
         currentNum:'',
         info:'',
       },
+      rules:{
+        id: [
+          {required: true,message:'不能为空', trigger: "change"},
+        ],
+        info: [
+          {required: true,message:'不能为空', trigger: "change"},
+        ],
+      }
     };
   },
   methods: {
-    changeInfo(ruleForm) {
-      api.changeCourse(this.ruleForm).then(res => {
-        if (res.data.code === 20000) {
-          ElMessage.success('修改成功')
-        } else {
-          ElMessage.error("修改失败");
+    changeInfo(formName){
+      this.$refs[formName].validate(valid=>{
+        if(valid){
+          api.changeCourse(this.ruleForm).then(res=>{
+            if(res.data.code===20000){
+              ElMessage.success('修改成功')
+            }else {
+              ElMessage.error("修改失败");
+            }
+          })
         }
       })
     },
