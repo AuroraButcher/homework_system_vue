@@ -112,7 +112,6 @@ export default {
 
 .el-dropdown {
   margin-left: auto;
-
   .el-dropdown-link {
     display: flex;
     justify-content: center;

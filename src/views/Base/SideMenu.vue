@@ -101,6 +101,12 @@
             <span>互评2</span>
           </el-menu-item>
         </el-sub-menu>
+        <el-menu-item>
+          <el-icon style="font-size: 32px">
+            <bell/>
+          </el-icon>
+          <span>消息</span>
+        </el-menu-item>
       </el-menu>
     </el-aside>
   </div>
@@ -143,20 +149,20 @@
             <el-icon style="font-size: 32px">
               <Notebook/>
             </el-icon>
-            <span>作业管理</span>
+            <span>作业</span>
           </template>
           <!--子菜单选项-->
           <el-menu-item class="el-menu-item" index="/teaAssignHomework">
             <el-icon>
-              <Notebook/>
+              <FolderAdd/>
             </el-icon>
             <span>布置作业</span>
           </el-menu-item>
           <el-menu-item class="el-menu-item">
             <el-icon>
-              <Notebook/>
+              <DataAnalysis/>
             </el-icon>
-            <span>作业2</span>
+            <span>查看提交情况</span>
           </el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="3">
@@ -180,6 +186,12 @@
             <span>互评2</span>
           </el-menu-item>
         </el-sub-menu>
+        <el-menu-item>
+          <el-icon style="font-size: 32px">
+            <bell/>
+          </el-icon>
+          <span>消息</span>
+        </el-menu-item>
       </el-menu>
     </el-aside>
   </div>
@@ -225,11 +237,11 @@
             <span>作业</span>
           </template>
           <!--子菜单选项-->
-          <el-menu-item class="el-menu-item">
+          <el-menu-item class="el-menu-item" index="stuViewHomework">
             <el-icon>
-              <Notebook/>
+              <View/>
             </el-icon>
-            <span>作业1</span>
+            <span>查看作业</span>
           </el-menu-item>
           <el-menu-item class="el-menu-item">
             <el-icon>
@@ -259,17 +271,37 @@
             <span>互评2</span>
           </el-menu-item>
         </el-sub-menu>
+        <el-menu-item @click="drawer = true">
+          <el-badge>
+            <el-icon style="font-size: 32px">
+              <bell/>
+            </el-icon>
+          </el-badge>
+          <span>消息</span>
+        </el-menu-item>
       </el-menu>
     </el-aside>
   </div>
+  <el-drawer v-model="drawer" title="消息" direction="rtl">
+    <el-tabs style="width: 100%">
+      <el-tab-pane label="全部" name="first">全部</el-tab-pane>
+      <el-tab-pane label="已读信息" name="second">已读信息</el-tab-pane>
+      <el-tab-pane label="未读信息" name="third">未读信息</el-tab-pane>
+    </el-tabs>
+  </el-drawer>
 </template>
 <script>
-import {EditPen, HomeFilled, Notebook, Operation, Plus, View} from "@element-plus/icons-vue";
+import {Bell, DataAnalysis, EditPen, FolderAdd, HomeFilled, Notebook, Operation, Plus, View} from "@element-plus/icons-vue";
 import {mapState} from "vuex";
 
 export default {
-  components: {View, Plus, EditPen, Notebook, Operation, HomeFilled},
+  components: {Bell, DataAnalysis, FolderAdd, View, Plus, EditPen, Notebook, Operation, HomeFilled},
   props: ['isCollapse'],
+  data() {
+    return {
+      drawer: null,
+    }
+  },
   computed: {
     ...mapState(['role'])
   }

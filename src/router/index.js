@@ -19,6 +19,7 @@ import AssignHomework from "../views/HomeworkManagement/Teacher/AssignHomework.v
 // 管理员端
 import AddCourse from "../views/CourseManagement/Administrator/AddCourse.vue";
 import ChangeCourseInformation from "../views/CourseManagement/Administrator/ChangeCourseInfo.vue";
+import ViewHomework from "../views/HomeworkManagement/Student/ViewHomework.vue";
 
 
 //配置信息中需要页面的相关配置
@@ -53,6 +54,11 @@ const routes = [
                 path: "/stuCourseInfo",
                 component: DetailedCourseInformation,
                 name: 'stuCourseInfo',
+            },
+            {
+                path: "/stuViewHomework",
+                component: ViewHomework,
+                name: 'stuViewHomework',
             },
         ]
     },
