@@ -8,15 +8,15 @@ import getBackPassword from "../views/UserManagerment/GetBackPassword.vue";
 //基础
 import Home from "../views/Base/Home.vue";
 import HomePage from "../views/Base/HomePage.vue";
+import ViewCourse from "../views/CourseManagement/Shared/ViewCourse.vue"
 //课程管理
 import DetailedCourseInformation from "../views/CourseManagement/Shared/DetailedInformation.vue";
 
 // 学生端
 import StudentViewCourse from "../views/CourseManagement/Student/ViewCourse.vue";
 // 教师端
-import TeacherViewCourse from "../views/CourseManagement/Teacher/ViewCourse.vue";
+
 // 管理员端
-import AdminViewCourse from "../views/CourseManagement/Administrator/ViewCourse.vue";
 import AddCourse from "../views/CourseManagement/Administrator/AddCourse.vue";
 import ChangeCourseInformation from "../views/CourseManagement/Administrator/ChangeCourseInfo.vue";
 
@@ -69,7 +69,7 @@ const routes = [
             },
             {
                 path: '/teacherViewCourse',
-                component: TeacherViewCourse,
+                component: ViewCourse,
                 name: 'teacherViewCourse'
             },
             {
@@ -92,7 +92,7 @@ const routes = [
             },
             {
                 path: '/adminViewCourse',
-                component: AdminViewCourse,
+                component: ViewCourse,
                 name: 'adminViewCourse'
             },
             {

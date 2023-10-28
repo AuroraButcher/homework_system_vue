@@ -3,6 +3,7 @@ import createPersistedState from "vuex-persistedstate"
 
 const store = createStore({
     state: {
+        //管理员：admin，教师：teacher，学生：student
         role: "",
         adminViewCourseNumber: null,
     },
