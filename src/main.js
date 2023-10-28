@@ -9,7 +9,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 // 引入使用vuex
 import store from './store'
-
+// 引入markdown
 
 const app = createApp(App)
 //axios
@@ -20,4 +20,6 @@ app.use(router)
 app.use(ElementPlus)
 // vuex
 app.use(store)
+// markdown
+
 app.mount('#app')

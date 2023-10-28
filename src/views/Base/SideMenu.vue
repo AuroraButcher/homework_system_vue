@@ -143,14 +143,14 @@
             <el-icon style="font-size: 32px">
               <Notebook/>
             </el-icon>
-            <span>作业</span>
+            <span>作业管理</span>
           </template>
           <!--子菜单选项-->
-          <el-menu-item class="el-menu-item">
+          <el-menu-item class="el-menu-item" index="/teaAssignHomework">
             <el-icon>
               <Notebook/>
             </el-icon>
-            <span>作业1</span>
+            <span>布置作业</span>
           </el-menu-item>
           <el-menu-item class="el-menu-item">
             <el-icon>

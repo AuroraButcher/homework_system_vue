@@ -15,7 +15,7 @@ import DetailedCourseInformation from "../views/CourseManagement/Shared/Detailed
 // 学生端
 import StudentViewCourse from "../views/CourseManagement/Student/ViewCourse.vue";
 // 教师端
-
+import AssignHomework from "../views/HomeworkManagement/Teacher/AssignHomework.vue";
 // 管理员端
 import AddCourse from "../views/CourseManagement/Administrator/AddCourse.vue";
 import ChangeCourseInformation from "../views/CourseManagement/Administrator/ChangeCourseInfo.vue";
@@ -77,6 +77,11 @@ const routes = [
                 component: DetailedCourseInformation,
                 name: 'teaCourseInfo',
             },
+            {
+                path: "/teaAssignHomework",
+                component: AssignHomework,
+                name: 'teaAssignHomework',
+            }
         ]
     },
     // 管理员端
