@@ -22,6 +22,27 @@
             <el-icon style="font-size: 32px">
               <Operation/>
             </el-icon>
+            <span>用户管理</span>
+          </template>
+          <!--子菜单选项-->
+          <el-menu-item class="el-menu-item">
+            <el-icon>
+              <View/>
+            </el-icon>
+            <span>用户列表</span>
+          </el-menu-item>
+          <el-menu-item class="el-menu-item">
+            <el-icon>
+              <Plus/>
+            </el-icon>
+            <span>添加用户</span>
+          </el-menu-item>
+        </el-sub-menu>
+        <el-sub-menu index="2">
+          <template #title>
+            <el-icon style="font-size: 32px">
+              <Operation/>
+            </el-icon>
             <span>课程管理</span>
           </template>
           <!--子菜单选项-->
@@ -38,12 +59,12 @@
             <span>添加课程</span>
           </el-menu-item>
         </el-sub-menu>
-        <el-sub-menu index="2">
+        <el-sub-menu index="3">
           <template #title>
             <el-icon style="font-size: 32px">
               <Notebook/>
             </el-icon>
-            <span>作业</span>
+            <span>作业管理</span>
           </template>
           <!--子菜单选项-->
           <el-menu-item class="el-menu-item">
@@ -59,12 +80,12 @@
             <span>作业2</span>
           </el-menu-item>
         </el-sub-menu>
-        <el-sub-menu index="3">
+        <el-sub-menu index="4">
           <template #title>
             <el-icon style="font-size: 32px">
               <EditPen/>
             </el-icon>
-            <span>互评</span>
+            <span>互评打分</span>
           </template>
           <!--子菜单选项-->
           <el-menu-item class="el-menu-item">
