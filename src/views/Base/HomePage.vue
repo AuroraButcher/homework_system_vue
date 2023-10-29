@@ -1,33 +1,34 @@
 <template>
-  <div v-show="role === 'administrator'">
-    <el-card class="box-card">
-      <template #header>
-        <h1>欢迎进入羲和系统-管理员首页</h1>
-      </template>
-    </el-card>
-  </div>
-
-  <div v-show="role === 'teacher'">
-    <el-card class="box-card">
-      <template #header>
-        <h1>欢迎进入羲和系统-教师首页</h1>
-      </template>
-    </el-card>
-  </div>
-
-  <div v-show="role === 'student'">
-    <el-card class="box-card">
-      <template #header>
-        <h1>欢迎进入羲和系统-学生首页</h1>
-      </template>
-    </el-card>
-  </div>
+  <el-card class="box-card">
+    <!--轮播图-->
+    <el-carousel interval="4000" type="card" height="400px">
+      <el-carousel-item v-for="item in image" :key="item">
+        <img :src="item" alt="null" style="width: 100%">
+      </el-carousel-item>
+    </el-carousel>
+    <!--标题内容-->
+    <hr>
+    <h1 v-show="role === 'administrator'">欢迎您，亲爱的管理员</h1>
+    <h1 v-show="role === 'teacher'">欢迎进入羲和系统-教师首页</h1>
+    <h1 v-show="role === 'student'">欢迎您进入羲和系统学生首页，同学您好</h1>
+  </el-card>
 </template>
 
 <script>
 import {mapState} from "vuex";
 
 export default {
+  data() {
+    return {
+      image: [
+        "src/assets/1.jpg",
+        "src/assets/2.jpg",
+        "src/assets/3.jpg",
+        "src/assets/4.jpg",
+        "src/assets/5.jpg",
+      ]
+    }
+  },
   computed: {
     ...mapState(['role'])
   }
