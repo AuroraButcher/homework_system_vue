@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     showDetailInfo() {
-      this.$store.commit('setAdminViewCourse', this.tableData[0].no);
+      this.$store.commit('setCourseNumber', this.tableData[0].no);
       this.$router.push('/stuCourseInfo');
     }
   },

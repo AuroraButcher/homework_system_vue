@@ -4,7 +4,10 @@ import path from "./path";
 const api = {
     // 学生注册
     studentRegister(ruleForm) {
-        return axios.post(path.baseUrl + path.student + path.RegisterUrl, {number: ruleForm.number, password: ruleForm.password}, {
+        return axios.post(path.baseUrl + path.student + path.RegisterUrl, {
+            number: ruleForm.number,
+            password: ruleForm.password
+        }, {
             params: {
                 code: ruleForm.captcha,
             }
@@ -20,11 +23,17 @@ const api = {
     },
     // 学生登录
     studentLogin(ruleForm) {
-        return axios.post(path.baseUrl + path.student + path.LoginUrl, {number: ruleForm.number, password: ruleForm.password});
+        return axios.post(path.baseUrl + path.student + path.LoginUrl, {
+            number: ruleForm.number,
+            password: ruleForm.password
+        });
     },
     // 找回密码
     getBackPassword(ruleForm) {
-        return axios.post(path.baseUrl + path.student + path.getBackPassword, {number: ruleForm.number, password: ruleForm.newPassword}, {
+        return axios.post(path.baseUrl + path.student + path.getBackPassword, {
+            number: ruleForm.number,
+            password: ruleForm.newPassword
+        }, {
             params: {
                 code: ruleForm.captcha,
             }
@@ -40,7 +49,10 @@ const api = {
     },
     // 修改密码
     studentChangePassword(ruleForm) {
-        return axios.post(path.baseUrl + path.student + path.changePassword, {number: ruleForm.number, password: ruleForm.newPassword}, {
+        return axios.post(path.baseUrl + path.student + path.changePassword, {
+            number: ruleForm.number,
+            password: ruleForm.newPassword
+        }, {
             params: {
                 old_pwd: ruleForm.password,
             }
@@ -52,7 +64,10 @@ const api = {
     },
     // 教师注册
     teacherRegister(ruleForm) {
-        return axios.post(path.baseUrl + path.teacher + path.RegisterUrl, {number: ruleForm.number, password: ruleForm.password});
+        return axios.post(path.baseUrl + path.teacher + path.RegisterUrl, {
+            number: ruleForm.number,
+            password: ruleForm.password
+        });
     },
     // 教师登录
     /*teacherLogin(ruleForm) {
@@ -60,8 +75,13 @@ const api = {
     },*/
     // 管理员登录
     adminLogin(ruleForm) {
-        return axios.post(path.baseUrl + path.administrator + path.LoginUrl, {username: ruleForm.number, password: ruleForm.password});
+        return axios.post(path.baseUrl + path.administrator + path.LoginUrl, {
+            username: ruleForm.number,
+            password: ruleForm.password
+        });
     },
+
+
     //展示课程
     showCourse(tableData) {
         return axios.get(path.baseUrl + path.showCourse, {
@@ -83,7 +103,12 @@ const api = {
     },
     // 添加课程
     addCourse(ruleForm) {
-        return axios.post(path.baseUrl + path.addCourse, {info: ruleForm.info, name: ruleForm.name, teacher: ruleForm.teacher, num: ruleForm.num});
+        return axios.post(path.baseUrl + path.addCourse, {
+            info: ruleForm.info,
+            name: ruleForm.name,
+            teacher: ruleForm.teacher,
+            num: ruleForm.num
+        });
     },
     //删除课程
     deleteCourse(courseId) {
@@ -95,12 +120,24 @@ const api = {
     },
     //修改课程
     changeCourse(ruleForm) {
-        return axios.post(path.baseUrl+path.changeCourse,null,{
-            params:{
-                id:ruleForm.id,
-                info:ruleForm.info
+        return axios.post(path.baseUrl + path.changeCourse, null, {
+            params: {
+                id: ruleForm.id,
+                info: ruleForm.info
             }
         })
-    }
+    },
+
+
+    // 添加作业
+    addHomework(ruleForm) {
+        return axios.post(path.baseUrl + path.addHomework, {
+            classId: ruleForm.classId,
+            start: ruleForm.time[0],
+            end: ruleForm.time[1],
+            content: ruleForm.content,
+            resubmit: (ruleForm.multiple === true ? 1 : 0),
+        });
+    },
 }
 export default api

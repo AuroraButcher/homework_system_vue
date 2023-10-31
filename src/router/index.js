@@ -8,18 +8,15 @@ import getBackPassword from "../views/UserManagerment/GetBackPassword.vue";
 //基础
 import Home from "../views/Base/Home.vue";
 import HomePage from "../views/Base/HomePage.vue";
-import ViewCourse from "../views/CourseManagement/Shared/ViewCourse.vue"
 //课程管理
+import ViewCourse from "../views/CourseManagement/Shared/ViewCourse.vue"
 import DetailedCourseInformation from "../views/CourseManagement/Shared/DetailedInformation.vue";
-
-// 学生端
-import StudentViewCourse from "../views/CourseManagement/Student/ViewCourse.vue";
-// 教师端
-import AssignHomework from "../views/HomeworkManagement/Teacher/AssignHomework.vue";
-// 管理员端
 import AddCourse from "../views/CourseManagement/Administrator/AddCourse.vue";
 import ChangeCourseInformation from "../views/CourseManagement/Administrator/ChangeCourseInfo.vue";
-import ViewHomework from "../views/HomeworkManagement/Student/ViewHomework.vue";
+import StudentViewCourse from "../views/CourseManagement/Student/ViewCourse.vue";
+// 作业管理
+import ViewHomework from "../views/HomeworkManagement/Shared/ViewHomework.vue";
+import AssignHomework from "../views/HomeworkManagement/Teacher/AssignHomework.vue";
 
 
 //配置信息中需要页面的相关配置
@@ -87,6 +84,11 @@ const routes = [
                 path: "/teaAssignHomework",
                 component: AssignHomework,
                 name: 'teaAssignHomework',
+            },
+            {
+                path: "/teaViewHomework",
+                component: ViewHomework,
+                name: 'teaViewHomework',
             }
         ]
     },

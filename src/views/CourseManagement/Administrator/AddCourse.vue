@@ -25,7 +25,7 @@
 <script>
 import PageHeader from "../../Base/PageHeader.vue";
 import api from "../../../api";
-import {ElMessage, ElMessageBox} from "element-plus";
+import {ElMessageBox} from "element-plus";
 
 export default {
   components: {PageHeader},

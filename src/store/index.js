@@ -5,7 +5,8 @@ const store = createStore({
     state: {
         //管理员：admin，教师：teacher，学生：student
         role: "",
-        adminViewCourseNumber: null,
+        courseNumber: null,
+        homeworkNumber: null,
     },
     getters: {},
     // 进行修改
@@ -14,9 +15,13 @@ const store = createStore({
         setRole(state, value) {
             state.role = value;
         },
-        //设置管理员查看课程的课程号
-        setAdminViewCourse(state, value) {
-            state.adminViewCourseNumber = value;
+        //设置查看课程的课程号
+        setCourseNumber(state, value) {
+            state.courseNumber = value;
+        },
+        //设置查看课作业的课程号
+        setHomeworkNumber(state, value) {
+            state.homeworkNumber = value;
         },
     },
     actions: {},

@@ -5,7 +5,7 @@
     </template>
     <!--详细信息-->
     <el-descriptions :column="2" border>
-      <el-descriptions-item label="课程编号:">{{ adminViewCourseNumber }}</el-descriptions-item>
+      <el-descriptions-item label="课程编号:">{{ courseNumber }}</el-descriptions-item>
       <el-descriptions-item label="课程名称:">{{ CourseName }}</el-descriptions-item>
       <el-descriptions-item label="所属院系:">{{ Department }}</el-descriptions-item>
       <el-descriptions-item label="学分:">{{ Credit }}</el-descriptions-item>
@@ -26,14 +26,14 @@ import api from '../../../api/index.js'
 export default {
   components: {PageHeader},
   created() {
-    if(this.adminViewCourseNumber!==null){
-      api.showCourseDetail(this.adminViewCourseNumber).then(res=>{
-        if(res.data.code===20000){
-          this.CourseName=res.data.data.info.name
-          this.MaxNumber=res.data.data.info.num
-          this.CourseIntroduction=res.data.data.info.info
-          this.Teacher=res.data.data.info.teacherName
-          this.ChooseNum=res.data.data.info.currentNum
+    if (this.courseNumber !== null) {
+      api.showCourseDetail(this.courseNumber).then(res => {
+        if (res.data.code === 20000) {
+          this.CourseName = res.data.data.info.name
+          this.MaxNumber = res.data.data.info.num
+          this.CourseIntroduction = res.data.data.info.info
+          this.Teacher = res.data.data.info.teacherName
+          this.ChooseNum = res.data.data.info.currentNum
         }
       })
     }
@@ -63,7 +63,7 @@ export default {
   },
   methods: {},
   computed: {
-    ...mapState(['adminViewCourseNumber'])
+    ...mapState(['courseNumber'])
   }
 }
 </script>

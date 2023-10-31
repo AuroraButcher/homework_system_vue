@@ -1,25 +1,24 @@
 <template>
-  <el-card style="height: 100%">
+  <el-card>
     <template #header>
-      <!--页头-->
-      <page-header :component='head'/>
+      <page-header :component="head"/>
     </template>
     <div class="hang">
-      <el-input @keyup.enter="search" v-model="courseName" placeholder="请输入课程名称" style="width: 220px;"></el-input>
-      <el-button type="primary" style="margin-left: 10px" @click="search(this.courseName)">搜索</el-button>
+      <el-input @keyup.enter="search" v-model="homeworkName" placeholder="请输入作业名称" style="width: 220px;"></el-input>
+      <el-button type="primary" style="margin-left: 10px" @click="search(this.homeworkName)">搜索</el-button>
     </div>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="60px"></el-table-column>
-      <el-table-column label="课程编号" prop="id" width="100px"></el-table-column>
-      <el-table-column label="课程名称" prop="name" width="200px"></el-table-column>
-      <el-table-column label="课程教师" prop="teacherName" width="100px"></el-table-column>
+      <el-table-column label="作业编号" prop="id" width="100px"></el-table-column>
+      <el-table-column label="作业名称" prop="name" width="200px"></el-table-column>
+      <el-table-column label="截止时间" prop="endTime" width="100px"></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link style="margin-left: 10px" @click="showDetailInfo(scope)">详情</el-link>
-          <el-button type="primary" link style="margin-left: 10px" @click="showHomework(scope)" v-show="role==='teacher'">查看作业</el-button>
-<!--          管理员显示-->
-          <el-link type="primary" link style="margin-left: 10px" @click="changeCourse(scope)" v-show="role==='administrator'">修改</el-link>
-          <el-link type="primary" link style="margin-left: 10px" @click="deleteCourse(scope)" v-show="role==='administrator'">删除</el-link>
+          <!--教师显示-->
+          <el-link type="primary" link style="margin-left: 10px" @click="changeHomework(scope)" v-show="role==='teacher'">修改</el-link>
+          <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)" v-show="role==='teacher'">删除</el-link>
+          <el-link type="primary" link style="margin-left: 10px" @click="submitHomework(scope)" v-show="role==='student'">提交作业</el-link>
         </template>
       </el-table-column>
     </el-table>
@@ -37,21 +36,19 @@
 
 <script>
 import PageHeader from "../../Base/PageHeader.vue";
-import api from "../../../api/index.js"
+import api from "../../../api";
 import {ElMessage, ElMessageBox} from "element-plus";
 import {mapState} from "vuex";
 
 export default {
-  name: "checkProgram",
   components: {PageHeader},
-  data(){
+  data() {
     return {
-      head: '查看课程',
-      courseName: '',
+      head: "查看作业",
+      homeworkName: '',
       key: 1,
       tableData: [
         {
-          // 课程编号、课程简介、教师编号、课程名称、最大选修人数、现在的数量、教师名称
           "id": null,
           "info": null,
           "teacher": null,
@@ -62,16 +59,15 @@ export default {
         }
       ],
       page: {
-        name:'',
-        teacherName:'',
+        name: '',
+        teacherName: '',
         currentPage: 1,
         pageSize: 10,
-        //记录总数
         total: 100,
       },
     }
   },
-  // 展示课程信息
+  // 展示作业
   created() {
     api.showCourse(this.page).then(response => {
       if (response.data.code === 20000) {
@@ -85,7 +81,7 @@ export default {
     })
   },
   methods: {
-    //搜索课程
+    /*//搜索课程
     search(name) {
       this.page.name=name
       api.showCourse(this.page).then(response => {
@@ -98,7 +94,7 @@ export default {
           ElMessage.error(response.data.message);
         }
       })
-    },
+    },*/
     //展示详细信息
     showDetailInfo(scope) {
       this.$store.commit('setCourseNumber', scope.row.id);
@@ -118,23 +114,23 @@ export default {
             type: 'warning',
           }
       ).then(() => {
-            api.deleteCourse(scope.row.id).then(response => {
-              if (response.data.code === 20000) {
-                ElMessageBox.alert("删除成功", '消息', {
-                  confirmButtonText: 'OK',
-                  callback: action => {
-                    if (action === 'confirm') {
-                      this.search()
-                    }
-                  }
-                })
-              } else {
-                ElMessageBox.alert("删除失败", '消息', {
-                  confirmButtonText: 'OK',
-                })
+        api.deleteCourse(scope.row.id).then(response => {
+          if (response.data.code === 20000) {
+            ElMessageBox.alert("删除成功", '消息', {
+              confirmButtonText: 'OK',
+              callback: action => {
+                if (action === 'confirm') {
+                  this.search()
+                }
               }
             })
-          })
+          } else {
+            ElMessageBox.alert("删除失败", '消息', {
+              confirmButtonText: 'OK',
+            })
+          }
+        })
+      })
           .catch(() => {
           })
     },
@@ -155,19 +151,13 @@ export default {
       row.index = rowIndex;
       // console.log(row)
     },
-    showHomework(scope) {
-      this.$store.commit('setCourseNumber', scope.row.id);
-      this.$router.push('/teaAssignHomework');
-    }
   },
-  computed:{
+  computed: {
     ...mapState(['role'])
   }
 }
 </script>
 
 <style scoped>
-  .hang{
-    display: flex;
-  }
+
 </style>

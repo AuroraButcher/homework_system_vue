@@ -158,11 +158,11 @@
             </el-icon>
             <span>布置作业</span>
           </el-menu-item>
-          <el-menu-item class="el-menu-item">
+          <el-menu-item class="el-menu-item" index="/teaViewHomework">
             <el-icon>
               <DataAnalysis/>
             </el-icon>
-            <span>查看提交情况</span>
+            <span>查看作业</span>
           </el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="3">

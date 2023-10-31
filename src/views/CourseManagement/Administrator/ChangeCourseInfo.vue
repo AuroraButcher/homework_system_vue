@@ -38,8 +38,8 @@ import {ElMessage} from "element-plus";
 export default {
   components: {PageHeader},
   created() {
-    api.showCourseDetail(this.adminViewCourseNumber).then(res=>{
-      if(res.data.code===20000){
+    api.showCourseDetail(this.courseNumber).then(res => {
+      if (res.data.code === 20000) {
         this.ruleForm = res.data.data.info;
       }
     })
@@ -84,7 +84,7 @@ export default {
     }
   },
   computed:{
-    ...mapState(['adminViewCourseNumber'])
+    ...mapState(['courseNumber'])
   }
 }
 </script>

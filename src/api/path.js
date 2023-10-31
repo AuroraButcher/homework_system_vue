@@ -20,6 +20,7 @@ const base = {
     changePassword: '/change',
     // 删除账户
     delete: '/delete',
+
     // 展示课程
     showCourse: '/class/showList',
     // 课程详情
@@ -28,7 +29,18 @@ const base = {
     addCourse: '/class/add',
     // 删除课程
     deleteCourse: '/class/delete',
-    //修改课程
-    changeCourse:'/class/modify'
+    // 修改课程
+    changeCourse: '/class/modify',
+
+    // 添加作业
+    addHomework: '/homework/addContent',
+    // 删除作业
+    deleteHomework: '/homework/delete',
+    // 修改作业
+    modifyHomework: '/homework/modify',
+    // 添加作业附件
+    addHomeworkFile: '/homework/addFile',
+    // 获得作业详细信息
+    getHomeworkInfo: '/homework/getInfo',
 }
 export default base

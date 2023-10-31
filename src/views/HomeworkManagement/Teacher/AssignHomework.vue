@@ -8,7 +8,7 @@
       <span style="font-weight: bold">设定起始与截止时间：</span>
       <div class="time-select">
         <el-date-picker
-            v-model="time"
+            v-model="homeworkData.time"
             type="datetimerange"
             start-placeholder="Start date"
             end-placeholder="End date"
@@ -20,7 +20,7 @@
       </div>
       <span style="font-weight: bold;margin-left: 50px">允许多次提交：</span>
       <el-switch
-          v-model="ruleForm.multiple"
+          v-model="homeworkData.multiple"
           style="margin-left: 20px"
           inline-prompt
           :active-icon="Check"
@@ -37,15 +37,17 @@ import Vditor from 'vditor'
 import 'vditor/dist/index.css'
 import PageHeader from "../../Base/PageHeader.vue";
 import {Apple, Check, Close} from "@element-plus/icons-vue";
+import api from "../../../api";
+import {ElMessage} from "element-plus";
 
 export default {
   computed: {
     Close() {
-      return Close
+      return Close;
     },
     Check() {
-      return Check
-    }
+      return Check;
+    },
   },
   components: {Apple, PageHeader},
   data() {
@@ -53,11 +55,10 @@ export default {
       head: "添加作业",
       contentEditor: {},
       time:'',
-      ruleForm:{
-        classId:null,
-        startTime:null,
-        endTime:null,
-        content:null,
+      homeworkData: {
+        classId: null,
+        time: null,
+        content: null,
         multiple: null,
       }
     }
@@ -75,10 +76,7 @@ export default {
         enable: true,
         type: 'markdown'
       },
-      /*delay指定预览更新的延迟时间、
-      hljs配置代码语法高亮的相关设置
-      style代码高亮的主题
-      lineNumber是否显示代码行号*/
+      // delay指定预览更新的延迟时间、hljs配置代码语法高亮的相关设置、style代码高亮的主题、lineNumber是否显示代码行号
       preview: {
         delay: 0,
         hljs: {
@@ -133,18 +131,20 @@ export default {
     })
   },
   methods: {
-    assignHomework(){
-      if (
-          this.contentEditor.getValue().length === 1 ||
-          this.contentEditor.getValue() == null ||
-          this.contentEditor.getValue() === ''
-      ) {
-        alert('话题内容不可为空')
-        return false
-      }else {
-        console.log(this.time[0])
-        this.ruleForm.endTime=this.time[1]
-        this.ruleForm.startTime=this.time[0]
+    assignHomework() {
+      if (this.contentEditor.getValue().length === 1 || this.contentEditor.getValue() == null || this.contentEditor.getValue() === '') {
+        alert('话题内容不可为空');
+        return false;
+      } else {
+        this.homeworkData.classId = this.$store.state.courseNumber;
+        this.homeworkData.content = this.contentEditor.getValue();
+        api.addHomework(this.homeworkData).then(response => {
+          if (response.data.code === 20000) {
+            ElMessage.success("添加成功");
+          } else {
+            ElMessage.success("添加失败");
+          }
+        });
       }
     },
   }
