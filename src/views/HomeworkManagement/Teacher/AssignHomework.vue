@@ -8,23 +8,25 @@
       <span style="font-weight: bold">设定起始与截止时间：</span>
       <div class="time-select">
         <el-date-picker
+            v-model="time"
             type="datetimerange"
             start-placeholder="Start date"
             end-placeholder="End date"
             format="YYYY-MM-DD HH:mm:ss"
+            value-format="YYYY-MM-DDThh:mm:ss"
             date-format="YYYY/MM/DD ddd"
             time-format="A hh:mm:ss"
         />
       </div>
       <span style="font-weight: bold;margin-left: 50px">允许多次提交：</span>
       <el-switch
-          v-model="multiple"
+          v-model="ruleForm.multiple"
           style="margin-left: 20px"
           inline-prompt
           :active-icon="Check"
           :inactive-icon="Close"
       />
-      <el-button type="primary" style="width: 150px;margin-left: auto">发布作业</el-button>
+      <el-button type="primary" style="width: 150px;margin-left: auto" @click="assignHomework">发布作业</el-button>
     </div>
     <div class="editor" id="vditor"></div>
   </el-card>
@@ -49,8 +51,15 @@ export default {
   data() {
     return {
       head: "添加作业",
-      multiple: null,
       contentEditor: {},
+      time:'',
+      ruleForm:{
+        classId:null,
+        startTime:null,
+        endTime:null,
+        content:null,
+        multiple: null,
+      }
     }
   },
   mounted() {
@@ -123,7 +132,22 @@ export default {
       ],
     })
   },
-  methods: {}
+  methods: {
+    assignHomework(){
+      if (
+          this.contentEditor.getValue().length === 1 ||
+          this.contentEditor.getValue() == null ||
+          this.contentEditor.getValue() === ''
+      ) {
+        alert('话题内容不可为空')
+        return false
+      }else {
+        console.log(this.time[0])
+        this.ruleForm.endTime=this.time[1]
+        this.ruleForm.startTime=this.time[0]
+      }
+    },
+  }
 }
 </script>
 

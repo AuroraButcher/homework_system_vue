@@ -16,6 +16,7 @@
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link style="margin-left: 10px" @click="showDetailInfo(scope)">详情</el-link>
+          <el-button type="primary" link style="margin-left: 10px" @click="showHomework(scope)">查看作业</el-button>
 <!--          管理员显示-->
           <el-link type="primary" link style="margin-left: 10px" @click="changeCourse(scope)" v-show="role==='administrator'">修改</el-link>
           <el-link v-show="role==='administrator'" type="primary" link style="margin-left: 10px" @click="deleteCourse(scope)" >删除</el-link>
