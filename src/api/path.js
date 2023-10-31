@@ -42,5 +42,7 @@ const base = {
     addHomeworkFile: '/homework/addFile',
     // 获得作业详细信息
     getHomeworkInfo: '/homework/getInfo',
+    // 获得作业列表
+    getHomeworkList:'/homework/show',
 }
 export default base

@@ -139,5 +139,15 @@ const api = {
             resubmit: (ruleForm.multiple === true ? 1 : 0),
         });
     },
+    // 查看作业列表
+    getHomeworkList(ruleForm) {
+        return axios.get(path.baseUrl + path.getHomeworkList,{
+            params:{
+                classID:ruleForm.classID,
+                pageNo:ruleForm.pageNo,
+                pageSize:ruleForm.pageSize
+            }
+        })
+    }
 }
 export default api

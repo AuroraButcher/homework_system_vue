@@ -4,14 +4,16 @@
       <page-header :component="head"/>
     </template>
     <div class="hang">
-      <el-input @keyup.enter="search" v-model="homeworkName" placeholder="请输入作业名称" style="width: 220px;"></el-input>
-      <el-button type="primary" style="margin-left: 10px" @click="search(this.homeworkName)">搜索</el-button>
+<!--      <el-input @keyup.enter="search" v-model="homeworkName" placeholder="请输入作业名称" style="width: 220px;"></el-input>
+      <el-button type="primary" style="margin-left: 10px" @click="search(this.homeworkName)">搜索</el-button>-->
+
+      <el-button type="primary" style="margin-left: 80% " @click="addHomework()">添加作业</el-button>
     </div>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="60px"></el-table-column>
       <el-table-column label="作业编号" prop="id" width="100px"></el-table-column>
       <el-table-column label="作业名称" prop="name" width="200px"></el-table-column>
-      <el-table-column label="截止时间" prop="endTime" width="100px"></el-table-column>
+      <el-table-column label="截止时间" prop="end" width="300px"></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link style="margin-left: 10px" @click="showDetailInfo(scope)">详情</el-link>
@@ -26,7 +28,7 @@
     <hr style="margin-top: 10px">
     <!--页码-->
     <el-pagination
-        v-model:current-page="page.currentPage"
+        v-model:current-page="page.pageNo"
         v-model:page-size="page.pageSize"
         :total="page.total"
         @current-change="handlePageChange"
@@ -49,19 +51,18 @@ export default {
       key: 1,
       tableData: [
         {
-          "id": null,
-          "info": null,
-          "teacher": null,
-          "name": null,
-          "num": null,
-          "currentNum": null,
-          "teacherName": null
+          "id": 1,
+          "classId": 2,
+          "start": 23,
+          "end": 23,
+          "title": 23,
+          "content":null,
+          "resubmit": 23,
         }
       ],
       page: {
-        name: '',
-        teacherName: '',
-        currentPage: 1,
+        classID: '',
+        pageNo: 1,
         pageSize: 10,
         total: 100,
       },
@@ -69,18 +70,22 @@ export default {
   },
   // 展示作业
   created() {
-    api.showCourse(this.page).then(response => {
+    this.page.classID=this.courseNumber
+    api.getHomeworkList(this.page).then(response => {
       if (response.data.code === 20000) {
         //设置记录总数
-        this.page.total = response.data.data.classInfo.total;
+        this.page.total = response.data.data.homeworkInfo.total;
         //设置表数据
-        this.tableData = response.data.data.classInfo.records;
+        this.tableData = response.data.data.homeworkInfo.records;
       } else {
         ElMessage.error(response.data.message);
       }
     })
   },
   methods: {
+    addHomework(){
+      this.$router.push('/teaAssignHomework');
+    },
     /*//搜索课程
     search(name) {
       this.page.name=name
@@ -97,15 +102,16 @@ export default {
     },*/
     //展示详细信息
     showDetailInfo(scope) {
-      this.$store.commit('setCourseNumber', scope.row.id);
+      this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push('/adminCourseInfo');
     },
-    changeCourse(scope) {
-      this.$store.commit('setCourseNumber', scope.row.id);
+    //修改作业
+    changeHomework(scope) {
+      this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push('/changeCourseInfo');
     },
     //删除课程
-    deleteCourse(scope) {
+    deleteHomework(scope) {
       ElMessageBox.confirm(
           '你确定你要删除吗?',
           {
@@ -153,7 +159,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(['role'])
+    ...mapState(['courseNumber','role'])
   }
 }
 </script>

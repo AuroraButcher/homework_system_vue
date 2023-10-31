@@ -157,7 +157,7 @@ export default {
     },
     showHomework(scope) {
       this.$store.commit('setCourseNumber', scope.row.id);
-      this.$router.push('/teaAssignHomework');
+      this.$router.push('/teaViewHomework');
     }
   },
   computed:{
