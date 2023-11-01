@@ -110,7 +110,7 @@ export default {
     //修改作业
     changeHomework(scope) {
       this.$store.commit('setHomeworkNumber', scope.row.id);
-      this.$router.push('/changeCourseInfo');
+      this.$router.push('/teaChangeHomework');
     },
     //删除课程
     deleteHomework(scope) {

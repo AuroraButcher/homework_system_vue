@@ -21,7 +21,7 @@
       />
       <span style="font-weight: bold;margin-left: 20px">允许多次提交：</span>
       <el-switch
-          v-model="homeworkData.multiple"
+          v-model="resubmit"
           style="margin-left: 15px"
           inline-prompt
           :active-icon="Check"
@@ -73,6 +73,7 @@ export default {
       head: "添加作业",
       contentEditor: {},
       time: '',
+      resubmit:false,
       homeworkData: {
         title: null,
         classId: null,
@@ -161,6 +162,7 @@ export default {
       } else {
         this.homeworkData.classId = this.$store.state.courseNumber;
         this.homeworkData.content = this.contentEditor.getValue();
+        this.homeworkData.multiple=(this.resubmit === true)?1:0;
         api.addHomework(this.homeworkData).then(response => {
           if (response.data.code === 20000) {
             ElMessage.success("添加成功");

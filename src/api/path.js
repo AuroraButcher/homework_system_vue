@@ -44,5 +44,11 @@ const base = {
     getHomeworkInfo: '/homework/getInfo',
     // 获得作业列表
     getHomeworkList:'/homework/show',
+    // 老师查看课程
+    teacherShowCourse:'/teacher/showList',
+    // 获取老师列表
+    getTeacherList:'/teacher/list',
+    // 修改作业
+    changeHomework:'/homework/modify'
 }
 export default base

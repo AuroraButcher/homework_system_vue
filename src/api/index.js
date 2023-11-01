@@ -87,11 +87,25 @@ const api = {
         return axios.get(path.baseUrl + path.showCourse, {
             params: {
                 name: tableData.name,
-                teacher: tableData.teacher,
+                teacher: tableData.teacherName,
                 pageNo: tableData.currentPage,
                 pageSize: tableData.pageSize,
             }
         })
+    },
+    //老师展示课程
+    teacherShowCourse(tableData) {
+        return axios.get(path.baseUrl + path.showCourse, {
+            params: {
+                name: tableData.name,
+                number: tableData.number,
+                pageNo: tableData.currentPage,
+                pageSize: tableData.pageSize,
+            }
+        })
+    },
+    getTeacherList(){
+        return axios.get(path.baseUrl+path.getTeacherList)
     },
     //课程详情
     showCourseDetail(id){
@@ -157,6 +171,20 @@ const api = {
                 id: id
             }
         });
+    },
+    //修改作业
+    changeHomework(homeworkData) {
+        return axios.post(path.baseUrl + path.changeHomework,{
+            start:homeworkData.time[0],
+            end:homeworkData.time[1],
+            content:homeworkData.content,
+            resubmit:homeworkData.multiple,
+            name:homeworkData.title
+        },{
+            params:{
+                id:homeworkData.id,
+            }
+        })
     },
     // 删除作业
     deleteHomework(homeworkId) {

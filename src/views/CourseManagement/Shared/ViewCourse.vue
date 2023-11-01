@@ -40,6 +40,7 @@ import PageHeader from "../../Base/PageHeader.vue";
 import api from "../../../api/index.js"
 import {ElMessage, ElMessageBox} from "element-plus";
 import {mapState} from "vuex";
+import Cookies from "js-cookie";
 
 export default {
   name: "checkProgram",
@@ -68,11 +69,16 @@ export default {
         pageSize: 10,
         //记录总数
         total: 100,
+        number:Number,
       },
     }
   },
   // 展示课程信息
   created() {
+    if(this.role==='teacher'){
+      this.page.number=Cookies.get('number')
+      this.page.teacherName=Cookies.get('name')
+    }
     api.showCourse(this.page).then(response => {
       if (response.data.code === 20000) {
         //设置记录总数
