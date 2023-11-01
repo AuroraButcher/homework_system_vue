@@ -82,7 +82,7 @@ const api = {
     },
 
 
-    //展示课程
+    //管理员展示课程
     showCourse(tableData) {
         return axios.get(path.baseUrl + path.showCourse, {
             params: {
@@ -93,19 +93,9 @@ const api = {
             }
         })
     },
-    //老师展示课程
-    teacherShowCourse(tableData) {
-        return axios.get(path.baseUrl + path.showCourse, {
-            params: {
-                name: tableData.name,
-                number: tableData.number,
-                pageNo: tableData.currentPage,
-                pageSize: tableData.pageSize,
-            }
-        })
-    },
+    // 获得教师列表
     getTeacherList(){
-        return axios.get(path.baseUrl+path.getTeacherList)
+        return axios.get(path.baseUrl + path.getTeacherList);
     },
     //课程详情
     showCourseDetail(id){
@@ -141,8 +131,17 @@ const api = {
             }
         })
     },
-
-
+    // 学生查看课程
+    studentShowCourse(tableData) {
+        return axios.get(path.baseUrl + path.studentShowCourse, {
+            params: {
+                number: tableData.number,
+                name: tableData.courseName,
+                pageNo: tableData.currentPage,
+                pageSize: tableData.pageSize,
+            }
+        })
+    },
     // 添加作业
     addHomework(ruleForm) {
         return axios.post(path.baseUrl + path.addHomework, {
@@ -194,17 +193,5 @@ const api = {
             }
         })
     },
-    // 修改作业
-    /*modifyHomework(ruleForm) {
-        return axios.post(path.deleteHomework, {
-            start:,
-            end:,
-            content:,
-            resubmit:,
-        },{
-            id:homeworkId,
-        })
-    },*/
-
 }
 export default api

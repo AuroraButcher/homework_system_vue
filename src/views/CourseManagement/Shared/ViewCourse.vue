@@ -16,8 +16,7 @@
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link style="margin-left: 10px" @click="showDetailInfo(scope)">详情</el-link>
-          <el-button type="primary" link style="margin-left: 10px" @click="showHomework(scope)" v-show="role==='teacher'">查看作业</el-button>
-<!--          管理员显示-->
+          <el-button type="primary" link style="margin-left: 10px" @click="showHomework(scope)" v-show="role==='teacher'||role==='student'">查看作业</el-button>
           <el-link type="primary" link style="margin-left: 10px" @click="changeCourse(scope)" v-show="role==='administrator'">修改</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="deleteCourse(scope)" v-show="role==='administrator'">删除</el-link>
         </template>
@@ -75,20 +74,43 @@ export default {
   },
   // 展示课程信息
   created() {
-    if(this.role==='teacher'){
-      this.page.number=Cookies.get('number')
-      this.page.teacherName=Cookies.get('name')
+    if (this.role === 'teacher') {
+      this.page.number = Cookies.get('number');
+      this.page.teacherName = Cookies.get('name');
+      api.showCourse(this.page).then(response => {
+        if (response.data.code === 20000) {
+          //设置记录总数
+          this.page.total = response.data.data.classInfo.total;
+          //设置表数据
+          this.tableData = response.data.data.classInfo.records;
+        } else {
+          ElMessage.error(response.data.message);
+        }
+      })
+    } else if (this.role === 'student') {
+      this.page.number = Cookies.get('number');
+      api.studentShowCourse(this.page).then(response => {
+        if (response.data.code === 20000) {
+          //设置记录总数
+          this.page.total = response.data.data.classInfo.total;
+          //设置表数据
+          this.tableData = response.data.data.classInfo.records;
+        } else {
+          ElMessage.error(response.data.message);
+        }
+      })
+    } else {
+      api.showCourse(this.page).then(response => {
+        if (response.data.code === 20000) {
+          //设置记录总数
+          this.page.total = response.data.data.classInfo.total;
+          //设置表数据
+          this.tableData = response.data.data.classInfo.records;
+        } else {
+          ElMessage.error(response.data.message);
+        }
+      })
     }
-    api.showCourse(this.page).then(response => {
-      if (response.data.code === 20000) {
-        //设置记录总数
-        this.page.total = response.data.data.classInfo.total;
-        //设置表数据
-        this.tableData = response.data.data.classInfo.records;
-      } else {
-        ElMessage.error(response.data.message);
-      }
-    })
   },
   methods: {
     //搜索课程

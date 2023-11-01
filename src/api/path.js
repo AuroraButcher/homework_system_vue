@@ -31,6 +31,8 @@ const base = {
     deleteCourse: '/class/delete',
     // 修改课程
     changeCourse: '/class/modify',
+    // 学生查看课程
+    studentShowCourse: '/class/studentList',
 
     // 添加作业
     addHomework: '/homework/addContent',
@@ -44,8 +46,6 @@ const base = {
     getHomeworkInfo: '/homework/getInfo',
     // 获得作业列表
     getHomeworkList:'/homework/show',
-    // 老师查看课程
-    teacherShowCourse:'/teacher/showList',
     // 获取老师列表
     getTeacherList:'/teacher/list',
     // 修改作业

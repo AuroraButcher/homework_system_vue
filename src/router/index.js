@@ -13,7 +13,6 @@ import ViewCourse from "../views/CourseManagement/Shared/ViewCourse.vue"; //查�
 import DetailedCourseInformation from "../views/CourseManagement/Shared/DetailedInformation.vue"; //课程详情（三端共用）
 import AddCourse from "../views/CourseManagement/Administrator/AddCourse.vue"; //添加课程（管理员）
 import ChangeCourseInformation from "../views/CourseManagement/Administrator/ChangeCourseInfo.vue"; //修改课程信息（管理员、教师）
-import StudentViewCourse from "../views/CourseManagement/Student/ViewCourse.vue"; //查看课程（学生）
 // 作业管理
 import ViewHomework from "../views/HomeworkManagement/Shared/ViewHomework.vue"; //查看作业（教师、学生）
 import AssignHomework from "../views/HomeworkManagement/Teacher/AssignHomework.vue"; //发布作业(教师)
@@ -46,7 +45,7 @@ const routes = [
             },
             {
                 path: '/studentViewCourse',
-                component: StudentViewCourse,
+                component: ViewCourse,
                 name: 'studentViewCourse'
             },
             {
