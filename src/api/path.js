@@ -49,6 +49,8 @@ const base = {
     // 获取老师列表
     getTeacherList:'/teacher/list',
     // 修改作业
-    changeHomework:'/homework/modify'
+    changeHomework:'/homework/modify',
+    // 提交作业
+    submitHomework:'/homework/submit'
 }
 export default base

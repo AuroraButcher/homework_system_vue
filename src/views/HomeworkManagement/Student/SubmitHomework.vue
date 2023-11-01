@@ -21,7 +21,7 @@
             </template>
           </el-upload>
         </div>-->
-    <el-button style="margin-top:5%">提交作业</el-button>
+    <el-button style="margin-top:5%" @click="submitHomework">提交作业</el-button>
   </el-card>
 </template>
 
@@ -32,6 +32,7 @@ import PageHeader from "../../Base/PageHeader.vue";
 import {Apple, Check, Close} from "@element-plus/icons-vue";
 import api from "../../../api";
 import {ElMessage} from "element-plus";
+import Cookies from "js-cookie";
 
 export default {
   computed: {
@@ -47,14 +48,12 @@ export default {
     return {
       head: "提交作业",
       contentEditor: {},
-      time: '',
-      resubmit:false,
       homeworkData: {
-        title: null,
+        homeworkId: null,
         classId: null,
         time: null,
         content: null,
-        multiple: null,
+        studentNumber: null,
       },
       fileList: [{
         name: "",
@@ -131,19 +130,35 @@ export default {
     })
   },
   methods: {
-    assignHomework() {
+    submitHomework() {
       if (this.contentEditor.getValue().length === 1 || this.contentEditor.getValue() == null || this.contentEditor.getValue() === '') {
-        alert('话题内容不可为空');
+        alert('内容不可为空');
         return false;
       } else {
         this.homeworkData.classId = this.$store.state.courseNumber;
+        this.homeworkData.homeworkId = this.$store.state.homeworkNumber;
+        this.homeworkData.studentNumber = Cookies.get('number');
         this.homeworkData.content = this.contentEditor.getValue();
-        this.homeworkData.multiple=(this.resubmit === true)?1:0;
-        api.addHomework(this.homeworkData).then(response => {
+        let year = new Date().getFullYear(); //获取当前时间的年份
+        let month = new Date().getMonth() + 1; //获取当前时间的月份
+        let day = new Date().getDate(); //获取当前时间的天数
+        let hours = new Date().getHours(); //获取当前时间的小时
+        let minutes = new Date().getMinutes(); //获取当前时间的分数
+        let seconds = new Date().getSeconds(); //获取当前时间的秒数
+        //当小于 10 的是时候，在前面加 0
+        if (hours < 10) hours = "0" + hours;
+        if (minutes < 10) minutes = "0" + minutes;
+        if (seconds < 10) seconds = "0" + seconds;
+        if (day<10) day="0"+day;
+        if (month<10) month="0"+month;
+        this.homeworkData.time=year + "-" + month + "-" + day + "T" + hours + ":" + minutes + ":" + seconds;
+        console.log(this.homeworkData)
+        api.submitHomework(this.homeworkData).then(response => {
           if (response.data.code === 20000) {
-            ElMessage.success("添加成功");
+            ElMessage.success("上传成功");
+            this.$router.push('/teaViewHomework');
           } else {
-            ElMessage.success("添加失败");
+            ElMessage.success("上传失败");
           }
         });
       }

@@ -1,6 +1,7 @@
 import axios from "../utils/request";
 import path from "./path";
 
+
 const api = {
     // 学生注册
     studentRegister(ruleForm) {
@@ -193,5 +194,15 @@ const api = {
             }
         })
     },
+    // 上传作业
+    submitHomework(homeworkData){
+        return axios.post(path.baseUrl + path.submitHomework,{
+            answer:homeworkData.content,
+            homeworkId:homeworkData.homeworkId,
+            classId:18,
+            studentNumber:homeworkData.studentNumber,
+            date:homeworkData.time
+        })
+    }
 }
 export default api

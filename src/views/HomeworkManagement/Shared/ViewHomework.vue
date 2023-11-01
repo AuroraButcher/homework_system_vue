@@ -147,7 +147,8 @@ export default {
     },
     // 提交作业
     submitHomework(scope) {
-
+      this.$store.commit('setHomeworkNumber', scope.row.id);
+      this.$router.push('/submitHomework');
     },
     // 处理页数改变
     handlePageChange() {
