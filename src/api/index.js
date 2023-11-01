@@ -166,7 +166,7 @@ const api = {
             }
         })
     },
-    // 删除作业
+    // 修改作业
     /*modifyHomework(ruleForm) {
         return axios.post(path.deleteHomework, {
             start:,

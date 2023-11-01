@@ -114,7 +114,7 @@ export default {
     },
     //删除课程
     deleteHomework(scope) {
-      /*ElMessageBox.confirm(
+      ElMessageBox.confirm(
           '你确定你要删除吗?',
           {
             confirmButtonText: '确定',
@@ -122,7 +122,7 @@ export default {
             type: 'warning',
           }
       ).then(() => {
-        api.deleteCourse(scope.row.id).then(response => {
+        api.deleteHomework(scope.row.id).then(response => {
           if (response.data.code === 20000) {
             ElMessageBox.alert("删除成功", '消息', {
               confirmButtonText: 'OK',
@@ -138,7 +138,8 @@ export default {
             })
           }
         })
-      }).catch(() => {})*/
+      }).catch(() => {
+      })
     },
     // 查看提交情况
     viewSubmitHomework(scoped) {
