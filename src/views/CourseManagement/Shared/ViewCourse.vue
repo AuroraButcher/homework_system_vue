@@ -15,8 +15,8 @@
       <el-table-column label="课程教师" prop="teacherName" width="100px"></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
-          <el-link type="primary" link style="margin-left: 10px" @click="showDetailInfo(scope)">详情</el-link>
-          <el-button type="primary" link style="margin-left: 10px" @click="showHomework(scope)" v-show="role==='teacher'||role==='student'">查看作业</el-button>
+          <el-link type="primary" link style="margin-left: 10px" @click="showDetailInfo(scope)">课程详情</el-link>
+          <el-button type="primary" link style="margin-left: 10px" @click="showHomework(scope)" v-show="role==='teacher'||role==='student'">作业列表</el-button>
           <el-link type="primary" link style="margin-left: 10px" @click="changeCourse(scope)" v-show="role==='administrator'">修改</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="deleteCourse(scope)" v-show="role==='administrator'">删除</el-link>
         </template>
@@ -62,49 +62,43 @@ export default {
         }
       ],
       page: {
-        name:'',
-        teacherName:'',
+        courseName: '',
+        teacherName: '',
+        teacherNumber: '',
+        studentNumber: '',
         currentPage: 1,
         pageSize: 10,
         //记录总数
         total: 100,
-        number:Number,
       },
     }
   },
   // 展示课程信息
   created() {
-    if (this.role === 'teacher') {
-      this.page.number = Cookies.get('number');
-      this.page.teacherName = Cookies.get('name');
+    if (this.role === 'administrator') {
       api.showCourse(this.page).then(response => {
         if (response.data.code === 20000) {
-          //设置记录总数
           this.page.total = response.data.data.classInfo.total;
-          //设置表数据
           this.tableData = response.data.data.classInfo.records;
         } else {
           ElMessage.error(response.data.message);
         }
       })
     } else if (this.role === 'student') {
-      this.page.number = Cookies.get('number');
+      this.page.studentNumber = Cookies.get('number');
       api.studentShowCourse(this.page).then(response => {
         if (response.data.code === 20000) {
-          //设置记录总数
           this.page.total = response.data.data.classInfo.total;
-          //设置表数据
           this.tableData = response.data.data.classInfo.records;
         } else {
           ElMessage.error(response.data.message);
         }
       })
     } else {
-      api.showCourse(this.page).then(response => {
+      this.page.teacherNumber = Cookies.get('number');
+      api.teacherShowCourse(this.page).then(response => {
         if (response.data.code === 20000) {
-          //设置记录总数
           this.page.total = response.data.data.classInfo.total;
-          //设置表数据
           this.tableData = response.data.data.classInfo.records;
         } else {
           ElMessage.error(response.data.message);
@@ -114,23 +108,45 @@ export default {
   },
   methods: {
     //搜索课程
-    search(name) {
-      this.page.name=name
-      api.showCourse(this.page).then(response => {
-        if (response.data.code === 20000) {
-          //设置记录总数
-          this.page.total = response.data.data.classInfo.total;
-          //设置表数据
-          this.tableData = response.data.data.classInfo.records;
-        } else {
-          ElMessage.error(response.data.message);
-        }
-      })
+    search(courseName) {
+      if (this.role === 'administrator') {
+        api.showCourse(this.page).then(response => {
+          this.page.courseName = courseName;
+          if (response.data.code === 20000) {
+            this.page.total = response.data.data.classInfo.total;
+            this.tableData = response.data.data.classInfo.records;
+          } else {
+            ElMessage.error(response.data.message);
+          }
+        })
+      } else if (this.role === 'student') {
+        this.page.studentNumber = Cookies.get('number');
+        this.page.courseName = courseName;
+        api.studentShowCourse(this.page).then(response => {
+          if (response.data.code === 20000) {
+            this.page.total = response.data.data.classInfo.total;
+            this.tableData = response.data.data.classInfo.records;
+          } else {
+            ElMessage.error(response.data.message);
+          }
+        })
+      } else {
+        this.page.teacherNumber = Cookies.get('number');
+        this.page.courseName = courseName;
+        api.teacherShowCourse(this.page).then(response => {
+          if (response.data.code === 20000) {
+            this.page.total = response.data.data.classInfo.total;
+            this.tableData = response.data.data.classInfo.records;
+          } else {
+            ElMessage.error(response.data.message);
+          }
+        })
+      }
     },
     //展示详细信息
     showDetailInfo(scope) {
       this.$store.commit('setCourseNumber', scope.row.id);
-      this.$router.push('/adminCourseInfo');
+      this.$router.push('/courseInfo');
     },
     changeCourse(scope) {
       this.$store.commit('setCourseNumber', scope.row.id);
@@ -181,11 +197,14 @@ export default {
     rowClassName({row, rowIndex}) {
       //把每一行的索引放进row
       row.index = rowIndex;
-      // console.log(row)
     },
     showHomework(scope) {
       this.$store.commit('setCourseNumber', scope.row.id);
-      this.$router.push('/teaViewHomework');
+      if (this.role === 'teacher') {
+        this.$router.push('/teaViewHomework');
+      } else {
+        this.$router.push('/stuViewHomework');
+      }
     }
   },
   computed:{
@@ -195,7 +214,7 @@ export default {
 </script>
 
 <style scoped>
-  .hang{
-    display: flex;
-  }
+.hang {
+  display: flex;
+}
 </style>

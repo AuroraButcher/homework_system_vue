@@ -6,7 +6,6 @@ const base = {
     administrator: '/admin',
     teacher: '/teacher',
     student: '/student',
-
     //其他网址
     // 登录
     LoginUrl: '/login',
@@ -20,10 +19,13 @@ const base = {
     changePassword: '/change',
     // 删除账户
     delete: '/delete',
+    // 获取老师列表
+    getTeacherList: '/teacher/list',
 
-    // 展示课程
+
+    // 管理员查看课程
     showCourse: '/class/showList',
-    // 课程详情
+    // 课程详情--
     courseDetail: '/class/showInfo',
     // 添加课程
     addCourse: '/class/add',
@@ -33,24 +35,23 @@ const base = {
     changeCourse: '/class/modify',
     // 学生查看课程
     studentShowCourse: '/class/studentList',
+    // 教师查看课程
+    teacherShowCourse: '/class/teacherList',
+
 
     // 添加作业
     addHomework: '/homework/addContent',
     // 删除作业
     deleteHomework: '/homework/delete',
-    // 修改作业
-    modifyHomework: '/homework/modify',
     // 添加作业附件
     addHomeworkFile: '/homework/addFile',
-    // 获得作业详细信息
+    // 获得作业列表--
+    getHomeworkList: '/homework/show',
+    // 获得作业详细信息--
     getHomeworkInfo: '/homework/getInfo',
-    // 获得作业列表
-    getHomeworkList:'/homework/show',
-    // 获取老师列表
-    getTeacherList:'/teacher/list',
     // 修改作业
-    changeHomework:'/homework/modify',
+    changeHomework: '/homework/modify',
     // 提交作业
-    submitHomework:'/homework/submit'
+    submitHomework: '/homework/submit'
 }
 export default base

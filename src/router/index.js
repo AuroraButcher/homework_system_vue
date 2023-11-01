@@ -40,31 +40,39 @@ const routes = [
         name: 'studentHome',
         children: [
             {
+                // 学生首页--
                 path: '',
                 component: HomePage,
                 name: 'studentHomePage'
             },
+            // 课程模块
             {
-                path: '/studentViewCourse',
+                // 学生查看课程--
+                path: '/viewCourse',
                 component: ViewCourse,
                 name: 'studentViewCourse'
             },
             {
-                path: "/stuCourseInfo",
+                // 学生课程详情--
+                path: "/courseInfo",
                 component: DetailedCourseInformation,
                 name: 'stuCourseInfo',
             },
+            // 作业模块
             {
+                // 学生作业列表--
                 path: "/stuViewHomework",
                 component: ViewHomework,
                 name: 'stuViewHomework',
             },
             {
+                // 学生作业详情--
                 path: "/detailedHomework",
                 component: DetailedHomework,
                 name: 'detailedHomework',
             },
             {
+                // 学生提交作业
                 path:"/submitHomework",
                 component: SubmitHomework,
                 name:'submitHomework'
@@ -78,36 +86,45 @@ const routes = [
         name: 'teacherHome',
         children: [
             {
+                // 教师首页--
                 path: '',
                 component: HomePage,
                 name: 'teacherHomePage'
             },
+            // 课程模块
             {
-                path: '/teacherViewCourse',
+                // 教师查看课程--
+                path: '/viewCourse',
                 component: ViewCourse,
                 name: 'teacherViewCourse'
             },
             {
-                path: "/teaCourseInfo",
+                // 教师课程详情--
+                path: "/courseInfo",
                 component: DetailedCourseInformation,
                 name: 'teaCourseInfo',
             },
+            // 作业模块
             {
+                // 教师布置作业
                 path: "/teaAssignHomework",
                 component: AssignHomework,
                 name: 'teaAssignHomework',
             },
             {
+                // 教师作业列表--
                 path: "/teaViewHomework",
                 component: ViewHomework,
                 name: 'teaViewHomework',
             },
             {
+                // 教师作业详情--
                 path: "/detailedHomework",
                 component: DetailedHomework,
                 name: 'detailedHomework',
             },
             {
+                // 教师修改作业信息
                 path:"/teaChangeHomework",
                 component: changeHomework,
                 name:'teaChangeHomework'
@@ -121,26 +138,32 @@ const routes = [
         name: 'adminHome',
         children: [
             {
+                // 管理员首页--
                 path: '',
                 component: HomePage,
                 name: 'adminHomePage'
             },
+            // 课程列表
             {
-                path: '/adminViewCourse',
+                // 管理员课程列表--
+                path: '/viewCourse',
                 component: ViewCourse,
                 name: 'adminViewCourse'
             },
             {
+                // 管理员添加课程
                 path: "/addCourse",
                 component: AddCourse,
                 name: 'addCourse',
             },
             {
-                path: "/adminCourseInfo",
+                // 管理员课程详情--
+                path: "/courseInfo",
                 component: DetailedCourseInformation,
                 name: 'adminCourseInfo',
             },
             {
+                // 管理员修改课程信息
                 path: "/changeCourseInfo",
                 component: ChangeCourseInformation,
                 name: 'changeCourseInfo',

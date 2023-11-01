@@ -46,7 +46,7 @@
             <span>课程管理</span>
           </template>
           <!--子菜单选项-->
-          <el-menu-item class="el-menu-item" index="/adminViewCourse">
+          <el-menu-item class="el-menu-item" index="/viewCourse">
             <el-icon>
               <View/>
             </el-icon>
@@ -137,7 +137,7 @@
             <span>课程</span>
           </template>
           <!--子菜单选项-->
-          <el-menu-item class="el-menu-item" index="/teacherViewCourse">
+          <el-menu-item class="el-menu-item" index="/viewCourse">
             <el-icon>
               <View/>
             </el-icon>
@@ -216,7 +216,7 @@
             <span>课程</span>
           </template>
           <!--子菜单选项-->
-          <el-menu-item class="el-menu-item" index="/studentViewCourse">
+          <el-menu-item class="el-menu-item" index="/viewCourse">
             <el-icon>
               <View/>
             </el-icon>

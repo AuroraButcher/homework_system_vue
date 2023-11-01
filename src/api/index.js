@@ -81,24 +81,24 @@ const api = {
             password: ruleForm.password
         });
     },
+    // 获得教师列表
+    getTeacherList() {
+        return axios.get(path.baseUrl + path.getTeacherList);
+    },
 
 
-    //管理员展示课程
+    //管理员展示搜索课程
     showCourse(tableData) {
         return axios.get(path.baseUrl + path.showCourse, {
             params: {
-                name: tableData.name,
+                name: tableData.courseName,
                 teacher: tableData.teacherName,
                 pageNo: tableData.currentPage,
                 pageSize: tableData.pageSize,
             }
         })
     },
-    // 获得教师列表
-    getTeacherList(){
-        return axios.get(path.baseUrl + path.getTeacherList);
-    },
-    //课程详情
+    //课程详情--
     showCourseDetail(id){
         return axios.get(path.baseUrl+path.courseDetail,{
             params:{
@@ -132,17 +132,30 @@ const api = {
             }
         })
     },
-    // 学生查看课程
+    // 学生查看搜索课程
     studentShowCourse(tableData) {
         return axios.get(path.baseUrl + path.studentShowCourse, {
             params: {
-                number: tableData.number,
+                number: tableData.studentNumber,
                 name: tableData.courseName,
                 pageNo: tableData.currentPage,
                 pageSize: tableData.pageSize,
             }
         })
     },
+    // 教师查看搜索课程
+    teacherShowCourse(tableData) {
+        return axios.get(path.baseUrl + path.teacherShowCourse, {
+            params: {
+                number: tableData.teacherNumber,
+                name: tableData.courseName,
+                pageNo: tableData.currentPage,
+                pageSize: tableData.pageSize,
+            }
+        })
+    },
+
+
     // 添加作业
     addHomework(ruleForm) {
         return axios.post(path.baseUrl + path.addHomework, {

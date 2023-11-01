@@ -5,7 +5,7 @@
       <page-header :component="head"></page-header>
     </template>
     <!--表单-->
-    <el-form :column="2" border :model="ruleForm" status-icon :rules="rules" ref="ruleForm" >
+    <el-form :column="2" border :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left" label-width="100px">
       <el-form-item label="课程编号:" prop="id">
         <el-input disabled type="text" v-model="ruleForm.id"></el-input>
       </el-form-item>
