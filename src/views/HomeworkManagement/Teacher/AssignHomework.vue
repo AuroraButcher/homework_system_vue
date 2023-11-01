@@ -3,32 +3,50 @@
     <template #header>
       <page-header :component="head"/>
     </template>
-    <!--选择开始时间和截止时间-->
+    <!--设置标题、开始时间和截止时间、是否允许多次提交-->
     <div class="selectHeader">
-      <span style="font-weight: bold">设定起始与截止时间：</span>
-      <div class="time-select">
-        <el-date-picker
-            v-model="homeworkData.time"
-            type="datetimerange"
-            start-placeholder="Start date"
-            end-placeholder="End date"
-            format="YYYY-MM-DD HH:mm:ss"
-            value-format="YYYY-MM-DDThh:mm:ss"
-            date-format="YYYY/MM/DD ddd"
-            time-format="A hh:mm:ss"
-        />
-      </div>
-      <span style="font-weight: bold;margin-left: 50px">允许多次提交：</span>
+      <span style="font-weight: bold">标题：</span>
+      <el-input style="width: 200px" v-model="homeworkData.title"></el-input>
+      <span style="font-weight: bold;margin-left: 20px">起始与截止时间：</span>
+      <el-date-picker
+          v-model="homeworkData.time"
+          type="datetimerange"
+          start-placeholder="Start date"
+          end-placeholder="End date"
+          format="YYYY-MM-DD HH:mm:ss"
+          value-format="YYYY-MM-DDThh:mm:ss"
+          date-format="YYYY/MM/DD ddd"
+          time-format="A hh:mm:ss"
+          style="margin-left: 10px"
+      />
+      <span style="font-weight: bold;margin-left: 20px">允许多次提交：</span>
       <el-switch
           v-model="homeworkData.multiple"
-          style="margin-left: 20px"
+          style="margin-left: 15px"
           inline-prompt
           :active-icon="Check"
           :inactive-icon="Close"
       />
-      <el-button type="primary" style="width: 150px;margin-left: auto" @click="assignHomework">发布作业</el-button>
+      <el-button type="primary" style="width: 150px;margin-left: 20px" @click="assignHomework">发布作业</el-button>
     </div>
+    <!--编辑器-->
     <div class="editor" id="vditor"></div>
+    <!--附件上传-->
+    <!--    <div>
+          <el-upload
+              v-model:file-list="fileList"
+              class="upload-demo"
+              action="http://hyh31.top:3000/homework/addFile"
+              :show-file-list="true"
+          >
+            <el-button type="primary">上传附件</el-button>
+            <template #tip>
+              <div class="el-upload__tip">
+                jpg/png files with a size less than 500kb
+              </div>
+            </template>
+          </el-upload>
+        </div>-->
   </el-card>
 </template>
 
@@ -54,13 +72,18 @@ export default {
     return {
       head: "添加作业",
       contentEditor: {},
-      time:'',
+      time: '',
       homeworkData: {
+        title: null,
         classId: null,
         time: null,
         content: null,
         multiple: null,
-      }
+      },
+      fileList: [{
+        name: "",
+        url: "",
+      }],
     }
   },
   mounted() {
@@ -155,10 +178,6 @@ export default {
 .selectHeader {
   display: flex;
   align-items: center;
-
-  .time-select {
-    margin-left: 10px
-  }
 }
 
 .editor {

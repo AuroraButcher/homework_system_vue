@@ -137,17 +137,46 @@ const api = {
             end: ruleForm.time[1],
             content: ruleForm.content,
             resubmit: (ruleForm.multiple === true ? 1 : 0),
+            name: ruleForm.title,
         });
     },
     // 查看作业列表
     getHomeworkList(ruleForm) {
-        return axios.get(path.baseUrl + path.getHomeworkList,{
-            params:{
-                classID:ruleForm.classID,
-                pageNo:ruleForm.pageNo,
-                pageSize:ruleForm.pageSize
+        return axios.get(path.baseUrl + path.getHomeworkList, {
+            params: {
+                classID: ruleForm.classID,
+                pageNo: ruleForm.pageNo,
+                pageSize: ruleForm.pageSize
             }
         })
-    }
+    },
+    // 获得作业详细信息
+    getHomeworkInfo(id) {
+        return axios.get(path.baseUrl + path.getHomeworkInfo, {
+            params: {
+                id: id
+            }
+        });
+    },
+    // 删除作业
+    deleteHomework(homeworkId) {
+        return axios.post(path.baseUrl + path.deleteHomework, null, {
+            params: {
+                id: homeworkId
+            }
+        })
+    },
+    // 删除作业
+    /*modifyHomework(ruleForm) {
+        return axios.post(path.deleteHomework, {
+            start:,
+            end:,
+            content:,
+            resubmit:,
+        },{
+            id:homeworkId,
+        })
+    },*/
+
 }
 export default api

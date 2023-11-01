@@ -4,20 +4,20 @@
       <page-header :component="head"/>
     </template>
     <div class="hang">
-<!--      <el-input @keyup.enter="search" v-model="homeworkName" placeholder="请输入作业名称" style="width: 220px;"></el-input>
-      <el-button type="primary" style="margin-left: 10px" @click="search(this.homeworkName)">搜索</el-button>-->
-
-      <el-button type="primary" style="margin-left: 80% " @click="addHomework()">添加作业</el-button>
+      <el-input @keyup.enter="search" v-model="homeworkName" placeholder="请输入作业名称" style="width: 220px;"></el-input>
+      <el-button type="primary" style="margin-left: 10px" @click="search(this.homeworkName)">搜索</el-button>
+      <el-button type="primary" style="margin-left: 800px" @click="addHomework()">添加作业</el-button>
     </div>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="60px"></el-table-column>
       <el-table-column label="作业编号" prop="id" width="100px"></el-table-column>
       <el-table-column label="作业名称" prop="name" width="200px"></el-table-column>
       <el-table-column label="截止时间" prop="end" width="300px"></el-table-column>
+      <!--      <el-table-column label="分数" prop="result" width="200px" v-show="role==='student'"></el-table-column>-->
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link style="margin-left: 10px" @click="showDetailInfo(scope)">详情</el-link>
-          <!--教师显示-->
+          <el-link type="primary" link style="margin-left: 10px" @click="viewSubmitHomework(scope)" v-show="role==='teacher'">提交情况</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="changeHomework(scope)" v-show="role==='teacher'">修改</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)" v-show="role==='teacher'">删除</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="submitHomework(scope)" v-show="role==='student'">提交作业</el-link>
@@ -46,7 +46,7 @@ export default {
   components: {PageHeader},
   data() {
     return {
-      head: "查看作业",
+      head: "作业列表",
       homeworkName: '',
       key: 1,
       tableData: [
@@ -56,8 +56,10 @@ export default {
           "start": 23,
           "end": 23,
           "title": 23,
-          "content":null,
+          "content": null,
           "resubmit": 23,
+          // "currentNumber":null,
+          // "result":null,
         }
       ],
       page: {
@@ -86,9 +88,9 @@ export default {
     addHomework(){
       this.$router.push('/teaAssignHomework');
     },
-    /*//搜索课程
+    //搜索作业
     search(name) {
-      this.page.name=name
+      /*this.page.name=name
       api.showCourse(this.page).then(response => {
         if (response.data.code === 20000) {
           //设置记录总数
@@ -98,12 +100,12 @@ export default {
         } else {
           ElMessage.error(response.data.message);
         }
-      })
-    },*/
+      })*/
+    },
     //展示详细信息
     showDetailInfo(scope) {
       this.$store.commit('setHomeworkNumber', scope.row.id);
-      this.$router.push('/adminCourseInfo');
+      this.$router.push('/detailedHomework');
     },
     //修改作业
     changeHomework(scope) {
@@ -112,7 +114,7 @@ export default {
     },
     //删除课程
     deleteHomework(scope) {
-      ElMessageBox.confirm(
+      /*ElMessageBox.confirm(
           '你确定你要删除吗?',
           {
             confirmButtonText: '确定',
@@ -136,9 +138,15 @@ export default {
             })
           }
         })
-      })
-          .catch(() => {
-          })
+      }).catch(() => {})*/
+    },
+    // 查看提交情况
+    viewSubmitHomework(scoped) {
+
+    },
+    // 提交作业
+    submitHomework(scope) {
+
     },
     // 处理页数改变
     handlePageChange() {

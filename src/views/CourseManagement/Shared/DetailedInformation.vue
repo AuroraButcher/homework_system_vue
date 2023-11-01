@@ -50,15 +50,6 @@ export default {
       Teacher: "邸晓飞",
       ChooseNum: null,
       CourseIntroduction: null,
-      table:{
-        id: null,
-        info:null,
-        teacher: null,
-        name: null,
-        num: null,
-        currentNum: null,
-        teacherName:null,
-      }
     }
   },
   methods: {},
@@ -69,7 +60,4 @@ export default {
 </script>
 
 <style scoped>
-.el-descriptions-item_label {
-  width: 100px;
-}
 </style>

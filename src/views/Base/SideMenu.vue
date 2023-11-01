@@ -152,15 +152,9 @@
             <span>作业</span>
           </template>
           <!--子菜单选项-->
-          <el-menu-item class="el-menu-item" index="/teaAssignHomework">
-            <el-icon>
-              <FolderAdd/>
-            </el-icon>
-            <span>布置作业</span>
-          </el-menu-item>
           <el-menu-item class="el-menu-item" index="/teaViewHomework">
             <el-icon>
-              <DataAnalysis/>
+              <FolderAdd/>
             </el-icon>
             <span>查看作业</span>
           </el-menu-item>

@@ -9,14 +9,15 @@ import getBackPassword from "../views/UserManagerment/GetBackPassword.vue";
 import Home from "../views/Base/Home.vue";
 import HomePage from "../views/Base/HomePage.vue";
 //课程管理
-import ViewCourse from "../views/CourseManagement/Shared/ViewCourse.vue"
-import DetailedCourseInformation from "../views/CourseManagement/Shared/DetailedInformation.vue";
-import AddCourse from "../views/CourseManagement/Administrator/AddCourse.vue";
-import ChangeCourseInformation from "../views/CourseManagement/Administrator/ChangeCourseInfo.vue";
-import StudentViewCourse from "../views/CourseManagement/Student/ViewCourse.vue";
+import ViewCourse from "../views/CourseManagement/Shared/ViewCourse.vue"; //查看课程（管理员、教程）
+import DetailedCourseInformation from "../views/CourseManagement/Shared/DetailedInformation.vue"; //课程详情（三端共用）
+import AddCourse from "../views/CourseManagement/Administrator/AddCourse.vue"; //添加课程（管理员）
+import ChangeCourseInformation from "../views/CourseManagement/Administrator/ChangeCourseInfo.vue"; //修改课程信息（管理员、教师）
+import StudentViewCourse from "../views/CourseManagement/Student/ViewCourse.vue"; //查看课程（学生）
 // 作业管理
-import ViewHomework from "../views/HomeworkManagement/Shared/ViewHomework.vue";
-import AssignHomework from "../views/HomeworkManagement/Teacher/AssignHomework.vue";
+import ViewHomework from "../views/HomeworkManagement/Shared/ViewHomework.vue"; //查看作业（教师、学生）
+import AssignHomework from "../views/HomeworkManagement/Teacher/AssignHomework.vue"; //发布作业(教师)
+import DetailedHomework from "../views/HomeworkManagement/Shared/DetailedHomework.vue";
 
 
 //配置信息中需要页面的相关配置
@@ -57,6 +58,11 @@ const routes = [
                 component: ViewHomework,
                 name: 'stuViewHomework',
             },
+            {
+                path: "/detailedHomework",
+                component: DetailedHomework,
+                name: 'detailedHomework',
+            }
         ]
     },
     //教师端
@@ -89,6 +95,11 @@ const routes = [
                 path: "/teaViewHomework",
                 component: ViewHomework,
                 name: 'teaViewHomework',
+            },
+            {
+                path: "/detailedHomework",
+                component: DetailedHomework,
+                name: 'detailedHomework',
             }
         ]
     },
