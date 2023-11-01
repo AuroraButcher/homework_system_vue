@@ -18,6 +18,7 @@ import ViewHomework from "../views/HomeworkManagement/Shared/ViewHomework.vue"; 
 import AssignHomework from "../views/HomeworkManagement/Teacher/AssignHomework.vue"; //发布作业(教师)
 import DetailedHomework from "../views/HomeworkManagement/Shared/DetailedHomework.vue";
 import changeHomework from "../views/HomeworkManagement/Teacher/ChangeHomework.vue";
+import SubmitHomework from "../views/HomeworkManagement/Student/SubmitHomework.vue";
 
 
 //配置信息中需要页面的相关配置
@@ -62,6 +63,11 @@ const routes = [
                 path: "/detailedHomework",
                 component: DetailedHomework,
                 name: 'detailedHomework',
+            },
+            {
+                path:"/submitHomework",
+                component: SubmitHomework,
+                name:'submitHomework'
             }
         ]
     },

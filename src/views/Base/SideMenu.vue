@@ -237,7 +237,7 @@
             </el-icon>
             <span>查看作业</span>
           </el-menu-item>
-          <el-menu-item class="el-menu-item">
+          <el-menu-item class="el-menu-item" index="submitHomework">
             <el-icon>
               <Notebook/>
             </el-icon>
