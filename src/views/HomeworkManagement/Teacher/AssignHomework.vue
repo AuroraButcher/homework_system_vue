@@ -31,22 +31,6 @@
     </div>
     <!--编辑器-->
     <div class="editor" id="vditor"></div>
-    <!--附件上传-->
-    <!--    <div>
-          <el-upload
-              v-model:file-list="fileList"
-              class="upload-demo"
-              action="http://hyh31.top:3000/homework/addFile"
-              :show-file-list="true"
-          >
-            <el-button type="primary">上传附件</el-button>
-            <template #tip>
-              <div class="el-upload__tip">
-                jpg/png files with a size less than 500kb
-              </div>
-            </template>
-          </el-upload>
-        </div>-->
   </el-card>
 </template>
 
@@ -122,6 +106,10 @@ export default {
       },
       // 指定编辑器的语言模式，sv表示简单文本模式
       mode: 'sv',
+      // upload配置
+      /*upload: {
+        url: 'http://hyh31.top:3000/homework/addFile'
+      },*/
       // 工具栏按钮配置
       toolbar: [
         'headings',//标题
@@ -140,6 +128,7 @@ export default {
         'inline-code',//行内代码
         '|',
         'table',//表格
+        // "upload",//上传文件
         '|',
         'undo',//撤销
         'redo',//重做

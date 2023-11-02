@@ -17,6 +17,7 @@
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link style="margin-left: 10px" @click="showDetailInfo(scope)">详情</el-link>
+          <el-link type="primary" link style="margin-left: 10px" @click="dialogTableVisible = true" v-show="role==='teacher'">添加附件</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="viewSubmitHomework(scope)" v-show="role==='teacher'">提交情况</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="changeHomework(scope)" v-show="role==='teacher'">修改</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)" v-show="role==='teacher'">删除</el-link>
@@ -34,6 +35,21 @@
         @current-change="handlePageChange"
         :hide-on-single-page="false"/>
   </el-card>
+
+  <!--上传附件的弹出框-->
+  <el-dialog v-model="dialogTableVisible" title="为作业添加附件">
+    <el-upload action="/homework/addFile" :auto-upload="false" :file-list="fileList" :on-change="handleChange">
+      <template #trigger>
+        <el-button type="primary">选择文件</el-button>
+      </template>
+      <el-button type="success" style="margin-left: 10px" @click="submitUpload">上传文件</el-button>
+      <template #tip>
+        <div>
+          jpg/png files with a size less than 500kb
+        </div>
+      </template>
+    </el-upload>
+  </el-dialog>
 </template>
 
 <script>
@@ -49,6 +65,10 @@ export default {
       head: "作业列表",
       homeworkName: '',
       key: 1,
+      // 是否显示文件上传弹出框
+      dialogTableVisible: false,
+      // 文件列表
+      fileList: [],
       tableData: [
         {
           "id": 1,
@@ -58,8 +78,6 @@ export default {
           "title": 23,
           "content": null,
           "resubmit": 23,
-          // "currentNumber":null,
-          // "result":null,
         }
       ],
       page: {
@@ -85,22 +103,13 @@ export default {
     })
   },
   methods: {
+    // 添加作业
     addHomework(){
       this.$router.push('/teaAssignHomework');
     },
     //搜索作业
     search(name) {
-      /*this.page.name=name
-      api.showCourse(this.page).then(response => {
-        if (response.data.code === 20000) {
-          //设置记录总数
-          this.page.total = response.data.data.classInfo.total;
-          //设置表数据
-          this.tableData = response.data.data.classInfo.records;
-        } else {
-          ElMessage.error(response.data.message);
-        }
-      })*/
+
     },
     //展示详细信息
     showDetailInfo(scope) {
@@ -141,8 +150,26 @@ export default {
       }).catch(() => {
       })
     },
+    // 处理文件改变
+    handleChange(file, fileList) {
+      this.fileList = fileList;
+    },
+    // 上传附件
+    submitUpload() {
+      const param = new FormData();
+      param.append("id", this.homeworkNumber);
+      param.append("classID", this.courseNumber);
+      this.fileList.forEach((val, index) => {
+        param.append("multipartFile", val.row);
+      })
+      api.addHomeworkFile(param).then(response => {
+        if (response.data.code === 20000) {
+          ElMessage.success("上传成功");
+        }
+      })
+    },
     // 查看提交情况
-    viewSubmitHomework(scoped) {
+    viewSubmitHomework(scope) {
 
     },
     // 提交作业
@@ -169,7 +196,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(['courseNumber','role'])
+    ...mapState(['courseNumber', 'role', 'homeworkNumber'])
   }
 }
 </script>

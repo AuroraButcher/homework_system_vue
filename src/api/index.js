@@ -208,14 +208,18 @@ const api = {
         })
     },
     // 上传作业
-    submitHomework(homeworkData){
-        return axios.post(path.baseUrl + path.submitHomework,{
-            answer:homeworkData.content,
-            homeworkId:homeworkData.homeworkId,
-            classId:18,
-            studentNumber:homeworkData.studentNumber,
-            date:homeworkData.time
+    submitHomework(homeworkData) {
+        return axios.post(path.baseUrl + path.submitHomework, {
+            answer: homeworkData.content,
+            homeworkId: homeworkData.homeworkId,
+            classId: 18,
+            studentNumber: homeworkData.studentNumber,
+            date: homeworkData.time
         })
+    },
+    // 添加作业附件
+    addHomeworkFile(param) {
+        return axios.post(path.baseUrl + path.addHomeworkFile, param);
     }
 }
 export default api

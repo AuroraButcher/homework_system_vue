@@ -157,6 +157,7 @@ export default {
         'inline-code',//行内代码
         '|',
         'table',//表格
+        "upload",//上传文件
         '|',
         'undo',//撤销
         'redo',//重做
