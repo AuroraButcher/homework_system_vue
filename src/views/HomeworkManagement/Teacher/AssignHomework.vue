@@ -14,7 +14,7 @@
           start-placeholder="Start date"
           end-placeholder="End date"
           format="YYYY-MM-DD HH:mm:ss"
-          value-format="YYYY-MM-DDThh:mm:ss"
+          value-format="YYYY-MM-DD hh:mm:ss"
           date-format="YYYY/MM/DD ddd"
           time-format="A hh:mm:ss"
           style="margin-left: 10px"
