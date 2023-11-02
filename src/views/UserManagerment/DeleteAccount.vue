@@ -62,7 +62,10 @@ export default {
             if(res.data.code===20000){
               ElMessage.success('注销成功')
               this.$emit('deleteAccount',this.delete,false)
-              console.log(this.ruleForm)
+              Cookie.remove("number")
+              Cookie.remove("homeworkNumber")
+              Cookie.remove("courseNumber")
+              window.location.href="/"
             }else {
               ElMessage.error("注销失败");
             }
