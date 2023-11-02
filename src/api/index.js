@@ -230,6 +230,25 @@ const api = {
                 pageSize:params.pageSize,
             }
         })
+    },
+    //学生查看作业
+    stuViewHomework(tableData){
+        return axios.get(path.baseUrl+path.stuViewHomework,{
+            params:{
+                classID:tableData.classID,
+                pageNo:tableData.pageNo,
+                pageSize:tableData.pageSize,
+                studentID:tableData.studentID
+            }
+        })
+    },
+    //获取学生作业详情
+    getStuHomework(params){
+        return axios.get(path.baseUrl+path.getStuHomework,{
+            params:{
+                id:params
+            }
+        })
     }
 }
 export default api

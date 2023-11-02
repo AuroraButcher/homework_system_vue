@@ -9,10 +9,11 @@
       <el-button type="primary" style="margin-left: 800px" @click="addHomework()" v-show="role==='teacher'">添加作业</el-button>
     </div>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
-      <el-table-column label="序号" type="index" width="60px"></el-table-column>
+      <el-table-column label="序号" type="index" width="60px" v-if="false"></el-table-column>
       <el-table-column label="作业编号" prop="id" width="100px"></el-table-column>
       <el-table-column label="作业名称" prop="name" width="200px"></el-table-column>
       <el-table-column label="截止时间" prop="end" width="300px"></el-table-column>
+      <el-table-column label="提交情况" prop="submit" width="300px" v-if="false"></el-table-column>
       <!--      <el-table-column label="分数" prop="result" width="200px" v-show="role==='student'"></el-table-column>-->
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
@@ -21,7 +22,8 @@
           <el-link type="primary" link style="margin-left: 10px" @click="viewSubmitHomework(scope)" v-show="role==='teacher'">提交情况</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="changeHomework(scope)" v-show="role==='teacher'">修改</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)" v-show="role==='teacher'">删除</el-link>
-          <el-link type="primary" link style="margin-left: 10px" @click="submitHomework(scope)" v-show="role==='student'">提交作业</el-link>
+          <el-link type="primary" link style="margin-left: 10px" @click="submitHomework(scope)" v-show="role==='student'&&submit[scope.row.index]===0">提交作业</el-link>
+          <el-link type="primary" link style="margin-left: 10px" @click="resubmitHomework(scope)" v-show="role==='student'&&submit[scope.row.index]!==0">重新提交</el-link>
         </template>
       </el-table-column>
     </el-table>
@@ -57,6 +59,7 @@ import PageHeader from "../../Base/PageHeader.vue";
 import api from "../../../api";
 import {ElMessage, ElMessageBox} from "element-plus";
 import {mapState} from "vuex";
+import Cookie from "js-cookie";
 
 export default {
   components: {PageHeader},
@@ -87,22 +90,39 @@ export default {
         pageNo: 1,
         pageSize: 10,
         total: 100,
+        studentID:Cookie.get('number'),
       },
+      submit:[],
     }
   },
   // 展示作业
   created() {
     this.page.classID=this.courseNumber
-    api.getHomeworkList(this.page).then(response => {
-      if (response.data.code === 20000) {
-        //设置记录总数
-        this.page.total = response.data.data.homeworkInfo.total;
-        //设置表数据
-        this.tableData = response.data.data.homeworkInfo.records;
-      } else {
-        ElMessage.error(response.data.message);
-      }
-    })
+    if(this.role==='teacher') {
+      api.getHomeworkList(this.page).then(res => {
+        if (res.data.code === 20000) {
+          //设置记录总数
+          this.page.total = res.data.data.homeworkInfo.total;
+          //设置表数据
+          this.tableData = res.data.data.homeworkInfo.records;
+        } else {
+          ElMessage.error(res.data.message);
+        }
+      })
+    }else {
+      api.stuViewHomework(this.page).then(res=>{
+        if(res.data.code===20000){
+          //设置记录总数
+          this.page.total = res.data.data.homeworkInfo.total;
+          //设置表数据
+          this.tableData = res.data.data.homeworkInfo.records;
+          this.submit=res.data.data.isSubmitted
+        }else{
+          console.
+          ElMessage.error(res.data.message);
+        }
+      })
+    }
   },
   methods: {
     // 添加作业
@@ -113,15 +133,16 @@ export default {
     search(name) {
 
     },
-    //展示详细信息
-    showDetailInfo(scope) {
-      this.$store.commit('setHomeworkNumber', scope.row.id);
-      this.$router.push('/detailedHomework');
-    },
     //修改作业
     changeHomework(scope) {
       this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push('/teaChangeHomework');
+    },
+
+    //展示详细信息
+    showDetailInfo(scope) {
+      this.$store.commit('setHomeworkNumber', scope.row.id);
+      this.$router.push('/detailedHomework');
     },
     //删除课程
     deleteHomework(scope) {
@@ -133,8 +154,8 @@ export default {
             type: 'warning',
           }
       ).then(() => {
-        api.deleteHomework(scope.row.id).then(response => {
-          if (response.data.code === 20000) {
+        api.deleteHomework(scope.row.id).then(res => {
+          if (res.data.code === 20000) {
             ElMessageBox.alert("删除成功", '消息', {
               confirmButtonText: 'OK',
               callback: action => {
@@ -170,8 +191,8 @@ export default {
       })
       //param.append("multipartFile",this.fileList[0].raw)
       //console.log(param.get("multipartFile"))
-      api.addHomeworkFile(param).then(response => {
-        if (response.data.code === 20000) {
+      api.addHomeworkFile(param).then(res => {
+        if (res.data.code === 20000) {
           ElMessage.success("上传成功");
         }
       })
@@ -184,6 +205,15 @@ export default {
     // 提交作业
     submitHomework(scope) {
       this.$store.commit('setHomeworkNumber', scope.row.id);
+      this.$store.commit('setHomeworkID',null);
+      this.$router.push('/submitHomework');
+    },
+    //重新提交作业
+    resubmitHomework(scope){
+      this.$store.commit('setHomeworkNumber', scope.row.id);
+      if(this.submit[scope.row.index]!==0){
+        this.$store.commit('setHomeworkID', this.submit[scope.row.index]);
+      }
       this.$router.push('/submitHomework');
     },
     // 处理页数改变

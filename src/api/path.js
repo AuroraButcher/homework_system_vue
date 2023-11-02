@@ -55,5 +55,9 @@ const base = {
     submitHomework: '/homework/submit',
     //查看作业情况
     homeworkCondition:'/homework/showSubmitted',
+    //学生查看作业
+    stuViewHomework:'/homework/showForStudent',
+    //获取学生作业详情
+    getStuHomework:'/homework/getStudentHWInfo',
 }
 export default base

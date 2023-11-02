@@ -33,6 +33,7 @@ import {Apple, Check, Close} from "@element-plus/icons-vue";
 import api from "../../../api";
 import {ElMessage} from "element-plus";
 import Cookies from "js-cookie";
+import {mapState} from "vuex";
 
 export default {
   computed: {
@@ -42,6 +43,7 @@ export default {
     Check() {
       return Check;
     },
+    ...mapState(['courseNumber','homeworkNumber','homeworkID'])
   },
   components: {Apple, PageHeader},
   data() {
@@ -59,6 +61,18 @@ export default {
         name: "",
         url: "",
       }],
+    }
+  },
+  created() {
+    if(this.homeworkID!==null){
+      api.getStuHomework(this.homeworkID).then(res=>{
+        if (res.data.code === 20000) {
+          this.homeworkData.content=res.data.data.info.answer
+          this.contentEditor.setValue(res.data.data.info.answer)
+        } else {
+          ElMessage.success("上传失败");
+        }
+      })
     }
   },
   mounted() {
@@ -139,20 +153,6 @@ export default {
         this.homeworkData.homeworkId = this.$store.state.homeworkNumber;
         this.homeworkData.studentNumber = Cookies.get('number');
         this.homeworkData.content = this.contentEditor.getValue();
-        let year = new Date().getFullYear(); //获取当前时间的年份
-        let month = new Date().getMonth() + 1; //获取当前时间的月份
-        let day = new Date().getDate(); //获取当前时间的天数
-        let hours = new Date().getHours(); //获取当前时间的小时
-        let minutes = new Date().getMinutes(); //获取当前时间的分数
-        let seconds = new Date().getSeconds(); //获取当前时间的秒数
-        //当小于 10 的是时候，在前面加 0
-        if (hours < 10) hours = "0" + hours;
-        if (minutes < 10) minutes = "0" + minutes;
-        if (seconds < 10) seconds = "0" + seconds;
-        if (day<10) day="0"+day;
-        if (month<10) month="0"+month;
-        this.homeworkData.time=year + "-" + month + "-" + day + "T" + hours + ":" + minutes + ":" + seconds;
-        console.log(this.homeworkData)
         api.submitHomework(this.homeworkData).then(response => {
           if (response.data.code === 20000) {
             ElMessage.success("上传成功");

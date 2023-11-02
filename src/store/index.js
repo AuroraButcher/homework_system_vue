@@ -9,6 +9,7 @@ const store = createStore({
         courseName:null,
         homeworkNumber: null,
         homeworkName:null,
+        homeworkID:null,
     },
     getters: {},
     // 进行修改
@@ -28,9 +29,14 @@ const store = createStore({
         //设置查看课作业的课程号
         setCourseName(state, value) {
             state.courseName = value;
-        },//设置查看课作业的课程号
+        },
+        //设置查看课作业的作业号
         setHomeworkName(state, value) {
             state.homeworkName = value;
+        },
+        //设置查看学生作业的学生作业号
+        setHomeworkID(state, value) {
+            state.homeworkID = value;
         },
     },
     actions: {},
