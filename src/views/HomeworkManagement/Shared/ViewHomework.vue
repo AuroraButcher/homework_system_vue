@@ -45,7 +45,7 @@
       <el-button type="success" style="margin-left: 10px" @click="submitUpload">上传文件</el-button>
       <template #tip>
         <div>
-          jpg/png files with a size less than 500kb
+          the size less than 5MB
         </div>
       </template>
     </el-upload>
@@ -162,7 +162,7 @@ export default {
       param.append("id", this.homeworkNumber);
       param.append("classID", this.courseNumber);
       this.fileList.forEach((val, index) => {
-        param.append("multipartFile", val.row);
+        param.append("multipartFile", val.raw);
       })
       api.addHomeworkFile(param).then(response => {
         if (response.data.code === 20000) {
