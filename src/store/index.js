@@ -6,7 +6,9 @@ const store = createStore({
         //管理员：admin，教师：teacher，学生：student
         role: "",
         courseNumber: null,
+        courseName:null,
         homeworkNumber: null,
+        homeworkName:null,
     },
     getters: {},
     // 进行修改
@@ -22,6 +24,13 @@ const store = createStore({
         //设置查看课作业的课程号
         setHomeworkNumber(state, value) {
             state.homeworkNumber = value;
+        },
+        //设置查看课作业的课程号
+        setCourseName(state, value) {
+            state.courseName = value;
+        },//设置查看课作业的课程号
+        setHomeworkName(state, value) {
+            state.homeworkName = value;
         },
     },
     actions: {},

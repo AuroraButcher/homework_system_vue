@@ -19,6 +19,7 @@ import AssignHomework from "../views/HomeworkManagement/Teacher/AssignHomework.v
 import DetailedHomework from "../views/HomeworkManagement/Shared/DetailedHomework.vue";
 import changeHomework from "../views/HomeworkManagement/Teacher/ChangeHomework.vue";
 import SubmitHomework from "../views/HomeworkManagement/Student/SubmitHomework.vue";
+import homeworkCondition from "../views/HomeworkManagement/Teacher/HomeworkCondition.vue";
 
 
 //配置信息中需要页面的相关配置
@@ -128,6 +129,11 @@ const routes = [
                 path:"/teaChangeHomework",
                 component: changeHomework,
                 name:'teaChangeHomework'
+            },
+            {
+                path:"/homeworkCondition",
+                component: homeworkCondition,
+                name:'teaHomeworkCondition'
             }
         ]
     },

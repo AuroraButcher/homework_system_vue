@@ -52,6 +52,8 @@ const base = {
     // 修改作业
     changeHomework: '/homework/modify',
     // 提交作业
-    submitHomework: '/homework/submit'
+    submitHomework: '/homework/submit',
+    //查看作业情况
+    homeworkCondition:'/homework/showSubmitted',
 }
 export default base

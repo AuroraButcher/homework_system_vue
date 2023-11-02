@@ -214,12 +214,22 @@ const api = {
             homeworkId: homeworkData.homeworkId,
             classId: 18,
             studentNumber: homeworkData.studentNumber,
-            date: homeworkData.time
         })
     },
     // 添加作业附件
     addHomeworkFile(param) {
         return axios.post(path.baseUrl + path.addHomeworkFile, param);
+    },
+    // 查看作业情况
+    homeworkCondition(params){
+        return axios.get(path.baseUrl+path.homeworkCondition,{
+            params:{
+                classID:params.classID,
+                homeworkID:params.homeworkID,
+                pageNo:params.pageNo,
+                pageSize:params.pageSize,
+            }
+        })
     }
 }
 export default api
