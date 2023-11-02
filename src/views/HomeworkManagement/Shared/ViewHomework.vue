@@ -17,7 +17,7 @@
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link style="margin-left: 10px" @click="showDetailInfo(scope)">详情</el-link>
-          <el-link type="primary" link style="margin-left: 10px" @click="dialogTableVisible = true" v-show="role==='teacher'">添加附件</el-link>
+          <el-link type="primary" link style="margin-left: 10px" @click="showAppend(scope)" v-show="role==='teacher'">添加附件</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="viewSubmitHomework(scope)" v-show="role==='teacher'">提交情况</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="changeHomework(scope)" v-show="role==='teacher'">修改</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)" v-show="role==='teacher'">删除</el-link>
@@ -45,7 +45,7 @@
       <el-button type="success" style="margin-left: 10px" @click="submitUpload">上传文件</el-button>
       <template #tip>
         <div>
-          the size less than 5MB
+          jpg/png files with a size less than 500kb
         </div>
       </template>
     </el-upload>
@@ -156,14 +156,20 @@ export default {
     handleChange(file, fileList) {
       this.fileList = fileList;
     },
+    showAppend(scope){
+      this.$store.commit('setHomeworkNumber', scope.row.id);
+      this.dialogTableVisible = true
+    },
     // 上传附件
     submitUpload() {
       const param = new FormData();
       param.append("id", this.homeworkNumber);
       param.append("classID", this.courseNumber);
-      this.fileList.forEach((val, index) => {
+      this.fileList.forEach(val => {
         param.append("multipartFile", val.raw);
       })
+      //param.append("multipartFile",this.fileList[0].raw)
+      //console.log(param.get("multipartFile"))
       api.addHomeworkFile(param).then(response => {
         if (response.data.code === 20000) {
           ElMessage.success("上传成功");
