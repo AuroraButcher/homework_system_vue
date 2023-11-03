@@ -9,8 +9,8 @@
       <el-button type="primary" style="margin-left: 800px" @click="addHomework()" v-show="role==='teacher'">添加作业</el-button>
     </div>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
-      <el-table-column label="序号" type="index" width="60px" v-if="false"></el-table-column>
-      <el-table-column label="作业编号" prop="id" width="100px"></el-table-column>
+      <el-table-column label="序号" type="index" width="60px"></el-table-column>
+      <el-table-column label="作业编号" prop="id" width="100px" v-if="false"></el-table-column>
       <el-table-column label="作业名称" prop="name" width="200px"></el-table-column>
       <el-table-column label="截止时间" prop="end" width="300px"></el-table-column>
       <el-table-column label="提交情况" prop="submit" width="300px" v-if="false"></el-table-column>
@@ -23,7 +23,7 @@
           <el-link type="primary" link style="margin-left: 10px" @click="changeHomework(scope)" v-show="role==='teacher'">修改</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)" v-show="role==='teacher'">删除</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="submitHomework(scope)" v-show="role==='student'&&submit[scope.row.index]===0">提交作业</el-link>
-          <el-link type="primary" link style="margin-left: 10px" @click="resubmitHomework(scope)" v-show="role==='student'&&submit[scope.row.index]!==0">重新提交</el-link>
+          <el-link type="success" link style="margin-left: 10px" @click="resubmitHomework(scope)" v-show="role==='student'&&submit[scope.row.index]!==0">重新提交</el-link>
         </template>
       </el-table-column>
     </el-table>
