@@ -30,8 +30,8 @@ export default {
         if (res.data.code === 20000) {
           this.homeworkName = res.data.data.info.name;
           this.resubmit = (res.data.data.info.resubmit === 1) ? "是" : "否";
-          this.start = this.formatTimestamp(res.data.data.info.start);
-          this.end = this.formatTimestamp(res.data.data.info.end);
+          this.start = res.data.data.info.start;
+          this.end = res.data.data.info.end;
           this.content = await Vditor.md2html(res.data.data.info.content);
         }
       })
@@ -47,13 +47,7 @@ export default {
       content: null,
     }
   },
-  methods: {
-    // 时间戳转换为指定的格式
-    formatTimestamp(timestamp) {
-      const date = new Date(timestamp);
-      return date.toISOString().replace(/T/, ' ').replace(/\..+/, '');
-    }
-  },
+  methods: {},
   computed: {
     ...mapState(['homeworkNumber'])
   }

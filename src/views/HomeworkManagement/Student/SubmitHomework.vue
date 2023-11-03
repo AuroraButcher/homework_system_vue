@@ -3,24 +3,22 @@
     <template #header>
       <page-header :component="head"/>
     </template>
+    <!--作业内容查看-->
+    <div>
+      <!--详细信息-->
+      <el-descriptions :column="2" border>
+        <el-descriptions-item label="作业名称:">{{ homeworkName }}</el-descriptions-item>
+        <el-descriptions-item label="是否允许多次提交:">{{ resubmit }}</el-descriptions-item>
+        <el-descriptions-item label="开始时间:">{{ start }}</el-descriptions-item>
+        <el-descriptions-item label="截止时间:">{{ end }}</el-descriptions-item>
+        <el-descriptions-item label="作业内容:">
+          <div v-html="content"></div>
+        </el-descriptions-item>
+      </el-descriptions>
+    </div>
     <!--编辑器-->
     <div class="editor" id="vditor"></div>
-    <!--附件上传-->
-    <!--    <div>
-          <el-upload
-              v-model:file-list="fileList"
-              class="upload-demo"
-              action="http://hyh31.top:3000/homework/addFile"
-              :show-file-list="true"
-          >
-            <el-button type="primary">上传附件</el-button>
-            <template #tip>
-              <div class="el-upload__tip">
-                jpg/png files with a size less than 500kb
-              </div>
-            </template>
-          </el-upload>
-        </div>-->
+
     <div>
       <el-button type="primary" style="margin-left: 10px; margin-top:2%" @click="showAppend()">添加附件</el-button>
       <el-button style="margin-top:2%" @click="submitHomework">提交作业</el-button>
@@ -72,6 +70,11 @@ export default {
       fileList: [],
       //提交的作业id
       homeworkNo:null,
+      homeworkName: null,
+      resubmit: false,
+      start: null,
+      end: null,
+      content: null,
       homeworkData: {
         homeworkId: null,
         classId: null,
@@ -82,10 +85,21 @@ export default {
     }
   },
   created() {
-    if(this.homeworkID!==null){
-      api.getStuHomework(this.homeworkID).then(res=>{
+    if (this.homeworkNumber !== null) {
+      api.getHomeworkInfo(this.homeworkNumber).then(async res => {
         if (res.data.code === 20000) {
-          this.homeworkData.content=res.data.data.info.answer
+          this.homeworkName = res.data.data.info.name;
+          this.resubmit = (res.data.data.info.resubmit === 1) ? "是" : "否";
+          this.start = res.data.data.info.start;
+          this.end = res.data.data.info.end;
+          this.content = await Vditor.md2html(res.data.data.info.content);
+        }
+      })
+    }
+    if (this.homeworkID !== null) {
+      api.getStuHomework(this.homeworkID).then(res => {
+        if (res.data.code === 20000) {
+          this.homeworkData.content = res.data.data.info.answer
           this.contentEditor.setValue(res.data.data.info.answer)
         } else {
           ElMessage.success("上传失败");
@@ -146,7 +160,6 @@ export default {
         'inline-code',//行内代码
         '|',
         'table',//表格
-        "upload",//上传文件
         '|',
         'undo',//撤销
         'redo',//重做
@@ -214,11 +227,6 @@ export default {
 </script>
 
 <style scoped>
-.selectHeader {
-  display: flex;
-  align-items: center;
-}
-
 .editor {
   margin-top: 10px;
 }
