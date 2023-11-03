@@ -106,10 +106,6 @@ export default {
       },
       // 指定编辑器的语言模式，sv表示简单文本模式
       mode: 'sv',
-      // upload配置
-      /*upload: {
-        url: 'http://hyh31.top:3000/homework/addFile'
-      },*/
       // 工具栏按钮配置
       toolbar: [
         'headings',//标题
@@ -128,7 +124,6 @@ export default {
         'inline-code',//行内代码
         '|',
         'table',//表格
-        // "upload",//上传文件
         '|',
         'undo',//撤销
         'redo',//重做

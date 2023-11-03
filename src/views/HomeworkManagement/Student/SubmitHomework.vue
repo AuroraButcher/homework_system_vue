@@ -5,23 +5,7 @@
     </template>
     <!--编辑器-->
     <div class="editor" id="vditor"></div>
-    <!--附件上传-->
-    <!--    <div>
-          <el-upload
-              v-model:file-list="fileList"
-              class="upload-demo"
-              action="http://hyh31.top:3000/homework/addFile"
-              :show-file-list="true"
-          >
-            <el-button type="primary">上传附件</el-button>
-            <template #tip>
-              <div class="el-upload__tip">
-                jpg/png files with a size less than 500kb
-              </div>
-            </template>
-          </el-upload>
-        </div>-->
-    <el-button style="margin-top:5%" @click="submitHomework">提交作业</el-button>
+    <el-button type="primary" style="margin-top:10px" @click="submitHomework">提交作业</el-button>
   </el-card>
 </template>
 
@@ -128,7 +112,6 @@ export default {
         'inline-code',//行内代码
         '|',
         'table',//表格
-        "upload",//上传文件
         '|',
         'undo',//撤销
         'redo',//重做
@@ -168,11 +151,6 @@ export default {
 </script>
 
 <style scoped>
-.selectHeader {
-  display: flex;
-  align-items: center;
-}
-
 .editor {
   margin-top: 10px;
 }

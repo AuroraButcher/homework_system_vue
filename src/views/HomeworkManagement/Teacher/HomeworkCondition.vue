@@ -27,15 +27,15 @@ import {mapState} from "vuex";
 
 export default {
   components: {PageHeader},
-  name: "homeworkConditon",
-  data(){
-    return{
-      head:'作业提交情况',
-      tableData:[
+  name: "homeworkCondition",
+  data() {
+    return {
+      head: '作业提交情况',
+      tableData: [
         {
-          id:'',
-          studentNumber:'1',
-          date:'',
+          id: '',
+          studentNumber: '1',
+          date: '',
         }
       ],
       params:{

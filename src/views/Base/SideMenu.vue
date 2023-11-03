@@ -62,27 +62,6 @@
         <el-sub-menu index="3">
           <template #title>
             <el-icon style="font-size: 32px">
-              <Notebook/>
-            </el-icon>
-            <span>作业管理</span>
-          </template>
-          <!--子菜单选项-->
-<!--          <el-menu-item class="el-menu-item">
-            <el-icon>
-              <Notebook/>
-            </el-icon>
-            <span>作业1</span>
-          </el-menu-item>
-          <el-menu-item class="el-menu-item">
-            <el-icon>
-              <Notebook/>
-            </el-icon>
-            <span>作业2</span>
-          </el-menu-item>-->
-        </el-sub-menu>
-        <el-sub-menu index="4">
-          <template #title>
-            <el-icon style="font-size: 32px">
               <EditPen/>
             </el-icon>
             <span>互评打分</span>
@@ -147,21 +126,6 @@
         <el-sub-menu index="2">
           <template #title>
             <el-icon style="font-size: 32px">
-              <Notebook/>
-            </el-icon>
-            <span>作业</span>
-          </template>
-          <!--子菜单选项-->
-<!--          <el-menu-item class="el-menu-item" index="/teaViewHomework">
-            <el-icon>
-              <FolderAdd/>
-            </el-icon>
-            <span>查看作业</span>
-          </el-menu-item>-->
-        </el-sub-menu>
-        <el-sub-menu index="3">
-          <template #title>
-            <el-icon style="font-size: 32px">
               <EditPen/>
             </el-icon>
             <span>互评</span>
@@ -224,27 +188,6 @@
           </el-menu-item>
         </el-sub-menu>
         <el-sub-menu class="el-sub-menu" index="2">
-          <template #title>
-            <el-icon style="font-size: 32px">
-              <Notebook/>
-            </el-icon>
-            <span>作业</span>
-          </template>
-          <!--子菜单选项-->
-<!--          <el-menu-item class="el-menu-item" index="stuViewHomework">
-            <el-icon>
-              <View/>
-            </el-icon>
-            <span>查看作业</span>
-          </el-menu-item>
-          <el-menu-item class="el-menu-item" index="submitHomework">
-            <el-icon>
-              <Notebook/>
-            </el-icon>
-            <span>作业2</span>
-          </el-menu-item>-->
-        </el-sub-menu>
-        <el-sub-menu class="el-sub-menu" index="3">
           <template #title>
             <el-icon style="font-size: 32px">
               <EditPen/>

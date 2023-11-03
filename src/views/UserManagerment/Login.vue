@@ -88,18 +88,6 @@ export default {
               if (response.data.code === 20000) {*/
             Cookie.set('number', this.ruleForm.number);
             Cookie.set('password', this.ruleForm.password);
-            api.getTeacherList().then(response=>{
-              if (response.data.code === 20000) {
-                let i;
-                for(i = 0; i < response.data.data.classInfo.length; i++){
-                  if(Cookie.get('number')===response.data.data.classInfo[i].number) {
-                    Cookie.set('name',response.data.data.classInfo[i].name)
-                  }
-                }
-              } else {
-                ElMessage.error(response.data.message);
-              }
-            })
             this.$store.commit('setRole', this.role);
             this.$router.push('/teacherHome');
             /*} else {
