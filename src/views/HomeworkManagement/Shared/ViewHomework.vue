@@ -47,7 +47,7 @@
       <el-button type="success" style="margin-left: 10px" @click="submitUpload">上传文件</el-button>
       <template #tip>
         <div>
-          jpg/png files with a size less than 500kb
+          文件小于5Mb
         </div>
       </template>
     </el-upload>
@@ -88,7 +88,7 @@ export default {
       page: {
         classID: '',
         pageNo: 1,
-        pageSize: 10,
+        pageSize: 15,
         total: 100,
         studentID:Cookie.get('number'),
       },
@@ -194,6 +194,8 @@ export default {
       api.addHomeworkFile(param).then(res => {
         if (res.data.code === 20000) {
           ElMessage.success("上传成功");
+        }else {
+          ElMessage.error("上传失败");
         }
       })
     },
@@ -206,11 +208,13 @@ export default {
     submitHomework(scope) {
       this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$store.commit('setHomeworkID',null);
+      this.$store.commit('setIndex', scope.row.index);
       this.$router.push('/submitHomework');
     },
     //重新提交作业
     resubmitHomework(scope){
       this.$store.commit('setHomeworkNumber', scope.row.id);
+      this.$store.commit('setIndex', scope.row.index);
       if(this.submit[scope.row.index]!==0){
         this.$store.commit('setHomeworkID', this.submit[scope.row.index]);
       }

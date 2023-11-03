@@ -5,8 +5,40 @@
     </template>
     <!--编辑器-->
     <div class="editor" id="vditor"></div>
-    <el-button type="primary" style="margin-top:10px" @click="submitHomework">提交作业</el-button>
+    <!--附件上传-->
+    <!--    <div>
+          <el-upload
+              v-model:file-list="fileList"
+              class="upload-demo"
+              action="http://hyh31.top:3000/homework/addFile"
+              :show-file-list="true"
+          >
+            <el-button type="primary">上传附件</el-button>
+            <template #tip>
+              <div class="el-upload__tip">
+                jpg/png files with a size less than 500kb
+              </div>
+            </template>
+          </el-upload>
+        </div>-->
+    <div>
+      <el-button type="primary" style="margin-left: 10px; margin-top:2%" @click="showAppend()">添加附件</el-button>
+      <el-button style="margin-top:2%" @click="submitHomework">提交作业</el-button>
+    </div>
   </el-card>
+  <!--上传附件的弹出框-->
+  <el-dialog v-model="dialogTableVisible" title="为作业添加附件">
+    <el-upload action="/homework/addFile" :auto-upload="false" :file-list="fileList" :on-change="handleChange">
+      <template #trigger>
+        <el-button type="primary">选择文件</el-button>
+      </template>
+      <template #tip>
+        <div>
+          文件小于5Mb
+        </div>
+      </template>
+    </el-upload>
+  </el-dialog>
 </template>
 
 <script>
@@ -16,7 +48,7 @@ import PageHeader from "../../Base/PageHeader.vue";
 import {Apple, Check, Close} from "@element-plus/icons-vue";
 import api from "../../../api";
 import {ElMessage} from "element-plus";
-import Cookies from "js-cookie";
+import Cookie from "js-cookie";
 import {mapState} from "vuex";
 
 export default {
@@ -27,13 +59,19 @@ export default {
     Check() {
       return Check;
     },
-    ...mapState(['courseNumber','homeworkNumber','homeworkID'])
+    ...mapState(['courseNumber','homeworkNumber','homeworkID','index'])
   },
   components: {Apple, PageHeader},
   data() {
     return {
       head: "提交作业",
       contentEditor: {},
+      // 是否显示文件上传弹出框
+      dialogTableVisible: false,
+      // 文件列表
+      fileList: [],
+      //提交的作业id
+      homeworkNo:null,
       homeworkData: {
         homeworkId: null,
         classId: null,
@@ -41,10 +79,6 @@ export default {
         content: null,
         studentNumber: null,
       },
-      fileList: [{
-        name: "",
-        url: "",
-      }],
     }
   },
   created() {
@@ -112,6 +146,7 @@ export default {
         'inline-code',//行内代码
         '|',
         'table',//表格
+        "upload",//上传文件
         '|',
         'undo',//撤销
         'redo',//重做
@@ -134,23 +169,56 @@ export default {
       } else {
         this.homeworkData.classId = this.$store.state.courseNumber;
         this.homeworkData.homeworkId = this.$store.state.homeworkNumber;
-        this.homeworkData.studentNumber = Cookies.get('number');
+        this.homeworkData.studentNumber = Cookie.get('number');
         this.homeworkData.content = this.contentEditor.getValue();
-        api.submitHomework(this.homeworkData).then(response => {
-          if (response.data.code === 20000) {
-            ElMessage.success("上传成功");
-            this.$router.push('/teaViewHomework');
+        api.submitHomework(this.homeworkData).then(res => {
+          if (res.data.code === 20000) {
+            api.stuViewHomework({classID:this.homeworkData.classId,studentID:this.homeworkData.studentNumber}).then(res=>{
+              if (res.data.code === 20000&&res.data.data.isSubmitted[this.index]!==0) {
+                this.homeworkNo=res.data.data.isSubmitted[this.index]
+              }else {
+                ElMessage.error("上传失败");
+              }
+            })
+            const param = new FormData();
+            param.append("homeworkID", this.homeworkNumber);
+            param.append("classID", this.courseNumber);
+            param.append("studentID", Cookie.get('number'));
+            param.append("id", this.homeworkNo);
+            this.fileList.forEach(val => {
+              param.append("multipartFile", val.raw);
+            })
+            api.stuHomeworkFile(param).then(res => {
+              if (res.data.code === 20000) {
+                ElMessage.success("上传成功");
+                //this.$router.push('/stuViewHomework');
+              }else {
+                ElMessage.error("上传失败");
+              }
+            })
           } else {
-            ElMessage.success("上传失败");
+            ElMessage.error("上传失败");
           }
         });
       }
+    },
+    // 处理文件改变
+    handleChange(file, fileList) {
+      this.fileList = fileList;
+    },
+    showAppend(){
+      this.dialogTableVisible = true
     },
   }
 }
 </script>
 
 <style scoped>
+.selectHeader {
+  display: flex;
+  align-items: center;
+}
+
 .editor {
   margin-top: 10px;
 }

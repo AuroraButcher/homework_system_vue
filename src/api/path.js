@@ -22,7 +22,7 @@ const base = {
     // 获取老师列表
     getTeacherList: '/teacher/list',
 
-
+//-----------------------------------------课程----------------------------------------------
     // 管理员查看课程
     showCourse: '/class/showList',
     // 课程详情--
@@ -38,7 +38,7 @@ const base = {
     // 教师查看课程
     teacherShowCourse: '/class/teacherList',
 
-
+//-------------------------------------------作业-------------------------------------------------------------------------
     // 添加作业
     addHomework: '/homework/addContent',
     // 删除作业
@@ -59,5 +59,7 @@ const base = {
     stuViewHomework:'/homework/showForStudent',
     //获取学生作业详情
     getStuHomework:'/homework/getStudentHWInfo',
+    //学生上传附件
+    stuHomeworkFile:'/homework/submitFile',
 }
 export default base

@@ -249,6 +249,10 @@ const api = {
                 id:params
             }
         })
-    }
+    },
+    //学生上传附件
+    stuHomeworkFile(tableData){
+        return axios.post(path.baseUrl+path.stuHomeworkFile,tableData)
+    },
 }
 export default api

@@ -10,6 +10,7 @@ const store = createStore({
         homeworkNumber: null,
         homeworkName:null,
         homeworkID:null,
+        index:null,
     },
     getters: {},
     // 进行修改
@@ -37,6 +38,10 @@ const store = createStore({
         //设置查看学生作业的学生作业号
         setHomeworkID(state, value) {
             state.homeworkID = value;
+        },
+        //设置查看学生作业的学生作业号
+        setIndex(state, value) {
+            state.index = value;
         },
     },
     actions: {},
