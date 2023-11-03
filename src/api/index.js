@@ -243,16 +243,26 @@ const api = {
         })
     },
     //获取学生作业详情
-    getStuHomework(params){
-        return axios.get(path.baseUrl+path.getStuHomework,{
-            params:{
-                id:params
+    getStuHomework(params) {
+        return axios.get(path.baseUrl + path.getStuHomework, {
+            params: {
+                id: params
+            }
+        })
+    },
+    // 下载作业附件
+    downloadFiles(formData) {
+        return axios.post(path.baseUrl + path.downloadFiles, null, {
+            params: {
+                id: formData.id,
+                classID: formData.classID,
+                fileName: formData.downloadFileName,
             }
         })
     },
     //学生上传附件
-    stuHomeworkFile(tableData){
-        return axios.post(path.baseUrl+path.stuHomeworkFile,tableData)
+    stuHomeworkFile(tableData) {
+        return axios.post(path.baseUrl + path.stuHomeworkFile, tableData)
     },
 }
 export default api

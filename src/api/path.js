@@ -54,12 +54,14 @@ const base = {
     // 提交作业
     submitHomework: '/homework/submit',
     //查看作业情况
-    homeworkCondition:'/homework/showSubmitted',
+    homeworkCondition: '/homework/showSubmitted',
     //学生查看作业
-    stuViewHomework:'/homework/showForStudent',
+    stuViewHomework: '/homework/showForStudent',
     //获取学生作业详情
-    getStuHomework:'/homework/getStudentHWInfo',
+    getStuHomework: '/homework/getStudentHWInfo',
+    // 下载作业附件
+    downloadFiles: 'homework/download',
     //学生上传附件
-    stuHomeworkFile:'/homework/submitFile',
+    stuHomeworkFile: '/homework/submitFile',
 }
 export default base
