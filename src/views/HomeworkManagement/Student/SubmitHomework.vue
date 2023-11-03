@@ -3,6 +3,19 @@
     <template #header>
       <page-header :component="head"/>
     </template>
+    <!--作业内容查看-->
+    <div>
+      <!--详细信息-->
+      <el-descriptions :column="2" border>
+        <el-descriptions-item label="作业名称:">{{ homeworkName }}</el-descriptions-item>
+        <el-descriptions-item label="是否允许多次提交:">{{ resubmit }}</el-descriptions-item>
+        <el-descriptions-item label="开始时间:">{{ start }}</el-descriptions-item>
+        <el-descriptions-item label="截止时间:">{{ end }}</el-descriptions-item>
+        <el-descriptions-item label="作业内容:">
+          <div v-html="content"></div>
+        </el-descriptions-item>
+      </el-descriptions>
+    </div>
     <!--编辑器-->
     <div class="editor" id="vditor"></div>
     <el-button type="primary" style="margin-top:10px" @click="submitHomework">提交作业</el-button>
@@ -34,6 +47,11 @@ export default {
     return {
       head: "提交作业",
       contentEditor: {},
+      homeworkName: null,
+      resubmit: false,
+      start: null,
+      end: null,
+      content: null,
       homeworkData: {
         homeworkId: null,
         classId: null,
@@ -48,10 +66,21 @@ export default {
     }
   },
   created() {
-    if(this.homeworkID!==null){
-      api.getStuHomework(this.homeworkID).then(res=>{
+    if (this.homeworkNumber !== null) {
+      api.getHomeworkInfo(this.homeworkNumber).then(async res => {
         if (res.data.code === 20000) {
-          this.homeworkData.content=res.data.data.info.answer
+          this.homeworkName = res.data.data.info.name;
+          this.resubmit = (res.data.data.info.resubmit === 1) ? "是" : "否";
+          this.start = res.data.data.info.start;
+          this.end = res.data.data.info.end;
+          this.content = await Vditor.md2html(res.data.data.info.content);
+        }
+      })
+    }
+    if (this.homeworkID !== null) {
+      api.getStuHomework(this.homeworkID).then(res => {
+        if (res.data.code === 20000) {
+          this.homeworkData.content = res.data.data.info.answer
           this.contentEditor.setValue(res.data.data.info.answer)
         } else {
           ElMessage.success("上传失败");
