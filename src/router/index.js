@@ -22,7 +22,6 @@ import SubmitHomework from "../views/HomeworkManagement/Student/SubmitHomework.v
 import homeworkCondition from "../views/HomeworkManagement/Teacher/HomeworkCondition.vue";
 import detailSubmitHomework from "../views/HomeworkManagement/Shared/DetailSubmitHomework.vue";
 
-
 //配置信息中需要页面的相关配置
 const routes = [
     // 总界面
@@ -137,10 +136,10 @@ const routes = [
                 name:'teaHomeworkCondition'
             },
             {
-                path:"/detailedHomework",
+                path:"/detailSubmitHomework",
                 component: detailSubmitHomework,
-                name: 'detailedHomework'
-            }
+                name:'teaDetailSubmitHomework'
+            },
         ]
     },
     // 管理员端

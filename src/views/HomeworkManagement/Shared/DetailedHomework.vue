@@ -72,13 +72,13 @@ export default {
       this.downloadData.downloadFileName = item;
       api.downloadFiles(this.downloadData).then(res => {
         if (res.data.code === 20000) {
-          const url = res.data.data.url;
+          /*const url = res.data.data.url;
           const link = document.createElement('a');
           link.href = url;
           link.setAttribute('download', item);
           document.body.appendChild(link);
           link.click();
-          link.remove();
+          link.remove();*/
           console.log(item)
           ElMessage.success("下载成功");
         } else {
