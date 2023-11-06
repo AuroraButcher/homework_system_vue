@@ -14,7 +14,6 @@
       <el-table-column label="作业名称" prop="name" width="200px"></el-table-column>
       <el-table-column label="截止时间" prop="end" width="300px"></el-table-column>
       <el-table-column label="提交情况" prop="submit" width="300px" v-if="false"></el-table-column>
-      <!--      <el-table-column label="分数" prop="result" width="200px" v-show="role==='student'"></el-table-column>-->
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link style="margin-left: 10px" @click="showDetailInfo(scope)">详情</el-link>

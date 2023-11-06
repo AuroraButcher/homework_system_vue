@@ -1,6 +1,6 @@
 <template>
     <!--详细信息-->
-    <el-descriptions :column="2" border>
+    <el-descriptions :column="2" border title="作业内容">
       <el-descriptions-item label="作业名称:">{{ homeworkName }}</el-descriptions-item>
       <el-descriptions-item label="是否允许多次提交:">{{ resubmit }}</el-descriptions-item>
       <el-descriptions-item label="开始时间:">{{ start }}</el-descriptions-item>

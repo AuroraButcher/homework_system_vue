@@ -59,31 +59,12 @@
             <span>添加课程</span>
           </el-menu-item>
         </el-sub-menu>
-        <el-sub-menu index="3">
-          <template #title>
+        <el-menu-item @click="drawer = true">
+          <el-badge>
             <el-icon style="font-size: 32px">
-              <EditPen/>
+              <bell/>
             </el-icon>
-            <span>互评打分</span>
-          </template>
-          <!--子菜单选项-->
-          <el-menu-item class="el-menu-item">
-            <el-icon>
-              <EditPen/>
-            </el-icon>
-            <span>互评1</span>
-          </el-menu-item>
-          <el-menu-item class="el-menu-item">
-            <el-icon>
-              <EditPen/>
-            </el-icon>
-            <span>互评2</span>
-          </el-menu-item>
-        </el-sub-menu>
-        <el-menu-item>
-          <el-icon style="font-size: 32px">
-            <bell/>
-          </el-icon>
+          </el-badge>
           <span>消息</span>
         </el-menu-item>
       </el-menu>
@@ -123,31 +104,12 @@
             <span>查看教授课程</span>
           </el-menu-item>
         </el-sub-menu>
-        <el-sub-menu index="2">
-          <template #title>
+        <el-menu-item @click="drawer = true">
+          <el-badge>
             <el-icon style="font-size: 32px">
-              <EditPen/>
+              <bell/>
             </el-icon>
-            <span>互评</span>
-          </template>
-          <!--子菜单选项-->
-          <el-menu-item class="el-menu-item">
-            <el-icon>
-              <EditPen/>
-            </el-icon>
-            <span>互评1</span>
-          </el-menu-item>
-          <el-menu-item class="el-menu-item">
-            <el-icon>
-              <EditPen/>
-            </el-icon>
-            <span>互评2</span>
-          </el-menu-item>
-        </el-sub-menu>
-        <el-menu-item>
-          <el-icon style="font-size: 32px">
-            <bell/>
-          </el-icon>
+          </el-badge>
           <span>消息</span>
         </el-menu-item>
       </el-menu>
@@ -170,7 +132,6 @@
           </el-icon>
           <span>学生端首页</span>
         </el-menu-item>
-
         <!--子菜单-->
         <el-sub-menu class="el-sub-menu" index="1">
           <template #title>
@@ -185,27 +146,6 @@
               <View/>
             </el-icon>
             <span>查看选修课程</span>
-          </el-menu-item>
-        </el-sub-menu>
-        <el-sub-menu class="el-sub-menu" index="2">
-          <template #title>
-            <el-icon style="font-size: 32px">
-              <EditPen/>
-            </el-icon>
-            <span>互评</span>
-          </template>
-          <!--子菜单选项-->
-          <el-menu-item class="el-menu-item">
-            <el-icon>
-              <EditPen/>
-            </el-icon>
-            <span>互评1</span>
-          </el-menu-item>
-          <el-menu-item class="el-menu-item">
-            <el-icon>
-              <EditPen/>
-            </el-icon>
-            <span>互评2</span>
           </el-menu-item>
         </el-sub-menu>
         <el-menu-item @click="drawer = true">
@@ -227,6 +167,7 @@
     </el-tabs>
   </el-drawer>
 </template>
+
 <script>
 import {Bell, DataAnalysis, EditPen, FolderAdd, HomeFilled, Notebook, Operation, Plus, View} from "@element-plus/icons-vue";
 import {mapState} from "vuex";

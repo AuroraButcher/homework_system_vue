@@ -18,6 +18,8 @@ export default {
       head: '作业详情',
     }
   },
+  methods: {},
+  computed: {}
 }
 </script>
 
