@@ -177,23 +177,23 @@ export default {
   methods: {
     submitHomework() {
       if (this.contentEditor.getValue().length === 1 || this.contentEditor.getValue() == null || this.contentEditor.getValue() === '') {
-        alert('内容不可为空');
+        alert('内容不可为空');//确认内容
         return false;
       } else {
         this.homeworkData.classId = this.$store.state.courseNumber;
         this.homeworkData.homeworkId = this.$store.state.homeworkNumber;
         this.homeworkData.studentNumber = Cookie.get('number');
         this.homeworkData.content = this.contentEditor.getValue();
-        api.submitHomework(this.homeworkData).then(res => {
+        api.submitHomework(this.homeworkData).then(res => {//提交markdown作业内容，创建作业id
           if (res.data.code === 20000) {
-            api.stuViewHomework({classID:this.homeworkData.classId,studentID:this.homeworkData.studentNumber}).then(res=>{
+            api.stuViewHomework({classID:this.homeworkData.classId,studentID:this.homeworkData.studentNumber}).then(res=>{//拉取作业内容
               if (res.data.code === 20000&&res.data.data.isSubmitted[this.index]!==0) {
-                this.homeworkNo=res.data.data.isSubmitted[this.index]
+                this.homeworkNo=res.data.data.isSubmitted[this.index]//匹配作业，获得作业id
               }else {
                 ElMessage.error("上传失败");
               }
             })
-            const param = new FormData();
+            const param = new FormData();//创建文件变量
             param.append("homeworkID", this.homeworkNumber);
             param.append("classID", this.courseNumber);
             param.append("studentID", Cookie.get('number'));
@@ -201,7 +201,7 @@ export default {
             this.fileList.forEach(val => {
               param.append("multipartFile", val.raw);
             })
-            api.stuHomeworkFile(param).then(res => {
+            api.stuHomeworkFile(param).then(res => {//上传文件
               if (res.data.code === 20000) {
                 ElMessage.success("上传成功");
                 //this.$router.push('/stuViewHomework');

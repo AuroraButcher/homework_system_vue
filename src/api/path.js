@@ -60,7 +60,7 @@ const base = {
     //获取学生作业详情
     getStuHomework: '/homework/getStudentHWInfo',
     // 下载作业附件
-    downloadFiles: 'homework/download',
+    downloadFiles: '/homework/download',
     //学生上传附件
     stuHomeworkFile: '/homework/submitFile',
 }

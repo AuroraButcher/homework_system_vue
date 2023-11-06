@@ -79,6 +79,7 @@ export default {
           document.body.appendChild(link);
           link.click();
           link.remove();
+          console.log(item)
           ElMessage.success("下载成功");
         } else {
           ElMessage.error("下载失败");
