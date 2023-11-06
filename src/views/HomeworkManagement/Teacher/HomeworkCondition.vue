@@ -62,7 +62,8 @@ export default {
   },
   methods:{
     showDetailInfo(scope){
-
+      this.$store.commit('setHomeworkID', scope.row.id);
+      this.$router.push('/detailSubmitHomework');
     }
   }
 }
