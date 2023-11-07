@@ -23,6 +23,7 @@
           <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)" v-show="role==='teacher'">删除</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="submitHomework(scope)" v-show="role==='student'&&submit[scope.row.index]===0">提交作业</el-link>
           <el-link type="success" link style="margin-left: 10px" @click="resubmitHomework(scope)" v-show="role==='student'&&submit[scope.row.index]!==0">重新提交</el-link>
+          <el-link type="primary" link style="margin-left: 10px" @click="evaluateHomework(scope)" v-show="role==='student'">互评作业</el-link>
         </template>
       </el-table-column>
     </el-table>
@@ -218,6 +219,10 @@ export default {
         this.$store.commit('setHomeworkID', this.submit[scope.row.index]);
       }
       this.$router.push('/submitHomework');
+    },
+    evaluateHomework(scope){
+      this.$store.commit('setHomeworkNumber', scope.row.id);
+      this.$router.push('/evaluateHomework');
     },
     // 处理页数改变
     handlePageChange() {

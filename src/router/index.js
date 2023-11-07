@@ -21,6 +21,7 @@ import changeHomework from "../views/HomeworkManagement/Teacher/ChangeHomework.v
 import SubmitHomework from "../views/HomeworkManagement/Student/SubmitHomework.vue";
 import homeworkCondition from "../views/HomeworkManagement/Teacher/HomeworkCondition.vue";
 import detailSubmitHomework from "../views/HomeworkManagement/Shared/DetailSubmitHomework.vue";
+import evaluateHomework from "../views/HomeworkManagement/Student/EvaluateHomework.vue";
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -77,6 +78,12 @@ const routes = [
                 path:"/submitHomework",
                 component: SubmitHomework,
                 name:'submitHomework'
+            },
+            {
+                // 学生互评作业列表
+                path: "/evaluateHomework",
+                component:evaluateHomework,
+                name:'stuEvaluateHomework'
             }
         ]
     },
