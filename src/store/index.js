@@ -23,7 +23,7 @@ const store = createStore({
         setCourseNumber(state, value) {
             state.courseNumber = value;
         },
-        //设置查看课作业的课程号
+        //设置查看布置作业的课程号
         setHomeworkNumber(state, value) {
             state.homeworkNumber = value;
         },

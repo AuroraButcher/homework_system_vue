@@ -1,6 +1,6 @@
 <template>
     <!--详细信息-->
-    <el-descriptions :column="2" border title="作业内容">
+    <el-descriptions :column="2" border>
       <el-descriptions-item label="作业名称:">{{ homeworkName }}</el-descriptions-item>
       <el-descriptions-item label="是否允许多次提交:">{{ resubmit }}</el-descriptions-item>
       <el-descriptions-item label="开始时间:">{{ start }}</el-descriptions-item>
@@ -73,7 +73,7 @@ export default {
           document.body.appendChild(link);
           link.click();
           link.remove();
-          // console.log(item)
+          console.log(item)
           ElMessage.success("下载成功");
         } else {
           ElMessage.error("下载失败");

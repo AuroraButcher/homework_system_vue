@@ -254,9 +254,9 @@ const api = {
     downloadFiles(formData) {
         return axios.post(path.baseUrl + path.downloadFiles, null, {
             params: {
-                id: 3,
-                classID: 18,
-                fileName: 'a.html',
+                id: formData.id,
+                classID: formData.classID,
+                fileName: formData.downloadFileName,
             }
         })
     },

@@ -3,7 +3,35 @@
     <template #header>
       <page-header :component="head"/>
     </template>
-    <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
+    <!--统计板-->
+    <div>
+      <el-row style="text-align: center;">
+        <el-col :span="6">
+          <el-statistic title="应交人数" :value="50"/>
+        </el-col>
+        <el-col :span="6">
+          <el-statistic title="实交人数" :value="24"/>
+        </el-col>
+        <el-col :span="6">
+          <el-statistic title="未交人数" :value="26"/>
+        </el-col>
+        <el-col :span="6">
+          <el-statistic :value="24">
+            <template #title>
+              <div style="display: inline-flex; align-items: center">
+                提交率
+                <el-icon style="margin-left: 4px" :size="12">
+                  <Male/>
+                </el-icon>
+              </div>
+            </template>
+            <template #suffix>/50</template>
+          </el-statistic>
+        </el-col>
+      </el-row>
+    </div>
+    <!--表格-->
+    <el-table :data="tableData" border style="width:100%;margin-top: 20px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="ID" prop="id" width="80px"></el-table-column>
       <el-table-column label="学生学号" prop="studentNumber" width="120px"></el-table-column>
       <el-table-column label="是否提交" prop="submit" width="100px"></el-table-column>
@@ -24,9 +52,10 @@
 import PageHeader from "../../Base/PageHeader.vue";
 import api from "../../../api";
 import {mapState} from "vuex";
+import {ChatLineRound, Male} from "@element-plus/icons-vue";
 
 export default {
-  components: {PageHeader},
+  components: {Male, ChatLineRound, PageHeader},
   name: "homeworkCondition",
   data() {
     return {
@@ -52,7 +81,7 @@ export default {
         this.params.homeworkID=this.homeworkNumber
         api.homeworkCondition(this.params).then(res=>{
           if(res.data.code===20000){
-            this.tableData=res.data.data.homeworkInfo.records
+            this.tableData = res.data.data.homeworkInfo.records;
           }
         })
       }
