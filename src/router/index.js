@@ -21,6 +21,8 @@ import changeHomework from "../views/HomeworkManagement/Teacher/ChangeHomework.v
 import SubmitHomework from "../views/HomeworkManagement/Student/SubmitHomework.vue";
 import homeworkCondition from "../views/HomeworkManagement/Teacher/HomeworkCondition.vue";
 import detailSubmitHomework from "../views/HomeworkManagement/Shared/DetailSubmitHomework.vue";
+// 分数相关
+import Chart from "../views/HomeworkManagement/Shared/Chart.vue";
 import evaluateHomework from "../views/HomeworkManagement/Student/EvaluateHomework.vue";
 
 //配置信息中需要页面的相关配置
@@ -75,15 +77,21 @@ const routes = [
             },
             {
                 // 学生提交作业
-                path:"/submitHomework",
+                path: "/submitHomework",
                 component: SubmitHomework,
-                name:'submitHomework'
+                name: 'submitHomework'
+            },
+            {
+                // 分数分布
+                path: "/distribution",
+                component: Chart,
+                name: 'FractionalDistribution'
             },
             {
                 // 学生互评作业列表
                 path: "/evaluateHomework",
-                component:evaluateHomework,
-                name:'stuEvaluateHomework'
+                component: evaluateHomework,
+                name: 'stuEvaluateHomework'
             }
         ]
     },
@@ -138,15 +146,21 @@ const routes = [
                 name:'teaChangeHomework'
             },
             {
-                path:"/homeworkCondition",
+                path: "/homeworkCondition",
                 component: homeworkCondition,
-                name:'teaHomeworkCondition'
+                name: 'teaHomeworkCondition'
             },
             {
-                path:"/detailSubmitHomework",
+                path: "/detailSubmitHomework",
                 component: detailSubmitHomework,
-                name:'teaDetailSubmitHomework'
+                name: 'teaDetailSubmitHomework'
             },
+            {
+                // 分数分布
+                path: "/distribution",
+                component: Chart,
+                name: 'FractionalDistribution'
+            }
         ]
     },
     // 管理员端

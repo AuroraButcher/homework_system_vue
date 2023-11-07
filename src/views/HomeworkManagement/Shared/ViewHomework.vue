@@ -23,6 +23,7 @@
           <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)" v-show="role==='teacher'">删除</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="submitHomework(scope)" v-show="role==='student'&&submit[scope.row.index]===0">提交作业</el-link>
           <el-link type="success" link style="margin-left: 10px" @click="resubmitHomework(scope)" v-show="role==='student'&&submit[scope.row.index]!==0">重新提交</el-link>
+          <el-link type="primary" link style="margin-left: 10px" @click="showData(scope)">分数分布</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="evaluateHomework(scope)" v-show="role==='student'">互评作业</el-link>
         </template>
       </el-table-column>
@@ -39,16 +40,14 @@
   </el-card>
 
   <!--上传附件的弹出框-->
-  <el-dialog v-model="dialogTableVisible" title="为作业添加附件">
+  <el-dialog v-model="dialogFileVisible" title="为作业添加附件">
     <el-upload action="/homework/addFile" :auto-upload="false" :file-list="fileList" :on-change="handleChange">
       <template #trigger>
         <el-button type="primary">选择文件</el-button>
       </template>
       <el-button type="success" style="margin-left: 10px" @click="submitUpload">上传文件</el-button>
       <template #tip>
-        <div>
-          文件小于5Mb
-        </div>
+        <div>文件小于5Mb</div>
       </template>
     </el-upload>
   </el-dialog>
@@ -60,6 +59,7 @@ import api from "../../../api";
 import {ElMessage, ElMessageBox} from "element-plus";
 import {mapState} from "vuex";
 import Cookie from "js-cookie";
+import * as echarts from "echarts";
 
 export default {
   components: {PageHeader},
@@ -69,7 +69,7 @@ export default {
       homeworkName: '',
       key: 1,
       // 是否显示文件上传弹出框
-      dialogTableVisible: false,
+      dialogFileVisible: false,
       // 文件列表
       fileList: [],
       tableData: [
@@ -138,7 +138,6 @@ export default {
       this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push('/teaChangeHomework');
     },
-
     //展示详细信息
     showDetailInfo(scope) {
       this.$store.commit('setHomeworkNumber', scope.row.id);
@@ -179,7 +178,7 @@ export default {
     },
     showAppend(scope){
       this.$store.commit('setHomeworkNumber', scope.row.id);
-      this.dialogTableVisible = true
+      this.dialogFileVisible = true;
     },
     // 上传附件
     submitUpload() {
@@ -241,6 +240,9 @@ export default {
       row.index = rowIndex;
       // console.log(row)
     },
+    showData(scope) {
+      this.$router.push("/distribution");
+    }
   },
   computed: {
     ...mapState(['courseNumber', 'role', 'homeworkNumber'])
