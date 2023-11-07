@@ -185,7 +185,7 @@ export default {
           if (response.data.code === 20000) {
             ElMessage.success("修改成功");
           } else {
-            ElMessage.success("修改失败");
+            ElMessage.error("修改失败");
           }
         });
       }

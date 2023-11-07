@@ -92,6 +92,8 @@ export default {
   methods:{
     showDetailInfo(scope){
       this.$store.commit('setHomeworkID', scope.row.id);
+      this.$store.commit('setStudentNumber', scope.row.studentNumber);
+      console.log(scope.row.id)
       this.$router.push('/detailSubmitHomework');
     }
   }

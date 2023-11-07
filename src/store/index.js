@@ -10,6 +10,7 @@ const store = createStore({
         homeworkNumber: null,
         homeworkName:null,
         homeworkID:null,
+        studentNumber:null,
         index:null,
     },
     getters: {},
@@ -39,9 +40,13 @@ const store = createStore({
         setHomeworkID(state, value) {
             state.homeworkID = value;
         },
-        //设置查看学生作业的学生作业号
+        //设置查看学生作业的作业序号
         setIndex(state, value) {
             state.index = value;
+        },
+        //设置查看学生作业的学生作业号
+        setStudentNumber(state, value) {
+            state.studentNumber = value;
         },
     },
     actions: {},
