@@ -4,13 +4,15 @@
       <page-header :component="head"/>
     </template>
     <!--布置详情-->
+    <el-divider content-position="left">作业内容</el-divider>
     <detail/>
-    <el-descriptions :column="2" border title="提交内容" style="margin-top: 10px">
+    <el-divider content-position="left">学生提交内容</el-divider>
+    <el-descriptions :column="2" border style="margin-top: 10px">
       <el-descriptions-item label="学号:">{{studentNumber}}</el-descriptions-item>
       <el-descriptions-item label="得分:">
         <div style="display: flex;">
-          <el-input placeholder="输入分数"></el-input>
-          <el-button type="primary" style="margin-left: 3%" @click="checkGrade">确定</el-button>
+          <el-input placeholder="输入分数" style="width: 200px"></el-input>
+          <el-button type="primary" style="margin-left: 20px;width: 100px" @click="checkGrade">确定</el-button>
         </div>
       </el-descriptions-item>
       <el-descriptions-item label="提交时间:">{{date}}</el-descriptions-item>
@@ -46,7 +48,7 @@ export default {
     api.getStuHomework(this.homeworkID).then(async res=>{
       if(res.data.code===20000){
         this.files=res.data.data.files;
-        this.date=res.data.data.info.date
+        this.date=res.data.data.info.date;
         this.answer = await Vditor.md2html(res.data.data.info.answer);
       }else {
         ElMessage.error("加载失败");

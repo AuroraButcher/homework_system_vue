@@ -6,7 +6,7 @@
     <div class="hang">
       <el-input @keyup.enter="search" v-model="homeworkName" placeholder="请输入作业名称" style="width: 220px;"></el-input>
       <el-button type="primary" style="margin-left: 10px" @click="search(this.homeworkName)">搜索</el-button>
-      <el-button type="primary" style="margin-left: 800px" @click="addHomework()" v-show="role==='teacher'">添加作业</el-button>
+      <el-button type="primary" style="margin-left: 10px" @click="addHomework()" v-show="role==='teacher'">添加作业</el-button>
     </div>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="60px"></el-table-column>
@@ -59,7 +59,6 @@ import api from "../../../api";
 import {ElMessage, ElMessageBox} from "element-plus";
 import {mapState} from "vuex";
 import Cookie from "js-cookie";
-import * as echarts from "echarts";
 
 export default {
   components: {PageHeader},

@@ -3,16 +3,42 @@
     <template #header>
       <page-header :component="head"/>
     </template>
-    <div style="height:50vh;width:100%;" ref="chart"></div>
+    <!--统计板-->
+    <div>
+      <el-row style="text-align: center;">
+        <el-col :span="6">
+          <el-statistic title="应交人数" :value="50"/>
+        </el-col>
+        <el-col :span="6">
+          <el-statistic title="实交人数" :value="24"/>
+        </el-col>
+        <el-col :span="6">
+          <el-statistic title="未交人数" :value="26"/>
+        </el-col>
+        <el-col :span="6">
+          <el-statistic :value="24">
+            <template #title>
+              <div style="display: inline-flex; align-items: center">
+                提交率
+              </div>
+            </template>
+            <template #suffix>/50</template>
+          </el-statistic>
+        </el-col>
+      </el-row>
+    </div>
+    <!--饼图-->
+    <div style="height:50vh;width:100%;margin-top: 20px" ref="chart"></div>
   </el-card>
 </template>
 
 <script>
 import * as echarts from "echarts";
 import PageHeader from "../../Base/PageHeader.vue";
+import {Male} from "@element-plus/icons-vue";
 
 export default {
-  components: {PageHeader},
+  components: {Male, PageHeader},
   data() {
     return {
       head: "分数分布",
