@@ -49,6 +49,7 @@ import PageHeader from "../../Base/PageHeader.vue";
 import api from "../../../api";
 import {mapState} from "vuex";
 import {ChatLineRound, Male} from "@element-plus/icons-vue";
+import {ElMessage} from "element-plus";
 
 export default {
   components: {Male, ChatLineRound, PageHeader},
@@ -92,7 +93,6 @@ export default {
     showDetailInfo(scope) {
       this.$store.commit('setHomeworkID', scope.row.id);
       this.$store.commit('setStudentNumber', scope.row.studentNumber);
-      console.log(scope.row.id)
       this.$router.push('/detailSubmitHomework');
     },
     // 处理页数改变
@@ -110,7 +110,6 @@ export default {
     rowClassName({row, rowIndex}) {
       //把每一行的索引放进row
       row.index = rowIndex;
-      // console.log(row)
     },
   }
 }

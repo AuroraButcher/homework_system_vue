@@ -20,8 +20,8 @@
     <div class="editor" id="vditor"></div>
 
     <div>
-      <el-button type="primary" style="margin-left: 10px; margin-top:2%" @click="showAppend()">添加附件</el-button>
-      <el-button style="margin-top:2%" @click="submitHomework">提交作业</el-button>
+      <el-button type="primary" style="margin-left: 10px; margin-top:2%" @click="showAppend">添加附件</el-button>
+      <el-button type="primary" style="margin-top:10px" @click="submitHomework">提交作业</el-button>
     </div>
   </el-card>
   <!--上传附件的弹出框-->
