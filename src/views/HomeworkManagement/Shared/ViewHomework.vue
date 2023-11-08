@@ -118,7 +118,6 @@ export default {
           this.tableData = res.data.data.homeworkInfo.records;
           this.submit=res.data.data.isSubmitted
         }else{
-          console.
           ElMessage.error(res.data.message);
         }
       })
@@ -188,8 +187,6 @@ export default {
       this.fileList.forEach(val => {
         param.append("multipartFile", val.raw);
       })
-      //param.append("multipartFile",this.fileList[0].raw)
-      //console.log(param.get("multipartFile"))
       api.addHomeworkFile(param).then(res => {
         if (res.data.code === 20000) {
           ElMessage.success("上传成功");
@@ -238,7 +235,6 @@ export default {
     rowClassName({row, rowIndex}) {
       //把每一行的索引放进row
       row.index = rowIndex;
-      // console.log(row)
     },
     showData(scope) {
       this.$router.push("/distribution");

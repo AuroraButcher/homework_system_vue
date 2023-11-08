@@ -180,7 +180,6 @@ export default {
       } else {
         this.homeworkData.classId = this.$store.state.courseNumber;
         this.homeworkData.content = this.contentEditor.getValue();
-        console.log(this.homeworkData)
         api.changeHomework(this.homeworkData).then(response => {
           if (response.data.code === 20000) {
             ElMessage.success("修改成功");
