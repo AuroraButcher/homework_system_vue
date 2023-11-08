@@ -51,15 +51,15 @@ export default {
       if(res.data.code===20000){
         for(i=0;i<res.data.data["未评分-评分表"].length;i++){
           this.tableData.push({
-            id:res.data.data["未评分-评分表"][i],
-            evaluateId: res.data.data["未评分-作业表"][i],
+            evaluateId:res.data.data["未评分-评分表"][i],
+            id: res.data.data["未评分-作业表"][i],
             grade:'未评分',
           })
         }
         for(var i=0;i<res.data.data["评分-评分表"].length;i++){
           this.tableData.push({
-            id:res.data.data["评分-评分表"][i],
-            evaluateId: res.data.data["评分-作业表"][i],
+            evaluateId:res.data.data["评分-评分表"][i],
+            id: res.data.data["评分-作业表"][i],
             grade:'00',
           })
         }
@@ -74,6 +74,9 @@ export default {
   methods:{
     checkHomework(scope){
       //TODO 进入互评打分界面
+      this.$store.commit('setIndex',scope.row.evaluateId)
+      this.$store.commit('setHomeworkID',scope.row.id)
+      this.$router.push('/detailSubmitHomework');
     }
   },
 }

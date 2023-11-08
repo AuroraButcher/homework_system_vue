@@ -40,7 +40,7 @@ const store = createStore({
         setHomeworkID(state, value) {
             state.homeworkID = value;
         },
-        //设置查看学生作业的作业序号
+        //设置查看作业序号
         setIndex(state, value) {
             state.index = value;
         },

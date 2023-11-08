@@ -11,8 +11,8 @@
       <el-descriptions-item label="学号:">{{studentNumber}}</el-descriptions-item>
       <el-descriptions-item label="得分:">
         <div style="display: flex;">
-          <el-input placeholder="输入分数" style="width: 200px"></el-input>
-          <el-button type="primary" style="margin-left: 20px;width: 100px" @click="checkGrade">确定</el-button>
+          <el-input placeholder="输入分数" v-model="grade" type="number"></el-input>
+          <el-button type="primary" style="margin-left: 3%" @click="checkGrade">确定</el-button>
         </div>
       </el-descriptions-item>
       <el-descriptions-item label="提交时间:">{{date}}</el-descriptions-item>
@@ -63,7 +63,7 @@ export default {
       submit: null,
       time:null,
       date: null,
-      grade:Number,
+      grade:null,
       fileName: null,
       files: [],
     }
@@ -92,10 +92,31 @@ export default {
     },
     checkGrade(){
       // TODO 提交老师批改的分数
+
+      const grade = parseInt(this.grade);
+      if (isNaN(grade)) {
+        // 输入无效，进行相应的处理
+        ElMessage.error("输入错误的分数");
+      }else if(grade < 0 || grade > 100){
+        ElMessage.error("分数在0-100之间");
+      } else {
+        // 输入有效，进行相应的处理
+        // 学生互评分数
+        if(this.role==='student'){
+          api.stuEvaluateGrade({id:this.index,grade:this.grade}).then(res=>{
+            if(res.data.code===20000){
+              ElMessage.success("提交成功");
+            }else {
+              ElMessage.error("提交失败");
+            }
+          })
+        }
+
+      }
     },
   },
   computed:{
-    ...mapState(['homeworkID','studentNumber'])
+    ...mapState(['homeworkID','studentNumber','role','index'])
   }
 }
 </script>

@@ -272,6 +272,15 @@ const api = {
                 studentNumber:tableData.studentNumber
             }
         })
+    },
+    //学生互评分数
+    stuEvaluateGrade(tableData){
+        return axios.post(path.baseUrl + path.evaluateGrade,null,{
+            params:{
+                id:tableData.id,
+                score:tableData.grade
+            }
+        })
     }
 }
 export default api

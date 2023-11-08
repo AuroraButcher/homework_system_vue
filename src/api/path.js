@@ -65,6 +65,7 @@ const base = {
     stuHomeworkFile: '/homework/submitFile',
     //获取互评作业名单
     getEvaluateList:'/score/getReview',
-
+    //学生互评分数
+    evaluateGrade:'/score/studentReview',
 }
 export default base
