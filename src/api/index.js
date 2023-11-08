@@ -264,5 +264,14 @@ const api = {
     stuHomeworkFile(tableData) {
         return axios.post(path.baseUrl + path.stuHomeworkFile, tableData)
     },
+    //获取互评作业名单
+    stuGetEvaluateList(tableData){
+        return axios.get(path.baseUrl + path.getEvaluateList,{
+            params:{
+                homeworkId:tableData.homeworkNumber,
+                studentNumber:tableData.studentNumber
+            }
+        })
+    }
 }
 export default api

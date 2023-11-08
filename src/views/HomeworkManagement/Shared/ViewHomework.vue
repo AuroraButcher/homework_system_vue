@@ -219,6 +219,7 @@ export default {
       }
       this.$router.push('/submitHomework');
     },
+    //互评作业
     evaluateHomework(scope){
       this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push('/evaluateHomework');

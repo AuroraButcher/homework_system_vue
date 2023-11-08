@@ -63,5 +63,8 @@ const base = {
     downloadFiles: '/homework/download',
     //学生上传附件
     stuHomeworkFile: '/homework/submitFile',
+    //获取互评作业名单
+    getEvaluateList:'/score/getReview',
+
 }
 export default base

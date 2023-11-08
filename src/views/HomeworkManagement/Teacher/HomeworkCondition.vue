@@ -20,9 +20,6 @@
             <template #title>
               <div style="display: inline-flex; align-items: center">
                 提交率
-                <el-icon style="margin-left: 4px" :size="12">
-                  <Male/>
-                </el-icon>
               </div>
             </template>
             <template #suffix>/50</template>
@@ -32,9 +29,10 @@
     </div>
     <!--表格-->
     <el-table :data="tableData" border style="width:100%;margin-top: 20px" :row-class-name="rowClassName" :Key="key">
-      <el-table-column label="ID" prop="id" width="80px"></el-table-column>
+      <el-table-column label="序号" type="index" width="80px"></el-table-column>
+      <!--      学生作业id-->
+      <el-table-column label="ID" prop="id" width="80px" v-if="false"></el-table-column>
       <el-table-column label="学生学号" prop="studentNumber" width="120px"></el-table-column>
-      <el-table-column label="是否提交" prop="submit" width="100px"></el-table-column>
       <el-table-column label="分数" prop="grade" width="100px"></el-table-column>
       <el-table-column label="提交时间" prop="date" width="200px"></el-table-column>
       <el-table-column fixed="right" label="操作">
@@ -59,6 +57,8 @@ export default {
     return {
       head: '作业提交情况',
       key: 1,
+      submitNumber:'',
+      numberOfStudent:'',
       tableData: [
         {
           id: '',
