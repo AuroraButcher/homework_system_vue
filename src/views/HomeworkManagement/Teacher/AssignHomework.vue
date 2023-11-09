@@ -4,33 +4,68 @@
       <page-header :component="head"/>
     </template>
     <!--设置标题、开始时间和截止时间、是否允许多次提交-->
-    <div class="selectHeader">
-      <span style="font-weight: bold">标题：</span>
-      <el-input style="width: 200px" v-model="homeworkData.title"></el-input>
-      <span style="font-weight: bold;margin-left: 20px">起始与截止时间：</span>
-      <el-date-picker
-          v-model="homeworkData.time"
-          type="datetimerange"
-          start-placeholder="Start date"
-          end-placeholder="End date"
-          format="YYYY-MM-DD HH:mm:ss"
-          value-format="YYYY-MM-DD hh:mm:ss"
-          date-format="YYYY/MM/DD ddd"
-          time-format="A hh:mm:ss"
-          style="margin-left: 10px"
-      />
-      <span style="font-weight: bold;margin-left: 20px">允许多次提交：</span>
-      <el-switch
-          v-model="resubmit"
-          style="margin-left: 15px"
-          inline-prompt
-          :active-icon="Check"
-          :inactive-icon="Close"
-      />
-      <el-button type="primary" style="width: 150px;margin-left: 20px" @click="assignHomework">发布作业</el-button>
+    <div>
+      <el-descriptions :column="3" title="作业设置">
+        <el-descriptions-item label="标题：">
+          <el-input style="width: 200px" v-model="homeworkData.title"></el-input>
+        </el-descriptions-item>
+        <el-descriptions-item label="起始与截止时间：">
+          <el-date-picker
+              v-model="homeworkData.time"
+              type="datetimerange"
+              start-placeholder="Start date"
+              end-placeholder="End date"
+              format="YYYY-MM-DD HH:mm:ss"
+              value-format="YYYY-MM-DD hh:mm:ss"
+              date-format="YYYY/MM/DD ddd"
+              time-format="A hh:mm:ss"
+              style="margin-left: 10px"
+          />
+        </el-descriptions-item>
+        <el-descriptions-item label="允许多次提交：">
+          <el-switch
+              v-model="resubmit"
+              style="margin-left: 15px"
+              inline-prompt
+              :active-icon="Check"
+              :inactive-icon="Close"
+          />
+        </el-descriptions-item>
+      </el-descriptions>
+    </div>
+    <!--    <div class="selectHeader">
+          <span style="font-weight: bold">标题：</span>
+          <el-input style="width: 200px" v-model="homeworkData.title"></el-input>
+          <span style="font-weight: bold;margin-left: 20px">起始与截止时间：</span>
+          <el-date-picker
+              v-model="homeworkData.time"
+              type="datetimerange"
+              start-placeholder="Start date"
+              end-placeholder="End date"
+              format="YYYY-MM-DD HH:mm:ss"
+              value-format="YYYY-MM-DD hh:mm:ss"
+              date-format="YYYY/MM/DD ddd"
+              time-format="A hh:mm:ss"
+              style="margin-left: 10px"
+          />
+          <span style="font-weight: bold;margin-left: 20px">允许多次提交：</span>
+          <el-switch
+              v-model="resubmit"
+              style="margin-left: 15px"
+              inline-prompt
+              :active-icon="Check"
+              :inactive-icon="Close"
+          />
+          <el-button type="primary" style="width: 150px;margin-left: 20px" @click="assignHomework">发布作业</el-button>
+        </div>-->
+    <!--互评的相关设置-->
+    <div style="margin-top: 10px">
+      <set-evaluation></set-evaluation>
     </div>
     <!--编辑器-->
+    <span style="font-weight: bold">作业内容</span>
     <div class="editor" id="vditor"></div>
+    <el-button type="primary" style="width: 150px;margin-top: 10px" @click="assignHomework">发布作业</el-button>
   </el-card>
 </template>
 
@@ -41,6 +76,7 @@ import PageHeader from "../../Base/PageHeader.vue";
 import {Apple, Check, Close} from "@element-plus/icons-vue";
 import api from "../../../api";
 import {ElMessage} from "element-plus";
+import SetEvaluation from "./SetEvaluation.vue";
 
 export default {
   computed: {
@@ -51,13 +87,13 @@ export default {
       return Check;
     },
   },
-  components: {Apple, PageHeader},
+  components: {SetEvaluation, Apple, PageHeader},
   data() {
     return {
       head: "添加作业",
       contentEditor: {},
       time: '',
-      resubmit:false,
+      resubmit: false,
       homeworkData: {
         title: null,
         classId: null,
@@ -161,10 +197,10 @@ export default {
 </script>
 
 <style scoped>
-.selectHeader {
+/*.selectHeader {
   display: flex;
   align-items: center;
-}
+}*/
 
 .editor {
   margin-top: 10px;

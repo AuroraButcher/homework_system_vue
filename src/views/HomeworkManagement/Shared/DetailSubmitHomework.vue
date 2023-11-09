@@ -11,7 +11,13 @@
       <el-descriptions-item label="学号:">{{studentNumber}}</el-descriptions-item>
       <el-descriptions-item label="得分:">
         <div style="display: flex;">
-          <el-input placeholder="输入分数" v-model="grade" type="number"></el-input>
+          <el-input placeholder="输入分数"
+                    v-model="grade"
+                    type="number"
+                    min="0"
+                    max="100"
+                    oninput="if(value>100)value=100;if(value<0)value=0">
+          </el-input>
           <el-button type="primary" style="margin-left: 3%" @click="checkGrade">确定</el-button>
         </div>
       </el-descriptions-item>
