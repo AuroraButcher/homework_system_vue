@@ -33,31 +33,6 @@
         </el-descriptions-item>
       </el-descriptions>
     </div>
-    <!--    <div class="selectHeader">
-          <span style="font-weight: bold">标题：</span>
-          <el-input style="width: 200px" v-model="homeworkData.title"></el-input>
-          <span style="font-weight: bold;margin-left: 20px">起始与截止时间：</span>
-          <el-date-picker
-              v-model="homeworkData.time"
-              type="datetimerange"
-              start-placeholder="Start date"
-              end-placeholder="End date"
-              format="YYYY-MM-DD HH:mm:ss"
-              value-format="YYYY-MM-DD hh:mm:ss"
-              date-format="YYYY/MM/DD ddd"
-              time-format="A hh:mm:ss"
-              style="margin-left: 10px"
-          />
-          <span style="font-weight: bold;margin-left: 20px">允许多次提交：</span>
-          <el-switch
-              v-model="resubmit"
-              style="margin-left: 15px"
-              inline-prompt
-              :active-icon="Check"
-              :inactive-icon="Close"
-          />
-          <el-button type="primary" style="width: 150px;margin-left: 20px" @click="assignHomework">发布作业</el-button>
-        </div>-->
     <!--互评的相关设置-->
     <div style="margin-top: 10px">
       <set-evaluation></set-evaluation>
@@ -197,11 +172,6 @@ export default {
 </script>
 
 <style scoped>
-/*.selectHeader {
-  display: flex;
-  align-items: center;
-}*/
-
 .editor {
   margin-top: 10px;
 }
