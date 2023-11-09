@@ -274,11 +274,19 @@ const api = {
         })
     },
     //学生互评分数
-    stuEvaluateGrade(tableData){
-        return axios.post(path.baseUrl + path.evaluateGrade,null,{
-            params:{
-                id:tableData.id,
-                score:tableData.grade
+    stuEvaluateGrade(tableData) {
+        return axios.post(path.baseUrl + path.evaluateGrade, null, {
+            params: {
+                id: tableData.id,
+                score: tableData.grade
+            }
+        })
+    },
+    //获取分数分布信息
+    scoreDistribution(homeworkID) {
+        return axios.get(path.baseUrl + path.scoreDistribution, {
+            params: {
+                homeworkId: homeworkID,
             }
         })
     }

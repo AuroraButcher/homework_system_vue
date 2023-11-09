@@ -236,7 +236,9 @@ export default {
       //把每一行的索引放进row
       row.index = rowIndex;
     },
+    // 分数分布
     showData(scope) {
+      this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push("/distribution");
     }
   },
