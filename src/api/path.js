@@ -69,5 +69,13 @@ const base = {
     evaluateGrade: '/score/studentReview',
     //获取分数分布信息
     scoreDistribution: '/score/statistic',
+    //学生评语提交
+    stuComment:'/score/studentContent',
+    //老师评语提交
+    teaComment:'/score/teacherContent',
+    //获取学生互评
+    stuGetComment:'/score/getByHomework',
+    //老师评分
+    teaEvaluateGrade:'/score/teacherReview',
 }
 export default base

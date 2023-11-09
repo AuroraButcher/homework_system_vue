@@ -5,18 +5,18 @@
     </template>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px">
       <el-table-column label="序号" type="index" width="60px"></el-table-column>
-      <el-table-column label="作业编号" prop="id" width="100px" v-if="false"></el-table-column>
-      <el-table-column label="互评编号" prop="evaluateId" width="100px" v-if="false"></el-table-column>
+      <el-table-column label="作业编号" prop="id" width="100px" v-if="true"></el-table-column>
+      <el-table-column label="互评编号" prop="evaluateId" width="100px" v-if="true"></el-table-column>
       <el-table-column label="作业名称" prop="name" width="200px">
         <template #default="scope">
           作业{{ scope.$index + 1 }}
         </template>
       </el-table-column>
-      <el-table-column label="分数" prop="grade" width="200px"></el-table-column>
+      <el-table-column label="评分情况" prop="grade" width="200px"></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link style="margin-left: 10px" @click="checkHomework(scope)">
-              {{ scope.row.grade==='未评分'?'互评作业':'修改评分'}}
+              {{scope.row.grade==='未评分'?'互评作业':'修改评分'}}
           </el-link>
         </template>
       </el-table-column>
@@ -60,7 +60,7 @@ export default {
           this.tableData.push({
             evaluateId:res.data.data["评分-评分表"][i],
             id: res.data.data["评分-作业表"][i],
-            grade:'00',
+            grade:'已互评',
           })
         }
       }else {
@@ -73,7 +73,6 @@ export default {
   },
   methods:{
     checkHomework(scope){
-      //TODO 进入互评打分界面
       this.$store.commit('setIndex',scope.row.evaluateId)
       this.$store.commit('setHomeworkID',scope.row.id)
       this.$router.push('/detailSubmitHomework');

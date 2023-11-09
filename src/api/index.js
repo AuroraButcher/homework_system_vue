@@ -289,6 +289,38 @@ const api = {
                 homeworkId: homeworkID,
             }
         })
-    }
+    },
+    //学生评语
+    stuComment(data) {
+        return axios.post(path.baseUrl + path.stuComment, {
+            id:data.id,//互评id
+            content:data.comment
+        })
+    },
+    //老师评语
+    teaComment(data) {
+        return axios.post(path.baseUrl + path.teaComment, {
+            id:data.id,//评价的作业id
+            content:data.comment
+        })
+    },
+    //老师评分
+    teaEvaluateGrade(data){
+        return axios.post(path.baseUrl + path.teaEvaluateGrade,null,{
+            params:{
+                score:data.grade,
+                homeworkStudentId:data.homeworkId
+            }
+        })
+    },
+    //获取学生互评
+    stuGetComment(data){
+        return axios.get(path.baseUrl + path.stuGetComment,{
+            params:{
+                homeworkStudentId:data.homeworkId,//评的学生作业id
+                studentNumber:data.studentNumber//在评价别人的学生的id
+            }
+        })
+    },
 }
 export default api

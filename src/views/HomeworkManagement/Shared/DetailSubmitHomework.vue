@@ -30,6 +30,16 @@
         </ul>
       </el-descriptions-item>
     </el-descriptions>
+    <el-divider content-position="left">作业点评</el-divider>
+    <el-input
+        type="textarea"
+        :rows="4"
+        v-model="comment"
+        placeholder="请输入评语"
+        class="textarea"
+    >
+    </el-input>
+    <el-button type="primary" style="margin-left: 10px" @click="checkComment">确定</el-button>
   </el-card>
 </template>
 
@@ -40,6 +50,7 @@ import {mapState} from "vuex";
 import api from "../../../api";
 import {ElMessage} from "element-plus";
 import Vditor from "vditor";
+import Cookie from "js-cookie";
 
 export default {
   name: "DetailSubmitHomework",
@@ -50,6 +61,23 @@ export default {
         this.files=res.data.data.files;
         this.date=res.data.data.info.date;
         this.answer = await Vditor.md2html(res.data.data.info.answer);
+        //TODO 老师获取自己评分和评语
+        if(this.role==='student'){
+          api.stuGetComment({homeworkId: this.homeworkID, studentNumber: Cookie.get('number')})
+              .then(res => {
+                if (res.data.code === 20000) {
+                  this.comment = res.data.data.score.content
+                  this.grade=res.data.data.score.score
+                  if(this.grade===-1) {
+                    this.grade = null
+                  } else {
+                    this.isGrade = true
+                  }
+                } else {
+                  ElMessage.error("加载评语失败");
+                }
+              })
+        }
       }else {
         ElMessage.error("加载失败");
       }
@@ -66,6 +94,8 @@ export default {
       grade:null,
       fileName: null,
       files: [],
+      comment:null,
+      isGrade:false,
     }
   },
   methods: {
@@ -91,8 +121,6 @@ export default {
       })*/
     },
     checkGrade(){
-      // TODO 提交老师批改的分数
-
       const grade = parseInt(this.grade);
       if (isNaN(grade)) {
         // 输入无效，进行相应的处理
@@ -110,10 +138,48 @@ export default {
               ElMessage.error("提交失败");
             }
           })
+        }else if(this.role==='teacher'){
+          let data={grade:this.grade,homeworkId:this.homeworkID}
+          api.teaEvaluateGrade({grade:this.grade,homeworkId:this.homeworkID}).then(res=>{
+            if(res.data.code===20000){
+              this.$store.commit('setIndex',res.data.data.score.id)
+              this.isGrade=true
+              ElMessage.success("提交成功");
+            }else {
+              ElMessage.error("提交失败");
+            }
+          })
+        }else {
+          ElMessage.error("提交失败");
         }
-
       }
     },
+    checkComment(){//提交评语
+      if(this.comment===''||this.comment===null){
+        ElMessage.error("评语不能为空");
+      }else if(this.grade===''||this.grade===null||!this.isGrade){
+        ElMessage.error("请先评分");
+      }else {
+        if (this.role === 'student') {
+          api.stuComment({id: this.index, comment: this.comment}).then(res => {
+            if (res.data.code === 20000) {
+              ElMessage.success("提交成功");
+            } else {
+              ElMessage.error("提交失败");
+            }
+          })
+        } else if (this.role === 'teacher') {
+          api.teaComment({id: this.index, comment: this.comment})
+            .then(res => {
+              if (res.data.code === 20000) {
+                ElMessage.success("提交成功");
+              } else {
+                ElMessage.error("提交失败");
+              }
+            })
+         }
+      }
+    }
   },
   computed:{
     ...mapState(['homeworkID','studentNumber','role','index'])
@@ -122,5 +188,7 @@ export default {
 </script>
 
 <style scoped>
-
+.textarea{
+  width: 50%;
+}
 </style>
