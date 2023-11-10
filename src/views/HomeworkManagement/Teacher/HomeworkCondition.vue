@@ -9,7 +9,7 @@
       <!--      学生作业id-->
       <el-table-column label="ID" prop="id" width="80px" v-if="false"></el-table-column>
       <el-table-column label="学生学号" prop="studentNumber" width="120px"></el-table-column>
-      <el-table-column label="分数" prop="grade" width="100px"></el-table-column>
+      <el-table-column label="分数" prop="score" width="100px"></el-table-column>
       <el-table-column label="提交时间" prop="date" width="200px"></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
@@ -41,6 +41,7 @@ export default {
           id: '',
           studentNumber: '1',
           date: '',
+          score:null,
         }
       ],
       params: {

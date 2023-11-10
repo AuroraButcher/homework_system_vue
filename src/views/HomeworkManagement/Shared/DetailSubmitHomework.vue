@@ -67,7 +67,7 @@ export default {
         this.files=res.data.data.files;
         this.date=res.data.data.info.date;
         this.answer = await Vditor.md2html(res.data.data.info.answer);
-        //TODO 老师获取自己评分和评语
+        //TODO 老师获取自己评语
         if(this.role==='student'){
           api.stuGetComment({homeworkId: this.homeworkID, studentNumber: Cookie.get('number')})
               .then(res => {
@@ -83,6 +83,14 @@ export default {
                   ElMessage.error("加载评语失败");
                 }
               })
+        }else if(this.role==='teacher'){
+          api.teaGetGrade({homeworkId: this.homeworkID}).then(res=>{
+            if(res.data.code===20000){
+              this.grade=res.data.data.score
+            }else {
+              ElMessage.error("加载评分失败");
+            }
+          })
         }
       }else {
         ElMessage.error("加载失败");

@@ -212,7 +212,7 @@ const api = {
         return axios.post(path.baseUrl + path.submitHomework, {
             answer: homeworkData.content,
             homeworkId: homeworkData.homeworkId,
-            classId: 18,
+            classId: homeworkData.classId,
             studentNumber: homeworkData.studentNumber,
         })
     },
@@ -329,6 +329,14 @@ const api = {
             end: setData.time[1],
             homeworkId: setData.homeworkId,
             studentRate: setData.stuPercent,
+        })
+    },
+    //获取老师评分
+    teaGetGrade(data){
+        return axios.get(path.baseUrl + path.teaGetGrade,{
+            params:{
+                homeworkStudentId:data.homeworkId
+            }
         })
     },
 }
