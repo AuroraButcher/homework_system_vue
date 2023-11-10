@@ -314,12 +314,21 @@ const api = {
         })
     },
     //获取学生互评
-    stuGetComment(data){
-        return axios.get(path.baseUrl + path.stuGetComment,{
-            params:{
-                homeworkStudentId:data.homeworkId,//评的学生作业id
-                studentNumber:data.studentNumber//在评价别人的学生的id
+    stuGetComment(data) {
+        return axios.get(path.baseUrl + path.stuGetComment, {
+            params: {
+                homeworkStudentId: data.homeworkId,//评的学生作业id
+                studentNumber: data.studentNumber//在评价别人的学生的id
             }
+        })
+    },
+    //互评相关设置
+    setEvaluation(setData) {
+        return axios.post(path.baseUrl + path.setEvaluation, {
+            start: setData.time[0],
+            end: setData.time[1],
+            homeworkId: setData.homeworkId,
+            studentRate: setData.stuPercent,
         })
     },
 }

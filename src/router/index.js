@@ -24,6 +24,7 @@ import detailSubmitHomework from "../views/HomeworkManagement/Shared/DetailSubmi
 // 分数相关
 import Chart from "../views/HomeworkManagement/Shared/Chart.vue";
 import evaluateHomework from "../views/HomeworkManagement/Student/EvaluateHomework.vue";
+import SetEvaluation from "../views/HomeworkManagement/Teacher/SetEvaluation.vue";
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -160,6 +161,12 @@ const routes = [
                 path: "/distribution",
                 component: Chart,
                 name: 'FractionalDistribution'
+            },
+            {
+                // 作业互评相关设置
+                path: "/setDistribution",
+                component: SetEvaluation,
+                name: 'setDistribution'
             }
         ]
     },

@@ -33,10 +33,6 @@
         </el-descriptions-item>
       </el-descriptions>
     </div>
-    <!--互评的相关设置-->
-    <div style="margin-top: 10px">
-      <set-evaluation></set-evaluation>
-    </div>
     <!--编辑器-->
     <span style="font-weight: bold">作业内容</span>
     <div class="editor" id="vditor"></div>
