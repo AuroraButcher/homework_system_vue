@@ -331,6 +331,17 @@ const api = {
             studentRate: setData.stuPercent,
         })
     },
+    // 下载学生附件
+    downloadStudentFiles(formData) {
+        return axios.post(path.baseUrl + path.downloadStudentFile, null, {
+            params: {
+                id: formData.id,
+                classID: formData.classID,
+                fileName: formData.downloadFileName,
+                studentNumber: formData.studentNumber,
+            }
+        })
+    },
     //获取老师评分
     teaGetGrade(data){
         return axios.get(path.baseUrl + path.teaGetGrade,{

@@ -110,15 +110,21 @@ export default {
       files: [],
       comment:null,
       isGrade:false,
+      downloadData: {
+        id: null,
+        classID: null,
+        downloadFileName: null,
+        studentNumber:null,
+      }
     }
   },
   methods: {
     download(item) {
-      //TODO 下载学生的附件
-      /*this.downloadData.id = this.homeworkNumber;
+      this.downloadData.id = this.homeworkNumber;
       this.downloadData.classID = this.courseNumber;
       this.downloadData.downloadFileName = item;
-      api.downloadFiles(this.downloadData).then(res => {
+      this.downloadData.studentNumber = this.studentNumber;
+      api.downloadStudentFiles(this.downloadData).then(res => {
         if (res.data.code === 20000) {
           const url = res.data.data.url;
           const link = document.createElement('a');
@@ -127,12 +133,11 @@ export default {
           document.body.appendChild(link);
           link.click();
           link.remove();
-          console.log(item)
           ElMessage.success("下载成功");
         } else {
           ElMessage.error("下载失败");
         }
-      })*/
+      })
     },
     checkGrade(){
       const grade = parseInt(this.grade);
@@ -196,7 +201,7 @@ export default {
     }
   },
   computed:{
-    ...mapState(['homeworkID','studentNumber','role','index'])
+    ...mapState(['homeworkNumber','homeworkID','studentNumber','role','index','courseNumber'])
   }
 }
 </script>

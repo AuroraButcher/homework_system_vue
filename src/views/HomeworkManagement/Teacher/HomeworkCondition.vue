@@ -6,7 +6,7 @@
     <!--表格-->
     <el-table :data="tableData" border style="width:100%;" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="80px"></el-table-column>
-      <!--      学生作业id-->
+      <!--学生作业id-->
       <el-table-column label="ID" prop="id" width="80px" v-if="false"></el-table-column>
       <el-table-column label="学生学号" prop="studentNumber" width="120px"></el-table-column>
       <el-table-column label="分数" prop="score" width="100px"></el-table-column>
