@@ -73,6 +73,7 @@ export default {
       this.setData.teaPercent = 100 - this.setData.stuPercent;
     },
     setEvaluation() {
+      this.setData.stuPercent = this.setData.stuPercent / 100;
       this.setData.homeworkId = this.homeworkNumber;
       api.setEvaluation(this.setData).then(res => {
         if (res.data.code === 20000) {

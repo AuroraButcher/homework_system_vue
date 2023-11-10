@@ -79,5 +79,7 @@ const base = {
     teaEvaluateGrade: '/score/teacherReview',
     //互评相关设置
     setEvaluation: '/score/setReviewList',
+    //下载学生附件
+    downloadStudentFile: '/homework/downloadStudent',
 }
 export default base

@@ -331,5 +331,16 @@ const api = {
             studentRate: setData.stuPercent,
         })
     },
+    // 下载学生附件
+    downloadStudentFiles(formData) {
+        return axios.post(path.baseUrl + path.downloadStudentFile, null, {
+            params: {
+                id: formData.id,
+                classID: formData.classID,
+                fileName: formData.downloadFileName,
+                studentNumber: formData.studentNumber,
+            }
+        })
+    },
 }
 export default api
