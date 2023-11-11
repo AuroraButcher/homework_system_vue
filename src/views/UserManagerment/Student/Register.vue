@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import api from '../../api';
+import api from '../../../api';
 import {ElMessage, ElMessageBox} from "element-plus";
 
 export default {

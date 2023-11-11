@@ -5,7 +5,7 @@
       <page-header :component='head'/>
     </template>
     <div class="hang">
-      <el-input @keyup.enter="search" v-model="courseName" placeholder="请输入课程名称" style="width: 220px;"></el-input>
+      <el-input v-model="courseName" placeholder="请输入课程名称" style="width: 220px;"></el-input>
       <el-button type="primary" style="margin-left: 10px" @click="search(this.courseName)">搜索</el-button>
     </div>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">

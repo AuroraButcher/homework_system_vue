@@ -13,7 +13,6 @@
       <el-table-column label="作业编号" prop="id" width="100px" v-if="false"></el-table-column>
       <el-table-column label="作业名称" prop="name" width="200px"></el-table-column>
       <el-table-column label="截止时间" prop="end" width="300px"></el-table-column>
-      <el-table-column label="提交情况" prop="submit" width="300px" v-if="false"></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link style="margin-left: 10px" @click="showDetailInfo(scope)">详情</el-link>
@@ -30,9 +29,10 @@
       </el-table-column>
     </el-table>
     <!--横线-->
-    <hr style="margin-top: 10px">
+    <hr v-if="role==='teacher'" style="margin-top: 10px">
     <!--页码-->
     <el-pagination
+        v-if="role==='teacher'"
         v-model:current-page="page.pageNo"
         v-model:page-size="page.pageSize"
         :total="page.total"
@@ -74,15 +74,15 @@ export default {
       fileList: [],
       tableData: [
         {
-          "id": 1,
-          "classId": 2,
-          "start": 23,
-          "end": 23,
-          "title": 23,
+          "id": null,
+          "classId": null,
+          "start": null,
+          "end": null,
           "content": null,
-          "resubmit": 23,
-          // "currentNumber":null,
-          // "result":null,
+          "resubmit": null,
+          "fileName": null,
+          "name": null,
+          "score": null,
         }
       ],
       page: {
@@ -111,13 +111,11 @@ export default {
       })
     }else {
       api.stuViewHomework(this.page).then(res=>{
-        if(res.data.code===20000){
-          //设置记录总数
-          this.page.total = res.data.data.homeworkInfo.total;
+        if (res.data.code === 20000) {
           //设置表数据
-          this.tableData = res.data.data.homeworkInfo.records;
-          this.submit=res.data.data.isSubmitted
-        }else{
+          this.tableData = res.data.data.homeworkInfo;
+          this.submit = res.data.data.isSubmitted;
+        } else {
           ElMessage.error(res.data.message);
         }
       })
@@ -223,7 +221,7 @@ export default {
     },
     // 处理页数改变
     handlePageChange() {
-      api.showCourse(this.page).then(res => {
+      api.getHomeworkList(this.page).then(res => {
         if (res.data.code === 20000) {
           this.page.total = res.data.data.classInfo.total;
           this.tableData = res.data.data.classInfo.records;

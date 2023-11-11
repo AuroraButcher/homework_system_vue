@@ -29,13 +29,13 @@
             <el-icon>
               <View/>
             </el-icon>
-            <span>用户列表</span>
+            <span>教师列表</span>
           </el-menu-item>
           <el-menu-item class="el-menu-item">
             <el-icon>
-              <Plus/>
+              <View/>
             </el-icon>
-            <span>添加用户</span>
+            <span>学生列表</span>
           </el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="2">

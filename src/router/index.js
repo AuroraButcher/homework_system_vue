@@ -2,9 +2,9 @@ import {createRouter, createWebHistory} from "vue-router"
 //共享
 //用户管理
 import Cookie from "js-cookie";
-import login from "../views/UserManagerment/Login.vue";
-import register from "../views/UserManagerment/Register.vue";
-import getBackPassword from "../views/UserManagerment/GetBackPassword.vue";
+import login from "../views/UserManagerment/Shared/Login.vue";
+import register from "../views/UserManagerment/Student/Register.vue";
+import getBackPassword from "../views/UserManagerment/Shared/GetBackPassword.vue";
 //基础
 import Home from "../views/Base/Home.vue";
 import HomePage from "../views/Base/HomePage.vue";

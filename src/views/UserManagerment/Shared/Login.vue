@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import api from "../../api";
+import api from "../../../api";
 import {ElMessage} from "element-plus";
 import Cookie from 'js-cookie';
 
@@ -83,7 +83,7 @@ export default {
               console.error(error);
             });
           } else if (this.role === "teacher") {
-            // 老师校验
+            // TODO:老师校验
             /*api.teacherLogin(this.ruleForm).then(response => {
               if (response.data.code === 20000) {*/
             Cookie.set('number', this.ruleForm.number);
@@ -112,7 +112,6 @@ export default {
             });
           }
         } else {
-          console.log("error submit!!");
           return false;
         }
       });

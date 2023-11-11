@@ -56,8 +56,8 @@
 
 <script>
 import SideMenu from "./SideMenu.vue";
-import DeleteAccount from "../UserManagerment/DeleteAccount.vue";
-import ChangePassword from "../UserManagerment/ChangePassword.vue";
+import DeleteAccount from "../UserManagerment/Shared/DeleteAccount.vue";
+import ChangePassword from "../UserManagerment/Shared/ChangePassword.vue";
 import Cookie from "js-cookie";
 import {ArrowDown, Expand, Fold} from "@element-plus/icons-vue";
 import {mapState} from "vuex";
