@@ -67,7 +67,7 @@ export default {
         this.files=res.data.data.files;
         this.date=res.data.data.info.date;
         this.answer = await Vditor.md2html(res.data.data.info.answer);
-        //TODO 老师获取自己评分和评语
+        //TODO 老师获取自己评语
         if(this.role==='student'){
           api.stuGetComment({homeworkId: this.homeworkID, studentNumber: Cookie.get('number')})
               .then(res => {
@@ -83,6 +83,14 @@ export default {
                   ElMessage.error("加载评语失败");
                 }
               })
+        }else if(this.role==='teacher'){
+          api.teaGetGrade({homeworkId: this.homeworkID}).then(res=>{
+            if(res.data.code===20000){
+              this.grade=res.data.data.score
+            }else {
+              ElMessage.error("加载评分失败");
+            }
+          })
         }
       }else {
         ElMessage.error("加载失败");
@@ -102,15 +110,21 @@ export default {
       files: [],
       comment:null,
       isGrade:false,
+      downloadData: {
+        id: null,
+        classID: null,
+        downloadFileName: null,
+        studentNumber:null,
+      }
     }
   },
   methods: {
     download(item) {
-      //TODO 下载学生的附件
-      /*this.downloadData.id = this.homeworkNumber;
+      this.downloadData.id = this.homeworkNumber;
       this.downloadData.classID = this.courseNumber;
       this.downloadData.downloadFileName = item;
-      api.downloadFiles(this.downloadData).then(res => {
+      this.downloadData.studentNumber = this.studentNumber;
+      api.downloadStudentFiles(this.downloadData).then(res => {
         if (res.data.code === 20000) {
           const url = res.data.data.url;
           const link = document.createElement('a');
@@ -119,12 +133,11 @@ export default {
           document.body.appendChild(link);
           link.click();
           link.remove();
-          console.log(item)
           ElMessage.success("下载成功");
         } else {
           ElMessage.error("下载失败");
         }
-      })*/
+      })
     },
     checkGrade(){
       const grade = parseInt(this.grade);
@@ -188,7 +201,7 @@ export default {
     }
   },
   computed:{
-    ...mapState(['homeworkID','studentNumber','role','index'])
+    ...mapState(['homeworkNumber','homeworkID','studentNumber','role','index','courseNumber'])
   }
 }
 </script>

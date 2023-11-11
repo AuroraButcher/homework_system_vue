@@ -5,8 +5,8 @@
     </template>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px">
       <el-table-column label="序号" type="index" width="60px"></el-table-column>
-      <el-table-column label="作业编号" prop="id" width="100px" v-if="true"></el-table-column>
-      <el-table-column label="互评编号" prop="evaluateId" width="100px" v-if="true"></el-table-column>
+      <el-table-column label="作业编号" prop="id" width="100px" v-if="false"></el-table-column>
+      <el-table-column label="互评编号" prop="evaluateId" width="100px" v-if="false"></el-table-column>
       <el-table-column label="作业名称" prop="name" width="200px">
         <template #default="scope">
           作业{{ scope.$index + 1 }}

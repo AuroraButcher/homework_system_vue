@@ -189,22 +189,26 @@ export default {
             api.stuViewHomework({classID:this.homeworkData.classId,studentID:this.homeworkData.studentNumber}).then(res=>{
               if (res.data.code === 20000&&res.data.data.isSubmitted[this.index]!==0) {
                 this.homeworkNo=res.data.data.isSubmitted[this.index]
-              }else {
-                ElMessage.error("上传失败");
-              }
-            })
-            const param = new FormData();
-            param.append("homeworkID", this.homeworkNumber);
-            param.append("classID", this.courseNumber);
-            param.append("studentID", Cookie.get('number'));
-            param.append("id", this.homeworkNo);
-            this.fileList.forEach(val => {
-              param.append("multipartFile", val.raw);
-            })
-            api.stuHomeworkFile(param).then(res => {
-              if (res.data.code === 20000) {
-                ElMessage.success("上传成功");
-                //this.$router.push('/stuViewHomework');
+                if(this.fileList.length>0){
+                  const param = new FormData();
+                  param.append("homeworkID", this.homeworkNumber);
+                  param.append("classID", this.courseNumber);
+                  param.append("studentID", Cookie.get('number'));
+                  param.append("id", this.homeworkNo);
+                  this.fileList.forEach(val => {
+                    param.append("multipartFile", val.raw);
+                  })
+                  api.stuHomeworkFile(param).then(res => {
+                    if (res.data.code === 20000) {
+                      ElMessage.success("上传成功");
+                      //this.$router.push('/stuViewHomework');
+                    } else {
+                      ElMessage.error("上传失败");
+                    }
+                  })
+                }else {
+                  ElMessage.success("上传成功");
+                }
               }else {
                 ElMessage.error("上传失败");
               }

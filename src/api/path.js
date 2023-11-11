@@ -70,14 +70,18 @@ const base = {
     //获取分数分布信息
     scoreDistribution: '/score/statistic',
     //学生评语提交
-    stuComment: '/score/studentContent',
+    stuComment:'/score/studentContent',
     //老师评语提交
-    teaComment: '/score/teacherContent',
+    teaComment:'/score/teacherContent',
     //获取学生互评
-    stuGetComment: '/score/getByHomework',
+    stuGetComment:'/score/getByHomework',
     //老师评分
-    teaEvaluateGrade: '/score/teacherReview',
+    teaEvaluateGrade:'/score/teacherReview',
+    //老师获取评分
+    teaGetGrade:'/score/getTeacherScore',
     //互评相关设置
     setEvaluation: '/score/setReviewList',
+    //下载学生附件
+    downloadStudentFile: '/homework/downloadStudent',
 }
 export default base
