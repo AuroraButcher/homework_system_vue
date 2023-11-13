@@ -15,10 +15,12 @@
       <el-table-column label="课程教师" prop="teacherName" width="100px"></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
+          <!--TODO:将详情写到名称作为链接（争取）-->
           <el-link type="primary" link style="margin-left: 10px" @click="showDetailInfo(scope)">课程详情</el-link>
           <el-button type="primary" link style="margin-left: 10px" @click="showHomework(scope)" v-show="role==='teacher'||role==='student'">作业列表</el-button>
-          <el-link type="primary" link style="margin-left: 10px" @click="changeCourse(scope)" v-show="role==='administrator'">修改</el-link>
+          <el-link type="primary" link style="margin-left: 10px" @click="changeCourse(scope)" v-show="role==='teacher'||role==='administrator'">修改</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="deleteCourse(scope)" v-show="role==='administrator'">删除</el-link>
+          <el-link type="primary" link style="margin-left: 10px" @click="addStudent(scope)" v-show="role==='administrator'">导入学生名单</el-link>
         </template>
       </el-table-column>
     </el-table>
@@ -68,8 +70,7 @@ export default {
         studentNumber: '',
         currentPage: 1,
         pageSize: 10,
-        //记录总数
-        total: 100,
+        total: null,
       },
     }
   },
@@ -81,7 +82,7 @@ export default {
           this.page.total = response.data.data.classInfo.total;
           this.tableData = response.data.data.classInfo.records;
         } else {
-          ElMessage.error(response.data.message);
+          console.log("查看课程列表失败");
         }
       })
     } else if (this.role === 'student') {
@@ -91,7 +92,7 @@ export default {
           this.page.total = response.data.data.classInfo.total;
           this.tableData = response.data.data.classInfo.records;
         } else {
-          ElMessage.error(response.data.message);
+          console.log("查看课程列表失败");
         }
       })
     } else {
@@ -101,7 +102,7 @@ export default {
           this.page.total = response.data.data.classInfo.total;
           this.tableData = response.data.data.classInfo.records;
         } else {
-          ElMessage.error(response.data.message);
+          console.log("查看课程列表失败");
         }
       })
     }
@@ -116,7 +117,7 @@ export default {
             this.page.total = response.data.data.classInfo.total;
             this.tableData = response.data.data.classInfo.records;
           } else {
-            ElMessage.error(response.data.message);
+            console.log("查看课程列表失败");
           }
         })
       } else if (this.role === 'student') {
@@ -127,7 +128,7 @@ export default {
             this.page.total = response.data.data.classInfo.total;
             this.tableData = response.data.data.classInfo.records;
           } else {
-            ElMessage.error(response.data.message);
+            console.log("查看课程列表失败");
           }
         })
       } else {
@@ -138,7 +139,7 @@ export default {
             this.page.total = response.data.data.classInfo.total;
             this.tableData = response.data.data.classInfo.records;
           } else {
-            ElMessage.error(response.data.message);
+            console.log("查看课程列表失败");
           }
         })
       }
@@ -198,6 +199,7 @@ export default {
       //把每一行的索引放进row
       row.index = rowIndex;
     },
+    // 展示作业列表
     showHomework(scope) {
       this.$store.commit('setCourseNumber', scope.row.id);
       if (this.role === 'teacher') {
@@ -205,6 +207,10 @@ export default {
       } else {
         this.$router.push('/stuViewHomework');
       }
+    },
+    // 给课程添加学生名单
+    addStudent(scope){
+      // TODO:添加课程选修名单
     }
   },
   computed:{

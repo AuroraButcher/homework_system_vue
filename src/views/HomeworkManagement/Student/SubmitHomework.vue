@@ -3,78 +3,51 @@
     <template #header>
       <page-header :component="head"/>
     </template>
-    <!--作业内容查看-->
-    <div>
-      <!--详细信息-->
-      <el-descriptions :column="2" border>
-        <el-descriptions-item label="作业名称:">{{ homeworkName }}</el-descriptions-item>
-        <el-descriptions-item label="是否允许多次提交:">{{ resubmit }}</el-descriptions-item>
-        <el-descriptions-item label="开始时间:">{{ start }}</el-descriptions-item>
-        <el-descriptions-item label="截止时间:">{{ end }}</el-descriptions-item>
-        <el-descriptions-item label="作业内容:">
-          <div v-html="content"></div>
-        </el-descriptions-item>
-      </el-descriptions>
-    </div>
+    <!--查看布置的作业内容-->
+    <Detail></Detail>
     <!--编辑器-->
     <div class="editor" id="vditor"></div>
-
+    <!--附件-->
+    <!--提交按钮-->
     <div>
-      <el-button type="primary" style="margin-left: 10px; margin-top:2%" @click="showAppend">添加附件</el-button>
-      <el-button type="primary" style="margin-top:10px" @click="submitHomework">提交作业</el-button>
+      <el-divider content-position="left">提交附件</el-divider>
+      <el-upload action="/homework/addFile" :auto-upload="false" :file-list="fileList" :on-change="handleChange">
+        <template #trigger>
+          <el-button type="primary">选择文件</el-button>
+        </template>
+        <template #tip>
+          <div>
+            文件小于5Mb
+          </div>
+        </template>
+      </el-upload>
     </div>
+    <el-divider content-position="left">提交附件</el-divider>
+    <el-button type="primary" @click="submitHomework">提交作业</el-button>
   </el-card>
-  <!--上传附件的弹出框-->
-  <el-dialog v-model="dialogTableVisible" title="为作业添加附件">
-    <el-upload action="/homework/addFile" :auto-upload="false" :file-list="fileList" :on-change="handleChange">
-      <template #trigger>
-        <el-button type="primary">选择文件</el-button>
-      </template>
-      <template #tip>
-        <div>
-          文件小于5Mb
-        </div>
-      </template>
-    </el-upload>
-  </el-dialog>
 </template>
 
 <script>
 import Vditor from 'vditor'
 import 'vditor/dist/index.css'
 import PageHeader from "../../Base/PageHeader.vue";
-import {Apple, Check, Close} from "@element-plus/icons-vue";
 import api from "../../../api";
 import {ElMessage} from "element-plus";
 import Cookie from "js-cookie";
 import {mapState} from "vuex";
+import Detail from "../Shared/Detail.vue";
 
 export default {
   computed: {
-    Close() {
-      return Close;
-    },
-    Check() {
-      return Check;
-    },
     ...mapState(['courseNumber','homeworkNumber','homeworkID','index'])
   },
-  components: {Apple, PageHeader},
+  components: {Detail, PageHeader},
   data() {
     return {
       head: "提交作业",
       contentEditor: {},
-      // 是否显示文件上传弹出框
-      dialogTableVisible: false,
       // 文件列表
       fileList: [],
-      //提交的作业id
-      homeworkNo:null,
-      homeworkName: null,
-      resubmit: false,
-      start: null,
-      end: null,
-      content: null,
       homeworkData: {
         homeworkId: null,
         classId: null,
@@ -85,17 +58,7 @@ export default {
     }
   },
   created() {
-    if (this.homeworkNumber !== null) {
-      api.getHomeworkInfo(this.homeworkNumber).then(async res => {
-        if (res.data.code === 20000) {
-          this.homeworkName = res.data.data.info.name;
-          this.resubmit = (res.data.data.info.resubmit === 1) ? "是" : "否";
-          this.start = res.data.data.info.start;
-          this.end = res.data.data.info.end;
-          this.content = await Vditor.md2html(res.data.data.info.content);
-        }
-      })
-    }
+    // 重新提交会调用，将上传的内容内置进去
     if (this.homeworkID !== null) {
       api.getStuHomework(this.homeworkID).then(res => {
         if (res.data.code === 20000) {
@@ -175,6 +138,8 @@ export default {
     })
   },
   methods: {
+    // 提交作业
+    // TODO：如果内容其一不为空，可以提交
     submitHomework() {
       if (this.contentEditor.getValue().length === 1 || this.contentEditor.getValue() == null || this.contentEditor.getValue() === '') {
         alert('内容不可为空');
@@ -185,7 +150,7 @@ export default {
         this.homeworkData.studentNumber = Cookie.get('number');
         this.homeworkData.content = this.contentEditor.getValue();
         api.submitHomework(this.homeworkData).then(res => {
-          if (res.data.code === 20000) {
+          if(res.data.code === 20000) {
             api.stuViewHomework({classID:this.homeworkData.classId,studentID:this.homeworkData.studentNumber}).then(res=>{
               if (res.data.code === 20000&&res.data.data.isSubmitted[this.index]!==0) {
                 this.homeworkNo=res.data.data.isSubmitted[this.index]
@@ -212,7 +177,7 @@ export default {
               }else {
                 ElMessage.error("上传失败");
               }
-            })
+            });
           } else {
             ElMessage.error("上传失败");
           }
@@ -222,9 +187,6 @@ export default {
     // 处理文件改变
     handleChange(file, fileList) {
       this.fileList = fileList;
-    },
-    showAppend(){
-      this.dialogTableVisible = true
     },
   }
 }

@@ -69,9 +69,11 @@ export default {
     }
   },
   methods: {
+    // 根据学生打分占比更改教师打分占比
     changeStuPercent() {
       this.setData.teaPercent = 100 - this.setData.stuPercent;
     },
+    // 进行互评设置
     setEvaluation() {
       this.setData.stuPercent = this.setData.stuPercent / 100;
       this.setData.homeworkId = this.homeworkNumber;

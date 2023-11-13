@@ -56,9 +56,6 @@ export default {
         info:'',
       },
       rules:{
-        id: [
-          {required: true,message:'不能为空', trigger: "change"},
-        ],
         info: [
           {required: true,message:'不能为空', trigger: "change"},
         ],

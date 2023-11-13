@@ -3,9 +3,10 @@
     <template #header>
       <page-header :component="head"/>
     </template>
-    <!--布置详情-->
+    <!--布置作业详情-->
     <el-divider content-position="left">作业内容</el-divider>
     <detail/>
+    <!--提交内容详情-->
     <el-divider content-position="left">学生提交内容</el-divider>
     <el-descriptions :column="2" border style="margin-top: 10px">
       <el-descriptions-item label="学号:">{{studentNumber}}</el-descriptions-item>
@@ -22,7 +23,7 @@
         </div>
       </el-descriptions-item>
       <el-descriptions-item label="提交时间:">{{date}}</el-descriptions-item>
-      <el-descriptions-item label="超时时间:">{{ time }}</el-descriptions-item>
+      <el-descriptions-item label="超时时间:">{{time}}</el-descriptions-item>
       <el-descriptions-item label="提交内容:" span="2">
         <div v-html="answer"></div>
       </el-descriptions-item>
@@ -36,6 +37,7 @@
         </ul>
       </el-descriptions-item>
     </el-descriptions>
+    <!--评语-->
     <el-divider content-position="left">作业点评</el-divider>
     <el-input
         type="textarea"

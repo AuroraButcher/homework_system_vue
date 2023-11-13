@@ -3,7 +3,7 @@
     <template #header>
       <page-header :component="head"/>
     </template>
-<!--    &lt;!&ndash;统计板&ndash;&gt;
+    <!--统计板-->
     <div>
       <el-row style="text-align: center;">
         <el-col :span="6">
@@ -26,7 +26,7 @@
           </el-statistic>
         </el-col>
       </el-row>
-    </div>-->
+    </div>
     <!--饼图-->
     <div style="height:50vh;width:100%;margin-top: 20px" ref="chart"></div>
   </el-card>
@@ -53,6 +53,9 @@ export default {
         sum: null,
       },
     }
+  },
+  created() {
+    // TODO:统计板
   },
   mounted() {
     this.getData();

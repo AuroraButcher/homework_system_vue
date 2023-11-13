@@ -4,7 +4,7 @@
       <page-header :component="head"/>
     </template>
     <div class="hang">
-      <el-input @keyup.enter="search" v-model="homeworkName" placeholder="请输入作业名称" style="width: 220px;"></el-input>
+      <el-input v-model="homeworkName" placeholder="请输入作业名称" style="width: 220px;"></el-input>
       <el-button type="primary" style="margin-left: 10px" @click="search(this.homeworkName)">搜索</el-button>
       <el-button type="primary" style="margin-left: 10px" @click="addHomework()" v-show="role==='teacher'">添加作业</el-button>
     </div>
@@ -15,9 +15,13 @@
       <el-table-column label="截止时间" prop="end" width="300px"></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
+          <!--TODO：将详情改到作业名称上去-->
           <el-link type="primary" link style="margin-left: 10px" @click="showDetailInfo(scope)">详情</el-link>
+          <!--TODO：将布置作业添加附件写到添加界面-->
           <el-link type="primary" link style="margin-left: 10px" @click="showAppend(scope)" v-show="role==='teacher'">添加附件</el-link>
+          <!--TODO：提交情况应该在作业开始之后再显示或者打开一页显示“尚未开始”-->
           <el-link type="primary" link style="margin-left: 10px" @click="viewSubmitHomework(scope)" v-show="role==='teacher'">提交情况</el-link>
+          <!--TODO：作业未开始，都可改；作业已经开始，无论是否结束，开始时间不可改-->
           <el-link type="primary" link style="margin-left: 10px" @click="changeHomework(scope)" v-show="role==='teacher'">修改</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)" v-show="role==='teacher'">删除</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="submitHomework(scope)" v-show="role==='student'&&submit[scope.row.index]===0">提交作业</el-link>
@@ -88,8 +92,8 @@ export default {
       page: {
         classID: '',
         pageNo: 1,
-        pageSize: 15,
-        total: 100,
+        pageSize: 10,
+        total: null,
         studentID:Cookie.get('number'),
       },
       submit:[],
@@ -97,7 +101,7 @@ export default {
   },
   // 展示作业
   created() {
-    this.page.classID=this.courseNumber
+    this.page.classID=this.courseNumber;
     if(this.role==='teacher') {
       api.getHomeworkList(this.page).then(res => {
         if (res.data.code === 20000) {
@@ -106,10 +110,11 @@ export default {
           //设置表数据
           this.tableData = res.data.data.homeworkInfo.records;
         } else {
-          ElMessage.error(res.data.message);
+          console.log("查看作业列表失败");
         }
       })
     }else {
+      // TODO：要改，急
       api.stuViewHomework(this.page).then(res=>{
         if (res.data.code === 20000) {
           //设置表数据
@@ -128,7 +133,7 @@ export default {
     },
     //搜索作业
     search(name) {
-
+      //TODO：作业列表搜索作业
     },
     //修改作业
     changeHomework(scope) {
@@ -156,6 +161,7 @@ export default {
               confirmButtonText: 'OK',
               callback: action => {
                 if (action === 'confirm') {
+                  // TODO：？？？
                   this.search()
                 }
               }
@@ -201,6 +207,7 @@ export default {
     // 提交作业
     submitHomework(scope) {
       this.$store.commit('setHomeworkNumber', scope.row.id);
+      // 第一次提交作业，数据库无位置，置null
       this.$store.commit('setHomeworkID',null);
       this.$store.commit('setIndex', scope.row.index);
       this.$router.push('/submitHomework');
@@ -208,10 +215,8 @@ export default {
     //重新提交作业
     resubmitHomework(scope){
       this.$store.commit('setHomeworkNumber', scope.row.id);
+      this.$store.commit('setHomeworkID', this.submit[scope.row.index]);
       this.$store.commit('setIndex', scope.row.index);
-      if(this.submit[scope.row.index]!==0){
-        this.$store.commit('setHomeworkID', this.submit[scope.row.index]);
-      }
       this.$router.push('/submitHomework');
     },
     //互评作业
@@ -221,6 +226,7 @@ export default {
     },
     // 处理页数改变
     handlePageChange() {
+      // TODO：检查，可能有问题
       api.getHomeworkList(this.page).then(res => {
         if (res.data.code === 20000) {
           this.page.total = res.data.data.classInfo.total;
@@ -240,6 +246,7 @@ export default {
       this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push("/distribution");
     },
+    // 互评设置
     setEvaluation(scope) {
       this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push("/setDistribution");

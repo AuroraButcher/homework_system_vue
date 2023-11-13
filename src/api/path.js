@@ -1,6 +1,6 @@
 const base = {
     //公共网址
-    baseUrl: 'http://hyh31.top:3000',
+    baseUrl: 'https://hyh31.top:3000',
 
     //角色网址
     administrator: '/admin',

@@ -16,12 +16,13 @@
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link style="margin-left: 10px" @click="checkHomework(scope)">
-              {{scope.row.grade==='未评分'?'互评作业':'修改评分'}}
+            {{scope.row.grade==='未评分'?'互评作业':'修改评分'}}
           </el-link>
         </template>
       </el-table-column>
     </el-table>
   </el-card>
+<!--  TODO:没有页码-->
 </template>
 
 <script>
@@ -40,23 +41,30 @@ export default {
       Data:{
         id:null,
         evaluateId:null,
-        name:123,
-        grade:100,
+        name:null,
+        grade:null,
       },
       tableData:[],
+      getList:{
+        studentNumber:null,
+        homeworkNumber:null,
+      }
     }
   },
   created() {
-    api.stuGetEvaluateList({studentNumber:this.studentNumber,homeworkNumber:this.homeworkNumber}).then(res=>{
+    this.getList.studentNumber = this.studentNumber;
+    this.getList.homeworkNumber = this.homeworkNumber;
+    api.stuGetEvaluateList(this.getList).then(res=>{
       if(res.data.code===20000){
-        for(i=0;i<res.data.data["未评分-评分表"].length;i++){
+        let i;
+        for(i = 0; i<res.data.data["未评分-评分表"].length; i++){
           this.tableData.push({
             evaluateId:res.data.data["未评分-评分表"][i],
             id: res.data.data["未评分-作业表"][i],
             grade:'未评分',
           })
         }
-        for(var i=0;i<res.data.data["评分-评分表"].length;i++){
+        for(i=0;i<res.data.data["评分-评分表"].length;i++){
           this.tableData.push({
             evaluateId:res.data.data["评分-评分表"][i],
             id: res.data.data["评分-作业表"][i],
@@ -64,7 +72,7 @@ export default {
           })
         }
       }else {
-        ElMessage.error(res.data.message);
+        console.log("获取互评列表失败");
       }
     })
   },

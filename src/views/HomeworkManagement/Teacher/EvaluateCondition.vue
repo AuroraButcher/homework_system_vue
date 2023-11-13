@@ -24,11 +24,10 @@
 import PageHeader from "../../Base/PageHeader.vue";
 import api from "../../../api";
 import {mapState} from "vuex";
-import {ChatLineRound, Male} from "@element-plus/icons-vue";
 import {ElMessage} from "element-plus";
 
 export default {
-  components: {Male, ChatLineRound, PageHeader},
+  components: {PageHeader},
   name: "homeworkCondition",
   data() {
     return {
@@ -53,20 +52,22 @@ export default {
     }
   },
   created() {
-      if(this.homeworkNumber!==null&&this.courseNumber!==null){
-        this.params.classID=this.courseNumber
-        this.params.homeworkID=this.homeworkNumber
-        api.homeworkCondition(this.params).then(res => {
-          if (res.data.code === 20000) {
-            this.tableData = res.data.data.homeworkInfo.records;
-          }
-        })
-      }
+    // 获取提交作业列表
+    if(this.homeworkNumber!==null&&this.courseNumber!==null){
+      this.params.classID=this.courseNumber
+      this.params.homeworkID=this.homeworkNumber
+      api.homeworkCondition(this.params).then(res => {
+        if (res.data.code === 20000) {
+          this.tableData = res.data.data.homeworkInfo.records;
+        }
+      })
+    }
   },
   computed: {
     ...mapState(['homeworkNumber', 'courseNumber'])
   },
   methods: {
+    // 提交作业详情
     showDetailInfo(scope) {
       this.$store.commit('setHomeworkID', scope.row.id);
       this.$store.commit('setStudentNumber', scope.row.studentNumber);

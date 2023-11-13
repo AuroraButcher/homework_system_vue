@@ -19,12 +19,14 @@ import AssignHomework from "../views/HomeworkManagement/Teacher/AssignHomework.v
 import DetailedHomework from "../views/HomeworkManagement/Shared/DetailedHomework.vue";
 import changeHomework from "../views/HomeworkManagement/Teacher/ChangeHomework.vue";
 import SubmitHomework from "../views/HomeworkManagement/Student/SubmitHomework.vue";
-import homeworkCondition from "../views/HomeworkManagement/Teacher/HomeworkCondition.vue";
-import detailSubmitHomework from "../views/HomeworkManagement/Shared/DetailSubmitHomework.vue";
+import homeworkCondition from "../views/HomeworkManagement/Teacher/EvaluateCondition.vue";
+import detailSubmitHomework from "../views/HomeworkManagement/Shared/EvaluateHomework.vue";
 // 分数相关
 import Chart from "../views/HomeworkManagement/Shared/Chart.vue";
-import evaluateHomework from "../views/HomeworkManagement/Student/EvaluateHomework.vue";
+import evaluateHomework from "../views/HomeworkManagement/Student/EvaluateHomeworkList.vue";
 import SetEvaluation from "../views/HomeworkManagement/Teacher/SetEvaluation.vue";
+import TeacherList from "../views/UserManagerment/Administrator/TeacherList.vue";
+import StudentList from "../views/UserManagerment/Administrator/StudentList.vue";
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -206,6 +208,18 @@ const routes = [
                 path: "/changeCourseInfo",
                 component: ChangeCourseInformation,
                 name: 'changeCourseInfo',
+            },
+            {
+                // 管理员查看教师列表
+                path: "/teacherList",
+                component: TeacherList,
+                name: 'teacherList',
+            },
+            {
+                // 管理员查看学生列表
+                path: "/studentList",
+                component: StudentList,
+                name: 'studentList',
             },
         ]
     },

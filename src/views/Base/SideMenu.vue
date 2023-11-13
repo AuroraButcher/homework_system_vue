@@ -25,13 +25,13 @@
             <span>用户管理</span>
           </template>
           <!--子菜单选项-->
-          <el-menu-item class="el-menu-item">
+          <el-menu-item class="el-menu-item" index="/teacherList">
             <el-icon>
               <View/>
             </el-icon>
             <span>教师列表</span>
           </el-menu-item>
-          <el-menu-item class="el-menu-item">
+          <el-menu-item class="el-menu-item" index="/studentList">
             <el-icon>
               <View/>
             </el-icon>

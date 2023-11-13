@@ -27,10 +27,11 @@
           :active-icon="Check"
           :inactive-icon="Close"
       />
-      <el-button type="primary" style="width: 150px;margin-left: 20px" @click="assignHomework">确认修改</el-button>
+      <el-button type="primary" style="width: 150px;margin-left: 20px" @click="ChangeHomework">确认修改</el-button>
     </div>
     <!--编辑器-->
     <div class="editor" id="vditor"></div>
+<!--TODO：关于附件删除的相关逻辑-->
     <!--附件上传-->
     <!--    <div>
           <el-upload
@@ -71,12 +72,12 @@ export default {
   },
   created() {
     if (this.homeworkNumber !== null) {
-      this.homeworkData.id=this.homeworkNumber
+      this.homeworkData.id=this.homeworkNumber;
       api.getHomeworkInfo(this.homeworkNumber).then(async res => {
         if (res.data.code === 20000) {
           this.homeworkData.title = res.data.data.info.name;
           this.resubmit=(res.data.data.info.resubmit === 1);
-          this.homeworkData.multiple = (res.data.data.info.resubmit === 1) ? 1 : 0 ;
+          this.homeworkData.multiple = (res.data.data.info.resubmit === 1) ;
           this.homeworkData.time=[res.data.data.info.start,res.data.data.info.end];
           this.contentEditor.setValue(res.data.data.info.content);
         }
@@ -173,7 +174,7 @@ export default {
     })
   },
   methods: {
-    assignHomework() {
+    ChangeHomework() {
       if (this.contentEditor.getValue().length === 1 || this.contentEditor.getValue() == null || this.contentEditor.getValue() === '') {
         alert('话题内容不可为空');
         return false;

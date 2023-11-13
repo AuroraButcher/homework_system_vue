@@ -8,6 +8,7 @@
       <el-form-item label="课程名称：" prop="name">
         <el-input type="text" v-model="ruleForm.name" autocomplete="off"></el-input>
       </el-form-item>
+      <!--TODO:将添加课程的教师工号改为名字级联表-->
       <el-form-item label="教师工号：" prop="teacher">
         <el-input type="text" v-model="ruleForm.teacher" autocomplete="off"></el-input>
       </el-form-item>
