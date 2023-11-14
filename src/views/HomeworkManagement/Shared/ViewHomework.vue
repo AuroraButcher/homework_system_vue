@@ -8,28 +8,45 @@
       <el-button type="primary" style="margin-left: 10px" @click="search(this.homeworkName)">搜索</el-button>
       <el-button type="primary" style="margin-left: 10px" @click="addHomework()" v-show="role==='teacher'">添加作业</el-button>
     </div>
-    <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
+    <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key" :default-sort="{ prop: 'end', order: 'descending' }">
       <el-table-column label="序号" type="index" width="60px"></el-table-column>
       <el-table-column label="作业编号" prop="id" width="100px" v-if="false"></el-table-column>
-      <el-table-column label="作业名称" prop="name" width="200px"></el-table-column>
-      <el-table-column label="截止时间" prop="end" width="300px"></el-table-column>
-      <el-table-column fixed="right" label="操作">
+      <el-table-column label="作业名称" prop="name" width="200px">
         <template #default="scope">
-          <!--TODO：将详情改到作业名称上去-->
-          <el-link type="primary" link style="margin-left: 10px" @click="showDetailInfo(scope)">详情</el-link>
-          <!--TODO：将布置作业添加附件写到添加界面-->
-          <el-link type="primary" link style="margin-left: 10px" @click="showAppend(scope)" v-show="role==='teacher'">添加附件</el-link>
-          <!--TODO：提交情况应该在作业开始之后再显示或者打开一页显示“尚未开始”-->
-          <el-link type="primary" link style="margin-left: 10px" @click="viewSubmitHomework(scope)" v-show="role==='teacher'">提交情况</el-link>
-          <!--TODO：作业未开始，都可改；作业已经开始，无论是否结束，开始时间不可改-->
-          <el-link type="primary" link style="margin-left: 10px" @click="changeHomework(scope)" v-show="role==='teacher'">修改</el-link>
-          <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)" v-show="role==='teacher'">删除</el-link>
-          <el-link type="primary" link style="margin-left: 10px" @click="submitHomework(scope)" v-show="role==='student'&&submit[scope.row.index]===0">提交作业</el-link>
-          <el-link type="success" link style="margin-left: 10px" @click="resubmitHomework(scope)" v-show="role==='student'&&submit[scope.row.index]!==0">重新提交</el-link>
-          <el-link type="primary" link style="margin-left: 10px" @click="showData(scope)">分数分布</el-link>
-          <el-link type="primary" link style="margin-left: 10px" @click="setEvaluation(scope)" v-show="role==='teacher'">互评设置</el-link>
-          <el-link type="primary" link style="margin-left: 10px" @click="evaluateHomework(scope)" v-show="role==='student'">互评作业</el-link>
+          <el-link link @click="showDetailInfo(scope)">{{ scope.row.name }}</el-link>
         </template>
+      </el-table-column>
+      <el-table-column label="截止时间" prop="end" width="200px" sortable></el-table-column>
+      <el-table-column label="操作" header-align="center">
+        <el-table-column label="作业" width="150px">
+          <template #default="scope">
+            <el-link type="primary" link @click="showDetailInfo(scope)">详情</el-link>
+            <!--TODO：将布置作业添加附件写到添加界面-->
+<!--            <el-link type="primary" link @click="showAppend(scope)" v-show="role==='teacher'">添加附件</el-link>-->
+            <!--TODO：作业未开始，都可改；作业已经开始，无论是否结束，开始时间不可改-->
+            <el-link type="primary" link style="margin-left: 10px" @click="changeHomework(scope)" v-show="role==='teacher'">修改</el-link>
+            <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)" v-show="role==='teacher'">删除</el-link>
+          </template>
+        </el-table-column>
+        <el-table-column label="提交" width="150px">
+          <template #default="scope">
+            <!--TODO：提交情况应该在作业开始之后再显示或者打开一页显示“尚未开始”-->
+            <el-link type="primary" link @click="viewSubmitHomework(scope)" v-show="role==='teacher'">提交情况</el-link>
+            <el-link type="primary" link @click="submitHomework(scope)" v-show="role==='student'&&submit[scope.row.index]===0">提交作业</el-link>
+            <el-link type="success" link @click="resubmitHomework(scope)" v-show="role==='student'&&submit[scope.row.index]!==0">重新提交</el-link>
+          </template>
+        </el-table-column>
+        <el-table-column label="互评" width="150px">
+          <template #default="scope">
+            <el-link type="primary" link @click="setEvaluation(scope)" v-show="role==='teacher'">互评设置</el-link>
+            <el-link type="primary" link @click="evaluateHomework(scope)" v-show="role==='student'">互评作业</el-link>
+          </template>
+        </el-table-column>
+        <el-table-column label="分数">
+          <template #default="scope">
+            <el-link type="primary" link @click="showData(scope)">分数分布</el-link>
+          </template>
+        </el-table-column>
       </el-table-column>
     </el-table>
     <!--横线-->

@@ -11,16 +11,18 @@
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="60px"></el-table-column>
       <el-table-column label="课程编号" prop="id" width="100px"></el-table-column>
-      <el-table-column label="课程名称" prop="name" width="200px"></el-table-column>
+      <el-table-column label="课程名称" prop="name" width="200px">
+        <template #default="scope">
+          <el-link link @click="showDetailInfo(scope)">{{ scope.row.name }}</el-link>
+        </template>
+      </el-table-column>
       <el-table-column label="课程教师" prop="teacherName" width="100px"></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
-          <!--TODO:将详情写到名称作为链接（争取）-->
-          <el-link type="primary" link style="margin-left: 10px" @click="showDetailInfo(scope)">课程详情</el-link>
-          <el-button type="primary" link style="margin-left: 10px" @click="showHomework(scope)" v-show="role==='teacher'||role==='student'">作业列表</el-button>
+          <el-link type="primary" link @click="showHomework(scope)" v-show="role==='teacher'||role==='student'">作业列表</el-link>
+          <el-link type="primary" link @click="addStudent(scope)" v-show="role==='administrator'">导入学生名单</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="changeCourse(scope)" v-show="role==='teacher'||role==='administrator'">修改</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="deleteCourse(scope)" v-show="role==='administrator'">删除</el-link>
-          <el-link type="primary" link style="margin-left: 10px" @click="addStudent(scope)" v-show="role==='administrator'">导入学生名单</el-link>
         </template>
       </el-table-column>
     </el-table>
