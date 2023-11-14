@@ -38,7 +38,7 @@ const base = {
     // 教师查看课程
     teacherShowCourse: '/class/teacherList',
 
-//-------------------------------------------作业-------------------------------------------------------------------------
+//-------------------------------------------作业和互评-------------------------------------------------------------------------
     // 添加作业
     addHomework: '/homework/addContent',
     // 删除作业
@@ -74,14 +74,24 @@ const base = {
     //老师评语提交
     teaComment:'/score/teacherContent',
     //获取学生互评
-    stuGetComment:'/score/getByHomework',
+    stuGetComment: '/score/getByHomework',
     //老师评分
-    teaEvaluateGrade:'/score/teacherReview',
+    teaEvaluateGrade: '/score/teacherReview',
     //老师获取评分
-    teaGetGrade:'/score/getTeacherScore',
+    teaGetGrade: '/score/getTeacherScore',
     //互评相关设置
     setEvaluation: '/score/setReviewList',
     //下载学生附件
     downloadStudentFile: '/homework/downloadStudent',
+
+//-------------------------------------------导入-------------------------------------------------------------------------
+    //批量导入教师
+    teacherBulkImport: '/file/teacher',
+    //批量导入学生
+    studentBulkImport: '/file/student',
+    //批量导入指定课程学生名单
+    courseImportStudent: '/file/classStudent',
+    //获得学生列表
+    getStudentList: '/student/getList',
 }
 export default base

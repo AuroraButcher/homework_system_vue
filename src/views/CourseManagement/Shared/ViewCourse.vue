@@ -7,6 +7,7 @@
     <div class="hang">
       <el-input v-model="courseName" placeholder="请输入课程名称" style="width: 220px;"></el-input>
       <el-button type="primary" style="margin-left: 10px" @click="search(this.courseName)">搜索</el-button>
+      <el-button type="primary" style="margin-left: 10px" @click="addCourse">添加课程</el-button>
     </div>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="60px"></el-table-column>
@@ -36,6 +37,18 @@
         @current-change="handlePageChange"
         :hide-on-single-page="false"/>
   </el-card>
+  <!--批量给课程添加学生的弹出框-->
+  <el-dialog v-model="dialogFileVisible" title="批量添加学生">
+    <el-upload action="/homework/addFile" :auto-upload="false" :file-list="fileList" :on-change="handleChange" :limit="1" accept=".xlsx,.xls">
+      <template #trigger>
+        <el-button type="primary">选择文件</el-button>
+      </template>
+      <el-button type="success" style="margin-left: 10px" @click="submitUpload">添加学生</el-button>
+      <template #tip>
+        <div>Excel文件 & 小于5Mb</div>
+      </template>
+    </el-upload>
+  </el-dialog>
 </template>
 
 <script>
@@ -51,6 +64,8 @@ export default {
   data(){
     return {
       head: '查看课程',
+      dialogFileVisible: false,
+      fileList: [],
       courseName: '',
       key: 1,
       tableData: [
@@ -151,6 +166,7 @@ export default {
       this.$store.commit('setCourseNumber', scope.row.id);
       this.$router.push('/courseInfo');
     },
+    // 修改课程信息
     changeCourse(scope) {
       this.$store.commit('setCourseNumber', scope.row.id);
       this.$router.push('/changeCourseInfo');
@@ -210,13 +226,39 @@ export default {
         this.$router.push('/stuViewHomework');
       }
     },
+    // 弹出框
+    addStudent(scope) {
+      this.dialogFileVisible = true;
+      this.$store.commit('setCourseNumber', scope.row.id);
+    },
     // 给课程添加学生名单
-    addStudent(scope){
+    submitUpload() {
       // TODO:添加课程选修名单
+      const param = new FormData();
+      param.append("classId", this.courseNumber);
+      this.fileList.forEach(val => {
+        param.append("multipartFile", val.raw);
+      })
+      api.courseImportStudent(param).then(res => {
+        if (res.data.code === 20000) {
+          ElMessage.success("成功人数：" + res.data.data['成功人数']);
+          ElMessage.error("失败人数：" + res.data.data['失败人数']);
+        } else {
+          ElMessage.error("导入失败");
+        }
+      })
+    },
+    // 处理文件改变
+    handleChange(file, fileList) {
+      this.fileList = fileList;
+    },
+    // 添加课程
+    addCourse() {
+      this.$router.push('/addCourse');
     }
   },
   computed:{
-    ...mapState(['role'])
+    ...mapState(['role', 'courseNumber'])
   }
 }
 </script>

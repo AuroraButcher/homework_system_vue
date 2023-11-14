@@ -82,8 +82,13 @@ const api = {
         });
     },
     // 获得教师列表
-    getTeacherList() {
-        return axios.get(path.baseUrl + path.getTeacherList);
+    getTeacherList(pageData) {
+        return axios.get(path.baseUrl + path.getTeacherList, {
+            params: {
+                pageNo: pageData.pageNo,
+                pageSize: pageData.pageSize,
+            }
+        });
     },
 
 
@@ -262,7 +267,7 @@ const api = {
     },
     //学生上传附件
     stuHomeworkFile(tableData) {
-        return axios.post(path.baseUrl + path.stuHomeworkFile, tableData)
+        return axios.post(path.baseUrl + path.stuHomeworkFile, tableData);
     },
     //获取互评作业名单
     stuGetEvaluateList(tableData){
@@ -343,12 +348,33 @@ const api = {
         })
     },
     //获取老师评分
-    teaGetGrade(data){
-        return axios.get(path.baseUrl + path.teaGetGrade,{
-            params:{
-                homeworkStudentId:data.homeworkId
+    teaGetGrade(data) {
+        return axios.get(path.baseUrl + path.teaGetGrade, {
+            params: {
+                homeworkStudentId: data.homeworkId
             }
         })
     },
+    //批量导入教师
+    teacherBulkImport(file) {
+        return axios.post(path.baseUrl + path.teacherBulkImport, file);
+    },
+    //批量导入学生
+    studentBulkImport(file) {
+        return axios.post(path.baseUrl + path.studentBulkImport, file);
+    },
+    //批量给课程导入学生名单
+    courseImportStudent(fileData) {
+        return axios.post(path.baseUrl + path.courseImportStudent, fileData);
+    },
+    //获得学生列表
+    getStudentList(pageData) {
+        return axios.get(path.baseUrl + path.getStudentList, {
+            params: {
+                pageNo: pageData.pageNo,
+                pageSize: pageData.pageSize,
+            }
+        })
+    }
 }
 export default api

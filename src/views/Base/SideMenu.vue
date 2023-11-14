@@ -52,12 +52,6 @@
             </el-icon>
             <span>查看课程</span>
           </el-menu-item>
-          <el-menu-item class="el-menu-item" index="/addCourse">
-            <el-icon>
-              <Plus/>
-            </el-icon>
-            <span>添加课程</span>
-          </el-menu-item>
         </el-sub-menu>
         <el-menu-item @click="drawer = true">
           <el-badge>
