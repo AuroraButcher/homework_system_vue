@@ -39,7 +39,6 @@
               <el-dropdown-menu>
                 <el-dropdown-item>{{ showNumber }}</el-dropdown-item>
                 <el-dropdown-item @click="changePassword">修改密码</el-dropdown-item>
-                <el-dropdown-item @click="deleteAccount">注销账号</el-dropdown-item>
                 <el-dropdown-item @click="logout">退出系统</el-dropdown-item>
               </el-dropdown-menu>
             </template>
@@ -56,14 +55,13 @@
 
 <script>
 import SideMenu from "./SideMenu.vue";
-import DeleteAccount from "../UserManagerment/Shared/DeleteAccount.vue";
 import ChangePassword from "../UserManagerment/Shared/ChangePassword.vue";
 import Cookie from "js-cookie";
 import {ArrowDown, Expand, Fold} from "@element-plus/icons-vue";
 import {mapState} from "vuex";
 
 export default {
-  components: {Fold, Expand, ArrowDown, ChangePassword, DeleteAccount, SideMenu},
+  components: {Fold, Expand, ArrowDown, ChangePassword, SideMenu},
   data() {
     return {
       isCollapse: false,
@@ -83,9 +81,6 @@ export default {
     changePassword() {
       this.isChange = true;
     },
-    deleteAccount() {
-      this.isDelete = true;
-    }
   },
   computed: {
     ...mapState(['role'])

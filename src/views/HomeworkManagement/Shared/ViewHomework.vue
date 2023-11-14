@@ -18,17 +18,17 @@
       </el-table-column>
       <el-table-column label="截止时间" prop="end" width="200px" sortable></el-table-column>
       <el-table-column label="操作" header-align="center">
-        <el-table-column label="作业" width="150px">
+        <el-table-column label="作业" width="100px">
           <template #default="scope">
-            <el-link type="primary" link @click="showDetailInfo(scope)">详情</el-link>
+            <el-link type="primary" link @click="showDetailInfo(scope)" v-show="role === 'student'">详情</el-link>
             <!--TODO：将布置作业添加附件写到添加界面-->
 <!--            <el-link type="primary" link @click="showAppend(scope)" v-show="role==='teacher'">添加附件</el-link>-->
             <!--TODO：作业未开始，都可改；作业已经开始，无论是否结束，开始时间不可改-->
-            <el-link type="primary" link style="margin-left: 10px" @click="changeHomework(scope)" v-show="role==='teacher'">修改</el-link>
+            <el-link type="primary" link @click="changeHomework(scope)" v-show="role==='teacher'">修改</el-link>
             <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)" v-show="role==='teacher'">删除</el-link>
           </template>
         </el-table-column>
-        <el-table-column label="提交" width="150px">
+        <el-table-column label="提交" width="100px">
           <template #default="scope">
             <!--TODO：提交情况应该在作业开始之后再显示或者打开一页显示“尚未开始”-->
             <el-link type="primary" link @click="viewSubmitHomework(scope)" v-show="role==='teacher'">提交情况</el-link>

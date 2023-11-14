@@ -14,7 +14,6 @@
       <el-table-column label="序号" type="index" width="60px"></el-table-column>
       <el-table-column label="学生学号" prop="number" width="120px" sortable></el-table-column>
       <el-table-column label="学生姓名" prop="name" width="120px"></el-table-column>
-      <el-table-column label="密码" prop="password" width="300px"></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link style="margin-left: 10px" @click="changePassword(scope)">修改密码</el-link>

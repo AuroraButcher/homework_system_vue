@@ -6,7 +6,7 @@
     <div class="hang">
       <el-input v-model="teacherName" placeholder="请输入教师名称" style="width: 220px;"></el-input>
       <el-button type="primary" style="margin-left: 10px" @click="searchTeacher(this.teacherName)">搜索</el-button>
-      <el-button type="primary" @click="addTeacher">添加教师</el-button>
+      <el-button type="primary" @click="addTeacherDialog">添加教师</el-button>
       <el-button type="primary" @click="showDialog">批量添加</el-button>
     </div>
     <!--目前教师名单-->
@@ -14,7 +14,6 @@
       <el-table-column label="序号" type="index" width="60px"></el-table-column>
       <el-table-column label="教师工号" prop="number" width="120px" sortable></el-table-column>
       <el-table-column label="教师姓名" prop="name" width="120px"></el-table-column>
-      <el-table-column label="密码" prop="password" width="200px"></el-table-column>
       <el-table-column label="操作">
         <template #default="scope">
           <el-link type="primary" link style="margin-left: 10px" @click="changePassword(scope)">修改密码</el-link>
@@ -32,6 +31,20 @@
         @current-change="handlePageChange"
         :hide-on-single-page="false"/>
   </el-card>
+  <!--单个添加教师弹出框-->
+  <el-dialog v-model="dialogAddVisible" title="批量添加教师" style="width: 400px">
+    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left" label-width="70px">
+      <el-form-item label="工号：" prop="number">
+        <el-input type="text" v-model="ruleForm.number" style="width: 300px"></el-input>
+      </el-form-item>
+      <el-form-item label="姓名：" prop="name">
+        <el-input type="text" v-model="ruleForm.name" style="width: 300px"></el-input>
+      </el-form-item>
+    </el-form>
+    <div class="addButton">
+      <el-button type="primary" @click="addTeacher('ruleForm')" style="width: 150px;">添加</el-button>
+    </div>
+  </el-dialog>
   <!--批量添加教师的弹出框-->
   <el-dialog v-model="dialogFileVisible" title="批量添加教师">
     <el-upload action="/homework/addFile" :auto-upload="false" :file-list="fileList" :on-change="handleChange" :limit="1" accept=".xlsx,.xls">
@@ -56,6 +69,7 @@ export default {
   data() {
     return {
       head: "教师列表",
+      dialogAddVisible:false,
       dialogFileVisible: false,
       fileList: [],
       teacherName: null,
@@ -72,6 +86,18 @@ export default {
         pageNo: 1,
         pageSize: 10,
         total: 10,
+      },
+      ruleForm:{
+        number:null,
+        name:null,
+      },
+      rules:{
+        number: [
+          {required: true, message: "工号不能为空！", trigger: "change"},
+        ],
+        name: [
+          {required: true, message: "姓名不能为空！", trigger: "change"},
+        ],
       },
     }
   },
@@ -90,9 +116,24 @@ export default {
     showDialog(){
       this.dialogFileVisible = true;
     },
+    // 单个添加弹出框
+    addTeacherDialog(){
+      this.dialogAddVisible = true;
+    },
     // 单个添加教师
-    addTeacher(){
+    addTeacher(ruleForm){
       // TODO:添加教师
+      /*this.$refs[ruleForm].validate((valid) => {
+        if(valid){
+          api.teacherRegister(ruleForm).then(res =>{
+            if(res.data.code === 20000){
+              ElMessage.success("添加教师成功");
+            }else{
+              ElMessage.success("添加教师成功");
+            }
+          })
+        }
+      });*/
     },
     // 教师批量添加
     submitUpload() {
@@ -147,5 +188,9 @@ export default {
 <style scoped>
 .hang{
   display: flex;
+}
+.addButton{
+  display: flex;
+  justify-content: center;
 }
 </style>

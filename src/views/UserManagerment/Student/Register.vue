@@ -5,11 +5,11 @@
   <!--注册板块-->
   <el-card class="box-card">
     <!--注册标题-->
-    <h1 style="text-align: center;margin-top: -10px">注册</h1>
+    <h1 style="text-align: center;margin-top: -10px">学生注册</h1>
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left" label-width="100px">
       <!--prop：表单要验证的数据-->
       <!--学工号-->
-      <el-form-item label="学工号:" prop="number">
+      <el-form-item label="学号:" prop="number">
         <el-input v-model="ruleForm.number"></el-input>
       </el-form-item>
       <!--密码，autocomplete表示不自动填充密码-->
@@ -19,13 +19,6 @@
       <!--再次输入以确认密码-->
       <el-form-item label="确认密码:" prop="password_2">
         <el-input type="password" v-model="ruleForm.password_2" autocomplete="off"></el-input>
-      </el-form-item>
-      <!--角色，default：管理员-->
-      <el-form-item label="角色：" required>
-        <el-radio-group v-model="role">
-          <el-radio label="teacher">教师</el-radio>
-          <el-radio label="student">学生</el-radio>
-        </el-radio-group>
       </el-form-item>
       <!--邮箱验证码-->
       <el-form-item label="邮箱验证码:" prop="captcha">
@@ -117,44 +110,23 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           //学生注册
-          if (this.role === "student") {
-            api.studentRegister(this.ruleForm).then(response => {
-              if (response.data.code === 20000) {
-                // 验证成功，弹出确认框，点击后跳转
-                ElMessageBox.alert('注册成功，点击“OK”进行跳转', '消息', {
-                  confirmButtonText: 'OK',
-                  callback: action => {
-                    if (action === 'confirm') {
-                      this.$router.push('/login');
-                    }
+          api.studentRegister(this.ruleForm).then(response => {
+            if (response.data.code === 20000) {
+              // 验证成功，弹出确认框，点击后跳转
+              ElMessageBox.alert('注册成功，点击“OK”进行跳转', '消息', {
+                confirmButtonText: 'OK',
+                callback: action => {
+                  if (action === 'confirm') {
+                    this.$router.push('/login');
                   }
-                })
-              } else {
-                ElMessageBox.alert('注册失败，请重新进行注册', '消息', {
-                  confirmButtonText: 'OK',
-                })
-              }
-            })
-          } else {
-            // 教师注册
-            api.teacherRegister(this.ruleForm).then(response => {
-              if (response.data.code === 20000) {
-                // 验证成功，弹出确认框，点击后跳转
-                ElMessageBox.alert('注册成功，点击“OK”进行跳转', '消息', {
-                  confirmButtonText: 'OK',
-                  callback: action => {
-                    if (action === 'confirm') {
-                      this.$router.push('/login');
-                    }
-                  }
-                })
-              } else {
-                ElMessageBox.alert('注册失败，请重新进行注册', '消息', {
-                  confirmButtonText: 'OK',
-                })
-              }
-            })
-          }
+                }
+              })
+            } else {
+              ElMessageBox.alert('注册失败，请重新进行注册', '消息', {
+                confirmButtonText: 'OK',
+              })
+            }
+          })
         } else {
           ElMessage.error("error：您不能注册");
         }
