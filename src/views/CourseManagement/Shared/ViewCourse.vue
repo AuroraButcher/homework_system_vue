@@ -5,7 +5,7 @@
       <page-header :component='head'/>
     </template>
     <div class="hang">
-      <el-input v-model="courseName" placeholder="请输入课程名称" style="width: 220px;"></el-input>
+      <el-input v-model="courseName" @keyup.enter="search(this.courseName)" placeholder="请输入课程名称" style="width: 220px;"></el-input>
       <el-button type="primary" style="margin-left: 10px" @click="search(this.courseName)">搜索</el-button>
       <el-button type="primary" style="margin-left: 10px" @click="addCourse">添加课程</el-button>
     </div>
@@ -81,7 +81,7 @@ export default {
         }
       ],
       page: {
-        courseName: '',
+        courseName: null,
         teacherName: '',
         teacherNumber: '',
         studentNumber: '',
@@ -128,8 +128,8 @@ export default {
     //搜索课程
     search(courseName) {
       if (this.role === 'administrator') {
+        this.page.courseName = courseName;
         api.showCourse(this.page).then(response => {
-          this.page.courseName = courseName;
           if (response.data.code === 20000) {
             this.page.total = response.data.data.classInfo.total;
             this.tableData = response.data.data.classInfo.records;
