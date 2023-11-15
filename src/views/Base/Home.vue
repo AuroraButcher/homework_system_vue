@@ -1,7 +1,6 @@
 <template>
-  <!--修改密码、注销账户-->
+  <!--修改密码-->
   <ChangePassword v-model="isChange" @changeCancel="isChange=false"/>
-  <DeleteAccount v-model="isDelete" @deleteAccount="isDelete=false"/>
   <!--首页-->
   <div class="common-layout">
     <el-container>
@@ -45,7 +44,6 @@
           </el-dropdown>
         </el-header>
         <el-main>
-
           <router-view></router-view>
         </el-main>
       </el-container>

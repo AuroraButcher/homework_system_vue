@@ -17,10 +17,6 @@ const base = {
     resetSendCode: '/mail/send/reset',
     // 修改密码
     changePassword: '/change',
-    // 删除账户
-    delete: '/delete',
-    // 获取老师列表
-    getTeacherList: '/teacher/list',
 
 //-----------------------------------------课程----------------------------------------------
     // 管理员查看课程
@@ -93,6 +89,20 @@ const base = {
     courseImportStudent: '/file/classStudent',
     //获得学生列表
     getStudentList: '/student/getList',
+    // 获取老师列表
+    getTeacherList: '/teacher/list',
+    // 单个添加教师
+    addSingleTeacher: '/admin/addTeacher',
+    // 单个添加学生
+    addSingleStudent: '/admin/addStudent',
+    // 管理员修改教师密码
+    changeTeacherPassword: '/admin/resetTeacher',
+    // 管理员修改学生密码
+    changeStudentPassword: '/admin/resetStudent',
+    // 管理员删除教师账号
+    adminDeleteTeacher: '/admin/deleteTeacher',
+    // 管理员删除学生账号
+    adminDeleteStudent: '/admin/deleteStudent',
 //---------------优秀作业--------------------
     //添加优秀作业1
     addExcellent1:'/excellent/addBy1',

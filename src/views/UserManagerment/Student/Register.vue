@@ -14,11 +14,11 @@
       </el-form-item>
       <!--密码，autocomplete表示不自动填充密码-->
       <el-form-item label="密码:" prop="password">
-        <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+        <el-input :show-password="true" type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
       </el-form-item>
       <!--再次输入以确认密码-->
       <el-form-item label="确认密码:" prop="password_2">
-        <el-input type="password" v-model="ruleForm.password_2" autocomplete="off"></el-input>
+        <el-input :show-password="true" type="password" v-model="ruleForm.password_2" autocomplete="off"></el-input>
       </el-form-item>
       <!--邮箱验证码-->
       <el-form-item label="邮箱验证码:" prop="captcha">
@@ -66,7 +66,6 @@ export default {
       }
     };
     return {
-      role: "student",
       ruleForm: {
         number: "",
         password: "",
@@ -82,9 +81,6 @@ export default {
         ],
         password_2: [
           {required: true, validator: validatePass2, trigger: "change"},
-        ],
-        role: [
-          {required: true, message: "必须选择注册角色", trigger: "change"},
         ],
         captcha: [
           {required: true, message: "尚未输入邮箱验证码！", trigger: "change"},

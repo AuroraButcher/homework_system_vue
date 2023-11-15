@@ -59,35 +59,18 @@ const api = {
             }
         });
     },
-    // 注销账号
-    deleteAccount(ruleForm) {
-        return axios.post(path.baseUrl + path.student + path.delete, {number: ruleForm.number});
-    },
-    // 教师注册
-    teacherRegister(ruleForm) {
-        return axios.post(path.baseUrl + path.teacher + path.RegisterUrl, {
+    // 教师登录
+    teacherLogin(ruleForm) {
+        return axios.post(path.baseUrl + path.teacher + path.LoginUrl, {
             number: ruleForm.number,
             password: ruleForm.password
         });
     },
-    // 教师登录
-    /*teacherLogin(ruleForm) {
-
-    },*/
     // 管理员登录
     adminLogin(ruleForm) {
         return axios.post(path.baseUrl + path.administrator + path.LoginUrl, {
             username: ruleForm.number,
             password: ruleForm.password
-        });
-    },
-    // 获得教师列表
-    getTeacherList(pageData) {
-        return axios.get(path.baseUrl + path.getTeacherList, {
-            params: {
-                pageNo: pageData.pageNo,
-                pageSize: pageData.pageSize,
-            }
         });
     },
 
@@ -373,6 +356,53 @@ const api = {
             params: {
                 pageNo: pageData.pageNo,
                 pageSize: pageData.pageSize,
+                name:pageData.studentName,
+            }
+        })
+    },
+    // 获得教师列表
+    getTeacherList(pageData) {
+        return axios.get(path.baseUrl + path.getTeacherList, {
+            params: {
+                pageNo: pageData.pageNo,
+                pageSize: pageData.pageSize,
+                name:pageData.teacherName,
+            }
+        });
+    },
+    // 单个添加教师
+    addSingleTeacher(ruleForm){
+        return axios.post(path.baseUrl + path.addSingleTeacher, null,{
+            params:{
+                number:ruleForm.number,
+                name:ruleForm.addName,
+            }
+        })
+    },
+    // 单个添加学生
+    addSingleStudent(ruleForm){
+        return axios.post(path.baseUrl + path.addSingleStudent, null,{
+            params:{
+              number:ruleForm.number,
+              name:ruleForm.addName,
+            }
+        })
+    },
+    // 管理员修改教师密码
+    changeTeacherPassword(ruleForm){
+        return axios.post(path.baseUrl + path.changeTeacherPassword, null,{
+            params:{
+                number:ruleForm.number,
+                pwd:ruleForm.password,
+            }
+        })
+    },
+    // 管理员修改学生密码
+    changeStudentPassword(ruleForm){
+        return axios.post(path.baseUrl + path.changeStudentPassword, null,{
+            params:{
+                number:ruleForm.number,
+                pwd:ruleForm.password,
             }
         })
     },
@@ -415,6 +445,22 @@ const api = {
                 pageSize:data.pageSize
             }
         })
-    }
+    },
+    // 管理员删除教师账号
+    adminDeleteTeacher(number){
+        return axios.post(path.baseUrl + path.adminDeleteTeacher, null,{
+            params:{
+                number:number,
+            }
+        })
+    },
+    // 管理员删除学生账号
+    adminDeleteStudent(number){
+        return axios.post(path.baseUrl + path.adminDeleteStudent, null,{
+            params:{
+                number:number,
+            }
+        })
+    },
 }
 export default api

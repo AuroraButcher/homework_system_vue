@@ -8,14 +8,14 @@
       </el-form-item>
       <!--密码，autocomplete表示不自动填充密码-->
       <el-form-item label="密码：" prop="password">
-        <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+        <el-input :show-password="true" type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
       </el-form-item>
       <!-- 新密码-->
       <el-form-item label="新密码：" prop="newPassword">
-        <el-input type="password" v-model="ruleForm.newPassword" autocomplete="off"></el-input>
+        <el-input :show-password="true" type="password" v-model="ruleForm.newPassword" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="再次确认：" prop="newPassword2">
-        <el-input type="password" v-model="ruleForm.newPassword2" autocomplete="off"></el-input>
+        <el-input :show-password="true" type="password" v-model="ruleForm.newPassword2" autocomplete="off"></el-input>
       </el-form-item>
     </el-form>
     <template #footer>

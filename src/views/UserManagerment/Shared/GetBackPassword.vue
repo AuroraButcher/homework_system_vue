@@ -15,7 +15,7 @@
       </el-form-item>
       <!--新密码，autocomplete表示不自动填充密码-->
       <el-form-item label="新密码：" prop="newPassword">
-        <el-input type="password" v-model="ruleForm.newPassword"></el-input>
+        <el-input :show-password="true" type="password" v-model="ruleForm.newPassword"></el-input>
       </el-form-item>
       <!--角色，default：管理员-->
       <el-form-item label="角色：">

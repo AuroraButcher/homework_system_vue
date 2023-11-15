@@ -15,7 +15,7 @@
       </el-form-item>
       <!--密码，autocomplete表示不自动填充密码-->
       <el-form-item label="密码：" prop="password">
-        <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+        <el-input :show-password="true" type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
       </el-form-item>
       <!--角色，default：管理员-->
       <el-form-item label="角色：" required>
@@ -84,18 +84,18 @@ export default {
             });
           } else if (this.role === "teacher") {
             // TODO:老师校验
-            /*api.teacherLogin(this.ruleForm).then(response => {
-              if (response.data.code === 20000) {*/
+            api.teacherLogin(this.ruleForm).then(response => {
+              if (response.data.code === 20000) {
             Cookie.set('number', this.ruleForm.number);
             Cookie.set('password', this.ruleForm.password);
             this.$store.commit('setRole', this.role);
             this.$router.push('/teacherHome');
-            /*} else {
+            } else {
               ElMessage.error(response.data.message);
             }
           }).catch(error => {
             console.error(error);
-          });*/
+          });
           } else {
             // 管理员校验
             api.adminLogin(this.ruleForm).then(response => {
