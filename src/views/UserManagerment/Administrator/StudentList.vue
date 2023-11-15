@@ -54,7 +54,7 @@
         <el-input type="text" v-model="changeForm.number" style="width: 300px" :placeholder="changeForm.number" disabled></el-input>
       </el-form-item>
       <el-form-item label="新密码：" prop="password">
-        <el-input type="text" v-model="changeForm.password" style="width: 300px"></el-input>
+        <el-input type="password" v-model="changeForm.password" style="width: 300px"></el-input>
       </el-form-item>
     </el-form>
     <div class="addButton">
