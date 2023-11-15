@@ -68,6 +68,7 @@ export default {
       if(res.data.code===20000){
         this.files=res.data.data.files;
         this.date=res.data.data.info.date;
+        this.studentNumber=res.data.data.info.studentNumber;
         this.answer = await Vditor.md2html(res.data.data.info.answer);
         //TODO 老师获取自己评语
         if(this.role==='student'){
@@ -107,6 +108,7 @@ export default {
       submit: null,
       time:null,
       date: null,
+      studentNumber:null,
       grade:null,
       fileName: null,
       files: [],

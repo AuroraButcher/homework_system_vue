@@ -151,6 +151,7 @@ export default {
         this.homeworkData.content = this.contentEditor.getValue();
         api.submitHomework(this.homeworkData).then(res => {
           if(res.data.code === 20000) {
+            // TODO: 潜在bug：第一页之后的会错。建议直接把上一页的isSubmited传过来
             api.stuViewHomework({classID:this.homeworkData.classId,studentID:this.homeworkData.studentNumber}).then(res=>{
               if (res.data.code === 20000&&res.data.data.isSubmitted[this.index]!==0) {
                 this.homeworkNo=res.data.data.isSubmitted[this.index]

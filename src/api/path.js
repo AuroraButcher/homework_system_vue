@@ -93,5 +93,18 @@ const base = {
     courseImportStudent: '/file/classStudent',
     //获得学生列表
     getStudentList: '/student/getList',
+//---------------优秀作业--------------------
+    //添加优秀作业1
+    addExcellent1:'/excellent/addBy1',
+    //添加优秀作业2
+    addExcellent2:'/excellent/addBy2',
+    //修改优秀作业
+    changeExcellent:'/excellent/addOrModify',
+    //获取作业的所有优秀作业
+    getExcellent:'/excellent/getPage',
+    //获取优秀作业
+    getOneExcellent:'/excellent/getInfo',
+    //删除优秀作业
+    deleteExcellent:'/excellent/delete',
 }
 export default base

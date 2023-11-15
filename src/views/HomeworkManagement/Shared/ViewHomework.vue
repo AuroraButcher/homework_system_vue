@@ -45,6 +45,7 @@
         <el-table-column label="分数">
           <template #default="scope">
             <el-link type="primary" link @click="showData(scope)">分数分布</el-link>
+            <el-link type="primary" link style="margin-left: 10px" @click="showExcellent(scope)">查看优秀作业</el-link>
           </template>
         </el-table-column>
       </el-table-column>
@@ -81,9 +82,10 @@ import api from "../../../api";
 import {ElMessage, ElMessageBox} from "element-plus";
 import {mapState} from "vuex";
 import Cookie from "js-cookie";
+import AddExcellent from "../Teacher/addExcellent.vue";
 
 export default {
-  components: {PageHeader},
+  components: {AddExcellent, PageHeader},
   data() {
     return {
       head: "作业列表",
@@ -131,7 +133,7 @@ export default {
         }
       })
     }else {
-      // TODO：要改，急
+      // TODO：要改，急  @wx:?什么东西
       api.stuViewHomework(this.page).then(res=>{
         if (res.data.code === 20000) {
           //设置表数据
@@ -263,11 +265,17 @@ export default {
       this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push("/distribution");
     },
+    //查看优秀作业
+    showExcellent(scope){
+      //TODO 查看优秀作业，跳转到优秀作业的页面
+      this.$store.commit('setHomeworkNumber', scope.row.id);
+      this.$router.push("/viewExcellent");
+    },
     // 互评设置
     setEvaluation(scope) {
       this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push("/setDistribution");
-    }
+    },
   },
   computed: {
     ...mapState(['courseNumber', 'role', 'homeworkNumber'])

@@ -27,6 +27,8 @@ import evaluateHomework from "../views/HomeworkManagement/Student/EvaluateHomewo
 import SetEvaluation from "../views/HomeworkManagement/Teacher/SetEvaluation.vue";
 import TeacherList from "../views/UserManagerment/Administrator/TeacherList.vue";
 import StudentList from "../views/UserManagerment/Administrator/StudentList.vue";
+import ViewExcellent from "../views/HomeworkManagement/Shared/ViewExcellent.vue";
+import excellent from "../views/HomeworkManagement/Shared/Excellent.vue";
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -95,6 +97,16 @@ const routes = [
                 path: "/evaluateHomework",
                 component: evaluateHomework,
                 name: 'stuEvaluateHomework'
+            },
+            {// 查看优秀作业
+                path: "/viewExcellent",
+                component:ViewExcellent,
+                name:'viewExcellent'
+            },
+            {
+                path: "/viewExcellentDetail",
+                component: excellent,
+                name:'Excellent'
             }
         ]
     },
@@ -169,7 +181,7 @@ const routes = [
                 path: "/setDistribution",
                 component: SetEvaluation,
                 name: 'setDistribution'
-            }
+            },
         ]
     },
     // 管理员端

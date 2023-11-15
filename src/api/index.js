@@ -375,6 +375,46 @@ const api = {
                 pageSize: pageData.pageSize,
             }
         })
+    },
+    //添加优秀作业
+    addExcellent(data){
+          return axios.post(path.baseUrl+path.addExcellent2,{
+              homeworkStudentId:data.homeworkID,
+              content:data.content
+          })
+    },
+    //修改优秀作业
+    modifyExcellent(data){
+        return axios.post(path.baseUrl+path.changeExcellent,{
+            homeworkStudentId:data.homeworkID,
+            content:data.content
+        })
+    },
+    //删除优秀作业
+    deleteExcellent(data){
+        return axios.post(path.baseUrl+path.deleteExcellent,null,{
+            params:{
+                homeworkStudentId:data.homeworkID
+            }
+        })
+    },
+    //查看一个优秀作业
+    getOneExcellent(data){
+        return axios.get(path.baseUrl+path.getOneExcellent,{
+            params:{
+                homeworkStudentId:data
+            }
+        })
+    },
+    //查看一个作业的所有优秀作业
+    getExcellent(data){
+        return axios.get(path.baseUrl+path.getExcellent,{
+            params:{
+                homeworkId:data.homeworkNumber,
+                pageNo:data.pageNo,
+                pageSize:data.pageSize
+            }
+        })
     }
 }
 export default api

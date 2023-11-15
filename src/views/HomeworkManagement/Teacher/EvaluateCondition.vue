@@ -1,4 +1,5 @@
 <template>
+  <add-excellent v-model="addExcellent" @addExcellent="addExcellent=false"></add-excellent>
   <el-card>
     <template #header>
       <page-header :component="head"/>
@@ -13,7 +14,8 @@
       <el-table-column label="提交时间" prop="date" width="200px"></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
-          <el-link type="primary" link style="margin-left: 10px" @click="showDetailInfo(scope)">详情</el-link>
+          <el-link type="primary" link @click="showDetailInfo(scope)">批改</el-link>
+          <el-link type="primary" link style="margin-left: 10px" @click="setExHomework(scope)">设置优秀作业</el-link>
         </template>
       </el-table-column>
     </el-table>
@@ -25,9 +27,10 @@ import PageHeader from "../../Base/PageHeader.vue";
 import api from "../../../api";
 import {mapState} from "vuex";
 import {ElMessage} from "element-plus";
+import AddExcellent from "./addExcellent.vue";
 
 export default {
-  components: {PageHeader},
+  components: {AddExcellent, PageHeader},
   name: "homeworkCondition",
   data() {
     return {
@@ -35,6 +38,8 @@ export default {
       key: 1,
       submitNumber:'',
       numberOfStudent:'',
+      addExcellent:false,
+      ExComment:'你好',
       tableData: [
         {
           id: '',
@@ -89,6 +94,11 @@ export default {
       //把每一行的索引放进row
       row.index = rowIndex;
     },
+    //设置优秀作业
+    setExHomework(scope){
+      this.$store.commit('setHomeworkID',scope.row.id)
+      this.addExcellent=true
+    }
   }
 }
 </script>
