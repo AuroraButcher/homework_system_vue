@@ -127,8 +127,8 @@ export default {
   methods: {
     //搜索课程
     search(courseName) {
+      this.page.courseName = courseName;
       if (this.role === 'administrator') {
-        this.page.courseName = courseName;
         api.showCourse(this.page).then(response => {
           if (response.data.code === 20000) {
             this.page.total = response.data.data.classInfo.total;
@@ -139,7 +139,6 @@ export default {
         })
       } else if (this.role === 'student') {
         this.page.studentNumber = Cookies.get('number');
-        this.page.courseName = courseName;
         api.studentShowCourse(this.page).then(response => {
           if (response.data.code === 20000) {
             this.page.total = response.data.data.classInfo.total;
@@ -150,7 +149,6 @@ export default {
         })
       } else {
         this.page.teacherNumber = Cookies.get('number');
-        this.page.courseName = courseName;
         api.teacherShowCourse(this.page).then(response => {
           if (response.data.code === 20000) {
             this.page.total = response.data.data.classInfo.total;

@@ -16,6 +16,7 @@
         <template #default="scope">
           <el-link type="primary" link @click="showDetailInfo(scope)">批改</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="setExHomework(scope)">设置优秀作业</el-link>
+<!--       TODO:   优秀作业状态-->
         </template>
       </el-table-column>
     </el-table>

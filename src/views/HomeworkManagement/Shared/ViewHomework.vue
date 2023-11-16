@@ -16,6 +16,7 @@
           <el-link link @click="showDetailInfo(scope)">{{ scope.row.name }}</el-link>
         </template>
       </el-table-column>
+<!--   TODO:   只有前面两个顺序变了，操作没变-->
       <el-table-column label="截止时间" prop="end" width="200px" sortable></el-table-column>
       <el-table-column label="操作" header-align="center">
         <el-table-column label="作业" width="100px">

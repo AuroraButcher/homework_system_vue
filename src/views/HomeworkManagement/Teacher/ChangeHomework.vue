@@ -99,10 +99,6 @@ export default {
         content: null,
         multiple: null,
       },
-      fileList: [{
-        name: "",
-        url: "",
-      }],
     }
   },
   mounted() {

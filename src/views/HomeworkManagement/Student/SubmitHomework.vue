@@ -139,7 +139,7 @@ export default {
   },
   methods: {
     // 提交作业
-    // TODO：如果内容其一不为空，可以提交
+    // TODO：如果内容其一不为空，可以提交 @wx:什么意思，内容其一是什么东西
     submitHomework() {
       if (this.contentEditor.getValue().length === 1 || this.contentEditor.getValue() == null || this.contentEditor.getValue() === '') {
         alert('内容不可为空');
@@ -151,7 +151,7 @@ export default {
         this.homeworkData.content = this.contentEditor.getValue();
         api.submitHomework(this.homeworkData).then(res => {
           if(res.data.code === 20000) {
-            // TODO: 潜在bug：第一页之后的会错。建议直接把上一页的isSubmited传过来
+            // TODO: 使用上交的res里面的id代替sb里面找的id
             api.stuViewHomework({classID:this.homeworkData.classId,studentID:this.homeworkData.studentNumber}).then(res=>{
               if (res.data.code === 20000&&res.data.data.isSubmitted[this.index]!==0) {
                 this.homeworkNo=res.data.data.isSubmitted[this.index]

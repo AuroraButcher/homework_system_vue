@@ -36,6 +36,21 @@
     <!--编辑器-->
     <span style="font-weight: bold">作业内容</span>
     <div class="editor" id="vditor"></div>
+    <!--附件-->
+    <!--提交按钮-->
+    <div>
+      <el-divider content-position="left">提交附件</el-divider>
+      <el-upload action="/homework/addFile" :auto-upload="false" :file-list="fileList" :on-change="handleChange">
+        <template #trigger>
+          <el-button style="width: 150px" type="primary">选择文件</el-button>
+        </template>
+        <template #tip>
+          <div style="margin-top: 10px">
+            文件小于5Mb
+          </div>
+        </template>
+      </el-upload>
+    </div>
     <el-button type="primary" style="width: 150px;margin-top: 10px" @click="assignHomework">发布作业</el-button>
   </el-card>
 </template>
@@ -64,6 +79,9 @@ export default {
       head: "添加作业",
       contentEditor: {},
       time: '',
+      // 文件列表
+      fileList: [],
+      homeworkNumber:null,
       resubmit: false,
       homeworkData: {
         title: null,
@@ -72,10 +90,6 @@ export default {
         content: null,
         multiple: null,
       },
-      fileList: [{
-        name: "",
-        url: "",
-      }],
     }
   },
   mounted() {
@@ -156,12 +170,34 @@ export default {
         this.homeworkData.multiple=(this.resubmit === true)?1:0;
         api.addHomework(this.homeworkData).then(response => {
           if (response.data.code === 20000) {
-            ElMessage.success("添加成功");
+            if(this.fileList.length>0){
+              this.homeworkNumber=response.data.data.homework.id
+              const param = new FormData();
+              param.append('id',this.homeworkNumber)
+              param.append('classID',this.homeworkData.classId)
+              this.fileList.forEach(val => {
+                param.append("multipartFile", val.raw);
+              })
+              api.addHomeworkFile(param).then(res=>{
+                if (res.data.code === 20000) {
+                  ElMessage.success("上传成功");
+                  //this.$router.push('/stuViewHomework');
+                } else {
+                  ElMessage.error("上传失败");
+                }
+              })
+            }else {
+              ElMessage.success("添加成功");
+            }
           } else {
             ElMessage.success("添加失败");
           }
         });
       }
+    },
+    // 处理文件改变
+    handleChange(file, fileList) {
+      this.fileList = fileList;
     },
   }
 //TODO：将教师布置作业添加附件写到该界面，并且内容和附件任何其一不为空即可布置
