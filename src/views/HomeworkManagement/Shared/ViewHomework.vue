@@ -23,7 +23,6 @@
           <template #default="scope">
             <el-link type="primary" link @click="showDetailInfo(scope)" v-show="role === 'student'">详情</el-link>
             <!--TODO：将布置作业添加附件写到添加界面-->
-<!--            <el-link type="primary" link @click="showAppend(scope)" v-show="role==='teacher'">添加附件</el-link>-->
             <!--TODO：作业未开始，都可改；作业已经开始，无论是否结束，开始时间不可改-->
             <el-link type="primary" link @click="changeHomework(scope)" v-show="role==='teacher'">修改</el-link>
             <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)" v-show="role==='teacher'">删除</el-link>
@@ -33,8 +32,12 @@
           <template #default="scope">
             <!--TODO：提交情况应该在作业开始之后再显示或者打开一页显示“尚未开始”-->
             <el-link type="primary" link @click="viewSubmitHomework(scope)" v-show="role==='teacher'">提交情况</el-link>
-            <el-link type="primary" link @click="submitHomework(scope)" v-show="role==='student'&&submit[scope.row.index]===0">提交作业</el-link>
-            <el-link type="success" link @click="resubmitHomework(scope)" v-show="role==='student'&&submit[scope.row.index]!==0">重新提交</el-link>
+            <div v-show="role==='student'">
+              <el-link type="primary" link @click="submitHomework(scope)" v-if="submit[scope.row.index]===0">提交作业</el-link>
+              <el-link type="primary" link disabled v-else-if="submit[scope.row.index]===-1">已经截止</el-link>
+              <el-link type="success" link @click="resubmitHomework(scope)" v-else>重新提交</el-link>
+            </div>
+
           </template>
         </el-table-column>
         <el-table-column label="互评" width="150px">
@@ -62,19 +65,6 @@
         @current-change="handlePageChange"
         :hide-on-single-page="false"/>
   </el-card>
-
-  <!--上传附件的弹出框-->
-  <el-dialog v-model="dialogFileVisible" title="为作业添加附件">
-    <el-upload action="/homework/addFile" :auto-upload="false" :file-list="fileList" :on-change="handleChange">
-      <template #trigger>
-        <el-button type="primary">选择文件</el-button>
-      </template>
-      <el-button type="success" style="margin-left: 10px" @click="submitUpload">上传文件</el-button>
-      <template #tip>
-        <div>文件小于5Mb</div>
-      </template>
-    </el-upload>
-  </el-dialog>
 </template>
 
 <script>
@@ -92,10 +82,6 @@ export default {
       head: "作业列表",
       homeworkName: '',
       key: 1,
-      // 是否显示文件上传弹出框
-      dialogFileVisible: false,
-      // 文件列表
-      fileList: [],
       tableData: [
         {
           "id": null,
@@ -193,30 +179,6 @@ export default {
           }
         })
       }).catch(() => {
-      })
-    },
-    // 处理文件改变
-    handleChange(file, fileList) {
-      this.fileList = fileList;
-    },
-    showAppend(scope){
-      this.$store.commit('setHomeworkNumber', scope.row.id);
-      this.dialogFileVisible = true;
-    },
-    // 上传附件
-    submitUpload() {
-      const param = new FormData();
-      param.append("id", this.homeworkNumber);
-      param.append("classID", this.courseNumber);
-      this.fileList.forEach(val => {
-        param.append("multipartFile", val.raw);
-      })
-      api.addHomeworkFile(param).then(res => {
-        if (res.data.code === 20000) {
-          ElMessage.success("上传成功");
-        }else {
-          ElMessage.error("上传失败");
-        }
       })
     },
     // 查看提交情况

@@ -232,7 +232,6 @@ export default {
     },
     // 给课程添加学生名单
     submitUpload() {
-      // TODO:添加课程选修名单
       const param = new FormData();
       param.append("classId", this.courseNumber);
       this.fileList.forEach(val => {
