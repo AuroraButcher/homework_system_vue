@@ -8,7 +8,7 @@
       <el-button type="primary" style="margin-left: 10px" @click="search(this.homeworkName)">搜索</el-button>
       <el-button type="primary" style="margin-left: 10px" @click="addHomework()" v-show="role==='teacher'">添加作业</el-button>
     </div>
-    <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key" :default-sort="{ prop: 'end', order: 'descending' }">
+    <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="60px"></el-table-column>
       <el-table-column label="作业编号" prop="id" width="100px" v-if="false"></el-table-column>
       <el-table-column label="作业名称" prop="name" width="200px">
@@ -16,13 +16,11 @@
           <el-link link @click="showDetailInfo(scope)">{{ scope.row.name }}</el-link>
         </template>
       </el-table-column>
-<!--   TODO:   只有前面两个顺序变了，操作没变-->
-      <el-table-column label="截止时间" prop="end" width="200px" sortable></el-table-column>
+      <el-table-column label="截止时间" prop="end" width="200px"></el-table-column>
       <el-table-column label="操作" header-align="center">
         <el-table-column label="作业" width="100px">
           <template #default="scope">
             <el-link type="primary" link @click="showDetailInfo(scope)" v-show="role === 'student'">详情</el-link>
-            <!--TODO：将布置作业添加附件写到添加界面-->
             <!--TODO：作业未开始，都可改；作业已经开始，无论是否结束，开始时间不可改-->
             <el-link type="primary" link @click="changeHomework(scope)" v-show="role==='teacher'">修改</el-link>
             <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)" v-show="role==='teacher'">删除</el-link>
@@ -208,7 +206,7 @@ export default {
     },
     // 处理页数改变
     handlePageChange() {
-      // TODO：检查，可能有问题
+      // TODO：检查，可能有问题，此为共用，可能要判断
       api.getHomeworkList(this.page).then(res => {
         if (res.data.code === 20000) {
           this.page.total = res.data.data.classInfo.total;

@@ -6,17 +6,18 @@
     <!--表单-->
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left" label-width="120px">
       <el-form-item label="课程名称：" prop="name">
-        <el-input type="text" v-model="ruleForm.name" autocomplete="off"></el-input>
+        <el-input type="text" v-model="ruleForm.name" autocomplete="off" style="width: 500px"></el-input>
       </el-form-item>
       <!--TODO:将添加课程的教师工号改为名字级联表-->
       <el-form-item label="教师工号：" prop="teacher">
-        <el-input type="text" v-model="ruleForm.teacher" autocomplete="off"></el-input>
+        <el-input type="text" v-model="ruleForm.teacher" autocomplete="off" style="width: 500px"></el-input>
+        <!--        <el-cascader filterable placeholder="选择教师"></el-cascader>-->
       </el-form-item>
       <el-form-item label="课程简介：" prop="info">
-        <el-input type="text" v-model="ruleForm.info"></el-input>
+        <el-input type="text" v-model="ruleForm.info" autocomplete="off" style="width: 500px"></el-input>
       </el-form-item>
       <el-form-item label="最大选课量：" prop="num">
-        <el-input type="text" v-model="ruleForm.num" autocomplete="off"></el-input>
+        <el-input type="text" v-model="ruleForm.num" autocomplete="off" style="width: 500px"></el-input>
       </el-form-item>
     </el-form>
     <el-button type="primary" @click="commit(ruleForm)">提交</el-button>
@@ -40,7 +41,7 @@ export default {
         teacher: null,
         num: null,
       },
-      //表单验证规则
+      //表单验证规则d
       rules: {
         info: [
           {required: true, message: "课程简介不能为空！", trigger: "change"}
@@ -55,13 +56,20 @@ export default {
           {required: true, message: "最大选课量不能为空！", trigger: "change"}
         ],
       },
+      /*teacherList:{
+        number:null,
+        name:null,
+      },*/
     };
   },
+  /*created(){
+    api.getTeacherList()
+  },*/
   methods: {
     commit(formName) {
       api.addCourse(this.ruleForm).then(response => {
         if (response.data.code === 20000) {
-          ElMessageBox.alert(response.data.message, '消息', {
+          ElMessageBox.alert("添加成功", '消息', {
             confirmButtonText: 'OK',
             callback: action => {
               if (action === 'confirm') {

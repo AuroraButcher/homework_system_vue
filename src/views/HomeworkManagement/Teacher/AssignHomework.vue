@@ -13,8 +13,8 @@
           <el-date-picker
               v-model="homeworkData.time"
               type="datetimerange"
-              start-placeholder="Start date"
-              end-placeholder="End date"
+              start-placeholder="开始时间"
+              end-placeholder="截止时间"
               format="YYYY-MM-DD HH:mm:ss"
               value-format="YYYY-MM-DD hh:mm:ss"
               date-format="YYYY/MM/DD ddd"
@@ -78,7 +78,6 @@ export default {
     return {
       head: "添加作业",
       contentEditor: {},
-      time: '',
       // 文件列表
       fileList: [],
       homeworkNumber:null,
