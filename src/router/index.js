@@ -4,7 +4,7 @@ import {createRouter, createWebHistory} from "vue-router"
 import Cookie from "js-cookie";
 import login from "../views/UserManagerment/Shared/Login.vue";
 import register from "../views/UserManagerment/Student/Register.vue";
-import getBackPassword from "../views/UserManagerment/Shared/GetBackPassword.vue";
+import getBackPassword from "../views/UserManagerment/Student/GetBackPassword.vue";
 //基础
 import Home from "../views/Base/Home.vue";
 import HomePage from "../views/Base/HomePage.vue";

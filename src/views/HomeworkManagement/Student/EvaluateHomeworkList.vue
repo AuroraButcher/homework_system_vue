@@ -30,7 +30,7 @@ import PageHeader from "../../Base/PageHeader.vue";
 import api from "../../../api";
 import {mapState} from "vuex";
 import Cookie from "js-cookie";
-import {ElMessage} from "element-plus";
+
 export default {
   name: "EvaluateHomework",
   components: {PageHeader},

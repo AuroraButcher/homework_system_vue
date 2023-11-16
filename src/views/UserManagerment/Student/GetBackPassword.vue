@@ -5,25 +5,17 @@
   <!--找回密码板块-->
   <el-card class="box-card">
     <!--找回密码标题-->
-    <h1 style="text-align: center;margin-top: -10px">找回密码</h1>
+    <h1 style="text-align: center;margin-top: -10px">学生找回密码</h1>
     <!--进行双向绑定/提供的属性在错误时显示错误图标/rules属性表单验证/添加的引用，通过$refs访问组件/设置表单标签的位置和宽度/添加一个类-->
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-position="left" label-width="100px">
       <!--prop：表单要验证的数据-->
       <!--学工号-->
-      <el-form-item label="学工号：" prop="number">
+      <el-form-item label="学号：" prop="number">
         <el-input type="text" v-model="ruleForm.number"></el-input>
       </el-form-item>
       <!--新密码，autocomplete表示不自动填充密码-->
       <el-form-item label="新密码：" prop="newPassword">
         <el-input :show-password="true" type="password" v-model="ruleForm.newPassword"></el-input>
-      </el-form-item>
-      <!--角色，default：管理员-->
-      <el-form-item label="角色：">
-        <el-radio-group v-model="role">
-          <el-radio label="administrator">管理员</el-radio>
-          <el-radio label="teacher">教师</el-radio>
-          <el-radio label="student">学生</el-radio>
-        </el-radio-group>
       </el-form-item>
       <!--邮箱验证码-->
       <el-form-item label="邮箱验证码" prop="captcha">
@@ -49,8 +41,6 @@ import {ElMessage, ElMessageBox} from "element-plus";
 export default {
   data() {
     return {
-      //角色
-      role: "administrator",
       //表单属性
       ruleForm: {
         number: "",
@@ -119,7 +109,7 @@ export default {
 <style scoped>
 /*背景图片*/
 .backgroundImage {
-  background: url("src/assets/Image_1.png") no-repeat fixed;
+  background: url("../../../assets/Image_1.png") no-repeat fixed;
   background-size: cover;
   width: 100%;
   height: 100%;

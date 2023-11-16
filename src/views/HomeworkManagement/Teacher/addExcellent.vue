@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import Cookie from "js-cookie";
 import api from "../../../api";
 import {ElMessage, ElMessageBox} from "element-plus";
 import {mapState} from "vuex";
