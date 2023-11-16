@@ -28,10 +28,8 @@
 <script>
 import PageHeader from "../../Base/PageHeader.vue";
 import api from "../../../api";
-import {ElMessage, ElMessageBox} from "element-plus";
+import {ElMessage} from "element-plus";
 import {mapState} from "vuex";
-import Cookie from "js-cookie";
-import AddExcellent from "../Teacher/addExcellent.vue";
 import Vditor from "vditor";
 
 export default {
