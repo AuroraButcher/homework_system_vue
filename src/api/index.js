@@ -455,10 +455,20 @@ const api = {
         })
     },
     // 管理员删除学生账号
-    adminDeleteStudent(number){
-        return axios.post(path.baseUrl + path.adminDeleteStudent, null,{
-            params:{
-                number:number,
+    adminDeleteStudent(number) {
+        return axios.post(path.baseUrl + path.adminDeleteStudent, null, {
+            params: {
+                number: number,
+            }
+        })
+    },
+    // 获得课程的选修学生名单‘
+    getCourseStudentList(pageData) {
+        return axios.get(path.baseUrl + path.getCourseStudentList, {
+            params: {
+                classId: pageData.courseId,
+                pageNo: pageData.pageNo,
+                pageSize: pageData.pageSize,
             }
         })
     },

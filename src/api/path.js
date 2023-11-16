@@ -103,15 +103,17 @@ const base = {
     adminDeleteTeacher: '/admin/deleteTeacher',
     // 管理员删除学生账号
     adminDeleteStudent: '/admin/deleteStudent',
+    // 获得课程的选修学生名单‘
+    getCourseStudentList: '/class/student',
 //---------------优秀作业--------------------
     //添加优秀作业1
-    addExcellent1:'/excellent/addBy1',
+    addExcellent1: '/excellent/addBy1',
     //添加优秀作业2
-    addExcellent2:'/excellent/addBy2',
+    addExcellent2: '/excellent/addBy2',
     //修改优秀作业
-    changeExcellent:'/excellent/addOrModify',
+    changeExcellent: '/excellent/addOrModify',
     //获取作业的所有优秀作业
-    getExcellent:'/excellent/getPage',
+    getExcellent: '/excellent/getPage',
     //获取优秀作业
     getOneExcellent:'/excellent/getInfo',
     //删除优秀作业

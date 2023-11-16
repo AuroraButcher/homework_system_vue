@@ -29,6 +29,7 @@ import TeacherList from "../views/UserManagerment/Administrator/TeacherList.vue"
 import StudentList from "../views/UserManagerment/Administrator/StudentList.vue";
 import ViewExcellent from "../views/HomeworkManagement/Shared/ViewExcellent.vue";
 import excellent from "../views/HomeworkManagement/Shared/Excellent.vue";
+import ShowCourseStudent from "../views/CourseManagement/Shared/ShowCourseStudent.vue";
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -182,6 +183,12 @@ const routes = [
                 component: SetEvaluation,
                 name: 'setDistribution'
             },
+            {
+                // 教师查看选修名单
+                path: "/teaShowCourseStudentList",
+                component: ShowCourseStudent,
+                name: 'teaShowCourseStudentList'
+            },
         ]
     },
     // 管理员端
@@ -232,6 +239,12 @@ const routes = [
                 path: "/studentList",
                 component: StudentList,
                 name: 'studentList',
+            },
+            {
+                // 管理员查看选修名单
+                path: "/adminShowCourseStudentList",
+                component: ShowCourseStudent,
+                name: 'adminShowCourseStudentList'
             },
         ]
     },

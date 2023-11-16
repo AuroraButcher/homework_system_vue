@@ -22,7 +22,7 @@
         <template #default="scope">
           <el-link type="primary" link @click="showHomework(scope)" v-show="role==='teacher'||role==='student'">作业列表</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="addStudent(scope)" v-show="role==='administrator'">导入学生名单</el-link>
-          <el-link type="primary" link style="margin-left: 10px" @click="showHomework(scope)" v-show="role==='teacher'||role==='administrator'">学生名单</el-link>
+          <el-link type="primary" link style="margin-left: 10px" @click="showStudentList(scope)" v-show="role==='teacher'||role==='administrator'">学生名单</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="changeCourse(scope)" v-show="role==='teacher'||role==='administrator'">修改</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="deleteCourse(scope)" v-show="role==='administrator'">删除</el-link>
         </template>
@@ -254,6 +254,15 @@ export default {
     // 添加课程
     addCourse() {
       this.$router.push('/addCourse');
+    },
+    // 获得选修学生的名单
+    showStudentList(scope) {
+      this.$store.commit('setCourseNumber', scope.row.id);
+      if (this.role === 'teacher') {
+        this.$router.push('/teaShowCourseStudentList');
+      } else {
+        this.$router.push('/adminShowCourseStudentList');
+      }
     }
   },
   computed:{
