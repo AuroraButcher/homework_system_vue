@@ -15,7 +15,9 @@
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link @click="showDetailInfo(scope)">批改</el-link>
-          <el-link type="primary" link style="margin-left: 10px" @click="setExHomework(scope)">设置优秀作业</el-link>
+          <el-link type="primary" link style="margin-left: 10px" @click="setExHomework(scope)">
+            {{ this.ex[scope.$index]===0?'设置优秀作业':'修改优秀作业状态' }}
+          </el-link>
 <!--       TODO:   优秀作业状态-->
         </template>
       </el-table-column>
@@ -37,6 +39,7 @@ export default {
     return {
       head: '作业提交情况',
       key: 1,
+      ex:[],
       submitNumber:'',
       numberOfStudent:'',
       addExcellent:false,
@@ -65,6 +68,7 @@ export default {
       api.homeworkCondition(this.params).then(res => {
         if (res.data.code === 20000) {
           this.tableData = res.data.data.homeworkInfo.records;
+          this.ex=res.data.data.excellent
         }
       })
     }

@@ -424,7 +424,7 @@ const api = {
     deleteExcellent(data){
         return axios.post(path.baseUrl+path.deleteExcellent,null,{
             params:{
-                homeworkStudentId:data.homeworkID
+                homeworkStudentId:data
             }
         })
     },

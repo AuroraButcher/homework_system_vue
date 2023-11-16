@@ -10,6 +10,7 @@
         <el-button @click="cancel">取消</el-button>
         <el-button type="primary" v-show="!change" @click="confirm">确认</el-button>
         <el-button type="primary" v-show="change" @click="changeInfo">修改</el-button>
+        <el-button type="danger" v-show="change" style="margin-right: auto" @click="del">删除</el-button>
       </span>
     </template>
   </el-dialog>
@@ -42,9 +43,12 @@ export default {
       if(this.content!==null&&this.content!==''){
         api.addExcellent({homeworkID:this.homeworkID,content:this.content}).then(res=>{
           if(res.data.code===20000){
-            if(res.data.data.info==='该作业已经是优秀作业！')
-            ElMessage.success('添加成功')
-            this.$emit('addExcellent',this.delete,false)
+            if(res.data.data.info==='该作业已经是优秀作业！'){
+              ElMessage.success('该作业已经是优秀作业')
+            } else {
+              ElMessage.success('添加成功')
+              this.$emit('addExcellent', this.delete, false)
+            }
           }else {
             ElMessage.error('添加失败')
           }
@@ -54,7 +58,15 @@ export default {
       }
     },
     changeInfo(){
-
+      if(this.content!==null&&this.content!==''){
+        api.modifyExcellent({homeworkID:this.homeworkID,content:this.content}).then(res=>{
+          if(res.data.code===20000){
+            ElMessage.success('修改成功')
+          }else {
+            ElMessage.error('错误：'+res.data.message)
+          }
+        })
+      }
     },
     close(){
       this.content=null
@@ -65,6 +77,7 @@ export default {
           if(res.data.data.excellentInfo===null){
             this.change=false
           }else {
+            this.change=true
             this.content=res.data.data.excellentInfo.content
           }
         }else{
@@ -87,7 +100,30 @@ export default {
           .catch((res) => {
             console.log(res)
           })
-    }
+    },
+    del(){
+      ElMessageBox.confirm(
+          '你确定你要删除吗?',
+          {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+          }
+      )
+          .then(() => {
+            api.deleteExcellent(this.homeworkID).then(res=>{
+              if(res.data.code===20000){
+                ElMessage.success('删除成功')
+                this.$emit('addExcellent',this.delete,false)
+              }else {
+                ElMessage.error('错误:'+res.data.message)
+              }
+            })
+          })
+          .catch((res) => {
+            console.log(res)
+          })
+    },
   }
 }
 </script>
