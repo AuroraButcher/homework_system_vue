@@ -66,6 +66,8 @@ export default {
             ElMessage.error('错误：'+res.data.message)
           }
         })
+      }else {
+        ElMessage.error("评语为空")
       }
     },
     close(){

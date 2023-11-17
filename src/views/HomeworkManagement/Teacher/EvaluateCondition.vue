@@ -1,5 +1,5 @@
 <template>
-  <add-excellent v-model="addExcellent" @addExcellent="addExcellent=false"></add-excellent>
+  <add-excellent v-model="addExcellent" @addExcellent="exClose"></add-excellent>
   <el-card>
     <template #header>
       <page-header :component="head"/>
@@ -33,6 +33,7 @@ import {ElMessage} from "element-plus";
 import AddExcellent from "./addExcellent.vue";
 
 export default {
+  inject:['reload'],  //注入依赖
   components: {AddExcellent, PageHeader},
   name: "homeworkCondition",
   data() {
@@ -103,7 +104,11 @@ export default {
     setExHomework(scope){
       this.$store.commit('setHomeworkID',scope.row.id)
       this.addExcellent=true
-    }
+    },
+    exClose(){
+      this.addExcellent=false
+      this.reload()
+    },
   }
 }
 </script>
