@@ -31,7 +31,7 @@
             <!--TODO：提交情况应该在作业开始之后再显示或者打开一页显示“尚未开始”-->
             <el-link type="primary" link @click="viewSubmitHomework(scope)" v-show="role==='teacher'">提交情况</el-link>
             <div v-show="role==='student'">
-              <el-link type="primary" link @click="submitHomework(scope)" v-if="submit[scope.row.index]!==0 && timeValid[scope.row.index]===0">提交作业</el-link>
+              <el-link type="primary" link @click="submitHomework(scope)" v-if="submit[scope.row.index]===0 && timeValid[scope.row.index]===0">提交作业</el-link>
               <el-link type="primary" link disabled v-else-if="submit[scope.row.index]===0 && timeValid[scope.row.index]===-1">作业已截止</el-link>
               <el-link type="primary" link @click="getStudentHWinfo(scope)" v-else-if="submit[scope.row.index]!==0 && timeValid[scope.row.index]===-1">查看作业</el-link>
               <el-link type="success" link @click="resubmitHomework(scope)" v-else>重新提交</el-link>
