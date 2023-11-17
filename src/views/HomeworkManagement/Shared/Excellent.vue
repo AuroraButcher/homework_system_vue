@@ -3,6 +3,8 @@
     <template #header>
       <page-header :component="head"/>
     </template>
+    <el-divider content-position="left">作业详情</el-divider>
+    <detail/>
     <!--提交内容详情-->
     <el-divider content-position="left">优秀作业内容</el-divider>
     <el-descriptions :column="2" border style="margin-top: 10px">
@@ -31,10 +33,11 @@ import api from "../../../api";
 import {ElMessage} from "element-plus";
 import {mapState} from "vuex";
 import Vditor from "vditor";
+import Detail from "./Detail.vue";
 
 export default {
   name: "Excellent",
-  components: {PageHeader},
+  components: {Detail, PageHeader},
   data(){
     return{
       head:'优秀作业详情',
@@ -58,7 +61,7 @@ export default {
     }
   },
   computed:{
-    ...mapState(['homeworkID'])
+    ...mapState(['homeworkID','homeworkNumber',"courseNumber"])
   },
   methods: {
     download(item) {
@@ -66,6 +69,7 @@ export default {
       this.downloadData.classID = this.courseNumber;
       this.downloadData.downloadFileName = item;
       this.downloadData.studentNumber = this.studentNumber;
+      console.log(this.downloadData)
       api.downloadStudentFiles(this.downloadData).then(res => {
         if (res.data.code === 20000) {
           const url = res.data.data.url;

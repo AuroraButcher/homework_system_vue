@@ -31,6 +31,19 @@
     </div>
     <!--编辑器-->
     <div class="editor" id="vditor"></div>
+    <div>
+      <el-divider content-position="left">提交附件</el-divider>
+      <el-upload action="/homework/addFile" :auto-upload="false" :file-list="fileList" :on-change="handleChange">
+        <template #trigger>
+          <el-button style="width: 150px" type="primary">选择文件</el-button>
+        </template>
+        <template #tip>
+          <div style="margin-top: 10px">
+            文件小于5Mb
+          </div>
+        </template>
+      </el-upload>
+    </div>
 <!--TODO：关于附件删除的相关逻辑-->
     <!--附件上传-->
     <!--    <div>
@@ -91,6 +104,7 @@ export default {
       contentEditor: {},
       time: '',
       resubmit:false,
+      fileList:[],
       homeworkData: {
         id:Number,
         title: null,

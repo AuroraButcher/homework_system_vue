@@ -89,7 +89,7 @@ export default {
         }else if(this.role==='teacher'){
           api.teaGetGrade({homeworkId: this.homeworkID}).then(res=>{
             if(res.data.code===20000){
-              this.grade=res.data.data.score
+              this.grade=res.data.data.info.score
             }else {
               ElMessage.error("加载评分失败");
             }
