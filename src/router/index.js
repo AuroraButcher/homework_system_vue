@@ -21,6 +21,7 @@ import changeHomework from "../views/HomeworkManagement/Teacher/ChangeHomework.v
 import SubmitHomework from "../views/HomeworkManagement/Student/SubmitHomework.vue";
 import homeworkCondition from "../views/HomeworkManagement/Teacher/EvaluateCondition.vue";
 import detailSubmitHomework from "../views/HomeworkManagement/Shared/EvaluateHomework.vue";
+import HomeworkInfo from "../views/HomeworkManagement/Student/ShowHomeworkInfo.vue";
 // 分数相关
 import Chart from "../views/HomeworkManagement/Shared/Chart.vue";
 import evaluateHomework from "../views/HomeworkManagement/Student/EvaluateHomeworkList.vue";
@@ -86,6 +87,11 @@ const routes = [
                 path: "/submitHomework",
                 component: SubmitHomework,
                 name: 'submitHomework'
+            },
+            {
+                path: "/homeworkInfo",
+                component: HomeworkInfo,
+                name: 'homeworkInfo'
             },
             {
                 // 分数分布

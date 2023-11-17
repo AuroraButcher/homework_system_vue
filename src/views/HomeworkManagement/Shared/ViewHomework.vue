@@ -31,8 +31,9 @@
             <!--TODO：提交情况应该在作业开始之后再显示或者打开一页显示“尚未开始”-->
             <el-link type="primary" link @click="viewSubmitHomework(scope)" v-show="role==='teacher'">提交情况</el-link>
             <div v-show="role==='student'">
-              <el-link type="primary" link @click="submitHomework(scope)" v-if="submit[scope.row.index]===0">提交作业</el-link>
-              <el-link type="primary" link disabled v-else-if="submit[scope.row.index]===-1">已经截止</el-link>
+              <el-link type="primary" link @click="submitHomework(scope)" v-if="submit[scope.row.index]!==0 && timeValid[scope.row.index]===0">提交作业</el-link>
+              <el-link type="primary" link disabled v-else-if="submit[scope.row.index]===0 && timeValid[scope.row.index]===-1">作业已截止</el-link>
+              <el-link type="primary" link @click="getStudentHWinfo(scope)" v-else-if="submit[scope.row.index]!==0 && timeValid[scope.row.index]===-1">查看作业</el-link>
               <el-link type="success" link @click="resubmitHomework(scope)" v-else>重新提交</el-link>
             </div>
 
@@ -41,7 +42,9 @@
         <el-table-column label="互评" width="150px">
           <template #default="scope">
             <el-link type="primary" link @click="setEvaluation(scope)" v-show="role==='teacher'">互评设置</el-link>
-            <el-link type="primary" link @click="evaluateHomework(scope)" v-show="role==='student'">互评作业</el-link>
+            <el-link type="primary" link @click="evaluateHomework(scope)" v-if="review[scope.row.index]===1" v-show="role==='student'">互评作业</el-link>
+            <el-link type="primary" link disabled v-else-if="review[scope.row.index]===0" v-show="role==='student'">互评尚未开始</el-link>
+            <el-link type="primary" link @click="evaluateHomework(scope)" v-if="review[scope.row.index]===-1" v-show="role==='student'">互评已结束</el-link>
           </template>
         </el-table-column>
         <el-table-column label="分数">
@@ -101,6 +104,8 @@ export default {
         studentID:Cookie.get('number'),
       },
       submit:[],
+      timeValid:[],
+      review:[],
     }
   },
   // 展示作业
@@ -124,6 +129,8 @@ export default {
           //设置表数据
           this.tableData = res.data.data.homeworkInfo;
           this.submit = res.data.data.isSubmitted;
+          this.timeValid = res.data.data.timeValid;
+          this.review = res.data.data.review;
         } else {
           ElMessage.error(res.data.message);
         }
@@ -198,6 +205,11 @@ export default {
       this.$store.commit('setHomeworkID', this.submit[scope.row.index]);
       this.$store.commit('setIndex', scope.row.index);
       this.$router.push('/submitHomework');
+    },
+    //查看学生作业
+    getStudentHWinfo(scope){
+      this.$store.commit("setHomeworkID", this.submit[scope.row.index]);
+      this.$router.push("/homeworkInfo");
     },
     //互评作业
     evaluateHomework(scope){
