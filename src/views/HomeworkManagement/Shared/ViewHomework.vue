@@ -228,7 +228,6 @@ export default {
     },
     //查看优秀作业
     showExcellent(scope){
-      //TODO 查看优秀作业，跳转到优秀作业的页面
       this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push("/viewExcellent");
     },
