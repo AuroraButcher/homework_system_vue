@@ -1,13 +1,13 @@
 <template>
   <el-card class="box-card">
-    <div>
-      <!--轮播图-->
+<!--    <div>
+      &lt;!&ndash;轮播图&ndash;&gt;
       <el-carousel interval="4000" type="card" height="400px">
         <el-carousel-item v-for="item in image" :key="item">
           <img :src="item" alt="null" style="width: 100%">
         </el-carousel-item>
       </el-carousel>
-    </div>
+    </div>-->
     <!--标题内容-->
     <el-divider></el-divider>
     <h1 v-show="role === 'administrator'">欢迎您，亲爱的管理员</h1>
@@ -23,11 +23,11 @@ export default {
   data() {
     return {
       image: [
-        "src/assets/1.jpg",
-        "src/assets/2.jpg",
-        "src/assets/3.jpg",
-        "src/assets/4.jpg",
-        "src/assets/5.jpg",
+        "../src/assets/1.jpg",
+        "../src/assets/2.jpg",
+        "../src/assets/3.jpg",
+        "../src/assets/4.jpg",
+        "../src/assets/5.jpg",
       ]
     }
   },
