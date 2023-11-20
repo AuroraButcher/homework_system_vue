@@ -31,6 +31,7 @@ import StudentList from "../views/UserManagerment/Administrator/StudentList.vue"
 import ViewExcellent from "../views/HomeworkManagement/Shared/ViewExcellent.vue";
 import excellent from "../views/HomeworkManagement/Shared/Excellent.vue";
 import ShowCourseStudent from "../views/CourseManagement/Shared/ShowCourseStudent.vue";
+import DiscussionArea from "../views/DiscussionArea/DiscussionArea.vue";
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -114,6 +115,11 @@ const routes = [
                 path: "/viewExcellentDetail",
                 component: excellent,
                 name:'Excellent'
+            },
+            {
+                path: "/discussion",
+                component: DiscussionArea,
+                name:'discussion'
             }
         ]
     },
@@ -195,6 +201,11 @@ const routes = [
                 component: ShowCourseStudent,
                 name: 'teaShowCourseStudentList'
             },
+            {
+                path: "/discussion",
+                component: DiscussionArea,
+                name:'discussion'
+            }
         ]
     },
     // 管理员端

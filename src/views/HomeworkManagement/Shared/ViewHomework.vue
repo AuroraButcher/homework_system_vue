@@ -9,14 +9,14 @@
       <el-button type="primary" style="margin-left: 10px" @click="addHomework()" v-show="role==='teacher'">添加作业</el-button>
     </div>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
-      <el-table-column label="序号" type="index" width="60px"></el-table-column>
+      <el-table-column label="序号" type="index" width="50px"></el-table-column>
       <el-table-column label="作业编号" prop="id" width="100px" v-if="false"></el-table-column>
-      <el-table-column label="作业名称" prop="name" width="200px">
+      <el-table-column label="作业名称" prop="name" width="150px">
         <template #default="scope">
           <el-link link @click="showDetailInfo(scope)">{{ scope.row.name }}</el-link>
         </template>
       </el-table-column>
-      <el-table-column label="截止时间" prop="end" width="200px"></el-table-column>
+      <el-table-column label="截止时间" prop="end" width="180px"></el-table-column>
       <el-table-column label="操作" header-align="center">
         <el-table-column label="作业" width="100px">
           <template #default="scope">
@@ -36,10 +36,9 @@
               <el-link type="primary" link @click="getStudentHWinfo(scope)" v-else-if="submit[scope.row.index]!==0 && timeValid[scope.row.index]===-1">查看作业</el-link>
               <el-link type="success" link @click="resubmitHomework(scope)" v-else>重新提交</el-link>
             </div>
-
           </template>
         </el-table-column>
-        <el-table-column label="互评" width="150px">
+        <el-table-column label="互评" width="130px">
           <template #default="scope">
             <el-link type="primary" link @click="setEvaluation(scope)" v-show="role==='teacher'">互评设置</el-link>
             <el-link type="primary" link @click="evaluateHomework(scope)" v-if="review[scope.row.index]===1" v-show="role==='student'">互评作业</el-link>
@@ -47,10 +46,17 @@
             <el-link type="primary" link @click="evaluateHomework(scope)" v-if="review[scope.row.index]===-1" v-show="role==='student'">互评已结束</el-link>
           </template>
         </el-table-column>
-        <el-table-column label="分数">
+        <el-table-column label="分数" width="200px">
           <template #default="scope">
             <el-link type="primary" link @click="showData(scope)">分数分布</el-link>
             <el-link type="primary" link style="margin-left: 10px" @click="showExcellent(scope)">查看优秀作业</el-link>
+          </template>
+        </el-table-column>
+        <el-table-column label="讨论区">
+          <template #default="scope">
+            <el-link type="primary" v-show="showDiscussion" link @click="goDiscussion(scope)">进入讨论区</el-link>
+            <el-link type="primary" v-show="showDiscussion === false && role === 'teacher'"  link @click="openDiscussion">开设讨论区</el-link>
+            <el-link type="primary" v-show="showDiscussion === true && role === 'teacher'" style="margin-left: 10px" link @click="closeDiscussion">关闭讨论区</el-link>
           </template>
         </el-table-column>
       </el-table-column>
@@ -106,6 +112,7 @@ export default {
       submit:[],
       timeValid:[],
       review:[],
+      showDiscussion: false,
     }
   },
   // 展示作业
@@ -248,6 +255,18 @@ export default {
       this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push("/setDistribution");
     },
+    // 进入讨论区
+    goDiscussion(scope){
+      this.$router.push("/discussion");
+    },
+    // 开设讨论区
+    openDiscussion(){
+      this.showDiscussion = true;
+    },
+    // 关闭讨论区
+    closeDiscussion(){
+      this.showDiscussion = false;
+    }
   },
   computed: {
     ...mapState(['courseNumber', 'role', 'homeworkNumber'])

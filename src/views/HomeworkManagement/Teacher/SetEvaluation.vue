@@ -34,12 +34,12 @@
                   min="0"
                   max="100"
                   style="width: 70px;margin-left: 10px"
-                  v-model="setData.stuPercent"
+                  v-model="setData.studentPercent"
                   @change="changeStuPercent"
                   oninput="if(value>100)value=100;if(value<0)value=0">
         </el-input>
         <span style="margin-left: 10px">%</span>
-        <span style="margin-left: 100px">教师打分占比： {{ setData.teaPercent }} %</span>
+        <span style="margin-left: 100px">教师打分占比： {{ setData.teacherPercent }} %</span>
       </el-descriptions-item>
     </el-descriptions>
 <!--TODO: bug，点击设置，学生占比自动除以100-->
@@ -64,7 +64,8 @@ export default {
         anonymous: false,*/
         time: null,
         stuPercent: null,
-        teaPercent: null,
+        studentPercent:null,
+        teacherPercent: null,
         homeworkId: null,
       },
     }
@@ -72,7 +73,7 @@ export default {
   methods: {
     // 根据学生打分占比更改教师打分占比
     changeStuPercent() {
-      this.setData.teaPercent = 100 - this.setData.stuPercent;
+      this.setData.teacherPercent = 100 - this.setData.studentPercent;
     },
     // 进行互评设置
     setEvaluation() {

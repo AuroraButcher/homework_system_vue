@@ -199,7 +199,6 @@ export default {
       this.fileList = fileList;
     },
   }
-//TODO：将教师布置作业添加附件写到该界面，并且内容和附件任何其一不为空即可布置
 }
 </script>
 

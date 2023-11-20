@@ -109,7 +109,7 @@ export default {
 <style scoped>
 /*背景图片*/
 .backgroundImage {
-  background: url("../../../assets/Image_1.png") no-repeat fixed;
+  background: url("../../../assets/background.jpg") no-repeat fixed;
   background-size: cover;
   width: 100%;
   height: 100%;
