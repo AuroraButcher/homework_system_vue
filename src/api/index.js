@@ -481,6 +481,14 @@ const api = {
             }
         })
     },
+    // 关闭讨论区
+    closeDiscussion(homeworkId) {
+        return axios.post(path.baseUrl + path.closeDiscussion, null, {
+            params: {
+                homeworkId: homeworkId,
+            }
+        })
+    },
     // 获得讨论区列表
     getDiscussionList(discussionData) {
         return axios.get(path.baseUrl + path.getDiscussionList, {
@@ -491,12 +499,20 @@ const api = {
             }
         })
     },
-    // 评论与回复
-    addDiscussion(addDiscussionData) {
+    // 教师评论与回复
+    teaAddDiscussion(addDiscussionData) {
+        return axios.post(path.baseUrl + path.addDiscussion, {
+            homeworkId: addDiscussionData.homeworkId,
+            teacherNumber: addDiscussionData.teacherNumber,
+            reply: addDiscussionData.reply,
+            content: addDiscussionData.content,
+        })
+    },
+    // 教师评论与回复
+    stuAddDiscussion(addDiscussionData) {
         return axios.post(path.baseUrl + path.addDiscussion, {
             homeworkId: addDiscussionData.homeworkId,
             studentNumber: addDiscussionData.studentNumber,
-            teacherNumber: addDiscussionData.teacherNumber,
             reply: addDiscussionData.reply,
             content: addDiscussionData.content,
         })
