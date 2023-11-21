@@ -5,7 +5,9 @@
   <div class="common-layout">
     <el-container>
       <!--侧边栏-->
-      <SideMenu :isCollapse="isCollapse"></SideMenu>
+      <el-aside class="el-side">
+        <SideMenu :isCollapse="isCollapse"></SideMenu>
+      </el-aside>
       <el-container class="header-and-main">
         <!--头部-->
         <el-header class="el-header">
@@ -111,5 +113,15 @@ export default {
     justify-content: center;
     align-items: center;
   }
+}
+.el-main {
+  padding:5px;
+  overflow-y: hidden;
+}
+/*整个侧边*/
+.el-side {
+  background-color: rgb(112, 188, 210);
+  height: 100vh;
+  width: auto;
 }
 </style>

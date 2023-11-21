@@ -1,11 +1,11 @@
 <template>
-  <ul class="border" style="list-style: none">
+  <ul class="border">
     <li v-for="(item, index) in data" :key="index">
       <div class="message-item" >
         <div v-if="item.isRead===0" class="dot"></div>
         <div v-if="item.isRead===1" class="dot" style="background-color: white;"></div>
-        <el-icon style="font-size: 24px; margin-right: 10px;"><Message /></el-icon>
-        <el-link style="font-size: 22px">{{ item.title }}</el-link>
+        <el-icon style="font-size: 16px; margin-right: 10px;"><Message /></el-icon>
+        <el-link style="font-size: 16px">{{ item.title }}</el-link>
         <div class="date">{{ item.date }}</div>
       </div>
       <el-divider/>
@@ -25,7 +25,11 @@ export default {
   components: {Message},
   data(){
     return{
-      data:[],
+      data:[{
+        isRead:0,
+        title:"作业提醒",
+        time: "2023-11-21 17;08"
+      }],
       page:{
         studentNumber:Cookie.get('number'),
         pageNo:1,
@@ -78,6 +82,6 @@ export default {
 .border{
   list-style: none;
   border: 1px solid white;
-  padding: 10px;
+  padding: 0;
 }
 </style>

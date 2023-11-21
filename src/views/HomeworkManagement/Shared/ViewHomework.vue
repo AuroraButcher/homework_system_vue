@@ -10,7 +10,7 @@
     </div>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="50px"></el-table-column>
-      <el-table-column label="编号" prop="id" width="50px" v-if="false"></el-table-column>
+      <el-table-column label="编号" prop="id" width="50px" v-if="true"></el-table-column>
       <el-table-column label="作业名称" prop="name" width="150px">
         <template #default="scope">
           <el-link link @click="showDetailInfo(scope)">{{ scope.row.name }}</el-link>
@@ -255,6 +255,7 @@ export default {
     },
     // 进入讨论区
     goDiscussion(scope) {
+      this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push("/discussion");
     },
     // 开设讨论区

@@ -1,5 +1,5 @@
 <template>
-  <el-card class="box-card">
+  <el-card>
 <!--    <div>
       &lt;!&ndash;轮播图&ndash;&gt;
       <el-carousel interval="4000" type="card" height="400px">

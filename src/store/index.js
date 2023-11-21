@@ -7,8 +7,10 @@ const store = createStore({
         role: "",
         courseNumber: null,
         courseName:null,
+        // 布置作业id
         homeworkNumber: null,
         homeworkName:null,
+        // 学生提交作业id
         homeworkID:null,
         studentNumber:null,
         index:null,

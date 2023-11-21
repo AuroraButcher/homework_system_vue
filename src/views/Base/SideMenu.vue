@@ -1,158 +1,153 @@
 <template>
   <!--管理员-->
   <div v-show="role === 'administrator'">
-    <el-aside class="el-side">
-      <!--总菜单-->
-      <el-menu class="el-menu" router unique-opened :collapse="isCollapse" :collapse-transition="false">
-        <a href="/adminHome" class="logo">
-          <img src="../../assets/XiHe.png" alt="logo" class="image">
-          <h1 class="header_1">羲和作业互评</h1>
-        </a>
-        <!--总菜单选项-->
-        <el-menu-item index="/adminHome">
-          <el-icon style="font-size: 32px">
-            <HomeFilled/>
-          </el-icon>
-          <span>管理员端首页</span>
-        </el-menu-item>
+    <!--总菜单-->
+    <el-menu class="el-menu" router unique-opened :collapse="isCollapse" :collapse-transition="false">
+      <a href="/adminHome" class="logo">
+        <img src="../../assets/XiHe.png" alt="logo" class="image">
+        <h1 class="header_1">羲和作业互评</h1>
+      </a>
+      <!--总菜单选项-->
+      <el-menu-item index="/adminHome">
+        <el-icon style="font-size: 32px">
+          <HomeFilled/>
+        </el-icon>
+        <span>管理员端首页</span>
+      </el-menu-item>
 
-        <!--子菜单-->
-        <el-sub-menu index="1">
-          <template #title>
-            <el-icon style="font-size: 32px">
-              <Operation/>
-            </el-icon>
-            <span>用户管理</span>
-          </template>
-          <!--子菜单选项-->
-          <el-menu-item class="el-menu-item" index="/teacherList">
-            <el-icon>
-              <View/>
-            </el-icon>
-            <span>教师列表</span>
-          </el-menu-item>
-          <el-menu-item class="el-menu-item" index="/studentList">
-            <el-icon>
-              <View/>
-            </el-icon>
-            <span>学生列表</span>
-          </el-menu-item>
-        </el-sub-menu>
-        <el-sub-menu index="2">
-          <template #title>
-            <el-icon style="font-size: 32px">
-              <Operation/>
-            </el-icon>
-            <span>课程管理</span>
-          </template>
-          <!--子菜单选项-->
-          <el-menu-item class="el-menu-item" index="/viewCourse">
-            <el-icon>
-              <View/>
-            </el-icon>
-            <span>查看课程</span>
-          </el-menu-item>
-        </el-sub-menu>
-        <el-menu-item @click="drawer = true">
-          <el-badge>
-            <el-icon style="font-size: 32px">
-              <bell/>
-            </el-icon>
-          </el-badge>
-          <span>消息</span>
+      <!--子菜单-->
+      <el-sub-menu index="1">
+        <template #title>
+          <el-icon style="font-size: 32px">
+            <Operation/>
+          </el-icon>
+          <span>用户管理</span>
+        </template>
+        <!--子菜单选项-->
+        <el-menu-item class="el-menu-item" index="/teacherList">
+          <el-icon>
+            <View/>
+          </el-icon>
+          <span>教师列表</span>
         </el-menu-item>
-      </el-menu>
-    </el-aside>
+        <el-menu-item class="el-menu-item" index="/studentList">
+          <el-icon>
+            <View/>
+          </el-icon>
+          <span>学生列表</span>
+        </el-menu-item>
+      </el-sub-menu>
+      <el-sub-menu index="2">
+        <template #title>
+          <el-icon style="font-size: 32px">
+            <Operation/>
+          </el-icon>
+          <span>课程管理</span>
+        </template>
+        <!--子菜单选项-->
+        <el-menu-item class="el-menu-item" index="/viewCourse">
+          <el-icon>
+            <View/>
+          </el-icon>
+          <span>查看课程</span>
+        </el-menu-item>
+      </el-sub-menu>
+      <el-menu-item @click="drawer = true">
+        <el-badge>
+          <el-icon style="font-size: 32px">
+            <bell/>
+          </el-icon>
+        </el-badge>
+        <span>消息</span>
+      </el-menu-item>
+    </el-menu>
   </div>
 
   <!--教师-->
   <div v-show="role === 'teacher'">
-    <el-aside class="el-side">
-      <!--总菜单-->
-      <el-menu class="el-menu" router unique-opened :collapse="isCollapse" :collapse-transition="false">
-        <a href="/teacherHome" class="logo">
-          <img src="../../assets/XiHe.png" alt="logo" class="image">
-          <h1 class="header_1">羲和作业互评</h1>
-        </a>
-        <!--总菜单选项-->
-        <el-menu-item index="/teacherHome">
-          <el-icon style="font-size: 32px">
-            <HomeFilled/>
-          </el-icon>
-          <span>教师端首页</span>
-        </el-menu-item>
+    <!--总菜单-->
+    <el-menu class="el-menu" router unique-opened :collapse="isCollapse" :collapse-transition="false">
+      <a href="/teacherHome" class="logo">
+        <img src="../../assets/XiHe.png" alt="logo" class="image">
+        <h1 class="header_1">羲和作业互评</h1>
+      </a>
+      <!--总菜单选项-->
+      <el-menu-item index="/teacherHome">
+        <el-icon style="font-size: 32px">
+          <HomeFilled/>
+        </el-icon>
+        <span>教师端首页</span>
+      </el-menu-item>
 
-        <!--子菜单-->
-        <el-sub-menu index="1">
-          <template #title>
-            <el-icon style="font-size: 32px">
-              <Operation/>
-            </el-icon>
-            <span>课程</span>
-          </template>
-          <!--子菜单选项-->
-          <el-menu-item class="el-menu-item" index="/viewCourse">
-            <el-icon>
-              <View/>
-            </el-icon>
-            <span>查看教授课程</span>
-          </el-menu-item>
-        </el-sub-menu>
-        <el-menu-item @click="drawer = true">
-          <el-badge>
-            <el-icon style="font-size: 32px">
-              <bell/>
-            </el-icon>
-          </el-badge>
-          <span>消息</span>
+      <!--子菜单-->
+      <el-sub-menu index="1">
+        <template #title>
+          <el-icon style="font-size: 32px">
+            <Operation/>
+          </el-icon>
+          <span>课程</span>
+        </template>
+        <!--子菜单选项-->
+        <el-menu-item class="el-menu-item" index="/viewCourse">
+          <el-icon>
+            <View/>
+          </el-icon>
+          <span>查看教授课程</span>
         </el-menu-item>
-      </el-menu>
-    </el-aside>
+      </el-sub-menu>
+      <el-menu-item @click="drawer = true">
+        <el-badge>
+          <el-icon style="font-size: 32px">
+            <bell/>
+          </el-icon>
+        </el-badge>
+        <span>消息</span>
+      </el-menu-item>
+    </el-menu>
   </div>
 
   <!--学生-->
   <div v-show="role === 'student'">
-    <el-aside class="el-side">
-      <!--总菜单-->
-      <el-menu class="el-menu" router unique-opened :collapse="isCollapse" :collapse-transition="false">
-        <a href="/studentHome" class="logo">
-          <img src="../../assets/XiHe.png" alt="logo" class="image">
-          <h1 class="header_1">羲和作业互评</h1>
-        </a>
-        <!--总菜单选项-->
-        <el-menu-item index="/studentHome">
+    <!--总菜单-->
+    <el-menu class="el-menu" router unique-opened :collapse="isCollapse" :collapse-transition="false">
+      <a href="/studentHome" class="logo">
+        <img src="../../assets/XiHe.png" alt="logo" class="image">
+        <h1 class="header_1">羲和作业互评</h1>
+      </a>
+      <!--总菜单选项-->
+      <el-menu-item index="/studentHome">
+        <el-icon style="font-size: 32px">
+          <HomeFilled/>
+        </el-icon>
+        <span>学生端首页</span>
+      </el-menu-item>
+      <!--子菜单-->
+      <el-sub-menu class="el-sub-menu" index="1">
+        <template #title>
           <el-icon style="font-size: 32px">
-            <HomeFilled/>
+            <Operation/>
           </el-icon>
-          <span>学生端首页</span>
+          <span>课程</span>
+        </template>
+        <!--子菜单选项-->
+        <el-menu-item class="el-menu-item" index="/viewCourse">
+          <el-icon>
+            <View/>
+          </el-icon>
+          <span>查看选修课程</span>
         </el-menu-item>
-        <!--子菜单-->
-        <el-sub-menu class="el-sub-menu" index="1">
-          <template #title>
-            <el-icon style="font-size: 32px">
-              <Operation/>
-            </el-icon>
-            <span>课程</span>
-          </template>
-          <!--子菜单选项-->
-          <el-menu-item class="el-menu-item" index="/viewCourse">
-            <el-icon>
-              <View/>
-            </el-icon>
-            <span>查看选修课程</span>
-          </el-menu-item>
-        </el-sub-menu>
-        <el-menu-item @click="drawer = true">
-          <el-badge>
-            <el-icon style="font-size: 32px">
-              <bell/>
-            </el-icon>
-          </el-badge>
-          <span>消息</span>
-        </el-menu-item>
-      </el-menu>
-    </el-aside>
+      </el-sub-menu>
+      <el-menu-item @click="drawer = true">
+        <el-badge>
+          <el-icon style="font-size: 32px">
+            <bell/>
+          </el-icon>
+        </el-badge>
+        <span>消息</span>
+      </el-menu-item>
+    </el-menu>
   </div>
+
   <el-drawer v-model="drawer" title="消息" direction="rtl">
     <el-tabs style="width: 100%">
       <el-tab-pane label="全部" name="first">
@@ -184,13 +179,6 @@ export default {
 </script>
 
 <style scoped>
-/*整个侧边*/
-.el-side {
-  background-color: rgb(112, 188, 210);
-  height: 100vh;
-  width: auto;
-}
-
 /*侧边菜单*/
 .el-menu {
   background-color: rgb(112, 188, 210);
