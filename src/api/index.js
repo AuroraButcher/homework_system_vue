@@ -509,13 +509,29 @@ const api = {
             }
         })
     },
-    //获取学生的提醒消息
+    //获取学生的提醒消息列表
     getStuMessage(data){
         return axios.get(path.baseUrl + path.stuGetMessage,{
             params:{
                 studentNumber:data.studentNumber,
                 pageNo:data.pageNo,
                 pageSize:data.pageSize
+            }
+        })
+    },
+    //获取消息
+    getReminderDetail(id){
+        return axios.get(path.baseUrl + path.getReminderDetail,{
+            params:{
+                id:id
+            }
+        })
+    },
+    //作业提醒
+    teaRemind(id){
+        return axios.post(path.baseUrl + path.teaRemind,null,{
+            params:{
+                homeworkId:id
             }
         })
     },

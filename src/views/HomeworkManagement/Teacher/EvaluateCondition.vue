@@ -18,10 +18,10 @@
           <el-link type="primary" link style="margin-left: 10px" @click="setExHomework(scope)">
             {{ this.ex[scope.$index]===0?'设置优秀作业':'修改优秀作业状态' }}
           </el-link>
-<!--       TODO:   优秀作业状态-->
         </template>
       </el-table-column>
     </el-table>
+    <el-button type="primary" @click="remind" style="margin-top: 5%">一键催交</el-button>
   </el-card>
 </template>
 
@@ -109,6 +109,15 @@ export default {
       this.addExcellent=false
       this.reload()
     },
+    remind(){
+      api.teaRemind(this.homeworkNumber).then(res=>{
+        if(res.data.code===20000){
+          ElMessage.success('提醒成功')
+        }else {
+          ElMessage.error('出现错误')
+        }
+      })
+    }
   }
 }
 </script>

@@ -149,12 +149,16 @@
   </div>
 
   <el-drawer v-model="drawer" title="消息" direction="rtl">
-    <el-tabs style="width: 100%">
+    <el-tabs v-model="activeTab" style="width: 100%">
       <el-tab-pane label="全部" name="first">
-        <message-card/>
+        <message-card :condition="2"/>
       </el-tab-pane>
-      <el-tab-pane label="已读信息" name="second">已读信息</el-tab-pane>
-      <el-tab-pane label="未读信息" name="third">未读信息</el-tab-pane>
+      <el-tab-pane label="已读信息" name="second">
+        <message-card :condition="1"/>
+      </el-tab-pane>
+      <el-tab-pane label="未读信息" name="third">
+        <message-card :condition="0"/>
+      </el-tab-pane>
     </el-tabs>
   </el-drawer>
 </template>
@@ -169,6 +173,7 @@ export default {
   props: ['isCollapse'],
   data() {
     return {
+      activeTab:'first',
       drawer: null,
     }
   },
