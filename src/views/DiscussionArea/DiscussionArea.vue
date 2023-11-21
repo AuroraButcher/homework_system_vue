@@ -22,9 +22,9 @@
         <div style="margin-left:10px;width: calc(100% - 100px)">
           <p style="font-size: 18px;color: #1397c5">{{ item.content }}</p>
           <div style="display: flex;text-align: center;margin-top:70px">
-            <p style="font-size: 14px;color: rgb(0,0,242)">发表于 2023-11-20 15:34</p>
-            <el-button type="primary" style="margin-left: auto" @click="showReplyDialog(item)">回复</el-button>
-            <el-button type="danger" style="margin-left: 10px;margin-right: 30px" v-show="number === item.number || role === 'teacher'" @click="deleteDiscussion(item.id)">删除</el-button>
+            <p style="font-size: 14px;color: rgb(67,79,148)">发表于 {{ item.time }}</p>
+            <el-button type="primary" style="margin-left: auto;margin-right: 10px;width: 100px" @click="showReplyDialog(item)">回复</el-button>
+            <el-button type="danger" style="margin-left: 10px;margin-right: 10px;width: 100px" v-show="number === item.studentNumber || role === 'teacher'" @click="deleteDiscussion(item.id)">删除</el-button>
           </div>
         </div>
       </div>
@@ -54,9 +54,9 @@
           </div>
           <p style="font-size: 18px">{{ item.content }}</p>
           <div style="display: flex;text-align: center">
-            <p style="font-size: 12px">发表于 2023-11-20 15:34</p>
-            <el-button type="primary" style="margin-left: auto" @click="showReplyDialog(item)">回复</el-button>
-            <el-button type="danger" style="margin-left: 10px;margin-right: 30px" v-show="number === item.number || role === 'teacher'" @click="deleteDiscussion(item.id)">删除</el-button>
+            <p style="font-size: 14px;color: rgb(67,79,148)">发表于 {{ item.time }}</p>
+            <el-button type="primary" style="margin-left: auto;margin-right: 10px;width: 100px" @click="showReplyDialog(item)">回复</el-button>
+            <el-button type="danger" style="margin-left: 10px;margin-right: 10px;width: 100px" v-show="number === item.studentNumber || role === 'teacher'" @click="deleteDiscussion(item.id)">删除</el-button>
           </div>
         </div>
       </div>
