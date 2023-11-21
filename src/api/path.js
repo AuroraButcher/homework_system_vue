@@ -115,8 +115,17 @@ const base = {
     //获取作业的所有优秀作业
     getExcellent: '/excellent/getPage',
     //获取优秀作业
-    getOneExcellent:'/excellent/getInfo',
+    getOneExcellent: '/excellent/getInfo',
     //删除优秀作业
-    deleteExcellent:'/excellent/delete',
+    deleteExcellent: '/excellent/delete',
+//---------------评论区--------------------
+    // 创建讨论区
+    createDiscussion: '/discussion/open',
+    // 获得讨论区列表
+    getDiscussionList: '/discussion/get',
+    // 评论与回复
+    addDiscussion: '/discussion/add',
+    // 删除评论
+    deleteDiscussion: '/discussion/delete',
 }
 export default base

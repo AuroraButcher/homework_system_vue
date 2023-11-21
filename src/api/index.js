@@ -472,5 +472,41 @@ const api = {
             }
         })
     },
+    // 创建讨论区
+    createDiscussion(homeworkId) {
+        return axios.post(path.baseUrl + path.createDiscussion, null, {
+            params: {
+                homeworkId: homeworkId,
+            }
+        })
+    },
+    // 获得讨论区列表
+    getDiscussionList(discussionData) {
+        return axios.get(path.baseUrl + path.getDiscussionList, {
+            params: {
+                homeworkId: discussionData.homeworkId,
+                pageNo: discussionData.pageNo,
+                pageSize: discussionData.pageSize,
+            }
+        })
+    },
+    // 评论与回复
+    addDiscussion(addDiscussionData) {
+        return axios.post(path.baseUrl + path.addDiscussion, {
+            homeworkId: addDiscussionData.homeworkId,
+            studentNumber: addDiscussionData.studentNumber,
+            teacherNumber: addDiscussionData.teacherNumber,
+            reply: addDiscussionData.reply,
+            content: addDiscussionData.content,
+        })
+    },
+    // 删除评论
+    deleteDiscussion(discussionId) {
+        return axios.post(path.baseUrl + path.deleteDiscussion, null, {
+            params: {
+                id: discussionId,
+            }
+        })
+    },
 }
 export default api

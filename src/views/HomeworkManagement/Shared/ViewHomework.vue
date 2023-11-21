@@ -10,7 +10,7 @@
     </div>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="50px"></el-table-column>
-      <el-table-column label="作业编号" prop="id" width="100px" v-if="false"></el-table-column>
+      <el-table-column label="编号" prop="id" width="50px" v-if="false"></el-table-column>
       <el-table-column label="作业名称" prop="name" width="150px">
         <template #default="scope">
           <el-link link @click="showDetailInfo(scope)">{{ scope.row.name }}</el-link>
@@ -54,9 +54,9 @@
         </el-table-column>
         <el-table-column label="讨论区">
           <template #default="scope">
-            <el-link type="primary" v-show="showDiscussion" link @click="goDiscussion(scope)">进入讨论区</el-link>
-            <el-link type="primary" v-show="showDiscussion === false && role === 'teacher'"  link @click="openDiscussion">开设讨论区</el-link>
-            <el-link type="primary" v-show="showDiscussion === true && role === 'teacher'" style="margin-left: 10px" link @click="closeDiscussion">关闭讨论区</el-link>
+            <el-link type="primary" v-show="scope.row.discussion === 1" link @click="goDiscussion(scope)">进入讨论区</el-link>
+            <el-link type="primary" v-show="scope.row.discussion === 0 && role === 'teacher'" link @click="openDiscussion(scope)">开设讨论区</el-link>
+            <el-link type="primary" v-show="scope.row.discussion === 1 && role === 'teacher'" style="margin-left: 10px" link @click="closeDiscussion(scope)">关闭讨论区</el-link>
           </template>
         </el-table-column>
       </el-table-column>
@@ -100,6 +100,7 @@ export default {
           "fileName": null,
           "name": null,
           "score": null,
+          "discussion": null,
         }
       ],
       page: {
@@ -112,7 +113,6 @@ export default {
       submit:[],
       timeValid:[],
       review:[],
-      showDiscussion: false,
     }
   },
   // 展示作业
@@ -121,16 +121,13 @@ export default {
     if(this.role==='teacher') {
       api.getHomeworkList(this.page).then(res => {
         if (res.data.code === 20000) {
-          //设置记录总数
           this.page.total = res.data.data.homeworkInfo.total;
-          //设置表数据
           this.tableData = res.data.data.homeworkInfo.records;
         } else {
           console.log("查看作业列表失败");
         }
       })
     }else {
-      // TODO：要改，急  @wx:?什么东西
       api.stuViewHomework(this.page).then(res=>{
         if (res.data.code === 20000) {
           //设置表数据
@@ -225,13 +222,13 @@ export default {
     },
     // 处理页数改变
     handlePageChange() {
-      // TODO：检查，可能有问题，此为共用，可能要判断
+      // TODO：学生要不要以页码的形式展示
       api.getHomeworkList(this.page).then(res => {
         if (res.data.code === 20000) {
-          this.page.total = res.data.data.classInfo.total;
-          this.tableData = res.data.data.classInfo.records;
+          this.page.total = res.data.data.homeworkInfo.total;
+          this.tableData = res.data.data.homeworkInfo.records;
         } else {
-          ElMessage.error(res.data.message);
+          console.log("查看作业列表失败");
         }
       })
     },
@@ -256,16 +253,23 @@ export default {
       this.$router.push("/setDistribution");
     },
     // 进入讨论区
-    goDiscussion(scope){
+    goDiscussion(scope) {
       this.$router.push("/discussion");
     },
     // 开设讨论区
-    openDiscussion(){
-      this.showDiscussion = true;
+    openDiscussion(scope) {
+      api.createDiscussion(scope.row.id).then(res => {
+        if (res.data.code === 20000) {
+          ElMessage.success("开设成功");
+          window.location.reload();
+        } else {
+          ElMessage.success("开设成功");
+        }
+      })
     },
     // 关闭讨论区
-    closeDiscussion(){
-      this.showDiscussion = false;
+    closeDiscussion() {
+      //   TODO:关闭讨论区
     }
   },
   computed: {
