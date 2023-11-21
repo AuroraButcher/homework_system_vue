@@ -9,6 +9,9 @@
         <el-descriptions-item label="标题：">
           <el-input style="width: 200px" v-model="homeworkData.title"></el-input>
         </el-descriptions-item>
+        <el-descriptions-item label="总分：" >
+          <el-input style="width: 100px" v-model="homeworkData.score"></el-input>
+        </el-descriptions-item>
         <el-descriptions-item label="起始与截止时间：">
           <el-date-picker
               v-model="homeworkData.time"
@@ -88,6 +91,7 @@ export default {
         time: null,
         content: null,
         multiple: null,
+        score:100,
       },
     }
   },

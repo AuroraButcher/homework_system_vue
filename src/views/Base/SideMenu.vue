@@ -155,7 +155,9 @@
   </div>
   <el-drawer v-model="drawer" title="消息" direction="rtl">
     <el-tabs style="width: 100%">
-      <el-tab-pane label="全部" name="first">全部</el-tab-pane>
+      <el-tab-pane label="全部" name="first">
+        <message-card/>
+      </el-tab-pane>
       <el-tab-pane label="已读信息" name="second">已读信息</el-tab-pane>
       <el-tab-pane label="未读信息" name="third">未读信息</el-tab-pane>
     </el-tabs>
@@ -165,9 +167,10 @@
 <script>
 import {Bell, DataAnalysis, EditPen, FolderAdd, HomeFilled, Notebook, Operation, Plus, View} from "@element-plus/icons-vue";
 import {mapState} from "vuex";
+import MessageCard from "./MessageCard.vue";
 
 export default {
-  components: {Bell, DataAnalysis, FolderAdd, View, Plus, EditPen, Notebook, Operation, HomeFilled},
+  components: {MessageCard, Bell, DataAnalysis, FolderAdd, View, Plus, EditPen, Notebook, Operation, HomeFilled},
   props: ['isCollapse'],
   data() {
     return {

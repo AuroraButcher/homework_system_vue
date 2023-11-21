@@ -117,7 +117,9 @@ const base = {
     //获取优秀作业
     getOneExcellent: '/excellent/getInfo',
     //删除优秀作业
-    deleteExcellent: '/excellent/delete',
+    deleteExcellent:'/excellent/delete',
+    //-------------消息-------------
+    stuGetMessage:'/reminder/list',
 //---------------评论区--------------------
     // 创建讨论区
     createDiscussion: '/discussion/open',

@@ -153,6 +153,7 @@ const api = {
             content: ruleForm.content,
             resubmit: (ruleForm.multiple === true ? 1 : 0),
             name: ruleForm.title,
+            score:ruleForm.score,
         });
     },
     // 查看作业列表
@@ -505,6 +506,16 @@ const api = {
         return axios.post(path.baseUrl + path.deleteDiscussion, null, {
             params: {
                 id: discussionId,
+            }
+        })
+    },
+    //获取学生的提醒消息
+    getStuMessage(data){
+        return axios.get(path.baseUrl + path.stuGetMessage,{
+            params:{
+                studentNumber:data.studentNumber,
+                pageNo:data.pageNo,
+                pageSize:data.pageSize
             }
         })
     },

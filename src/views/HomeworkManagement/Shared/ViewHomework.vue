@@ -16,7 +16,8 @@
           <el-link link @click="showDetailInfo(scope)">{{ scope.row.name }}</el-link>
         </template>
       </el-table-column>
-      <el-table-column label="截止时间" prop="end" width="180px"></el-table-column>
+      <el-table-column label="满分" prop="score" width="100px"></el-table-column>
+      <el-table-column label="截止时间" prop="end" width="200px"></el-table-column>
       <el-table-column label="操作" header-align="center">
         <el-table-column label="作业" width="100px">
           <template #default="scope">

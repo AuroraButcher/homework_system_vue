@@ -39,6 +39,7 @@ export default {
           this.end = res.data.data.info.end;
           this.content = await Vditor.md2html(res.data.data.info.content);
           this.files = res.data.data.files;
+          this.score=res.data.data.info.score;
         }
       })
     }
@@ -52,6 +53,7 @@ export default {
       content: null,
       files: [],
       fileName: null,
+      score:null,
       downloadData: {
         id: null,
         classID: null,
