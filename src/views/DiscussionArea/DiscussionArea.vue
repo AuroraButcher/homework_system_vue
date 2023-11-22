@@ -12,7 +12,7 @@
           <p style="text-align: center;margin-top: 5px">{{ item.studentNumber }}</p>
         </div>
         <div style="background-color: rgb(240,255,240);width: 100px" v-if="item.teacherNumber !== '-1' && item.studentNumber === '-1'">
-          <el-avatar shape="square" :size="60" src="src/assets/头像.jpg" class="avatar"></el-avatar>
+          <el-avatar shape="square" :size="60" src="src/assets/头像.jpg" class="avatar">Teacher</el-avatar>
           <p style="text-align: center;margin-top: 5px">{{ item.teacherNumber }}</p>
         </div>
         <div style="background-color: rgb(245,245,245);width: 100px" v-if="item.teacherNumber === '-1' && item.studentNumber === '-1'">
@@ -31,6 +31,7 @@
 
       <!--回复-->
       <div class="box" v-else>
+        <!--头像区-->
         <div style="background-color: rgb(250,240,230);width: 100px" v-if="item.teacherNumber === '-1' && item.studentNumber !== '-1'">
           <el-avatar shape="square" :size="60" src="src/assets/头像.jpg" class="avatar">Student</el-avatar>
           <p style="text-align: center;margin-top: 5px">{{ item.studentNumber }}</p>
@@ -43,6 +44,7 @@
           <el-avatar shape="square" :size="60" src="src/assets/头像.jpg" class="avatar">已删除</el-avatar>
           <p style="text-align: center;margin-top: 5px">已删除</p>
         </div>
+        <!--被回复内容区-->
         <div style="margin-left:10px;width: calc(100% - 90px)">
           <div style="margin-top: 5px;margin-right:5px;border-style: ridge;height: 100px" v-if="item.replyTeacherNumber !== null && item.replyStudentNumber === null">
             <p style="margin-left: 10px">回复 <span style="color: cornflowerblue">{{ item.replyTeacherNumber }}</span> :</p>
@@ -52,6 +54,11 @@
             <p style="margin-left: 10px">回复 <span style="color: cornflowerblue">{{ item.replyStudentNumber }}</span> :</p>
             <blockquote style="color: #67c23a">{{ item.replyContent }}</blockquote>
           </div>
+          <div style="margin-top: 5px;margin-right:5px;border-style: ridge;height: 100px" v-if="item.replyTeacherNumber === '-1' && item.replyStudentNumber === '-1'">
+            <p style="margin-left: 10px">回复 <span style="color: cornflowerblue">已删除</span> :</p>
+            <blockquote style="color: #67c23a">{{ item.replyContent }}</blockquote>
+          </div>
+          <!--回复内容和操作区-->
           <p style="font-size: 18px">{{ item.content }}</p>
           <div style="display: flex;text-align: center">
             <p style="font-size: 14px;color: rgb(67,79,148)">发表于 {{ item.time }}</p>
