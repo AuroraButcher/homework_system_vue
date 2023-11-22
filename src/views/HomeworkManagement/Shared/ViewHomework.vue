@@ -10,14 +10,14 @@
     </div>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="50px"></el-table-column>
-      <el-table-column label="编号" prop="id" width="50px" v-if="true"></el-table-column>
+      <el-table-column label="编号" prop="id" width="50px" v-if="false"></el-table-column>
       <el-table-column label="作业名称" prop="name" width="150px">
         <template #default="scope">
           <el-link link @click="showDetailInfo(scope)">{{ scope.row.name }}</el-link>
         </template>
       </el-table-column>
-      <el-table-column label="满分" prop="score" width="100px"></el-table-column>
-      <el-table-column label="截止时间" prop="end" width="200px"></el-table-column>
+<!--      <el-table-column label="满分" prop="score" width="100px"></el-table-column>-->
+      <el-table-column label="截止时间" prop="end" width="170px"></el-table-column>
       <el-table-column label="操作" header-align="center">
         <el-table-column label="作业" width="100px">
           <template #default="scope">
@@ -56,6 +56,7 @@
         <el-table-column label="讨论区">
           <template #default="scope">
             <el-link type="primary" v-show="scope.row.discussion === 1" link @click="goDiscussion(scope)">进入讨论区</el-link>
+            <el-link disabled type="primary" v-show="scope.row.discussion === 0 && role === 'student'" link @click="goDiscussion(scope)">教师未开启</el-link>
             <el-link type="primary" v-show="scope.row.discussion === 0 && role === 'teacher'" link @click="openDiscussion(scope)">开设讨论区</el-link>
             <el-link type="primary" v-show="scope.row.discussion === 1 && role === 'teacher'" style="margin-left: 10px" link @click="closeDiscussion(scope)">关闭讨论区</el-link>
           </template>
@@ -270,8 +271,15 @@ export default {
       })
     },
     // 关闭讨论区
-    closeDiscussion() {
-      //   TODO:关闭讨论区
+    closeDiscussion(scope) {
+      api.closeDiscussion(scope.row.id).then(res => {
+        if (res.data.code === 20000) {
+          ElMessage.success("关闭成功");
+          window.location.reload();
+        } else {
+          ElMessage.success("关闭成功");
+        }
+      })
     }
   },
   computed: {

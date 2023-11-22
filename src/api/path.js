@@ -117,16 +117,18 @@ const base = {
     //获取优秀作业
     getOneExcellent: '/excellent/getInfo',
     //删除优秀作业
-    deleteExcellent:'/excellent/delete',
+    deleteExcellent: '/excellent/delete',
 //---------------消息------------------------
-    stuGetMessage:'/reminder/list',
+    stuGetMessage: '/reminder/list',
     //获取提醒消息
-    getReminderDetail:'/reminder/info',
+    getReminderDetail: '/reminder/info',
     //作业提醒
-    teaRemind:'/reminder/homework',
+    teaRemind: '/reminder/homework',
 //---------------评论区--------------------
     // 创建讨论区
     createDiscussion: '/discussion/open',
+    // 关闭讨论区
+    closeDiscussion: '/discussion/close',
     // 获得讨论区列表
     getDiscussionList: '/discussion/get',
     // 评论与回复
