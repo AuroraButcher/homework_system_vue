@@ -34,11 +34,7 @@ export default {
       dialog:false,
       title:'',
       content:'',
-      data:[{
-        isRead:0,
-        title:"作业提醒",
-        time: "2023-11-21 17;08"
-      }],
+      data:[],
       page:{
         studentNumber:Cookie.get('number'),
         pageNo:1,

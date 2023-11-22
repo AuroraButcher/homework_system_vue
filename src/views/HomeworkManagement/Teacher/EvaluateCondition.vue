@@ -21,7 +21,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-button type="primary" @click="remind" style="margin-top: 5%">一键催交</el-button>
+    <el-button type="primary" @click="remind" style="margin-top: 10px">一键催交</el-button>
   </el-card>
 </template>
 

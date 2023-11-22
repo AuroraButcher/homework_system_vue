@@ -148,16 +148,16 @@
     </el-menu>
   </div>
 
-  <el-drawer v-model="drawer" title="消息" direction="rtl">
+  <el-drawer v-model="drawer" :key="`${drawer}`"  title="消息" direction="rtl">
     <el-tabs v-model="activeTab" style="width: 100%">
       <el-tab-pane label="全部" name="first">
-        <message-card :condition="2"/>
+        <message-card :key="`${activeTab}`" :condition="2"/>
       </el-tab-pane>
       <el-tab-pane label="已读信息" name="second">
-        <message-card :condition="1"/>
+        <message-card :key="`${activeTab}`" :condition="1"/>
       </el-tab-pane>
       <el-tab-pane label="未读信息" name="third">
-        <message-card :condition="0"/>
+        <message-card :key="`${activeTab}`" :condition="0"/>
       </el-tab-pane>
     </el-tabs>
   </el-drawer>
