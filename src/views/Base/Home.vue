@@ -45,8 +45,10 @@
             </template>
           </el-dropdown>
         </el-header>
-        <el-main>
-          <router-view></router-view>
+        <el-main class="el-main">
+          <el-scrollbar height="calc(100vh-60px">
+            <router-view></router-view>
+          </el-scrollbar>
         </el-main>
       </el-container>
     </el-container>
@@ -117,6 +119,7 @@ export default {
 .el-main {
   padding:5px;
   overflow-y: hidden;
+  height: calc(100vh - 60px);
 }
 /*整个侧边*/
 .el-side {
