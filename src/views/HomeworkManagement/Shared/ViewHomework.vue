@@ -28,8 +28,9 @@
         <el-table-column label="提交" width="100px">
           <template #default="scope">
             <!--TODO：提交情况应该在作业开始之后再显示或者打开一页显示“尚未开始”-->
-            <el-link type="primary" link @click="viewSubmitHomework(scope)" v-if="role==='teacher'">提交情况</el-link>
-            <div v-if="role==='student'">
+            <el-link type="primary" link @click="viewSubmitHomework(scope)" v-show="role==='teacher'&&compareStart(scope.row.index)">提交情况</el-link>
+            <el-link type="primary" link disabled v-show="role==='teacher'&&!compareStart(scope.row.index)">尚未开始</el-link>
+            <div v-show="role==='student'">
               <!--没交作业、没有截止-->
               <el-link type="primary" link @click="submitHomework(scope)" v-if="submit[scope.row.index]===0 && timeValid[scope.row.index]===0">提交作业</el-link>
               <!--没交作业、已经截止-->
@@ -123,10 +124,10 @@ export default {
   },
   // 展示作业
   created() {
-    this.getdata()
+    this.getData()
   },
   methods: {
-    getdata(){
+    getData(){
       this.page.classID=this.courseNumber;
       if(this.role==='teacher') {
         api.getHomeworkList(this.page).then(res => {
@@ -185,7 +186,7 @@ export default {
               confirmButtonText: 'OK',
               callback: action => {
                 if (action === 'confirm') {
-                  // TODO：？？？上面没写
+                  this.getdata()
                   this.search()
                 }
               }
@@ -298,9 +299,14 @@ export default {
       this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push("/viewAnswer");
     },
+    compareStart(index){
+      const now = new Date()
+      const start = new Date(this.tableData[index].start)
+      return now>start
+    },
   },
   computed: {
-    ...mapState(['courseNumber', 'role', 'homeworkNumber'])
+    ...mapState(['courseNumber', 'role', 'homeworkNumber']),
   }
 }
 </script>

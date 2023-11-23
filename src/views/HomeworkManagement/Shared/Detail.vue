@@ -1,11 +1,12 @@
 <template>
     <!--详细信息-->
-    <el-descriptions :column="2" border>
-      <el-descriptions-item label="作业名称:">{{ homeworkName }}</el-descriptions-item>
+    <el-descriptions :column="4" border>
+      <el-descriptions-item label="作业名称:" span="2">{{ homeworkName }}</el-descriptions-item>
+      <el-descriptions-item label="满分:">{{ score }}</el-descriptions-item>
       <el-descriptions-item label="是否允许多次提交:">{{ resubmit }}</el-descriptions-item>
-      <el-descriptions-item label="开始时间:">{{ start }}</el-descriptions-item>
-      <el-descriptions-item label="截止时间:">{{ end }}</el-descriptions-item>
-      <el-descriptions-item label="作业内容:" span="2">
+      <el-descriptions-item label="开始时间:" span="2">{{ start }}</el-descriptions-item>
+      <el-descriptions-item label="截止时间:" span="2">{{ end }}</el-descriptions-item>
+      <el-descriptions-item label="作业内容:" span="4">
         <div v-html="content"></div>
       </el-descriptions-item>
       <el-descriptions-item label="作业附件:">
