@@ -17,7 +17,7 @@
           <el-link link @click="showDetailInfo(scope)">{{ scope.row.name }}</el-link>
         </template>
       </el-table-column>
-      <el-table-column label="满分" prop="score" width="70px"></el-table-column>
+<!--      <el-table-column label="满分" prop="score" width="70px"></el-table-column>-->
       <el-table-column label="截止时间" prop="end" width="170px"></el-table-column>
       <el-table-column label="操作" header-align="center">
         <el-table-column label="作业" width="100px" v-if="role==='teacher'">
@@ -30,7 +30,8 @@
         <el-table-column label="提交" width="100px">
           <template #default="scope">
             <!--TODO：提交情况应该在作业开始之后再显示或者打开一页显示“尚未开始”-->
-            <el-link type="primary" link @click="viewSubmitHomework(scope)" v-show="role==='teacher'">提交情况</el-link>
+            <el-link type="primary" link @click="viewSubmitHomework(scope)" v-show="role==='teacher'&&compareStart(scope.row.index)">提交情况</el-link>
+            <el-link type="primary" link disabled v-show="role==='teacher'&&!compareStart(scope.row.index)">尚未开始</el-link>
             <div v-show="role==='student'">
               <!--没交作业、没有截止-->
               <el-link type="primary" link @click="submitHomework(scope)" v-if="submit[scope.row.index]===0 && timeValid[scope.row.index]===0">提交作业</el-link>
@@ -56,7 +57,7 @@
           <template #default="scope">
             <el-link type="primary" link disabled v-if="review[scope.row.index]>=0" v-show="role==='student'">分数分布</el-link>
             <el-link type="primary" link @click="showData(scope)" v-else-if="review[scope.row.index]===-1" v-show="role==='student'">分数分布</el-link>
-            <el-link type="primary" link @click="showData(scope)" v-show="role=='teacher'">分数分布</el-link>
+            <el-link type="primary" link @click="showData(scope)" v-show="role==='teacher'">分数分布</el-link>
             <el-link type="primary" link style="margin-left: 10px" disabled v-if="review[scope.row.index]>=0" v-show="role==='student'">查看优秀作业</el-link>
             <el-link type="primary" link style="margin-left: 10px" @click="showExcellent(scope)" v-else="review[scope.row.index]===-1" v-show="role==='student'">查看优秀作业</el-link>
             <el-link type="primary" link style="margin-left: 10px" @click="showExcellent(scope)" v-show="role==='teacher'">查看优秀作业</el-link>
@@ -178,7 +179,7 @@ export default {
               confirmButtonText: 'OK',
               callback: action => {
                 if (action === 'confirm') {
-                  // TODO：？？？上面没写
+                  this.getdata()
                   this.search()
                 }
               }
@@ -280,10 +281,16 @@ export default {
           ElMessage.success("关闭成功");
         }
       })
-    }
+    },
+    compareStart(index){
+      const now = new Date()
+      const start = new Date(this.tableData[index].start)
+      return now>start
+    },
   },
   computed: {
-    ...mapState(['courseNumber', 'role', 'homeworkNumber'])
+    ...mapState(['courseNumber', 'role', 'homeworkNumber']),
+
   }
 }
 </script>
