@@ -59,6 +59,9 @@ export default {
         current: null,
       }
     }
+
+  },
+  created() {
     this.sabtxt();
     this.getData();
   },
