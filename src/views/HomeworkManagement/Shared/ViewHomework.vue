@@ -170,7 +170,7 @@ export default {
       this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push('/detailedHomework');
     },
-    //删除课程
+    //删除作业
     deleteHomework(scope) {
       ElMessageBox.confirm(
           '你确定你要删除吗?',
@@ -186,7 +186,7 @@ export default {
               confirmButtonText: 'OK',
               callback: action => {
                 if (action === 'confirm') {
-                  this.getdata()
+                  this.getData()
                   this.search()
                 }
               }
