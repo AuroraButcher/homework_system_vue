@@ -8,10 +8,7 @@
       <el-button type="primary" style="margin-left: 10px" @click="search(this.homeworkName)">搜索</el-button>
       <el-button type="primary" style="margin-left: 10px" @click="addHomework()" v-show="role==='teacher'">添加作业</el-button>
     </div>
-    <div class="loading" v-show="this.tableData===null">
-      <loading/>
-      <h1>加载中...</h1>
-    </div>
+    <loading v-show="this.tableData===null"/>
     <el-table v-show="this.tableData!==null" :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="50px"></el-table-column>
       <el-table-column label="编号" prop="id" width="50px" v-if="false"></el-table-column>
@@ -292,10 +289,4 @@ export default {
 </script>
 
 <style scoped>
-  .loading{
-    position:absolute;
-    left: 50%;
-    top:50%;
-    transform: translate(-50%,-50%);
-  }
 </style>
