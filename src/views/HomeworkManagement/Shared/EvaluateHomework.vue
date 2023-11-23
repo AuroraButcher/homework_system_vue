@@ -6,11 +6,13 @@
     <!--布置作业详情-->
     <el-divider content-position="left">作业内容</el-divider>
     <detail/>
+    <!--答案-->
+    <el-divider content-position="left">作业答案</el-divider>
+    <answer/>
     <!--提交内容详情-->
     <el-divider content-position="left">学生提交内容</el-divider>
-
     <el-descriptions :column="2" border style="margin-top: 10px">
-      <el-descriptions-item label="学号:">{{studentNumber}}</el-descriptions-item>
+      <el-descriptions-item label="学号:">{{ studentNumber }}</el-descriptions-item>
       <el-descriptions-item label="得分:">
         <div style="display: flex;">
           <el-input placeholder="输入分数"
@@ -38,8 +40,6 @@
         </ul>
       </el-descriptions-item>
     </el-descriptions>
-    <el-divider content-position="left">作业答案</el-divider>
-    <answer/>
     <!--评语-->
     <el-divider content-position="left">作业点评</el-divider>
     <el-input

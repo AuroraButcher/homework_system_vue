@@ -20,16 +20,14 @@
       <el-table-column label="操作" header-align="center">
         <el-table-column label="作业" width="100px" v-if="role==='teacher'">
           <template #default="scope">
-            <!--TODO：作业未开始，都可改；作业已经开始，无论是否结束，开始时间不可改-->
             <el-link type="primary" link @click="changeHomework(scope)">修改</el-link>
             <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)">删除</el-link>
           </template>
         </el-table-column>
         <el-table-column label="提交" width="100px">
           <template #default="scope">
-            <!--TODO：提交情况应该在作业开始之后再显示或者打开一页显示“尚未开始”-->
-            <el-link type="primary" link @click="viewSubmitHomework(scope)" v-show="role==='teacher'&&compareStart(scope.row.index)">提交情况</el-link>
-            <el-link type="primary" link disabled v-show="role==='teacher'&&!compareStart(scope.row.index)">尚未开始</el-link>
+            <el-link type="primary" link @click="viewSubmitHomework(scope)" v-if="role==='teacher'&&compareStart(scope.row.index)">提交情况</el-link>
+            <el-link type="primary" link disabled v-if="role==='teacher'&&!compareStart(scope.row.index)">尚未开始</el-link>
             <div v-show="role==='student'">
               <!--没交作业、没有截止-->
               <el-link type="primary" link @click="submitHomework(scope)" v-if="submit[scope.row.index]===0 && timeValid[scope.row.index]===0">提交作业</el-link>
@@ -45,29 +43,31 @@
         <el-table-column label="互评" width="100px">
           <template #default="scope">
             <el-link type="primary" link @click="setEvaluation(scope)" v-if="role==='teacher'">互评设置</el-link>
-            <el-link type="primary" link @click="evaluateHomework(scope)" v-if="review[scope.row.index]===1 || role==='student'">互评作业</el-link>
-            <el-link type="primary" link disabled v-else-if="review[scope.row.index]===0 || role==='student'">尚未开始</el-link>
-            <el-link type="primary" link disabled @click="evaluateHomework(scope)" v-if="review[scope.row.index]===-1 || role==='student'">已结束</el-link>
-            <el-link type="primary" link disabled v-else-if="review[scope.row.index]===-1 || role==='student'">已结束</el-link>
+            <!--开始互评并且是学生-->
+            <el-link type="primary" link @click="evaluateHomework(scope)" v-if="review[scope.row.index]===1 && role==='student'">互评作业</el-link>
+            <!--互评尚未开始-->
+            <el-link type="primary" link disabled v-if="review[scope.row.index]===0 && role==='student'">尚未开始</el-link>
+            <!--互评已经结束-->
+            <el-link type="primary" link disabled v-if="review[scope.row.index]===-1 && role==='student'">已结束</el-link>
           </template>
         </el-table-column>
         <el-table-column label="答案" width="130px">
           <template #default="scope">
             <el-link type="primary" link @click="submitAnswer(scope)" v-if="role==='teacher'">上传答案</el-link>
-            <el-link type="primary" link @click="viewAnswer(scope)">查看答案</el-link>
+            <el-link type="primary" link @click="viewAnswer(scope)" v-if="role==='student'">查看答案</el-link>
           </template>
         </el-table-column>
         <el-table-column label="分数统计" width="100px">
           <template #default="scope">
-            <el-link type="primary" link disabled v-if="review[scope.row.index]>=0 || role==='student'">分数分布</el-link>
-            <el-link type="primary" link @click="showData(scope)" v-else-if="review[scope.row.index]===-1 || role==='student'">分数分布</el-link>
+            <el-link type="primary" link disabled v-if="review[scope.row.index]>=0 && role==='student'">正在互评</el-link>
+            <el-link type="primary" link @click="showData(scope)" v-if="review[scope.row.index]===-1 && role==='student'">分数分布</el-link>
             <el-link type="primary" link @click="showData(scope)" v-if="role ==='teacher'">分数分布</el-link>
           </template>
         </el-table-column>
         <el-table-column label="优秀作业" width="120px">
           <template #default="scope">
-            <el-link type="primary" link disabled v-if="review[scope.row.index]>=0 || role==='student'">查看优秀作业</el-link>
-            <el-link type="primary" link @click="showExcellent(scope)" v-if="review[scope.row.index]===-1 || role==='student'">查看优秀作业</el-link>
+            <el-link type="primary" link disabled v-if="review[scope.row.index]>=0 && role==='student'">查看优秀作业</el-link>
+            <el-link type="primary" link @click="showExcellent(scope)" v-if="review[scope.row.index]===-1 && role==='student'">查看优秀作业</el-link>
             <el-link type="primary" link @click="showExcellent(scope)" v-if="role==='teacher'">查看优秀作业</el-link>
           </template>
         </el-table-column>
