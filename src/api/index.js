@@ -559,6 +559,26 @@ const api = {
             }
         })
     },
+    //已读提醒
+    isReadRemind(data){
+        return axios.get(path.baseUrl + path.isReadList,{
+            params:{
+                studentNumber:data.studentNumber,
+                pageNo:data.pageNo,
+                pageSize:data.pageSize
+            }
+        })
+    },
+    //未读提醒
+    unReadRemind(data){
+        return axios.get(path.baseUrl + path.unReadList,{
+            params:{
+                studentNumber:data.studentNumber,
+                pageNo:data.pageNo,
+                pageSize:data.pageSize
+            }
+        })
+    },
     //SABTXT评分
     sabtxtScore(id){
         return axios.post(path.baseUrl + path.sabtxtScore,null,{

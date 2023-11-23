@@ -2,6 +2,7 @@
   <el-dialog v-model="dialog" :title=title @close="close">
     <p>{{content}}</p>
   </el-dialog>
+  <span v-show="data.length===0">无</span>
   <ul class="border">
     <li v-for="(item, index) in filteredData" :key="index">
       <div class="message-item" >
@@ -70,33 +71,44 @@ export default {
         }
       })
     },
-    close(){
-      if(this.role==='student'){
+    getData(){
+      if(this.condition===0){
+        api.unReadRemind(this.page).then(res=>{
+          if(res.data.code===20000){
+            this.data=res.data.data.list.records
+            this.page.total=res.data.data.list.total
+          }else {
+            ElMessage.error('加载失败')
+          }
+        })
+      }else if(this.condition===1){
+        api.isReadRemind(this.page).then(res=>{
+          if(res.data.code===20000){
+            this.data=res.data.data.list.records
+            this.page.total=res.data.data.list.total
+          }else {
+            ElMessage.error('加载失败')
+          }
+        })
+      }else {
         api.getStuMessage(this.page).then(res=>{
           if(res.data.code===20000){
             this.data=res.data.data.list.records
+            this.page.total=res.data.data.list.total
           }else {
             ElMessage.error('加载失败')
           }
         })
       }
     },
+    close(){
+      if(this.role==='student'){
+        this.getData()
+      }
+    },
     handlePageChange(){
       if(this.role==='student'){
-        api.getStuMessage(this.page).then(res=>{
-          if(res.data.code===20000){
-            this.data=res.data.data.list.records
-            if(this.condition===0) {
-              this.page.total = res.data.data["未读"]
-            }else if(this.condition===1){
-              this.page.total = res.data.data.list.total-res.data.data["未读"]
-            }else {
-              this.page.total = res.data.data.list.total
-            }
-          }else {
-            ElMessage.error('加载失败')
-          }
-        })
+        this.getData()
       }
     },
   },

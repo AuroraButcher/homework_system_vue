@@ -128,6 +128,10 @@ const base = {
     getReminderDetail: '/reminder/info',
     //作业提醒
     teaRemind: '/reminder/homework',
+    //已读消息
+    isReadList:'/reminder/readList',
+    //未读消息列表
+    unReadList:'/reminder/unreadList',
 //---------------评论区--------------------
     // 创建讨论区
     createDiscussion: '/discussion/open',
@@ -139,9 +143,5 @@ const base = {
     addDiscussion: '/discussion/add',
     // 删除评论
     deleteDiscussion: '/discussion/delete',
-    //------------答案-------------
-    //添加答案
-    teaAddAnswer:'/answer/addAnswer',
-    //
 }
 export default base
