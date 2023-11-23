@@ -9,15 +9,15 @@
       <!--纯评论-->
       <div class="box" v-if="item.reply === 0">
         <div style="background-color: rgb(250,240,230);width: 100px" v-if="item.teacherNumber === '-1' && item.studentNumber !== '-1'">
-          <el-avatar shape="square" :size="60" src="src/assets/头像.jpg" class="avatar">Student</el-avatar>
+          <el-avatar shape="square" :size="80" :src="student" class="avatar">Student</el-avatar>
           <p style="text-align: center;margin-top: 5px">{{ item.studentNumber }}</p>
         </div>
         <div style="background-color: rgb(240,255,240);width: 100px" v-if="item.teacherNumber !== '-1' && item.studentNumber === '-1'">
-          <el-avatar shape="square" :size="60" src="src/assets/头像.jpg" class="avatar">Teacher</el-avatar>
+          <el-avatar shape="square" :size="80" :src="teacher" class="avatar">Teacher</el-avatar>
           <p style="text-align: center;margin-top: 5px">{{ item.teacherNumber }}</p>
         </div>
         <div style="background-color: rgb(245,245,245);width: 100px" v-if="item.teacherNumber === '-1' && item.studentNumber === '-1'">
-          <el-avatar shape="square" :size="60" src="src/assets/头像.jpg" class="avatar">已删除</el-avatar>
+          <el-avatar shape="square" :size="80" :src="deleted" class="avatar">已删除</el-avatar>
           <p style="text-align: center;margin-top: 5px">已删除</p>
         </div>
         <div style="margin-left:10px;width: calc(100% - 100px)">
@@ -34,15 +34,15 @@
       <div class="box" v-else>
         <!--头像区-->
         <div style="background-color: rgb(250,240,230);width: 100px" v-if="item.teacherNumber === '-1' && item.studentNumber !== '-1'">
-          <el-avatar shape="square" :size="60" src="src/assets/头像.jpg" class="avatar">Student</el-avatar>
+          <el-avatar shape="square" :size="80" :src="student" class="avatar">Student</el-avatar>
           <p style="text-align: center;margin-top: 5px">{{ item.studentNumber }}</p>
         </div>
         <div style="background-color: rgb(240,255,240);width: 100px" v-if="item.teacherNumber !== '-1' && item.studentNumber === '-1'">
-          <el-avatar shape="square" :size="60" src="src/assets/头像.jpg" class="avatar">Teacher</el-avatar>
+          <el-avatar shape="square" :size="80" :src="teacher" class="avatar">Teacher</el-avatar>
           <p style="text-align: center;margin-top: 5px">{{ item.teacherNumber }}</p>
         </div>
         <div style="background-color: rgb(245,245,245);width: 100px" v-if="item.teacherNumber === '-1' && item.studentNumber === '-1'">
-          <el-avatar shape="square" :size="60" src="src/assets/头像.jpg" class="avatar">已删除</el-avatar>
+          <el-avatar shape="square" :size="80" :src="deleted" class="avatar">已删除</el-avatar>
           <p style="text-align: center;margin-top: 5px">已删除</p>
         </div>
         <!--被回复内容区-->
@@ -111,13 +111,19 @@ import Cookies from "js-cookie";
 import {mapState} from "vuex";
 import api from "../../api";
 import {ElMessage} from "element-plus";
+import teacher from '../../assets/教师.png';
+import student from '../../assets/学生.jpg';
+import deleted from '../../assets/已删除.jpg';
 
 export default {
   components: {PageHeader},
-  data(){
+  data() {
     return {
       head: "讨论区",
       number: Cookies.get('number'),
+      teacher: teacher,
+      student: student,
+      deleted: deleted,
       // 保存需要被回复的信息
       giveReply: {
         id: null,
@@ -299,7 +305,7 @@ export default {
 }
 
 .avatar {
-  margin-left: 20px;
+  margin-left: 10px;
   margin-top: 20px;
 }
 </style>

@@ -31,7 +31,7 @@
           <!--下拉菜单-->
           <el-dropdown class="el-dropdown">
             <span class="el-dropdown-link">
-              <el-avatar :size="40" :src="jpg1"/>
+              <el-avatar :size="40" :src="avatar"/>
               <el-icon class="el-icon--right">
                 <arrow-down/>
               </el-icon>
@@ -61,7 +61,7 @@ import ChangePassword from "../UserManagerment/Shared/ChangePassword.vue";
 import Cookie from "js-cookie";
 import {ArrowDown, Expand, Fold} from "@element-plus/icons-vue";
 import {mapState} from "vuex";
-import jpg from '../../assets/头像.jpg'
+import avatar from '../../assets/头像.jpg'
 
 export default {
   components: {Fold, Expand, ArrowDown, ChangePassword, SideMenu},
@@ -71,7 +71,7 @@ export default {
       showNumber: Cookie.get('number'),
       isChange: false,
       isDelete: false,
-      jpg1:jpg,
+      avatar: avatar,
     }
   },
   methods: {
