@@ -38,7 +38,7 @@ export default {
   mounted() {
     api.getAnswer(this.homeworkNumber).then(async res => {
       if (res.data.code === 20000) {
-        this.content = await Vditor.md2html(res.data.data.answerData.content);
+        this.content = await Vditor.md2html(res.data.data.answer.content);
         this.files = res.data.data.files;
       } else {
         console.log("获取答案失败");
@@ -50,6 +50,7 @@ export default {
       this.downloadAnswerFile.homeworkId = this.homeworkNumber;
       this.downloadAnswerFile.classId = this.courseNumber;
       this.downloadAnswerFile.fileName = item;
+      console.log(this.downloadAnswerFile)
       api.downloadAnswerFiles(this.downloadAnswerFile).then(res => {
         if (res.data.code === 20000) {
           const url = res.data.data.url;
@@ -67,7 +68,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(['homeworkNumber'])
+    ...mapState(['homeworkNumber', 'courseNumber'])
   },
 }
 </script>
