@@ -22,11 +22,11 @@
           </div>
           <!--面包屑-->
           <el-breadcrumb separator="/">
-            <el-breadcrumb-item v-show="role === 'administrator'" :to="{ path: '/adminHome' }">管理员首页</el-breadcrumb-item>
-            <el-breadcrumb-item v-show="role === 'teacher'" :to="{ path: '/teacherHome' }">教师首页</el-breadcrumb-item>
-            <el-breadcrumb-item v-show="role === 'student'" :to="{ path: '/studentHome' }">学生首页</el-breadcrumb-item>
-            <el-breadcrumb-item>待改</el-breadcrumb-item>
-            <el-breadcrumb-item>待改</el-breadcrumb-item>
+            <el-breadcrumb-item
+                v-for="(item,index) in $route.matched"
+                :key="index"
+                :to="{ path: item.path }">{{ item.meta.title }}
+            </el-breadcrumb-item>
           </el-breadcrumb>
           <!--下拉菜单-->
           <el-dropdown class="el-dropdown">
@@ -97,7 +97,9 @@ export default {
 .el-header {
   display: flex;
   align-items: center;
-  background-color: rgb(242, 242, 242);
+  border-bottom-style: solid;
+  border-width: 2px;
+//background-color: rgb(176 226 255);
 
   .span {
     margin-right: 10px;
@@ -117,13 +119,13 @@ export default {
   }
 }
 .el-main {
-  padding:5px;
+  padding: 0;
   overflow-y: hidden;
   height: calc(100vh - 60px);
 }
 /*整个侧边*/
 .el-side {
-  background-color: rgb(112, 188, 210);
+  background-color: rgb(180, 204, 217);
   height: 100vh;
   width: auto;
 }

@@ -4,7 +4,7 @@
       <page-header :component="head"/>
     </template>
     <div class="hang">
-      <el-input v-model="homeworkName" placeholder="请输入作业名称" style="width: 220px;"></el-input>
+      <el-input v-model="homeworkName" placeholder="请输入作业名称" style="width: 220px"></el-input>
       <el-button type="primary" style="margin-left: 10px" @click="search(this.homeworkName)">搜索</el-button>
       <el-button type="primary" style="margin-left: 10px" @click="addHomework()" v-show="role==='teacher'">添加作业</el-button>
     </div>
@@ -16,15 +16,14 @@
           <el-link link @click="showDetailInfo(scope)">{{ scope.row.name }}</el-link>
         </template>
       </el-table-column>
-<!--      <el-table-column label="满分" prop="score" width="100px"></el-table-column>-->
+      <el-table-column label="满分" prop="score" width="70px"></el-table-column>
       <el-table-column label="截止时间" prop="end" width="170px"></el-table-column>
       <el-table-column label="操作" header-align="center">
-        <el-table-column label="作业" width="100px">
+        <el-table-column label="作业" width="100px" v-if="role==='teacher'">
           <template #default="scope">
-            <el-link type="primary" link @click="showDetailInfo(scope)" v-show="role === 'student'">详情</el-link>
             <!--TODO：作业未开始，都可改；作业已经开始，无论是否结束，开始时间不可改-->
-            <el-link type="primary" link @click="changeHomework(scope)" v-show="role==='teacher'">修改</el-link>
-            <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)" v-show="role==='teacher'">删除</el-link>
+            <el-link type="primary" link @click="changeHomework(scope)">修改</el-link>
+            <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)">删除</el-link>
           </template>
         </el-table-column>
         <el-table-column label="提交" width="100px">
@@ -32,9 +31,13 @@
             <!--TODO：提交情况应该在作业开始之后再显示或者打开一页显示“尚未开始”-->
             <el-link type="primary" link @click="viewSubmitHomework(scope)" v-show="role==='teacher'">提交情况</el-link>
             <div v-show="role==='student'">
+              <!--没交作业、没有截止-->
               <el-link type="primary" link @click="submitHomework(scope)" v-if="submit[scope.row.index]===0 && timeValid[scope.row.index]===0">提交作业</el-link>
-              <el-link type="primary" link disabled v-else-if="submit[scope.row.index]===0 && timeValid[scope.row.index]===-1">作业已截止</el-link>
-              <el-link type="primary" link @click="getStudentHWinfo(scope)" v-else-if="submit[scope.row.index]!==0 && timeValid[scope.row.index]===-1">查看作业</el-link>
+              <!--没交作业、已经截止-->
+              <el-link type="info" link disabled v-else-if="submit[scope.row.index]===0 && timeValid[scope.row.index]===-1">作业已截止</el-link>
+              <!--交了作业、已经截止-->
+              <el-link type="warning" link @click="getStudentHWinfo(scope)" v-else-if="submit[scope.row.index]!==0 && timeValid[scope.row.index]===-1">查看作业</el-link>
+              <!--交了作业、没有截止-->
               <el-link type="success" link @click="resubmitHomework(scope)" v-else>重新提交</el-link>
             </div>
           </template>
@@ -44,6 +47,7 @@
             <el-link type="primary" link @click="setEvaluation(scope)" v-show="role==='teacher'">互评设置</el-link>
             <el-link type="primary" link @click="evaluateHomework(scope)" v-if="review[scope.row.index]===1" v-show="role==='student'">互评作业</el-link>
             <el-link type="primary" link disabled v-else-if="review[scope.row.index]===0" v-show="role==='student'">互评尚未开始</el-link>
+            <el-link type="primary" link disabled @click="evaluateHomework(scope)" v-if="review[scope.row.index]===-1" v-show="role==='student'">互评已结束</el-link>
             <el-link type="primary" link disabled v-else-if="review[scope.row.index]===-1" v-show="role==='student'">互评已结束</el-link>
           </template>
         </el-table-column>

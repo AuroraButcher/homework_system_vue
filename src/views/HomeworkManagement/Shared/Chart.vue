@@ -57,9 +57,6 @@ export default {
       }
     }
   },
-  created() {
-    // TODO:统计板
-  },
   mounted() {
     this.getData();
   },

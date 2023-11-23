@@ -1,5 +1,5 @@
 <template>
-  <el-card style="height: 100%">
+  <el-card>
     <template #header>
       <!--页头-->
       <page-header :component='head'/>
@@ -7,11 +7,11 @@
     <div class="hang">
       <el-input v-model="courseName" @keyup.enter="search(this.courseName)" placeholder="请输入课程名称" style="width: 220px;"></el-input>
       <el-button type="primary" style="margin-left: 10px" @click="search(this.courseName)">搜索</el-button>
-      <el-button type="primary" style="margin-left: 10px" @click="addCourse">添加课程</el-button>
+      <el-button type="primary" style="margin-left: 10px" @click="addCourse" v-if="role === 'administrator'">添加课程</el-button>
     </div>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="60px"></el-table-column>
-      <el-table-column label="课程编号" prop="id" width="100px"></el-table-column>
+      <el-table-column label="课程编号" prop="id" width="100px" v-if="false"></el-table-column>
       <el-table-column label="课程名称" prop="name" width="200px">
         <template #default="scope">
           <el-link link @click="showDetailInfo(scope)">{{ scope.row.name }}</el-link>

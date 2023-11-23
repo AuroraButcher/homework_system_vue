@@ -1,5 +1,5 @@
 <template>
-  <el-card style="height: 100%">
+  <el-card>
     <template #header>
       <!--页头-->
       <page-header :component='head'/>

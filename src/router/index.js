@@ -50,25 +50,28 @@ const routes = [
         path: "/studentHome",
         component: Home,
         name: 'studentHome',
+        meta: {title: "首页"},
         children: [
             {
                 // 学生首页--
                 path: '',
                 component: HomePage,
-                name: 'studentHomePage'
+                name: 'studentHomePage',
             },
             // 课程模块
             {
                 // 学生查看课程--
                 path: '/viewCourse',
                 component: ViewCourse,
-                name: 'studentViewCourse'
+                name: 'studentViewCourse',
+                meta: {title: "课程列表"},
             },
             {
                 // 学生课程详情--
                 path: "/courseInfo",
                 component: DetailedCourseInformation,
                 name: 'stuCourseInfo',
+                meta: {title: "课程详情"},
             },
             // 作业模块
             {
@@ -76,50 +79,59 @@ const routes = [
                 path: "/stuViewHomework",
                 component: ViewHomework,
                 name: 'stuViewHomework',
+                meta: {title: "作业列表"},
             },
             {
                 // 学生作业详情--
                 path: "/detailedHomework",
                 component: DetailedHomework,
                 name: 'detailedHomework',
+                meta: {title: "作业详情"},
             },
             {
                 // 学生提交作业
                 path: "/submitHomework",
                 component: SubmitHomework,
-                name: 'submitHomework'
+                name: 'submitHomework',
+                meta: {title: "提交作业"},
             },
             {
                 path: "/homeworkInfo",
                 component: HomeworkInfo,
-                name: 'homeworkInfo'
+                name: 'homeworkInfo',
+                meta: {title: "作业提交详情"},
             },
             {
                 // 分数分布
                 path: "/distribution",
                 component: Chart,
-                name: 'FractionalDistribution'
+                name: 'FractionalDistribution',
+                meta: {title: "分数状况"},
             },
             {
                 // 学生互评作业列表
                 path: "/evaluateHomework",
                 component: evaluateHomework,
-                name: 'stuEvaluateHomework'
+                name: 'stuEvaluateHomework',
+                meta: {title: "作业互评"},
             },
             {// 查看优秀作业
                 path: "/viewExcellent",
-                component:ViewExcellent,
-                name:'viewExcellent'
+                component: ViewExcellent,
+                name: 'viewExcellent',
+                meta: {title: "优秀作业"},
             },
             {
                 path: "/viewExcellentDetail",
                 component: excellent,
-                name:'Excellent'
+                name: 'Excellent',
+                meta: {title: "优秀作业详情"},
             },
             {
                 path: "/discussion",
                 component: DiscussionArea,
-                name:'discussion'
+                name: 'discussion',
+                meta: {title: "讨论区"},
             }
         ]
     },
@@ -128,25 +140,28 @@ const routes = [
         path: "/teacherHome",
         component: Home,
         name: 'teacherHome',
+        meta: {title: "首页"},
         children: [
             {
                 // 教师首页--
                 path: '',
                 component: HomePage,
-                name: 'teacherHomePage'
+                name: 'teacherHomePage',
             },
             // 课程模块
             {
                 // 教师查看课程--
                 path: '/viewCourse',
                 component: ViewCourse,
-                name: 'teacherViewCourse'
+                name: 'teacherViewCourse',
+                meta: {title: "课程列表"},
             },
             {
                 // 教师课程详情--
                 path: "/courseInfo",
                 component: DetailedCourseInformation,
                 name: 'teaCourseInfo',
+                meta: {title: "作业详情"},
             },
             // 作业模块
             {
@@ -154,57 +169,68 @@ const routes = [
                 path: "/teaAssignHomework",
                 component: AssignHomework,
                 name: 'teaAssignHomework',
+                meta: {title: "布置作业"},
             },
             {
                 // 教师作业列表--
                 path: "/teaViewHomework",
                 component: ViewHomework,
                 name: 'teaViewHomework',
+                meta: {title: "作业列表"},
             },
             {
                 // 教师作业详情--
                 path: "/detailedHomework",
                 component: DetailedHomework,
                 name: 'detailedHomework',
+                meta: {title: "作业详情"},
             },
             {
                 // 教师修改作业信息
-                path:"/teaChangeHomework",
+                path: "/teaChangeHomework",
                 component: changeHomework,
-                name:'teaChangeHomework'
+                name: 'teaChangeHomework',
+                meta: {title: "修改作业信息"},
             },
             {
+                // 提交状况
                 path: "/homeworkCondition",
                 component: homeworkCondition,
-                name: 'teaHomeworkCondition'
+                name: 'teaHomeworkCondition',
+                meta: {title: "提交状况"},
             },
             {
                 path: "/detailSubmitHomework",
                 component: detailSubmitHomework,
-                name: 'teaDetailSubmitHomework'
+                name: 'teaDetailSubmitHomework',
+                meta: {title: "提交详情"},
             },
             {
                 // 分数分布
                 path: "/distribution",
                 component: Chart,
-                name: 'FractionalDistribution'
+                name: 'FractionalDistribution',
+                meta: {title: "分数分布"},
             },
             {
                 // 作业互评相关设置
                 path: "/setDistribution",
                 component: SetEvaluation,
-                name: 'setDistribution'
+                name: 'setDistribution',
+                meta: {title: "互评设置"},
             },
             {
                 // 教师查看选修名单
                 path: "/teaShowCourseStudentList",
                 component: ShowCourseStudent,
-                name: 'teaShowCourseStudentList'
+                name: 'teaShowCourseStudentList',
+                meta: {title: "选修名单"},
             },
             {
                 path: "/discussion",
                 component: DiscussionArea,
-                name:'discussion'
+                name: 'discussion',
+                meta: {title: "讨论区"},
             }
         ]
     },
@@ -213,55 +239,63 @@ const routes = [
         path: "/adminHome",
         component: Home,
         name: 'adminHome',
+        meta: {title: "首页"},
         children: [
             {
                 // 管理员首页--
                 path: '',
                 component: HomePage,
-                name: 'adminHomePage'
+                name: 'adminHomePage',
             },
             // 课程列表
             {
                 // 管理员课程列表--
                 path: '/viewCourse',
                 component: ViewCourse,
-                name: 'adminViewCourse'
+                name: 'adminViewCourse',
+                meta: {title: "课程列表"},
             },
             {
                 // 管理员添加课程
                 path: "/addCourse",
                 component: AddCourse,
                 name: 'addCourse',
+                meta: {title: "添加课程"},
             },
             {
                 // 管理员课程详情--
                 path: "/courseInfo",
                 component: DetailedCourseInformation,
                 name: 'adminCourseInfo',
+                meta: {title: "课程详情"},
             },
             {
                 // 管理员修改课程信息
                 path: "/changeCourseInfo",
                 component: ChangeCourseInformation,
                 name: 'changeCourseInfo',
+                meta: {title: "修改课程信息"},
             },
             {
                 // 管理员查看教师列表
                 path: "/teacherList",
                 component: TeacherList,
                 name: 'teacherList',
+                meta: {title: "教师列表"},
             },
             {
                 // 管理员查看学生列表
                 path: "/studentList",
                 component: StudentList,
                 name: 'studentList',
+                meta: {title: "学生列表"},
             },
             {
                 // 管理员查看选修名单
                 path: "/adminShowCourseStudentList",
                 component: ShowCourseStudent,
-                name: 'adminShowCourseStudentList'
+                name: 'adminShowCourseStudentList',
+                meta: {title: "课程选修名单"},
             },
         ]
     },

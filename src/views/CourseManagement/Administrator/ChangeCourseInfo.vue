@@ -1,5 +1,5 @@
 <template>
-  <el-card class="box-card">
+  <el-card>
     <template #header>
       <!--页头-->
       <page-header :component="head"></page-header>

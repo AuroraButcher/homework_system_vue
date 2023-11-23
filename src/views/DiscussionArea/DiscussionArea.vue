@@ -1,9 +1,10 @@
 <template>
-  <el-card style="height: 100%" :body-style="{padding:'2px'}">
+  <el-card>
     <template #header>
       <!--页头-->
       <page-header :component='head'/>
     </template>
+
     <div v-for="(item,index) in discussion" :key="index">
       <!--纯评论-->
       <div class="box" v-if="item.reply === 0">
