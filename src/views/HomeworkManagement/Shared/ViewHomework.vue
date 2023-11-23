@@ -44,7 +44,7 @@
             <el-link type="primary" link @click="setEvaluation(scope)" v-show="role==='teacher'">互评设置</el-link>
             <el-link type="primary" link @click="evaluateHomework(scope)" v-if="review[scope.row.index]===1" v-show="role==='student'">互评作业</el-link>
             <el-link type="primary" link disabled v-else-if="review[scope.row.index]===0" v-show="role==='student'">互评尚未开始</el-link>
-            <el-link type="primary" link @click="evaluateHomework(scope)" v-if="review[scope.row.index]===-1" v-show="role==='student'">互评已结束</el-link>
+            <el-link type="primary" link disabled v-else-if="review[scope.row.index]===-1" v-show="role==='student'">互评已结束</el-link>
           </template>
         </el-table-column>
         <el-table-column label="分数" width="200px">
