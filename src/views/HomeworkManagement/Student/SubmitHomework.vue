@@ -8,6 +8,20 @@
     <!--编辑器-->
     <div class="editor" id="vditor"></div>
     <!--附件-->
+    <div>
+      <el-divider content-position="left">作业附件</el-divider>
+          <ul v-for="(item,index) in files" :key="index">
+            <li>
+              <el-button type="success" link>
+                <a @click="download(item)">{{ item }}</a>
+              </el-button>
+              <el-button type="danger" link>
+                <a @click="deleteFile(item, homeworkStudentId)">删除</a>
+              <!-- <i class="el-icon-close"></i> -->
+              </el-button>
+            </li>
+          </ul>
+    </div>
     <!--提交按钮-->
     <div>
       <el-divider content-position="left">提交附件</el-divider>
@@ -48,6 +62,8 @@ export default {
       contentEditor: {},
       // 文件列表
       fileList: [],
+      files : [],
+      homeworkStudentId: null,
       homeworkData: {
         homeworkId: null,
         classId: null,
@@ -55,6 +71,19 @@ export default {
         content: null,
         studentNumber: null,
       },
+      downloadData: {
+          id: null,
+          classID: null,
+          downloadFileName: null,
+          studentNumber:null,
+      },
+      deleteData: {
+        id: null,
+        classID: null,
+        deleteFileName: null,
+        studentNumber:null,
+        homeworkID:null,
+      }
     }
   },
   created() {
@@ -62,8 +91,11 @@ export default {
     if (this.homeworkID !== null) {
       api.getStuHomework(this.homeworkID).then(res => {
         if (res.data.code === 20000) {
+          this.files = res.data.data.files;
           this.homeworkData.content = res.data.data.info.answer
           this.contentEditor.setValue(res.data.data.info.answer)
+          this.homeworkStudentId = res.data.data.info.id
+          console.log(this.homeworkStudentId)
         } else {
           ElMessage.success("上传失败");
         }
@@ -188,6 +220,47 @@ export default {
     // 处理文件改变
     handleChange(file, fileList) {
       this.fileList = fileList;
+    },
+    download(item) {
+        this.downloadData.id = this.$store.state.homeworkNumber;
+        this.downloadData.classID = this.$store.state.courseNumber;
+        this.downloadData.downloadFileName = item;
+        this.downloadData.studentNumber = Cookie.get('number');
+        api.downloadStudentFiles(this.downloadData).then(res => {
+          if (res.data.code === 20000) {
+            const url = res.data.data.url;
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', item);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            ElMessage.success("下载成功");
+          } else {
+            ElMessage.error("下载失败");
+          }
+        })
+      },
+    deleteFile(item, homeworkStudentId) {
+      this.deleteData.id = homeworkStudentId;
+      this.deleteData.homeworkID = this.$store.state.homeworkNumber;
+      this.deleteData.classID = this.$store.state.courseNumber;
+      this.deleteData.deleteFileName = item;
+      this.deleteData.studentNumber = Cookie.get('number');
+      api.deleteStudentFiles(this.deleteData).then(res => {
+        if (res.data.code === 20000) {
+          const url = res.data.data.url;
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('delete', item);
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          ElMessage.success("删除成功");
+        } else {
+          ElMessage.error("删除失败");
+        }
+      })
     },
   }
 }

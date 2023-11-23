@@ -339,6 +339,18 @@ const api = {
             }
         })
     },
+    // 删除学生附件
+    deleteStudentFiles(formData) {
+        return axios.post(path.baseUrl + path.deleteStudentFile, null, {
+            params: {
+                id: formData.id,
+                classID: formData.classID,
+                homeworkID: formData.homeworkID,
+                fileName: formData.deleteFileName,
+                studentID: formData.studentNumber,
+            }
+        })
+    },
     //获取老师评分
     teaGetGrade(data) {
         return axios.get(path.baseUrl + path.teaGetGrade, {

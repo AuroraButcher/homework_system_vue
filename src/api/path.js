@@ -81,6 +81,8 @@ const base = {
     getEvaluation: '/score/getReviewInfo',
     //下载学生附件
     downloadStudentFile: '/homework/downloadStudent',
+    //删除学生附件
+    deleteStudentFile: '/homework/deleteStudentFile',
     //SABTXT评分
     sabtxtScore:'/score/sabtxt',
 
