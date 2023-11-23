@@ -49,8 +49,12 @@
         </el-table-column>
         <el-table-column label="分数" width="200px">
           <template #default="scope">
-            <el-link type="primary" link @click="showData(scope)">分数分布</el-link>
-            <el-link type="primary" link style="margin-left: 10px" @click="showExcellent(scope)">查看优秀作业</el-link>
+            <el-link type="primary" link disabled v-if="review[scope.row.index]>=0" v-show="role==='student'">分数分布</el-link>
+            <el-link type="primary" link @click="showData(scope)" v-else-if="review[scope.row.index]===-1" v-show="role==='student'">分数分布</el-link>
+            <el-link type="primary" link @click="showData(scope)" v-show="role=='teacher'">分数分布</el-link>
+            <el-link type="primary" link style="margin-left: 10px" disabled v-if="review[scope.row.index]>=0" v-show="role==='student'">查看优秀作业</el-link>
+            <el-link type="primary" link style="margin-left: 10px" @click="showExcellent(scope)" v-else="review[scope.row.index]===-1" v-show="role==='student'">查看优秀作业</el-link>
+            <el-link type="primary" link style="margin-left: 10px" @click="showExcellent(scope)" v-show="role==='teacher'">查看优秀作业</el-link>
           </template>
         </el-table-column>
         <el-table-column label="讨论区">
