@@ -92,7 +92,19 @@ export default {
     ...mapState(['homeworkNumber'])
   },
   created() {
-    //TODO: 显示已经设置好的互评设置
+    this.setData.homeworkId = this.homeworkNumber;
+    api.getEvaluation(this.setData.homeworkId).then(res => {
+      if(res.data.code === 20000){
+        console.log(res.data.data.review.studentRate)
+        this.setData.studentPercent = res.data.data.review.studentRate*100;
+        this.setData.teacherPercent = 100 - this.setData.studentPercent;
+        this.setData.time=[res.data.data.review.start,res.data.data.review.end];
+      }
+      else
+      {
+        console.log("查看互评信息失败")
+      }
+    })
   }
 }
 </script>

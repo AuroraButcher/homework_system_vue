@@ -77,6 +77,8 @@ const base = {
     teaGetGrade: '/score/getTeacherScore',
     //互评相关设置
     setEvaluation: '/score/setReviewList',
+    //获得互评设置信息
+    getEvaluation: '/score/getReviewInfo',
     //下载学生附件
     downloadStudentFile: '/homework/downloadStudent',
 

@@ -320,6 +320,14 @@ const api = {
             studentRate: setData.stuPercent,
         })
     },
+    //获得互评设置信息
+    getEvaluation(setData) {
+        return axios.get(path.baseUrl + path.getEvaluation, {
+            params: {
+                homeworkId: setData
+            }
+        })
+    },
     // 下载学生附件
     downloadStudentFiles(formData) {
         return axios.post(path.baseUrl + path.downloadStudentFile, null, {
