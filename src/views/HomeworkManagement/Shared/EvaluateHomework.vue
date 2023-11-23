@@ -8,6 +8,7 @@
     <detail/>
     <!--提交内容详情-->
     <el-divider content-position="left">学生提交内容</el-divider>
+
     <el-descriptions :column="2" border style="margin-top: 10px">
       <el-descriptions-item label="学号:">{{studentNumber}}</el-descriptions-item>
       <el-descriptions-item label="得分:">
@@ -37,6 +38,8 @@
         </ul>
       </el-descriptions-item>
     </el-descriptions>
+    <el-divider content-position="left">作业答案</el-divider>
+    <answer/>
     <!--评语-->
     <el-divider content-position="left">作业点评</el-divider>
     <el-input
@@ -59,10 +62,11 @@ import api from "../../../api";
 import {ElMessage} from "element-plus";
 import Vditor from "vditor";
 import Cookie from "js-cookie";
+import Answer from "./Answer.vue";
 
 export default {
   name: "DetailSubmitHomework",
-  components: {Detail, PageHeader},
+  components: {Answer, Detail, PageHeader},
   created() {
     api.getStuHomework(this.homeworkID).then(async res=>{
       if(res.data.code===20000){
