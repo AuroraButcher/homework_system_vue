@@ -7,22 +7,22 @@
     <div>
       <el-row style="text-align: center;">
         <el-col :span="6">
-          <el-statistic title="应交人数" :value="50"/>
+          <el-statistic title="应交人数" :value="num.current"/>
         </el-col>
         <el-col :span="6">
-          <el-statistic title="实交人数" :value="24"/>
+          <el-statistic title="实交人数" :value="scoreDistribution.sum"/>
         </el-col>
         <el-col :span="6">
-          <el-statistic title="未交人数" :value="26"/>
+          <el-statistic title="未交人数" :value="num.current-scoreDistribution.sum"/>
         </el-col>
         <el-col :span="6">
-          <el-statistic :value="24">
+          <el-statistic :value="(scoreDistribution.sum * 100.0 / num.current).toFixed(2)">
             <template #title>
               <div style="display: inline-flex; align-items: center">
                 提交率
               </div>
             </template>
-            <template #suffix>/50</template>
+            <template #suffix>%</template>
           </el-statistic>
         </el-col>
       </el-row>
@@ -52,6 +52,9 @@ export default {
         five: null,
         sum: null,
       },
+      num: {
+        current: null,
+      }
     }
   },
   created() {
@@ -71,6 +74,7 @@ export default {
           this.scoreDistribution.four = res.data.data['60%-70%'];
           this.scoreDistribution.five = res.data.data['0-60%'];
           this.scoreDistribution.sum = res.data.data['总数'];
+          this.num.current = res.data.data['应交人数'];
           this.renderChart();
         }
       });
@@ -79,7 +83,7 @@ export default {
     renderChart() {
       const myOption = {
         legend: {
-          data: ["90~100(包含90和100)", "80~90(包含80，不包含90)", "70~80(包含70，不包含80)", "60~70(包含60，不包含70)", "0~60(不包含60)"],
+          data: ["90%~100%(包含90%和100%)", "80%~90%(包含80%，不包含90%)", "70%~80%(包含70%，不包含80%)", "60%~70%(包含60%，不包含70%)", "0~60%(不包含60%)"],
           right: "5%",
           top: "30%",
           orient: "vertical"
@@ -107,23 +111,23 @@ export default {
             data: [
               {
                 value: this.scoreDistribution.one,
-                name: "90~100(包含90和100)"
+                name: "90%~100%(包含90%和100%)"
               },
               {
                 value: this.scoreDistribution.two,
-                name: "80~90(包含80，不包含90)"
+                name: "80%~90%(包含80%，不包含90%)"
               },
               {
                 value: this.scoreDistribution.three,
-                name: "70~80(包含70，不包含80)"
+                name: "70%~80%(包含70%，不包含80%)"
               },
               {
                 value: this.scoreDistribution.four,
-                name: "60~70(包含60，不包含70)"
+                name: "60%~70%(包含60%，不包含70%)"
               },
               {
                 value: this.scoreDistribution.five,
-                name: "0~60(不包含60)"
+                name: "0~60%(不包含60%)"
               }
             ]
           }
