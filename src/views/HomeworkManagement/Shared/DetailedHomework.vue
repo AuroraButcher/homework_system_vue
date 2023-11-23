@@ -3,7 +3,9 @@
     <template #header>
       <page-header :component="head"/>
     </template>
+
     <detail/>
+
   </el-card>
 </template>
 

@@ -3,7 +3,6 @@
       <template #header>
         <page-header :component="head"/>
       </template>
-      <!-- <detail/> -->
       <!--提交内容详情-->
       <el-divider content-position="left">作业内容</el-divider>
       <el-descriptions :column="2" border style="margin-top: 10px">

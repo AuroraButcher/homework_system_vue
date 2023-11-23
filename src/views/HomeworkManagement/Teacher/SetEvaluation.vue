@@ -42,7 +42,6 @@
         <span style="margin-left: 100px">教师打分占比： {{ setData.teacherPercent }} %</span>
       </el-descriptions-item>
     </el-descriptions>
-<!--TODO: bug，点击设置，学生占比自动除以100-->
     <el-button type="primary" style="margin-top: 10px" @click="setEvaluation">设置</el-button>
   </el-card>
 </template>

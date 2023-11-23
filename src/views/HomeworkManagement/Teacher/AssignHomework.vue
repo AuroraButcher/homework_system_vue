@@ -40,7 +40,6 @@
     <span style="font-weight: bold">作业内容</span>
     <div class="editor" id="vditor"></div>
     <!--附件-->
-    <!--提交按钮-->
     <div>
       <el-divider content-position="left">提交附件</el-divider>
       <el-upload action="/homework/addFile" :auto-upload="false" :file-list="fileList" :on-change="handleChange">
@@ -164,17 +163,17 @@ export default {
   },
   methods: {
     assignHomework() {
-      if (this.contentEditor.getValue().length === 1 || this.contentEditor.getValue() == null || this.contentEditor.getValue() === '') {
+      if (this.contentEditor.getValue().length === 1 || this.contentEditor.getValue() === null || this.contentEditor.getValue() === '') {
         alert('话题内容不可为空');
         return false;
       } else {
         this.homeworkData.classId = this.$store.state.courseNumber;
         this.homeworkData.content = this.contentEditor.getValue();
-        this.homeworkData.multiple=(this.resubmit === true)?1:0;
+        this.homeworkData.multiple = (this.resubmit === true) ? 1 : 0;
         api.addHomework(this.homeworkData).then(response => {
           if (response.data.code === 20000) {
-            if(this.fileList.length>0){
-              this.homeworkNumber=response.data.data.homework.id
+            if (this.fileList.length > 0) {
+              this.homeworkNumber = response.data.data.homework.id
               const param = new FormData();
               param.append('id',this.homeworkNumber)
               param.append('classID',this.homeworkData.classId)

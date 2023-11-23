@@ -171,9 +171,8 @@ export default {
   },
   methods: {
     // 提交作业
-    // TODO：如果内容其一不为空，可以提交 @wx:什么意思，内容其一是什么东西
     submitHomework() {
-      if (this.contentEditor.getValue().length === 1 || this.contentEditor.getValue() == null || this.contentEditor.getValue() === '') {
+      if ((this.contentEditor.getValue().length === 1 || this.contentEditor.getValue() == null || this.contentEditor.getValue() === '')&&this.fileList.length===0) {
         alert('内容不可为空');
         return false;
       } else {
@@ -183,34 +182,27 @@ export default {
         this.homeworkData.content = this.contentEditor.getValue();
         api.submitHomework(this.homeworkData).then(res => {
           if(res.data.code === 20000) {
-            // TODO: 使用上交的res里面的id代替sb里面找的id
-            api.stuViewHomework({classID:this.homeworkData.classId,studentID:this.homeworkData.studentNumber}).then(res=>{
-              if (res.data.code === 20000&&res.data.data.isSubmitted[this.index]!==0) {
-                this.homeworkNo=res.data.data.isSubmitted[this.index]
-                if(this.fileList.length>0){
-                  const param = new FormData();
-                  param.append("homeworkID", this.homeworkNumber);
-                  param.append("classID", this.courseNumber);
-                  param.append("studentID", Cookie.get('number'));
-                  param.append("id", this.homeworkNo);
-                  this.fileList.forEach(val => {
-                    param.append("multipartFile", val.raw);
-                  })
-                  api.stuHomeworkFile(param).then(res => {
-                    if (res.data.code === 20000) {
-                      ElMessage.success("上传成功");
-                      //this.$router.push('/stuViewHomework');
-                    } else {
-                      ElMessage.error("上传失败");
-                    }
-                  })
-                }else {
+            this.homeworkNo=res.data.data.homework.id
+            if(this.fileList.length>0){
+              const param = new FormData();
+              param.append("homeworkID", this.homeworkNumber);
+              param.append("classID", this.courseNumber);
+              param.append("studentID", Cookie.get('number'));
+              param.append("id", this.homeworkNo);
+              this.fileList.forEach(val => {
+                param.append("multipartFile", val.raw);
+              })
+              api.stuHomeworkFile(param).then(res => {
+                if (res.data.code === 20000) {
                   ElMessage.success("上传成功");
+                  //this.$router.push('/stuViewHomework');
+                } else {
+                  ElMessage.error("上传失败");
                 }
-              }else {
-                ElMessage.error("上传失败");
-              }
-            });
+              })
+            }else {
+              ElMessage.success("上传成功");
+            }
           } else {
             ElMessage.error("上传失败");
           }

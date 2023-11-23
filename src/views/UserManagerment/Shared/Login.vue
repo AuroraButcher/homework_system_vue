@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       //角色
-      role: "administrator",
+      role: "student",
       //表单属性
       ruleForm: {
         number: "",
@@ -83,7 +83,6 @@ export default {
               console.error(error);
             });
           } else if (this.role === "teacher") {
-            // TODO:老师校验
             api.teacherLogin(this.ruleForm).then(response => {
               if (response.data.code === 20000) {
             Cookie.set('number', this.ruleForm.number);

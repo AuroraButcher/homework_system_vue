@@ -6,10 +6,9 @@
     <div class="hang">
       <el-input v-model="homeworkName" placeholder="请输入作业名称" style="width: 220px"></el-input>
       <el-button type="primary" style="margin-left: 10px" @click="search(this.homeworkName)">搜索</el-button>
-      <el-button type="primary" style="margin-left: 10px" @click="addHomework()" v-show="role==='teacher'">添加作业</el-button>
+      <el-button type="primary" style="margin-left: 10px" @click="addHomework()" v-if="role==='teacher'">添加作业</el-button>
     </div>
-    <loading v-show="this.tableData===null"/>
-    <el-table v-show="this.tableData!==null" :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
+    <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="50px"></el-table-column>
       <el-table-column label="编号" prop="id" width="50px" v-if="false"></el-table-column>
       <el-table-column label="作业名称" prop="name" width="150px">
@@ -17,20 +16,18 @@
           <el-link link @click="showDetailInfo(scope)">{{ scope.row.name }}</el-link>
         </template>
       </el-table-column>
-      <el-table-column label="满分" prop="score" width="70px"></el-table-column>
       <el-table-column label="截止时间" prop="end" width="170px"></el-table-column>
       <el-table-column label="操作" header-align="center">
         <el-table-column label="作业" width="100px" v-if="role==='teacher'">
           <template #default="scope">
-            <!--TODO：作业未开始，都可改；作业已经开始，无论是否结束，开始时间不可改-->
             <el-link type="primary" link @click="changeHomework(scope)">修改</el-link>
             <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)">删除</el-link>
           </template>
         </el-table-column>
         <el-table-column label="提交" width="100px">
           <template #default="scope">
-            <!--TODO：提交情况应该在作业开始之后再显示或者打开一页显示“尚未开始”-->
-            <el-link type="primary" link @click="viewSubmitHomework(scope)" v-show="role==='teacher'">提交情况</el-link>
+            <el-link type="primary" link @click="viewSubmitHomework(scope)" v-if="role==='teacher'&&compareStart(scope.row.index)">提交情况</el-link>
+            <el-link type="primary" link disabled v-if="role==='teacher'&&!compareStart(scope.row.index)">尚未开始</el-link>
             <div v-show="role==='student'">
               <!--没交作业、没有截止-->
               <el-link type="primary" link @click="submitHomework(scope)" v-if="submit[scope.row.index]===0 && timeValid[scope.row.index]===0">提交作业</el-link>
@@ -43,31 +40,43 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="互评" width="130px">
+        <el-table-column label="互评" width="100px">
           <template #default="scope">
-            <el-link type="primary" link @click="setEvaluation(scope)" v-show="role==='teacher'">互评设置</el-link>
-            <el-link type="primary" link @click="evaluateHomework(scope)" v-if="review[scope.row.index]===1" v-show="role==='student'">互评作业</el-link>
-            <el-link type="primary" link disabled v-else-if="review[scope.row.index]===0" v-show="role==='student'">互评尚未开始</el-link>
-            <el-link type="primary" link disabled @click="evaluateHomework(scope)" v-if="review[scope.row.index]===-1" v-show="role==='student'">互评已结束</el-link>
-            <el-link type="primary" link disabled v-else-if="review[scope.row.index]===-1" v-show="role==='student'">互评已结束</el-link>
+            <el-link type="primary" link @click="setEvaluation(scope)" v-if="role==='teacher'">互评设置</el-link>
+            <!--开始互评并且是学生-->
+            <el-link type="primary" link @click="evaluateHomework(scope)" v-if="review[scope.row.index]===1 && role==='student'">互评作业</el-link>
+            <!--互评尚未开始-->
+            <el-link type="primary" link disabled v-if="review[scope.row.index]===0 && role==='student'">尚未开始</el-link>
+            <!--互评已经结束-->
+            <el-link type="primary" link disabled v-if="review[scope.row.index]===-1 && role==='student'">已结束</el-link>
           </template>
         </el-table-column>
-        <el-table-column label="分数" width="200px">
+        <el-table-column label="答案" width="130px">
           <template #default="scope">
-            <el-link type="primary" link disabled v-if="review[scope.row.index]>=0" v-show="role==='student'">分数分布</el-link>
-            <el-link type="primary" link @click="showData(scope)" v-else-if="review[scope.row.index]===-1" v-show="role==='student'">分数分布</el-link>
-            <el-link type="primary" link @click="showData(scope)" v-show="role=='teacher'">分数分布</el-link>
-            <el-link type="primary" link style="margin-left: 10px" disabled v-if="review[scope.row.index]>=0" v-show="role==='student'">查看优秀作业</el-link>
-            <el-link type="primary" link style="margin-left: 10px" @click="showExcellent(scope)" v-else="review[scope.row.index]===-1" v-show="role==='student'">查看优秀作业</el-link>
-            <el-link type="primary" link style="margin-left: 10px" @click="showExcellent(scope)" v-show="role==='teacher'">查看优秀作业</el-link>
+            <el-link type="primary" link @click="submitAnswer(scope)" v-if="role==='teacher'">上传答案</el-link>
+            <el-link type="primary" link @click="viewAnswer(scope)" v-if="role==='student'">查看答案</el-link>
+          </template>
+        </el-table-column>
+        <el-table-column label="分数统计" width="100px">
+          <template #default="scope">
+            <el-link type="primary" link disabled v-if="review[scope.row.index]>=0 && role==='student'">正在互评</el-link>
+            <el-link type="primary" link @click="showData(scope)" v-if="review[scope.row.index]===-1 && role==='student'">分数分布</el-link>
+            <el-link type="primary" link @click="showData(scope)" v-if="role ==='teacher'">分数分布</el-link>
+          </template>
+        </el-table-column>
+        <el-table-column label="优秀作业" width="120px">
+          <template #default="scope">
+            <el-link type="primary" link disabled v-if="review[scope.row.index]>=0 && role==='student'">查看优秀作业</el-link>
+            <el-link type="primary" link @click="showExcellent(scope)" v-if="review[scope.row.index]===-1 && role==='student'">查看优秀作业</el-link>
+            <el-link type="primary" link @click="showExcellent(scope)" v-if="role==='teacher'">查看优秀作业</el-link>
           </template>
         </el-table-column>
         <el-table-column label="讨论区">
           <template #default="scope">
-            <el-link type="primary" v-show="scope.row.discussion === 1" link @click="goDiscussion(scope)">进入讨论区</el-link>
-            <el-link disabled type="primary" v-show="scope.row.discussion === 0 && role === 'student'" link @click="goDiscussion(scope)">教师未开启</el-link>
-            <el-link type="primary" v-show="scope.row.discussion === 0 && role === 'teacher'" link @click="openDiscussion(scope)">开设讨论区</el-link>
-            <el-link type="primary" v-show="scope.row.discussion === 1 && role === 'teacher'" style="margin-left: 10px" link @click="closeDiscussion(scope)">关闭讨论区</el-link>
+            <el-link type="primary" v-if="scope.row.discussion === 1" link @click="goDiscussion(scope)">进入讨论区</el-link>
+            <el-link disabled type="primary" v-if="scope.row.discussion === 0 && role === 'student'" link @click="goDiscussion(scope)">教师未开启</el-link>
+            <el-link type="primary" v-if="scope.row.discussion === 0 && role === 'teacher'" link @click="openDiscussion(scope)">开设讨论区</el-link>
+            <el-link type="primary" v-if="scope.row.discussion === 1 && role === 'teacher'" style="margin-left: 10px" link @click="closeDiscussion(scope)">关闭讨论区</el-link>
           </template>
         </el-table-column>
       </el-table-column>
@@ -92,10 +101,9 @@ import {ElMessage, ElMessageBox} from "element-plus";
 import {mapState} from "vuex";
 import Cookie from "js-cookie";
 import AddExcellent from "../Teacher/addExcellent.vue";
-import Loading from "../../Base/loading.vue";
 
 export default {
-  components: {Loading, AddExcellent, PageHeader},
+  components: {AddExcellent, PageHeader},
   data() {
     return {
       head: "作业列表",
@@ -116,10 +124,10 @@ export default {
   },
   // 展示作业
   created() {
-    this.getdata()
+    this.getData()
   },
   methods: {
-    getdata(){
+    getData(){
       this.page.classID=this.courseNumber;
       if(this.role==='teacher') {
         api.getHomeworkList(this.page).then(res => {
@@ -178,7 +186,7 @@ export default {
               confirmButtonText: 'OK',
               callback: action => {
                 if (action === 'confirm') {
-                  // TODO：？？？上面没写
+                  this.getdata()
                   this.search()
                 }
               }
@@ -280,10 +288,25 @@ export default {
           ElMessage.success("关闭成功");
         }
       })
-    }
+    },
+    // 上传答案
+    submitAnswer(scope) {
+      this.$store.commit('setHomeworkNumber', scope.row.id);
+      this.$router.push("/submitAnswer");
+    },
+    // 查看答案
+    viewAnswer(scope) {
+      this.$store.commit('setHomeworkNumber', scope.row.id);
+      this.$router.push("/viewAnswer");
+    },
+    compareStart(index){
+      const now = new Date()
+      const start = new Date(this.tableData[index].start)
+      return now>start
+    },
   },
   computed: {
-    ...mapState(['courseNumber', 'role', 'homeworkNumber'])
+    ...mapState(['courseNumber', 'role', 'homeworkNumber']),
   }
 }
 </script>
