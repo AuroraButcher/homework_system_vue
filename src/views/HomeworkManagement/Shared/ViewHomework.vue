@@ -8,7 +8,11 @@
       <el-button type="primary" style="margin-left: 10px" @click="search(this.homeworkName)">搜索</el-button>
       <el-button type="primary" style="margin-left: 10px" @click="addHomework()" v-show="role==='teacher'">添加作业</el-button>
     </div>
-    <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
+    <div class="loading" v-show="this.tableData===null">
+      <loading/>
+      <h1>加载中...</h1>
+    </div>
+    <el-table v-show="this.tableData!==null" :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="50px"></el-table-column>
       <el-table-column label="编号" prop="id" width="50px" v-if="false"></el-table-column>
       <el-table-column label="作业名称" prop="name" width="150px">
@@ -91,28 +95,16 @@ import {ElMessage, ElMessageBox} from "element-plus";
 import {mapState} from "vuex";
 import Cookie from "js-cookie";
 import AddExcellent from "../Teacher/addExcellent.vue";
+import Loading from "../../Base/loading.vue";
 
 export default {
-  components: {AddExcellent, PageHeader},
+  components: {Loading, AddExcellent, PageHeader},
   data() {
     return {
       head: "作业列表",
       homeworkName: '',
       key: 1,
-      tableData: [
-        {
-          "id": null,
-          "classId": null,
-          "start": null,
-          "end": null,
-          "content": null,
-          "resubmit": null,
-          "fileName": null,
-          "name": null,
-          "score": null,
-          "discussion": null,
-        }
-      ],
+      tableData: null,
       page: {
         classID: '',
         pageNo: 1,
@@ -127,31 +119,34 @@ export default {
   },
   // 展示作业
   created() {
-    this.page.classID=this.courseNumber;
-    if(this.role==='teacher') {
-      api.getHomeworkList(this.page).then(res => {
-        if (res.data.code === 20000) {
-          this.page.total = res.data.data.homeworkInfo.total;
-          this.tableData = res.data.data.homeworkInfo.records;
-        } else {
-          console.log("查看作业列表失败");
-        }
-      })
-    }else {
-      api.stuViewHomework(this.page).then(res=>{
-        if (res.data.code === 20000) {
-          //设置表数据
-          this.tableData = res.data.data.homeworkInfo;
-          this.submit = res.data.data.isSubmitted;
-          this.timeValid = res.data.data.timeValid;
-          this.review = res.data.data.review;
-        } else {
-          ElMessage.error(res.data.message);
-        }
-      })
-    }
+    this.getdata()
   },
   methods: {
+    getdata(){
+      this.page.classID=this.courseNumber;
+      if(this.role==='teacher') {
+        api.getHomeworkList(this.page).then(res => {
+          if (res.data.code === 20000) {
+            this.page.total = res.data.data.homeworkInfo.total;
+            this.tableData = res.data.data.homeworkInfo.records;
+          } else {
+            console.log("查看作业列表失败");
+          }
+        })
+      }else {
+        api.stuViewHomework(this.page).then(res=>{
+          if (res.data.code === 20000) {
+            //设置表数据
+            this.tableData = res.data.data.homeworkInfo;
+            this.submit = res.data.data.isSubmitted;
+            this.timeValid = res.data.data.timeValid;
+            this.review = res.data.data.review;
+          } else {
+            ElMessage.error(res.data.message);
+          }
+        })
+      }
+    },
     // 添加作业
     addHomework(){
       this.$router.push('/teaAssignHomework');
@@ -297,5 +292,10 @@ export default {
 </script>
 
 <style scoped>
-
+  .loading{
+    position:absolute;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+  }
 </style>

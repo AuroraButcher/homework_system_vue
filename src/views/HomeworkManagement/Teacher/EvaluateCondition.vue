@@ -10,8 +10,9 @@
       <!--学生作业id-->
       <el-table-column label="ID" prop="id" width="80px" v-if="false"></el-table-column>
       <el-table-column label="学生学号" prop="studentNumber" width="120px"></el-table-column>
-      <el-table-column label="分数" prop="score" width="100px"></el-table-column>
       <el-table-column label="提交时间" prop="date" width="200px"></el-table-column>
+      <el-table-column label="老师评分" prop="teaScore" width="100px"></el-table-column>
+      <el-table-column label="最后得分" prop="score" width="100px"></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link @click="showDetailInfo(scope)">批改</el-link>
@@ -22,6 +23,7 @@
       </el-table-column>
     </el-table>
     <el-button type="primary" @click="remind" style="margin-top: 10px">一键催交</el-button>
+    <el-button type="primary" @click="createGrade" style="margin-top: 10px">生成最终得分</el-button>
   </el-card>
 </template>
 
@@ -70,6 +72,17 @@ export default {
         if (res.data.code === 20000) {
           this.tableData = res.data.data.homeworkInfo.records;
           this.ex=res.data.data.excellent
+          for(let i=0;i<this.tableData.length;i++){
+            api.teaGetGrade({homeworkId: this.tableData[i].id}).then(res1=>{
+              if(res1.data.code===20000){
+                this.tableData[i].teaScore=res1.data.data.info.score
+              }else if(res1.data.code===20001){
+                ElMessage.error(res1.data.message);
+              } else {
+                ElMessage.error("加载评分失败");
+              }
+            })
+          }
         }
       })
     }
@@ -115,6 +128,20 @@ export default {
           ElMessage.success('提醒成功')
         }else {
           ElMessage.error('出现错误')
+        }
+      })
+    },
+    //SABTXT
+    createGrade(){
+      api.sabtxtScore(this.homeworkNumber).then(res=>{
+        if(res.data.code===20000){
+          if(res.data.data.error){
+            this.content=res.data.data.error
+          }else {
+            ElMessage.success('分数生成成功')
+          }
+        }else {
+          ElMessage.error('分数生成失败')
         }
       })
     }

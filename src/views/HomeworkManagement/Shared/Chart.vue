@@ -3,8 +3,9 @@
     <template #header>
       <page-header :component="head"/>
     </template>
+    <h1>{{content}}</h1>
     <!--统计板-->
-    <div>
+    <div >
       <el-row style="text-align: center;">
         <el-col :span="6">
           <el-statistic title="应交人数" :value="num.current"/>
@@ -38,12 +39,14 @@ import PageHeader from "../../Base/PageHeader.vue";
 import {Male} from "@element-plus/icons-vue";
 import {mapState} from "vuex";
 import api from "../../../api";
+import {ElMessage} from "element-plus";
 
 export default {
   components: {Male, PageHeader},
   data() {
     return {
       head: "分数分布",
+      content:'加载中',
       scoreDistribution: {
         one: null,
         two: null,
@@ -56,9 +59,11 @@ export default {
         current: null,
       }
     }
+    this.sabtxt();
+    this.getData();
   },
   mounted() {
-    this.getData();
+
   },
   methods: {
     // 从后端获取数据
@@ -135,10 +140,26 @@ export default {
       window.addEventListener("resize", () => {
         myChart.resize();
       });
+    },
+    //SABTXT评分法
+    sabtxt(){
+      if(this.homeworkNumber!==null){
+        api.sabtxtScore(this.homeworkNumber).then(res=>{
+          if(res.data.code===20000){
+            if(res.data.data.error){
+              this.content=res.data.data.error
+            }else {
+              this.content='分数生成成功'
+            }
+          }else {
+            ElMessage.error(res.data.message)
+          }
+        })
+      }
     }
   },
   computed: {
-    ...mapState(['homeworkNumber'])
+    ...mapState(['homeworkNumber','role'])
   }
 }
 </script>

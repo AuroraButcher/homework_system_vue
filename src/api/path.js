@@ -81,6 +81,8 @@ const base = {
     getEvaluation: '/score/getReviewInfo',
     //下载学生附件
     downloadStudentFile: '/homework/downloadStudent',
+    //SABTXT评分
+    sabtxtScore:'/score/sabtxt',
 
 //-------------------------------------------导入-------------------------------------------------------------------------
     //批量导入教师
@@ -137,5 +139,9 @@ const base = {
     addDiscussion: '/discussion/add',
     // 删除评论
     deleteDiscussion: '/discussion/delete',
+    //------------答案-------------
+    //添加答案
+    teaAddAnswer:'/answer/addAnswer',
+    //
 }
 export default base

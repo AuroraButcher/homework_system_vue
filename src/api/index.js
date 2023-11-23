@@ -559,5 +559,14 @@ const api = {
             }
         })
     },
+    //SABTXT评分
+    sabtxtScore(id){
+        return axios.post(path.baseUrl + path.sabtxtScore,null,{
+            params:{
+                homeworkId:id
+            }
+        })
+    },
+
 }
 export default api

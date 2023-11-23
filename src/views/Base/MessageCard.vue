@@ -14,6 +14,13 @@
       <el-divider/>
     </li>
   </ul>
+  <!--页码-->
+  <el-pagination
+      v-model:current-page="page.pageNo"
+      v-model:page-size="page.pageSize"
+      :total="page.total"
+      @current-change="handlePageChange"
+      :hide-on-single-page="false"/>
 </template>
 
 <script>
@@ -38,7 +45,8 @@ export default {
       page:{
         studentNumber:Cookie.get('number'),
         pageNo:1,
-        pageSize:10,
+        pageSize:7,
+        total:1,
       },
       defaultProps:{
         children: 'children',
@@ -47,15 +55,7 @@ export default {
     }
   },
   created() {
-    if(this.role==='student'){
-      api.getStuMessage(this.page).then(res=>{
-        if(res.data.code===20000){
-          this.data=res.data.data.list.records
-        }else {
-          ElMessage.error('加载失败')
-        }
-      })
-    }
+    this.handlePageChange()
   },
   methods:{
     open(id){
@@ -80,16 +80,34 @@ export default {
           }
         })
       }
-    }
+    },
+    handlePageChange(){
+      if(this.role==='student'){
+        api.getStuMessage(this.page).then(res=>{
+          if(res.data.code===20000){
+            this.data=res.data.data.list.records
+            if(this.condition===0) {
+              this.page.total = res.data.data["未读"]
+            }else if(this.condition===1){
+              this.page.total = res.data.data.list.total-res.data.data["未读"]
+            }else {
+              this.page.total = res.data.data.list.total
+            }
+          }else {
+            ElMessage.error('加载失败')
+          }
+        })
+      }
+    },
   },
   computed:{
     ...mapState(['role']),
     filteredData() {
       if (this.condition === 0) {
-        return this.data.filter(item => item.isRead === 0);
+        return this.data.filter(item => item.isRead === 0);//未读 0
       } else if (this.condition === 1) {
-        return this.data.filter(item => item.isRead === 1);
-      } else {
+        return this.data.filter(item => item.isRead === 1);//已读 1
+      } else {//全部 2
         return this.data;
       }
     },
