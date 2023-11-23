@@ -249,6 +249,16 @@ const api = {
             }
         })
     },
+    // 删除作业附件
+    deleteFiles(formData){
+        return axios.post(path.baseUrl + path.deleteFiles, null, {
+            params: {
+                id: formData.id,
+                classID: formData.classID,
+                fileName: formData.deleteFileName,
+            }
+        })
+    },
     //学生上传附件
     stuHomeworkFile(tableData) {
         return axios.post(path.baseUrl + path.stuHomeworkFile, tableData);

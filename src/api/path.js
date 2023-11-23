@@ -57,6 +57,8 @@ const base = {
     getStuHomework: '/homework/getStudentHWInfo',
     // 下载作业附件
     downloadFiles: '/homework/download',
+    // 删除作业附件
+    deleteFiles: '/homework/deleteTeacherFile',
     //学生上传附件
     stuHomeworkFile: '/homework/submitFile',
     //获取互评作业名单
