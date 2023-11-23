@@ -3,7 +3,6 @@
     <el-avatar :size="100" src="../../src/assets/gif.gif"/>
     <h1>加载中...</h1>
   </div>
-
 </template>
 
 <script>

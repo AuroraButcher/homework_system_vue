@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       //角色
-      role: "administrator",
+      role: "student",
       //表单属性
       ruleForm: {
         number: "",

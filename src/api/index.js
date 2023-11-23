@@ -580,13 +580,41 @@ const api = {
         })
     },
     //SABTXT评分
-    sabtxtScore(id){
-        return axios.post(path.baseUrl + path.sabtxtScore,null,{
-            params:{
-                homeworkId:id
+    sabtxtScore(id) {
+        return axios.post(path.baseUrl + path.sabtxtScore, null, {
+            params: {
+                homeworkId: id
             }
         })
     },
-
+    // 上传答案
+    addAnswer(answerData) {
+        return axios.post(path.baseUrl + path.addAnswer, {
+            homeworkId: answerData.homeworkId,
+            content: answerData.content,
+        })
+    },
+    // 上传答案附件
+    addAnswerFile(answerFile) {
+        return axios.post(path.baseUrl + path.addAnswerFile, answerFile);
+    },
+    // 获得答案信息
+    getAnswer(homeworkId) {
+        return axios.post(path.baseUrl + path.getAnswer, null, {
+            params: {
+                homeworkId: homeworkId,
+            }
+        })
+    },
+    // 下载答案附件
+    downloadAnswerFiles(downloadAnswerFile) {
+        return axios.get(path.baseUrl + path.downloadAnswerFiles, {
+            params: {
+                classId: downloadAnswerFile.classId,
+                homeworkId: downloadAnswerFile.homeworkId,
+                fileName: downloadAnswerFile.fileName,
+            }
+        })
+    },
 }
 export default api

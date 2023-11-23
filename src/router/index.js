@@ -32,6 +32,8 @@ import ViewExcellent from "../views/HomeworkManagement/Shared/ViewExcellent.vue"
 import excellent from "../views/HomeworkManagement/Shared/Excellent.vue";
 import ShowCourseStudent from "../views/CourseManagement/Shared/ShowCourseStudent.vue";
 import DiscussionArea from "../views/DiscussionArea/DiscussionArea.vue";
+import SubmitAnswer from "../views/HomeworkManagement/Teacher/SubmitAnswer.vue";
+import ViewAnswer from "../views/HomeworkManagement/Shared/ViewAnswer.vue";
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -132,6 +134,12 @@ const routes = [
                 component: DiscussionArea,
                 name: 'discussion',
                 meta: {title: "讨论区"},
+            },
+            {
+                path: "/viewAnswer",
+                component: ViewAnswer,
+                name: 'viewAnswer',
+                meta: {title: "查看答案"},
             }
         ]
     },
@@ -231,7 +239,13 @@ const routes = [
                 component: DiscussionArea,
                 name: 'discussion',
                 meta: {title: "讨论区"},
-            }
+            },
+            {
+                path: "/submitAnswer",
+                component: SubmitAnswer,
+                name: 'submitAnswer',
+                meta: {title: "上传答案"},
+            },
         ]
     },
     // 管理员端

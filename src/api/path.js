@@ -143,5 +143,13 @@ const base = {
     addDiscussion: '/discussion/add',
     // 删除评论
     deleteDiscussion: '/discussion/delete',
+    // 上传答案
+    addAnswer: '/answer/addAnswer',
+    // 上传答案附件
+    addAnswerFile: '/answer/addFile',
+    // 获得答案信息
+    getAnswer: '/answer/get',
+    // 下载答案附件
+    downloadAnswerFiles: '/answer/download',
 }
 export default base
