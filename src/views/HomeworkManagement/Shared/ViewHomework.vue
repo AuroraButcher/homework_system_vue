@@ -21,7 +21,7 @@
         <el-table-column label="作业" width="100px" v-if="role==='teacher'">
           <template #default="scope">
             <el-link type="primary" link @click="changeHomework(scope)">修改</el-link>
-            <el-link type="primary" link style="margin-left: 10px" @click="deleteHomework(scope)">删除</el-link>
+            <el-link type="danger" link style="margin-left: 10px" @click="deleteHomework(scope)">删除</el-link>
           </template>
         </el-table-column>
         <el-table-column label="提交" width="100px">
@@ -46,37 +46,39 @@
             <!--开始互评并且是学生-->
             <el-link type="primary" link @click="evaluateHomework(scope)" v-if="review[scope.row.index]===1 && role==='student'">互评作业</el-link>
             <!--互评尚未开始-->
-            <el-link type="primary" link disabled v-if="review[scope.row.index]===0 && role==='student'">尚未开始</el-link>
+            <el-link type="info" link disabled v-if="review[scope.row.index]===0 && role==='student'">尚未开始</el-link>
             <!--互评已经结束-->
-            <el-link type="primary" link disabled v-if="review[scope.row.index]===-1 && role==='student'">已结束</el-link>
+            <el-link type="danger" link disabled v-if="review[scope.row.index]===-1 && role==='student'">已结束</el-link>
           </template>
         </el-table-column>
         <el-table-column label="答案" width="130px">
           <template #default="scope">
-            <el-link type="primary" link @click="submitAnswer(scope)" v-if="role==='teacher'">上传答案</el-link>
-            <el-link type="primary" link @click="viewAnswer(scope)" v-if="role==='student'">查看答案</el-link>
+            <el-link type="primary" link @click="submitAnswer(scope)" v-if="scope.row.answer===0 && role==='teacher'">上传答案</el-link>
+            <el-link type="success" link @click="viewAnswer(scope)" v-if="scope.row.answer===1 && role==='teacher'">查看答案</el-link>
+            <el-link type="info" link disabled v-if="scope.row.answer===0 && role==='student'">未上传</el-link>
+            <el-link type="success" link @click="viewAnswer(scope)" v-if="scope.row.answer===1 && role==='student'">查看答案</el-link>
           </template>
         </el-table-column>
         <el-table-column label="分数统计" width="100px">
           <template #default="scope">
-            <el-link type="primary" link disabled v-if="review[scope.row.index]>=0 && role==='student'">正在互评</el-link>
+            <el-link type="info" link disabled v-if="review[scope.row.index]>=0 && role==='student'">正在互评</el-link>
             <el-link type="primary" link @click="showData(scope)" v-if="review[scope.row.index]===-1 && role==='student'">分数分布</el-link>
             <el-link type="primary" link @click="showData(scope)" v-if="role ==='teacher'">分数分布</el-link>
           </template>
         </el-table-column>
         <el-table-column label="优秀作业" width="120px">
           <template #default="scope">
-            <el-link type="primary" link disabled v-if="review[scope.row.index]>=0 && role==='student'">查看优秀作业</el-link>
+            <el-link type="info" link disabled v-if="review[scope.row.index]>=0 && role==='student'">查看优秀作业</el-link>
             <el-link type="primary" link @click="showExcellent(scope)" v-if="review[scope.row.index]===-1 && role==='student'">查看优秀作业</el-link>
             <el-link type="primary" link @click="showExcellent(scope)" v-if="role==='teacher'">查看优秀作业</el-link>
           </template>
         </el-table-column>
         <el-table-column label="讨论区">
           <template #default="scope">
-            <el-link type="primary" v-if="scope.row.discussion === 1" link @click="goDiscussion(scope)">进入讨论区</el-link>
-            <el-link disabled type="primary" v-if="scope.row.discussion === 0 && role === 'student'" link @click="goDiscussion(scope)">教师未开启</el-link>
+            <el-link type="success" v-if="scope.row.discussion === 1" link @click="goDiscussion(scope)">进入讨论区</el-link>
+            <el-link disabled type="info" v-if="scope.row.discussion === 0 && role === 'student'" link @click="goDiscussion(scope)">教师未开启</el-link>
             <el-link type="primary" v-if="scope.row.discussion === 0 && role === 'teacher'" link @click="openDiscussion(scope)">开设讨论区</el-link>
-            <el-link type="primary" v-if="scope.row.discussion === 1 && role === 'teacher'" style="margin-left: 10px" link @click="closeDiscussion(scope)">关闭讨论区</el-link>
+            <el-link type="danger" v-if="scope.row.discussion === 1 && role === 'teacher'" style="margin-left: 10px" link @click="closeDiscussion(scope)">关闭讨论区</el-link>
           </template>
         </el-table-column>
       </el-table-column>
@@ -109,17 +111,31 @@ export default {
       head: "作业列表",
       homeworkName: '',
       key: 1,
-      tableData: null,
+      tableData: [
+        {
+          id: null,
+          classId: null,
+          start: null,
+          end: null,
+          content: null,
+          resubmit: null,
+          fileName: null,
+          name: null,
+          score: null,
+          discussion: null,
+          answer: null,
+        }
+      ],
       page: {
         classID: '',
         pageNo: 1,
         pageSize: 10,
         total: null,
-        studentID:Cookie.get('number'),
+        studentID: Cookie.get('number'),
       },
-      submit:[],
-      timeValid:[],
-      review:[],
+      submit: [],
+      timeValid: [],
+      review: [],
     }
   },
   // 展示作业
