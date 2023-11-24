@@ -122,9 +122,10 @@ export default {
       fileList:[],
       files: [],
       downloadData: {
-          id: null,
-          classID: null,
-          downloadFileName: null,
+        id: null,
+        classID: null,
+        downloadFileName: null,
+        score:null,
       },
       homeworkData: {
         id:Number,
@@ -217,6 +218,7 @@ export default {
       } else {
         this.homeworkData.classId = this.$store.state.courseNumber;
         this.homeworkData.content = this.contentEditor.getValue();
+        this.homeworkData.multiple=this.homeworkData.multiple?1:0;
         api.changeHomework(this.homeworkData).then(response => {
           if (response.data.code === 20000) {
             ElMessage.success("修改成功");
