@@ -62,7 +62,7 @@
         </el-table-column>
         <el-table-column label="分数统计" width="100px">
           <template #default="scope">
-            <el-link type="info" link disabled v-if="review[scope.row.index]>=0 && role==='student'">正在互评</el-link>
+            <el-link type="info" link disabled v-if="review[scope.row.index]>=0 && role==='student'">尚未统计</el-link>
             <el-link type="primary" link @click="showData(scope)" v-if="review[scope.row.index]===-1 && role==='student'">分数分布</el-link>
             <el-link type="primary" link @click="showData(scope)" v-if="role ==='teacher'">分数分布</el-link>
           </template>
