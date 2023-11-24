@@ -162,6 +162,7 @@ export default {
         if(this.role==='student'){
           api.stuEvaluateGrade({id:this.index,grade:this.grade}).then(res=>{
             if(res.data.code===20000){
+              this.isGrade=true
               ElMessage.success("提交成功");
             }else {
               ElMessage.error("提交失败");
