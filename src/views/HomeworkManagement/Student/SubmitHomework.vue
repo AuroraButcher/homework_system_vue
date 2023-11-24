@@ -16,7 +16,7 @@
                 <a @click="download(item)">{{ item }}</a>
               </el-button>
               <el-button type="danger" link>
-                <a @click="deleteFile(item, homeworkStudentId)">删除</a>
+                <a @click="deleteFile(item, this.homeworkStudentId)">删除</a>
               <!-- <i class="el-icon-close"></i> -->
               </el-button>
             </li>
@@ -234,6 +234,7 @@ export default {
         })
       },
     deleteFile(item, homeworkStudentId) {
+      console.log(homeworkStudentId);
       this.deleteData.id = homeworkStudentId;
       this.deleteData.homeworkID = this.$store.state.homeworkNumber;
       this.deleteData.classID = this.$store.state.courseNumber;
