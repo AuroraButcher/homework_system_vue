@@ -330,6 +330,15 @@ const api = {
             studentRate: setData.stuPercent,
         })
     },
+    //修改互评信息
+    changeEvaluation(setData) {
+        return axios.post(path.baseUrl + path.changeEvaluation, {
+            start: setData.time[0],
+            end: setData.time[1],
+            homeworkId: setData.homeworkId,
+            studentRate: setData.stuPercent,
+        })
+    },
     //获得互评设置信息
     getEvaluation(setData) {
         return axios.get(path.baseUrl + path.getEvaluation, {

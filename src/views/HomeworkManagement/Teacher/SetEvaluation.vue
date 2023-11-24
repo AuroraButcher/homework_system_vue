@@ -42,7 +42,8 @@
         <span style="margin-left: 100px">教师打分占比： {{ setData.teacherPercent }} %</span>
       </el-descriptions-item>
     </el-descriptions>
-    <el-button type="primary" style="margin-top: 10px" @click="setEvaluation">设置</el-button>
+    <el-button type="primary" v-if="this.changeReview===0" style="margin-top: 10px" @click="setEvaluation">设置</el-button>
+    <el-button type="primary" v-else="this.changeReview===1" style="margin-top: 10px" @click="changeEvaluation">设置</el-button>
   </el-card>
 </template>
 
@@ -58,6 +59,7 @@ export default {
   data() {
     return {
       head: "作业互评设置",
+      changeReview: 0,
       setData: {
         /*numOfEvaluation: null,
         anonymous: false,*/
@@ -76,13 +78,24 @@ export default {
     },
     // 进行互评设置
     setEvaluation() {
-      this.setData.stuPercent = this.setData.stuPercent / 100;
+      this.setData.stuPercent = this.setData.studentPercent / 100;
       this.setData.homeworkId = this.homeworkNumber;
       api.setEvaluation(this.setData).then(res => {
         if (res.data.code === 20000) {
           ElMessage.success("设置成功");
         } else {
           ElMessage.error("设置失败");
+        }
+      })
+    },
+    changeEvaluation() {
+      this.setData.stuPercent = this.setData.studentPercent / 100;
+      this.setData.homeworkId = this.homeworkNumber;
+      api.changeEvaluation(this.setData).then(res => {
+        if (res.data.code === 20000) {
+          ElMessage.success("修改成功");
+        } else {
+          ElMessage.error("修改失败");
         }
       })
     }
@@ -94,7 +107,11 @@ export default {
     this.setData.homeworkId = this.homeworkNumber;
     api.getEvaluation(this.setData.homeworkId).then(res => {
       if(res.data.code === 20000){
-        console.log(res.data.data.review.studentRate)
+        if(res.data.data.review !== null)
+        {
+          console.log(1)
+          this.changeReview = 1;
+        }
         this.setData.studentPercent = res.data.data.review.studentRate*100;
         this.setData.teacherPercent = 100 - this.setData.studentPercent;
         this.setData.time=[res.data.data.review.start,res.data.data.review.end];
