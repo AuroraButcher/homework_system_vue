@@ -43,7 +43,7 @@
         <el-table-column label="互评" width="100px">
           <template #default="scope">
             <el-link type="primary" link @click="setEvaluation(scope)" v-if="role==='teacher' && compareEnd(scope.row.index)">互评设置</el-link>
-            <el-link type="primary" link disabled v-else="role==='teacher'">互评设置</el-link>
+            <el-link type="info" link disabled v-if="role==='teacher' && !compareEnd(scope.row.index)">互评设置</el-link>
             <!--开始互评并且是学生-->
             <el-link type="primary" link @click="evaluateHomework(scope)" v-if="review[scope.row.index]===1 && role==='student'">互评作业</el-link>
             <!--互评尚未开始-->
