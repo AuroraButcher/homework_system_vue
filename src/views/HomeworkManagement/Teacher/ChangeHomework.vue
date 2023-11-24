@@ -32,6 +32,20 @@
     <!--编辑器-->
     <div class="editor" id="vditor"></div>
     <div>
+      <el-divider content-position="left">作业附件</el-divider>
+          <ul v-for="(item,index) in files" :key="index">
+            <li>
+              <el-button type="success" link>
+                <a @click="download(item)">{{ item }}</a>
+              </el-button>
+              <el-button type="danger" link>
+                <a @click="deleteFile(item)">删除</a>
+              <!-- <i class="el-icon-close"></i> -->
+              </el-button>
+            </li>
+          </ul>
+    </div>
+    <div>
       <el-divider content-position="left">提交附件</el-divider>
       <el-upload action="/homework/addFile" :auto-upload="false" :file-list="fileList" :on-change="handleChange">
         <template #trigger>
@@ -88,6 +102,7 @@ export default {
       this.homeworkData.id=this.homeworkNumber;
       api.getHomeworkInfo(this.homeworkNumber).then(async res => {
         if (res.data.code === 20000) {
+          this.files = res.data.data.files
           this.homeworkData.title = res.data.data.info.name;
           this.resubmit=(res.data.data.info.resubmit === 1);
           this.homeworkData.multiple = (res.data.data.info.resubmit === 1) ;
@@ -105,6 +120,12 @@ export default {
       time: '',
       resubmit:false,
       fileList:[],
+      files: [],
+      downloadData: {
+          id: null,
+          classID: null,
+          downloadFileName: null,
+      },
       homeworkData: {
         id:Number,
         title: null,
@@ -113,6 +134,11 @@ export default {
         content: null,
         multiple: null,
       },
+      deleteData: {
+        classID: null,
+        deleteFileName: null,
+        id:null,
+      }
     }
   },
   mounted() {
@@ -199,6 +225,44 @@ export default {
           }
         });
       }
+    },
+    download(item) {
+        this.downloadData.id = this.$store.state.homeworkNumber;
+        this.downloadData.classID = this.$store.state.courseNumber;
+        this.downloadData.downloadFileName = item;
+        api.downloadFiles(this.downloadData).then(res => {
+          if (res.data.code === 20000) {
+            const url = res.data.data.url;
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', item);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            ElMessage.success("下载成功");
+          } else {
+            ElMessage.error("下载失败");
+          }
+        })
+      },
+      deleteFile(item) {
+      this.deleteData.id = this.$store.state.homeworkNumber;
+      this.deleteData.classID = this.$store.state.courseNumber;
+      this.deleteData.deleteFileName = item;
+      api.deleteFiles(this.deleteData).then(res => {
+        if (res.data.code === 20000) {
+          const url = res.data.data.url;
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('delete', item);
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          ElMessage.success("删除成功");
+        } else {
+          ElMessage.error("删除失败");
+        }
+      })
     },
   }
 }

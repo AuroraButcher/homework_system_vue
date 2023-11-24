@@ -57,6 +57,8 @@ const base = {
     getStuHomework: '/homework/getStudentHWInfo',
     // 下载作业附件
     downloadFiles: '/homework/download',
+    // 删除作业附件
+    deleteFiles: '/homework/deleteTeacherFile',
     //学生上传附件
     stuHomeworkFile: '/homework/submitFile',
     //获取互评作业名单
@@ -77,6 +79,8 @@ const base = {
     teaGetGrade: '/score/getTeacherScore',
     //互评相关设置
     setEvaluation: '/score/setReviewList',
+    //修改互评设置
+    changeEvaluation: '/score/modifyReview',
     //获得互评设置信息
     getEvaluation: '/score/getReviewInfo',
     //下载学生附件

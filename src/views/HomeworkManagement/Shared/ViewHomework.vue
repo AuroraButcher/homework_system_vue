@@ -42,7 +42,8 @@
         </el-table-column>
         <el-table-column label="互评" width="100px">
           <template #default="scope">
-            <el-link type="primary" link @click="setEvaluation(scope)" v-if="role==='teacher'">互评设置</el-link>
+            <el-link type="primary" link @click="setEvaluation(scope)" v-if="role==='teacher' && compareEnd(scope.row.index)">互评设置</el-link>
+            <el-link type="primary" link disabled v-else="role==='teacher'">互评设置</el-link>
             <!--开始互评并且是学生-->
             <el-link type="primary" link @click="evaluateHomework(scope)" v-if="review[scope.row.index]===1 && role==='student'">互评作业</el-link>
             <!--互评尚未开始-->
@@ -186,7 +187,7 @@ export default {
       this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push('/detailedHomework');
     },
-    //删除课程
+    //删除作业
     deleteHomework(scope) {
       ElMessageBox.confirm(
           '你确定你要删除吗?',
@@ -202,7 +203,7 @@ export default {
               confirmButtonText: 'OK',
               callback: action => {
                 if (action === 'confirm') {
-                  this.getdata()
+                  this.getData()
                   this.search()
                 }
               }
@@ -320,6 +321,11 @@ export default {
       const start = new Date(this.tableData[index].start)
       return now>start
     },
+    compareEnd(index) {
+      const now = new Date()
+      const end = new Date(this.tableData[index].end)
+      return now>end
+    }
   },
   computed: {
     ...mapState(['courseNumber', 'role', 'homeworkNumber']),

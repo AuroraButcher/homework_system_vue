@@ -249,6 +249,16 @@ const api = {
             }
         })
     },
+    // 删除作业附件
+    deleteFiles(formData){
+        return axios.post(path.baseUrl + path.deleteFiles, null, {
+            params: {
+                id: formData.id,
+                classID: formData.classID,
+                fileName: formData.deleteFileName,
+            }
+        })
+    },
     //学生上传附件
     stuHomeworkFile(tableData) {
         return axios.post(path.baseUrl + path.stuHomeworkFile, tableData);
@@ -314,6 +324,15 @@ const api = {
     //互评相关设置
     setEvaluation(setData) {
         return axios.post(path.baseUrl + path.setEvaluation, {
+            start: setData.time[0],
+            end: setData.time[1],
+            homeworkId: setData.homeworkId,
+            studentRate: setData.stuPercent,
+        })
+    },
+    //修改互评信息
+    changeEvaluation(setData) {
+        return axios.post(path.baseUrl + path.changeEvaluation, {
             start: setData.time[0],
             end: setData.time[1],
             homeworkId: setData.homeworkId,
