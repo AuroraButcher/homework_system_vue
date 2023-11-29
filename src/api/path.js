@@ -157,5 +157,7 @@ const base = {
     getAnswer: '/answer/get',
     // 下载答案附件
     downloadAnswerFiles: '/answer/download',
+//---------------代码--------------------
+    getCodeInfo: '/codeInfo/getInfo',
 }
 export default base

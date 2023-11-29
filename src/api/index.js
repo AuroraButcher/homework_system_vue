@@ -647,5 +647,13 @@ const api = {
             }
         })
     },
+    //获得题面信息
+    getCodeInfo(codeInfoId){
+        return axios.post(path.baseUrl + path.getCodeInfo, null, {
+            params: {
+                id:codeInfoId
+            }
+        })
+    }
 }
 export default api

@@ -137,6 +137,14 @@
           <span>查看选修课程</span>
         </el-menu-item>
       </el-sub-menu>
+      <el-menu-item class="el-menu-item" index="/viewCode">
+        <el-badge>
+          <el-icon style="font-size: 32px">
+            <bell/>
+          </el-icon>
+        </el-badge>
+        <span>代码评测</span>
+      </el-menu-item>
       <el-menu-item @click="drawer = true">
         <el-badge>
           <el-icon style="font-size: 32px">

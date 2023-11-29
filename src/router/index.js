@@ -34,6 +34,7 @@ import ShowCourseStudent from "../views/CourseManagement/Shared/ShowCourseStuden
 import DiscussionArea from "../views/DiscussionArea/DiscussionArea.vue";
 import SubmitAnswer from "../views/HomeworkManagement/Teacher/SubmitAnswer.vue";
 import ViewAnswer from "../views/HomeworkManagement/Shared/ViewAnswer.vue";
+import ViewCode from "../views/CodeManagement/Shared/DetailedCode.vue"
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -140,6 +141,13 @@ const routes = [
                 component: ViewAnswer,
                 name: 'viewAnswer',
                 meta: {title: "查看答案"},
+            },
+            //代码评测
+            {
+                path:"/viewCode",
+                component: ViewCode,
+                name: 'viewCode',
+                meta: {title: "代码"},
             }
         ]
     },

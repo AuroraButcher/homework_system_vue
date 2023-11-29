@@ -10,6 +10,8 @@ import 'element-plus/dist/index.css'
 // 引入使用vuex
 import store from './store'
 // 引入markdown
+import VueMathjax from 'vue-mathjax-next';
+import VueHighlightJS from 'vue-highlightjs'
 
 const app = createApp(App)
 //axios
@@ -20,6 +22,10 @@ app.use(router)
 app.use(ElementPlus)
 // vuex
 app.use(store)
+
+app.use(VueHighlightJS);
 // markdown
+
+app.use(VueMathjax)
 
 app.mount('#app')
