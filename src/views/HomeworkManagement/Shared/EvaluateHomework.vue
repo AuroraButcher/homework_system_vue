@@ -12,7 +12,7 @@
     <!--提交内容详情-->
     <el-divider content-position="left">学生提交内容</el-divider>
     <el-descriptions :column="2" border style="margin-top: 10px">
-      <el-descriptions-item label="学号:">{{ studentNumber }}</el-descriptions-item>
+      <el-descriptions-item label="学号:">{{this.role==='teacher'? studentNumber:'*****' }}</el-descriptions-item>
       <el-descriptions-item label="得分:">
         <div style="display: flex;">
           <el-input placeholder="输入分数"
@@ -48,9 +48,10 @@
         v-model="comment"
         placeholder="请输入评语"
         class="textarea"
+        :disabled="this.index === 2"
     >
     </el-input>
-    <el-button type="primary" style="margin-left: 10px" @click="checkComment">确定</el-button>
+    <el-button type="primary" style="margin-left: 10px" @click="checkComment" v-if="this.index!==2">确定</el-button>
   </el-card>
 </template>
 
@@ -75,8 +76,8 @@ export default {
         this.studentNumber=res.data.data.info.studentNumber;
         this.answer = await Vditor.md2html(res.data.data.info.answer);
         //TODO 老师获取自己评语
-        if(this.role==='student'){
-          api.stuGetComment({homeworkId: this.homeworkID, studentNumber: Cookie.get('number')})
+        if(this.role==='student'||this.index===2){
+          api.stuGetCommentById(this.scoreId)
               .then(res => {
                 if (res.data.code === 20000) {
                   this.comment = res.data.data.score.content
@@ -159,8 +160,8 @@ export default {
       } else {
         // 输入有效，进行相应的处理
         // 学生互评分数
-        if(this.role==='student'){
-          api.stuEvaluateGrade({id:this.index,grade:this.grade}).then(res=>{
+        if(this.role==='student'||this.index===2){
+          api.stuEvaluateGrade({id:this.scoreId,grade:this.grade}).then(res=>{
             if(res.data.code===20000){
               this.isGrade=true
               ElMessage.success("提交成功");
@@ -172,7 +173,7 @@ export default {
           let data={grade:this.grade,homeworkId:this.homeworkID}
           api.teaEvaluateGrade({grade:this.grade,homeworkId:this.homeworkID}).then(res=>{
             if(res.data.code===20000){
-              this.$store.commit('setIndex',res.data.data.score.id)
+              this.$store.commit('setScoreId',res.data.data.score.id)
               this.isGrade=true
               ElMessage.success("提交成功");
             }else {
@@ -191,7 +192,7 @@ export default {
         ElMessage.error("请先评分");
       }else {
         if (this.role === 'student') {
-          api.stuComment({id: this.index, comment: this.comment}).then(res => {
+          api.stuComment({id: this.scoreId, comment: this.comment}).then(res => {
             if (res.data.code === 20000) {
               ElMessage.success("提交成功");
             } else {
@@ -199,7 +200,7 @@ export default {
             }
           })
         } else if (this.role === 'teacher') {
-          api.teaComment({id: this.index, comment: this.comment})
+          api.teaComment({id: this.scoreId, comment: this.comment})
             .then(res => {
               if (res.data.code === 20000) {
                 ElMessage.success("提交成功");
@@ -212,7 +213,7 @@ export default {
     }
   },
   computed:{
-    ...mapState(['homeworkNumber','homeworkID','studentNumber','role','index','courseNumber'])
+    ...mapState(['homeworkNumber','homeworkID','studentNumber','role','index','courseNumber','scoreId'])
   }
 }
 </script>

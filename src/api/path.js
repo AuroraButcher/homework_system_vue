@@ -73,6 +73,8 @@ const base = {
     teaComment:'/score/teacherContent',
     //获取学生互评
     stuGetComment: '/score/getByHomework',
+    //获取学生互评Byid
+    stuGetCommentById: '/score/getById',
     //老师评分
     teaEvaluateGrade: '/score/teacherReview',
     //老师获取评分

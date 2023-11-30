@@ -13,6 +13,8 @@ const store = createStore({
         // 学生提交作业id
         homeworkID:null,
         studentNumber:null,
+        //互评id
+        scoreId:null,
         index:null,
 
         codeId: null,
@@ -60,6 +62,10 @@ const store = createStore({
         //查看提交记录id号
         setSubmissionId(state, value) {
             state.submissionId = value;
+        },
+        //设置互评id
+        setScoreId(state, value) {
+            state.scoreId = value;
         }
     },
     actions: {},

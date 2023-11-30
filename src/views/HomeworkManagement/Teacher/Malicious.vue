@@ -11,12 +11,17 @@
     <!--表格-->
     <el-table :data="tableData" border style="width:100%;" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="80px"></el-table-column>
+      <el-table-column label="互评id" prop="studentScoreId" width="100px"></el-table-column>
       <!--学生作业id-->
       <el-table-column label="学生作业id" prop="homeworkStudentId" width="80px" v-if="false"></el-table-column>
-      <el-table-column label="互评id" prop="id" width="80px" v-if="false"></el-table-column>
-      <el-table-column label="学生学号" prop="studentNumber" width="120px"></el-table-column>
-      <el-table-column label="评分日期" prop="date" width="200px"></el-table-column>
-      <el-table-column label="互评给分" prop="studentScoreId" width="100px"></el-table-column>
+      <el-table-column label="ID" prop="id" width="80px" v-if="false"></el-table-column>
+      <el-table-column label="批改人学号" prop="studentNumber" width="120px"></el-table-column>
+      <el-table-column label="互评分数" prop="score" width="120px"></el-table-column>
+      <el-table-column fixed="right" label="操作">
+        <template #default="scope">
+          <el-link type="primary" link @click="change(scope)">批改</el-link>
+        </template>
+      </el-table-column>
     </el-table>
     <!--页码-->
     <el-pagination
@@ -59,7 +64,7 @@ export default {
     this.getData()
   },
   computed: {
-    ...mapState(['homeworkNumber', 'courseNumber'])
+    ...mapState(['homeworkNumber', 'courseNumber']),
   },
   methods: {
     // 获取恶意评分列表
@@ -68,11 +73,12 @@ export default {
         if(res.data.code===20000){
           this.tableData=res.data.data.list.records
           this.page.total=res.data.data.list.total
-          if(this.tableData.length<=0){
-            ElMessage.error('尚未检测')
-          }else {
-            ElMessage.success('加载成功')
+          for(let i=0;i<this.tableData.length;i++){
+            api.stuGetCommentById(this.tableData[i].studentScoreId).then(res=>{
+              this.tableData[i].score=res.data.data.score.score
+            })
           }
+          ElMessage.success('加载成功')
         }else {
           ElMessage.error('加载失败')
         }
@@ -96,6 +102,11 @@ export default {
     rowClassName({row, rowIndex}) {
       //把每一行的索引放进row
       row.index = rowIndex;
+    },
+    change(scope){
+      this.$store.commit('setIndex',2)
+      this.$store.commit('setScoreId',scope.row.studentScoreId)
+      this.$router.push('/detailSubmitHomework');
     },
   }
 }

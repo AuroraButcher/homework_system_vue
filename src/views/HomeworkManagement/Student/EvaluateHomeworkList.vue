@@ -80,7 +80,7 @@ export default {
   },
   methods:{
     checkHomework(scope){
-      this.$store.commit('setIndex',scope.row.evaluateId)
+      this.$store.commit('setScoreId',scope.row.evaluateId)
       this.$store.commit('setHomeworkID',scope.row.id)
       this.$router.push('/detailSubmitHomework');
     }

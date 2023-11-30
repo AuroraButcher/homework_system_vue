@@ -321,6 +321,14 @@ const api = {
             }
         })
     },
+    //获取学生互评
+    stuGetCommentById(id) {
+        return axios.get(path.baseUrl + path.stuGetCommentById, {
+            params: {
+                id:id//互评id
+            }
+        })
+    },
     //互评相关设置
     setEvaluation(setData) {
         return axios.post(path.baseUrl + path.setEvaluation, {

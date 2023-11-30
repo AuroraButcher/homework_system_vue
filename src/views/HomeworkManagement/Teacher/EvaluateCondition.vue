@@ -97,6 +97,7 @@ export default {
     showDetailInfo(scope) {
       this.$store.commit('setHomeworkID', scope.row.id);
       this.$store.commit('setStudentNumber', scope.row.studentNumber);
+      this.$store.commit('setIndex',1)
       this.$router.push('/detailSubmitHomework');
     },
     // 处理页数改变
