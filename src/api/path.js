@@ -159,5 +159,9 @@ const base = {
     downloadAnswerFiles: '/answer/download',
 //---------------代码--------------------
     getCodeInfo: '/codeInfo/getInfo',
+    getCodeListForStudent: '/codeInfo/listForStudent',
+    getSubmitListForStudent: '/submission/getListForStudent',
+    getSubmitDetail: '/submission/getInfo',
+    submitCode: '/code/submit',
 }
 export default base

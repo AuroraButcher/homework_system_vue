@@ -35,6 +35,9 @@ import DiscussionArea from "../views/DiscussionArea/DiscussionArea.vue";
 import SubmitAnswer from "../views/HomeworkManagement/Teacher/SubmitAnswer.vue";
 import ViewAnswer from "../views/HomeworkManagement/Shared/ViewAnswer.vue";
 import ViewCode from "../views/CodeManagement/Shared/DetailedCode.vue"
+import CodeList from "../views/CodeManagement/Shared/ViewCode.vue"
+import submissionList from "../views/CodeManagement/Shared/SubmitList.vue"
+import submissionDetail from "../views/CodeManagement/Shared/SubmitDetail.vue"
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -142,12 +145,33 @@ const routes = [
                 name: 'viewAnswer',
                 meta: {title: "查看答案"},
             },
-            //代码评测
+            //题面
             {
                 path:"/viewCode",
                 component: ViewCode,
                 name: 'viewCode',
                 meta: {title: "代码"},
+            },
+            //代码列表
+            {
+                path:"/codeList",
+                component: CodeList,
+                name:'codeList',
+                meta: {title: '题目列表'},
+            },
+            //提交列表
+            {
+                path:"/submissionList",
+                component: submissionList,
+                name:"submissionList",
+                meta: {title: '提交记录'}
+            },
+            //详情
+            {
+                path:'/submissionDetail',
+                component: submissionDetail,
+                name:"submissionDetail",
+                meta:{title:'提交详情'}
             }
         ]
     },

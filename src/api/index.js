@@ -654,6 +654,50 @@ const api = {
                 id:codeInfoId
             }
         })
+    },
+    //获得题目列表
+    getCodeListForStudent(codeInfo){
+        return axios.get(path.baseUrl + path.getCodeListForStudent, null, {
+            params: {
+                pageNo:codeInfo.pageNo,
+                pageSize:codeInfo.pageSize,
+            }
+        })
+    },
+    getSubmitCodeInfo(codeInfo){
+        return axios.get(path.baseUrl + path.getCodeListForStudent, null, {
+            params: {
+                pageNo:codeInfo.pageNo,
+                pageSize:codeInfo.pageSize,
+            }
+        })
+    },
+    //获得指定题目的提交列表（学生）
+    getSubmitListForStudent(codeInfo){
+        return axios.get(path.baseUrl + path.getSubmitListForStudent,{
+            params: {
+                studentNumber : codeInfo.studentNumber,
+                codeInfoId: codeInfo.codeInfoId,
+                pageNo:codeInfo.pageNo,
+                pageSize:codeInfo.pageSize
+            }
+        })
+    },
+    //获得提交的详情
+    getSubmitDetail(codeInfo){
+        return axios.get(path.baseUrl + path.getSubmitDetail,{
+            params: {
+                id: codeInfo,
+            }
+        })
+    },
+    //提交评测代码
+    submitCode(studentNumber, content, codeInfoId){
+        return axios.post(path.baseUrl + path.submitCode,{
+                studentNumber : studentNumber,
+                content : content,
+                codeInfoId : codeInfoId,
+        })
     }
 }
 export default api

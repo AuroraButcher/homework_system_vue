@@ -14,6 +14,9 @@ const store = createStore({
         homeworkID:null,
         studentNumber:null,
         index:null,
+
+        codeId: null,
+        submissionId: null,
     },
     getters: {},
     // 进行修改
@@ -50,6 +53,14 @@ const store = createStore({
         setStudentNumber(state, value) {
             state.studentNumber = value;
         },
+        //查看代码作业的id号
+        setCodeId(state, value) {
+            state.codeId = value;
+        },
+        //查看提交记录id号
+        setSubmissionId(state, value) {
+            state.submissionId = value;
+        }
     },
     actions: {},
     modules: {},

@@ -137,7 +137,7 @@
           <span>查看选修课程</span>
         </el-menu-item>
       </el-sub-menu>
-      <el-menu-item class="el-menu-item" index="/viewCode">
+      <el-menu-item class="el-menu-item" index="/CodeList">
         <el-badge>
           <el-icon style="font-size: 32px">
             <bell/>
