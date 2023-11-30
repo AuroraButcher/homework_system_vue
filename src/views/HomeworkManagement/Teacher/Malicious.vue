@@ -48,7 +48,7 @@ export default {
     return {
       head: '恶意评分检测',
       key: 1,
-      bias:0.01,
+      bias:1,
       tableData: [
       ],
       page:{
@@ -61,7 +61,7 @@ export default {
   },
   created() {
     this.page.homeworkNumber=this.homeworkNumber
-    this.getData()
+    this.zScore()
   },
   computed: {
     ...mapState(['homeworkNumber', 'courseNumber']),
