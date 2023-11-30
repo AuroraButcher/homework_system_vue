@@ -53,8 +53,8 @@
         <!--横线-->
         <hr style="margin-top: 10px">
         <!--页码-->
-        <el-pagination v-model:current-page="page.currentPage" v-model:page-size="page.pageSize" :total="page.total"
-            @current-change="handlePageChange" :hide-on-single-page="false" />
+        <el-pagination v-model:current-page="page.pageNo" v-model:page-size="page.pageSize" :total="page.total"
+            @current-change="handlePageChange()" :hide-on-single-page="false" />
     </el-card>
 </template>
   
@@ -132,7 +132,19 @@ export default {
         showDetailedSubmission(scope) {
             this.$store.commit('setSubmissionId', scope.row.id);
             this.$router.push('/submissionDetail');
-        }
+        },
+        handlePageChange() {
+            this.page.codeInfoId = this.codeId;
+            this.page.studentNumber = Cookies.get('number');
+            api.getSubmitListForStudent(this.page).then(response => {
+                if (response.data.code === 20000) {
+                    this.page.total = response.data.data.list.total;
+                    this.tableData = response.data.data.list.records;
+                } else {
+                    ElMessage.error(response.data.message);
+                }
+            })
+        },
     },
     computed: {
         ...mapState(['role', 'courseNumber', 'codeId'])
