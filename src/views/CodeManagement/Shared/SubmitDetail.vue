@@ -6,16 +6,29 @@
         <div v-if="status === 'WRONG_ANSWER'">
             <h4>输入</h4>
             <pre v-highlightjs><code class="javascript">{{ inputCase }}</code></pre>
+            <hr>
             <h4>期望的输出</h4>
             <pre v-highlightjs><code class="javascript">{{ outputCase }}</code></pre>
+            <hr>
             <h4>实际输出</h4>
             <pre v-highlightjs><code class="javascript">{{ userOutput }}</code></pre>
         </div>
         <div v-else-if="status === 'ACCEPTED'">
             <h3>恭喜通过此题</h3>
         </div>
+        <div v-else-if="status === 'COMPILE_ERROR'">
+            <h3>编译错误!</h3>
+        </div>
+        <div v-else-if="status === 'TIME_LIMIT_EXCEEDED'">
+            <h3>时间超限！</h3>
+        </div>
+        <div v-else-if="status === 'MEMORY_LIMIT_EXCEEDED'">
+            <h3>内存超限！</h3>
+        </div>
         <!-- <vue-mathjax :famula="content"></vue-mathjax> -->
 
+        <hr>
+        <h4>提交代码</h4>
         <VAceEditor v-model:value="content" @init="editorInit" :options="editorOptions" lang="c_cpp" theme="textmate"
             style="width: 90%; height: 500px; font-size: 16px !important;" />
 

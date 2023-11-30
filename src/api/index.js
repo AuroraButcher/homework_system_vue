@@ -684,9 +684,9 @@ const api = {
     },
     //获得题目列表
     getCodeListForStudent(codeInfo){
-        return axios.get(path.baseUrl + path.getCodeListForStudent, null, {
+        return axios.get(path.baseUrl + path.getCodeListForStudent,  {
             params: {
-                pageNo:codeInfo.pageNo,
+                pageNo:codeInfo.currentPage,
                 pageSize:codeInfo.pageSize,
             }
         })
