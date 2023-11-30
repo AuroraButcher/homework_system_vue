@@ -40,9 +40,10 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="互评" width="100px">
+        <el-table-column label="互评" width="140px">
           <template #default="scope">
             <el-link type="primary" link @click="setEvaluation(scope)" v-if="role==='teacher' && compareEnd(scope.row.index)">互评设置</el-link>
+            <el-link type="primary" link @click="malicious(scope)" v-if="role==='teacher' && compareEnd(scope.row.index)">恶意评分检测</el-link>
             <el-link type="info" link disabled v-if="role==='teacher' && !compareEnd(scope.row.index)">互评设置</el-link>
             <!--开始互评并且是学生-->
             <el-link type="primary" link @click="evaluateHomework(scope)" v-if="review[scope.row.index]===1 && role==='student'">互评作业</el-link>
@@ -52,7 +53,7 @@
             <el-link type="danger" link disabled v-if="review[scope.row.index]===-1 && role==='student'">已结束</el-link>
           </template>
         </el-table-column>
-        <el-table-column label="答案" width="130px">
+        <el-table-column label="答案" width="100px">
           <template #default="scope">
             <el-link type="primary" link @click="submitAnswer(scope)" v-if="scope.row.answer===0 && role==='teacher'">上传答案</el-link>
             <el-link type="success" link @click="viewAnswer(scope)" v-if="scope.row.answer===1 && role==='teacher'">查看答案</el-link>
@@ -325,7 +326,12 @@ export default {
       const now = new Date()
       const end = new Date(this.tableData[index].end)
       return now>end
-    }
+    },
+    //恶意评分检测
+    malicious(scope){
+      this.$store.commit('setHomeworkNumber', scope.row.id);
+      this.$router.push("/malicious");
+    },
   },
   computed: {
     ...mapState(['courseNumber', 'role', 'homeworkNumber']),

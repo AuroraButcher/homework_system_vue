@@ -163,5 +163,11 @@ const base = {
     getSubmitListForStudent: '/submission/getListForStudent',
     getSubmitDetail: '/submission/getInfo',
     submitCode: '/code/submit',
+    //-------------恶意监测-------------
+    //获取恶意评分列表
+    getMalicious:'/malicious/getList',
+    //恶意评分监测
+    zScore:'/malicious/zScore',
+
 }
 export default base

@@ -647,6 +647,25 @@ const api = {
             }
         })
     },
+    //恶意评分检测
+    zScore(data){
+        return axios.post(path.baseUrl+path.zScore,null,{
+            params:{
+                homeworkId:data.homeworkNumber,
+                bias:data.bias
+            }
+        })
+    },
+    //查询恶意评分列表
+    getMalicious(data){
+        return axios.get(path.baseUrl + path.getMalicious,{
+            params:{
+                homeworkId:data.homeworkNumber,
+                pageNo:data.pageNo,
+                pageSize:data.pageSize
+            }
+        })
+    },
     //获得题面信息
     getCodeInfo(codeInfoId){
         return axios.post(path.baseUrl + path.getCodeInfo, null, {
