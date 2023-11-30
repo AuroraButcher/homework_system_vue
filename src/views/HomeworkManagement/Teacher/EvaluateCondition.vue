@@ -84,6 +84,8 @@ export default {
             })
           }
         }
+      }).catch(res=>{
+        ElMessage.error()
       })
     }
   },
@@ -136,7 +138,7 @@ export default {
       api.sabtxtScore(this.homeworkNumber).then(res=>{
         if(res.data.code===20000){
           if(res.data.data.error){
-            this.content=res.data.data.error
+            ElMessage.error(res.data.data.error)
           }else {
             ElMessage.success('分数生成成功')
           }

@@ -35,6 +35,7 @@ import DiscussionArea from "../views/DiscussionArea/DiscussionArea.vue";
 import SubmitAnswer from "../views/HomeworkManagement/Teacher/SubmitAnswer.vue";
 import ViewAnswer from "../views/HomeworkManagement/Shared/ViewAnswer.vue";
 import ViewCode from "../views/CodeManagement/Shared/DetailedCode.vue"
+import Malicious from "../views/HomeworkManagement/Teacher/Malicious.vue";
 import CodeList from "../views/CodeManagement/Shared/ViewCode.vue"
 import submissionList from "../views/CodeManagement/Shared/SubmitList.vue"
 import submissionDetail from "../views/CodeManagement/Shared/SubmitDetail.vue"
@@ -278,6 +279,12 @@ const routes = [
                 name: 'submitAnswer',
                 meta: {title: "上传答案"},
             },
+            //恶意评分检测
+            {
+                path: "/malicious",
+                component: Malicious,
+                name:"malicious",
+            }
         ]
     },
     // 管理员端
