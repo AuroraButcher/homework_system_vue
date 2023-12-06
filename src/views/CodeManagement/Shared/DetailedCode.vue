@@ -34,8 +34,6 @@ import { VAceEditor } from 'vue3-ace-editor';
 import ace from 'ace-builds';
 import Cookies from "js-cookie";
 
-
-
 export default {
   setup() {
     ace.config.set(

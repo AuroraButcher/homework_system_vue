@@ -1,39 +1,41 @@
 <template>
-    <el-card>
-        <template #header>
-            <!--页头-->
-            <page-header :component='head' />
+  <el-card>
+    <template #header>
+      <!--页头-->
+      <page-header :component='head' />
+    </template>
+    <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
+      <el-table-column label="序号" type="index" width="60px"></el-table-column>
+      <!-- <el-table-column label="课程编号" prop="id" width="100px" v-if="false"></el-table-column> -->
+      <el-table-column label="题目名称" prop="name" width="200px">
+        <template #default="scope">
+          <el-link link @click="showDetailInfo(scope)">{{ scope.row.title }}</el-link>
         </template>
-        <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
-            <el-table-column label="序号" type="index" width="60px"></el-table-column>
-            <!-- <el-table-column label="课程编号" prop="id" width="100px" v-if="false"></el-table-column> -->
-            <el-table-column label="题目名称" prop="name" width="200px">
-                <template #default="scope">
-                    <el-link link @click="showDetailInfo(scope)">{{ scope.row.title }}</el-link>
-                </template>
-            </el-table-column>
-            <el-table-column fixed="right" label="提交记录">
-                <template #default="scope">
-                    <el-link type="primary" link @click="showSubmissionList(scope)"
-                        v-show="role === 'teacher' || role === 'student'">提交记录</el-link>
-                </template>
-            </el-table-column>
-        </el-table>
-        <!--横线-->
-        <hr style="margin-top: 10px">
-        <!--页码-->
-        <el-pagination v-model:current-page="page.currentPage" v-model:page-size="page.pageSize" :total="page.total"
-            @current-change="handlePageChange()" :hide-on-single-page="false" />
-    </el-card>
+      </el-table-column>
+      <el-table-column fixed="right" label="提交记录">
+        <template #default="scope">
+          <el-link type="primary" link @click="showSubmissionList(scope)" v-show="role === 'teacher' || role === 'student'">提交记录</el-link>
+        </template>
+      </el-table-column>
+    </el-table>
+    <!--横线-->
+    <hr style="margin-top: 10px">
+    <!--页码-->
+    <el-pagination
+        v-model:current-page="page.currentPage"
+        v-model:page-size="page.pageSize"
+        :total="page.total"
+        @current-change="handlePageChange()"
+        :hide-on-single-page="false" />
+  </el-card>
 </template>
   
 <script>
-import { ElMessage, ElMessageBox } from "element-plus";
+import { ElMessage } from "element-plus";
 import Cookies from "js-cookie";
 import { mapState } from "vuex";
 import api from "../../../api/index.js";
 import PageHeader from "../../Base/PageHeader.vue";
-import t from "vue-mathjax-next";
 
 export default {
     name: "checkProgram",
@@ -41,13 +43,10 @@ export default {
     data() {
         return {
             head: '题目列表',
-            dialogFileVisible: false,
-            fileList: [],
             courseName: '',
             key: 1,
             tableData: [
                 {
-                    // 课程编号、课程简介、教师编号、课程名称、最大选修人数、现在的数量、教师名称
                     "id": null,
                     "title": null,
                     "start": null,
@@ -173,6 +172,6 @@ export default {
 }
 </script>
   
-<style scoped>.hang {
-    display: flex;
-}</style>
+<style scoped>
+
+</style>

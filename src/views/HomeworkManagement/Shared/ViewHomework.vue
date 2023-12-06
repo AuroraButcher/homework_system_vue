@@ -7,6 +7,7 @@
       <el-input v-model="homeworkName" placeholder="请输入作业名称" style="width: 220px"></el-input>
       <el-button type="primary" style="margin-left: 10px" @click="search(this.homeworkName)">搜索</el-button>
       <el-button type="primary" style="margin-left: 10px" @click="addHomework()" v-if="role==='teacher'">添加作业</el-button>
+      <el-button type="primary" style="margin-left: 10px" @click="addCodeHomework()" v-if="role==='teacher'">添加代码作业</el-button>
     </div>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="50px"></el-table-column>
@@ -332,6 +333,10 @@ export default {
       this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push("/malicious");
     },
+    // 提交代码作业
+    addCodeHomework() {
+      this.$router.push('/CodeList');
+    }
   },
   computed: {
     ...mapState(['courseNumber', 'role', 'homeworkNumber']),

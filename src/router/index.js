@@ -284,6 +284,7 @@ const routes = [
                 path: "/malicious",
                 component: Malicious,
                 name:"malicious",
+                meta: {title: "恶意评分检测"},
             }
         ]
     },
