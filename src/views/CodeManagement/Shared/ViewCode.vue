@@ -6,7 +6,6 @@
     </template>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="60px"></el-table-column>
-      <!-- <el-table-column label="课程编号" prop="id" width="100px" v-if="false"></el-table-column> -->
       <el-table-column label="题目名称" prop="name" width="200px">
         <template #default="scope">
           <el-link link @click="showDetailInfo(scope)">{{ scope.row.title }}</el-link>
