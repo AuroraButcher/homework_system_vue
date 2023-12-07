@@ -39,6 +39,7 @@ import Malicious from "../views/HomeworkManagement/Teacher/Malicious.vue";
 import CodeList from "../views/CodeManagement/Shared/ViewCode.vue"
 import submissionList from "../views/CodeManagement/Shared/SubmitList.vue"
 import submissionDetail from "../views/CodeManagement/Shared/SubmitDetail.vue"
+import similarCheck from "../views/HomeworkManagement/Teacher/SimilarCheck.vue";
 
 //配置信息中需要页面的相关配置
 const routes = [
@@ -285,6 +286,13 @@ const routes = [
                 component: Malicious,
                 name:"malicious",
                 meta: {title: "恶意评分检测"},
+            },
+            //查看相似作业
+            {
+                path:"/similarCheck",
+                component: similarCheck,
+                name:"similarCheck",
+                meta: {title: "查看相似作业"},
             }
         ]
     },

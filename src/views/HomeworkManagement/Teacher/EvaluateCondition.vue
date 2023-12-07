@@ -12,7 +12,11 @@
       <el-table-column label="学生学号" prop="studentNumber" width="120px"></el-table-column>
       <el-table-column label="提交时间" prop="date" width="200px"></el-table-column>
       <el-table-column label="老师评分" prop="teaScore" width="100px"></el-table-column>
-      <el-table-column label="最后得分" prop="score" width="100px"></el-table-column>
+      <el-table-column label="最后得分" prop="score" width="100px">
+        <template #default="scope">
+          {{scope.row.score===-1?'抄袭作业':scope.row.score}}
+        </template>
+      </el-table-column>
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link @click="showDetailInfo(scope)">批改</el-link>
@@ -22,8 +26,20 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-button type="primary" @click="remind" style="margin-top: 10px">一键催交</el-button>
-    <el-button type="primary" @click="createGrade" style="margin-top: 10px">生成最终得分</el-button>
+    <el-button type="primary" @click="remind" style="margin-top: 20px">一键催交</el-button>
+    <el-button type="primary" @click="createGrade" style="margin-top: 20px">生成最终得分</el-button>
+    <el-table :data="similarData" border style="width:100%; margin-top: 20px" :row-class-name="rowClassName" :Key="key">
+      <el-table-column label="序号" type="index" width="80px"></el-table-column>
+      <el-table-column label="学号1" prop="id1" width="100px"></el-table-column>
+      <el-table-column label="学号2" prop="id2" width="100px"></el-table-column>
+      <el-table-column label="相似度1" prop="similar1" width="100px"></el-table-column>
+      <el-table-column label="相似度2" prop="similar2" width="100px"></el-table-column>
+      <el-table-column fixed="right" label="操作">
+        <template #default="scope">
+          <el-link type="primary" link @click="showDetail(scope)">查看内容</el-link>
+        </template>
+      </el-table-column>
+    </el-table>
   </el-card>
 </template>
 
@@ -55,6 +71,7 @@ export default {
           score:null,
         }
       ],
+      similarData:[],
       params: {
         classID: null,
         homeworkID: null,
@@ -86,7 +103,8 @@ export default {
         }
       }).catch(res=>{
         ElMessage.error()
-      })
+      });
+      this.getSimilarData1();
     }
   },
   computed: {
@@ -147,6 +165,56 @@ export default {
           ElMessage.error('分数生成失败')
         }
       })
+    },
+    //获取相似度信息，words
+    getSimilarData1(){
+      api.similarWords({homeworkNumber:this.homeworkNumber,courseNumber:this.courseNumber}).then(res=>{
+        if(res.data.code===20000){
+          let data=res.data.data
+          let keyData=Object.keys(data)
+          for(let i=0;i<keyData.length;i++){
+            const keys = Object.keys(data[i])
+            this.similarData[i]={
+              id1:keys[0],
+              id2:keys[1],
+              similar1:data[i][keys[0]].toFixed(6),
+              similar2:0,
+            }
+          }
+          this.getSimilarData2()
+        }else {
+          ElMessage.error(res.data.message)
+        }
+      })
+    },
+    getSimilarData2(){
+      api.similarJieba({homeworkNumber:this.homeworkNumber,courseNumber:this.courseNumber}).then(res=>{
+        if(res.data.code===20000){
+          let data=res.data.data
+          let keyData=Object.keys(data)
+          for(let i=0;i<keyData.length;i++){
+            const keys = Object.keys(data[i])
+            this.similarData[i].similar2=data[i][keys[0]].toFixed(6)
+          }
+        }else {
+          ElMessage.error(res.data.message)
+        }
+      })
+    },
+    //查看相似信息
+    showDetail(scope){
+      let homeworkId1,homeworkId2;
+      for(let i=0;i<this.tableData.length;i++){
+        if(this.tableData[i].studentNumber===scope.row.id1){
+          homeworkId1=this.tableData[i].id
+        }
+        if(this.tableData[i].studentNumber===scope.row.id2){
+          homeworkId2=this.tableData[i].id
+        }
+      }
+      let index=[scope.row.id1,scope.row.id2,homeworkId1,homeworkId2];
+      this.$store.commit('setIndex',index)
+      this.$router.push('/similarCheck')
     }
   }
 }

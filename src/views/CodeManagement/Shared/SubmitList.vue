@@ -113,7 +113,7 @@ export default {
                     this.page.total = respose.data.data.list.total;
                     this.tableData = respose.data.data.list.records;
                 } else {
-                    console.log("查看课程列表失败");
+                    console.log("查看提交列表失败");
                 }
             })
         } else {

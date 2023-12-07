@@ -725,6 +725,31 @@ const api = {
                 content : content,
                 codeInfoId : codeInfoId,
         })
+    },
+    similarWords(data){
+        return axios.post(path.baseUrl+path.similarWords,null,{
+            params:{
+                homeworkId:data.homeworkNumber,
+                classId:data.courseNumber
+            }
+        })
+    },
+    similarJieba(data){
+        return axios.post(path.baseUrl+path.similarJieba,null,{
+            params:{
+                homeworkId:data.homeworkNumber,
+                classId:data.courseNumber
+            }
+        })
+    },
+    similarSet(data){
+        return axios.post(path.baseUrl+path.similarSet,null,{
+            params:{
+                homeworkId:data.homeworkNumber,
+                classId:data.courseNumber,
+                studentNumber:data.studentNumber,
+            }
+        })
     }
 }
 export default api

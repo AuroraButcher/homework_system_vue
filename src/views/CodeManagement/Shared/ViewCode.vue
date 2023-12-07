@@ -12,9 +12,11 @@
           <el-link link @click="showDetailInfo(scope)">{{ scope.row.title }}</el-link>
         </template>
       </el-table-column>
-      <el-table-column fixed="right" label="提交记录">
+      <el-table-column label="结束时间" prop="start" width="100px"></el-table-column>
+      <el-table-column fixed="right" label="操作">
         <template #default="scope">
-          <el-link type="primary" link @click="showSubmissionList(scope)" v-show="role === 'teacher' || role === 'student'">提交记录</el-link>
+          <el-link type="primary" link @click="showDetailInfo(scope)" v-show="role === 'teacher' || role === 'student'">提交</el-link>
+          <el-link type="primary" link style="margin-left: 20px" @click="showSubmissionList(scope)" v-show="role === 'teacher' || role === 'student'">提交记录</el-link>
         </template>
       </el-table-column>
     </el-table>
@@ -97,63 +99,35 @@ export default {
         }
     },
     methods: {
-        //搜索课程
+        // TODO 搜索代码作业
         search(courseName) {
-            this.page.courseName = courseName;
-            if (this.role === 'administrator') {
-                api.showCourse(this.page).then(response => {
-                    if (response.data.code === 20000) {
-                        this.page.total = response.data.data.classInfo.total;
-                        this.tableData = response.data.data.classInfo.records;
-                    } else {
-                        console.log("查看课程列表失败");
-                    }
-                })
-            } else if (this.role === 'student') {
-
-                  this.page.studentNumber = Cookies.get('number');
-                  api.studentShowCourse(this.page).then(response => {
-                    if (response.data.code === 20000) {
-                      this.page.total = response.data.data.classInfo.total;
-                      this.tableData = response.data.data.classInfo.records;
-                    } else {
-                      console.log("查看课程列表失败");
-                    }
-                  })
-            } else {
-                this.page.teacherNumber = Cookies.get('number');
-                api.teacherShowCourse(this.page).then(response => {
-                    if (response.data.code === 20000) {
-                        this.page.total = response.data.data.classInfo.total;
-                        this.tableData = response.data.data.classInfo.records;
-                    } else {
-                        console.log("查看课程列表失败");
-                    }
-                })
-            }
         },
+      getDataForStudent(){
+        api.getCodeListForStudent(this.page).then(response => {
+          if (response.data.code === 20000) {
+            /*console.log(this.page.currentPage)
+            console.log(this.page.pageSize)
+            console.log(response.data.data.list.records)*/
+            this.page.total = response.data.data.list.total;
+            this.tableData = response.data.data.list.records;
+          } else {
+            ElMessage.error(response.data.message);
+          }
+        })
+      },
         //展示详细信息
         showDetailInfo(scope) {
             this.$store.commit('setCodeId', scope.row.id);
             this.$router.push('/viewCode');
         },
+      //TODO 查看提交列表
         showSubmissionList(scope) {
             this.$store.commit('setCodeId', scope.row.id);
             this.$router.push("/submissionList")
         },
         // 处理页数改变
         handlePageChange() {
-            api.getCodeListForStudent(this.page).then(response => {
-                if (response.data.code === 20000) {
-                    console.log(this.page.currentPage)
-                    console.log(this.page.pageSize)
-                    console.log(response.data.data.list.records)
-                    this.page.total = response.data.data.list.total;
-                    this.tableData = response.data.data.list.records;
-                } else {
-                    ElMessage.error(response.data.message);
-                }
-            })
+          this.getDataForStudent()
         },
         //获取当前的行数
         rowClassName({ row, rowIndex }) {
