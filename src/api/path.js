@@ -170,6 +170,10 @@ const base = {
     getSubmitHistory: '/submission/getListForStudent',
     // 评测详情
     getSubmitDetail: '/submission/getInfo',
+    // 代码查重
+    checkCode:'/code/check',
+    //添加代码作业
+    addCodeHomework:'/homework/addCodeInfo',
 //------------恶意监测-----------------
     //获取恶意评分列表
     getMalicious: '/malicious/getList',

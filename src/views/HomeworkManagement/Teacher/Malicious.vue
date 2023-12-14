@@ -3,10 +3,11 @@
     <template #header>
       <page-header :component="head"/>
     </template>
+    <el-divider content-position="left">选择检测程度</el-divider>
     <div style="margin-bottom: 10px">
-      <span style="font-size: large;">bais值设置</span>
-      <el-input v-model="bias" :placeholder=bias style="width: 100px;margin-left: 10px"></el-input>
-      <el-button type="primary" style="margin-left: 10px" @click="zScore">确认检测</el-button>
+      <el-button type="primary" @click="zScore(this.bias1)">恶意</el-button>
+      <el-button type="primary" @click="zScore(this.bias2)">比较恶意</el-button>
+      <el-button type="primary" @click="zScore(this.bias3)">非常恶意</el-button>
     </div>
     <!--表格-->
     <el-table :data="tableData" border style="width:100%;" :row-class-name="rowClassName" :Key="key">
@@ -48,7 +49,9 @@ export default {
     return {
       head: '恶意评分检测',
       key: 1,
-      bias:1,
+      bias1:0.8416,
+      bias2:1.2815,
+      bias3:1.6448,
       tableData: [
       ],
       page:{
@@ -61,7 +64,7 @@ export default {
   },
   created() {
     this.page.homeworkNumber=this.homeworkNumber
-    this.zScore()
+    this.zScore(this.bias1)
   },
   computed: {
     ...mapState(['homeworkNumber', 'courseNumber']),
@@ -84,9 +87,9 @@ export default {
         }
       });
     },
-    zScore(){
+    zScore(bias){
       //执行zScore分析
-      api.zScore({homeworkNumber:this.homeworkNumber,bias:this.bias}).then(res=>{
+      api.zScore({homeworkNumber:this.homeworkNumber,bias:bias}).then(res=>{
         if(res.data.code===20000){
           this.getData()
         }else {

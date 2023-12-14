@@ -7,6 +7,7 @@
       <el-input v-model="homeworkName" placeholder="请输入作业名称" style="width: 220px"></el-input>
       <el-button type="primary" style="margin-left: 10px" @click="search(this.homeworkName)">搜索</el-button>
       <el-button type="primary" style="margin-left: 10px" @click="addHomework()" v-if="role==='teacher'">添加作业</el-button>
+      <el-button type="primary" style="margin-left: 10px" @click="showCodeHomework(scope)" v-show="role==='teacher'">添加代码作业</el-button>
     </div>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="50px"></el-table-column>
@@ -86,13 +87,12 @@
       </el-table-column>
     </el-table>
     <!--横线-->
-    <hr v-if="role==='teacher'" style="margin-top: 10px">
+    <hr style="margin-top: 10px">
     <!--页码-->
     <el-pagination
-        v-if="role==='teacher'"
         v-model:current-page="page.pageNo"
         v-model:page-size="page.pageSize"
-        :total="page.total"
+        :total="total"
         @current-change="handlePageChange"
         :hide-on-single-page="false"/>
   </el-card>
@@ -132,9 +132,9 @@ export default {
         classID: '',
         pageNo: 1,
         pageSize: 10,
-        total: null,
         studentID: Cookie.get('number'),
       },
+      total: null,
       submit: [],
       timeValid: [],
       review: [],
@@ -150,7 +150,7 @@ export default {
       if(this.role==='teacher') {
         api.getHomeworkList(this.page).then(res => {
           if (res.data.code === 20000) {
-            this.page.total = res.data.data.homeworkInfo.total;
+            this.total = res.data.data.homeworkInfo.total;
             this.tableData = res.data.data.homeworkInfo.records;
           } else {
             console.log("查看作业列表失败");
@@ -164,6 +164,8 @@ export default {
             this.submit = res.data.data.isSubmitted;
             this.timeValid = res.data.data.timeValid;
             this.review = res.data.data.review;
+            this.total = res.data.data.homeworkInfo.total;
+            console.log(this.page)
           } else {
             ElMessage.error(res.data.message);
           }
@@ -250,20 +252,17 @@ export default {
     },
     // 处理页数改变
     handlePageChange() {
-      // TODO：学生要不要以页码的形式展示
-      api.getHomeworkList(this.page).then(res => {
-        if (res.data.code === 20000) {
-          this.page.total = res.data.data.homeworkInfo.total;
-          this.tableData = res.data.data.homeworkInfo.records;
-        } else {
-          console.log("查看作业列表失败");
-        }
-      })
+      this.getData()
     },
     //获取当前的行数
     rowClassName({row, rowIndex}) {
       //把每一行的索引放进row
       row.index = rowIndex;
+    },
+    //展示详细信息
+    showCodeHomework(scope) {
+      this.$store.commit('setCourseNumber', this.courseNumber);
+      this.$router.push('/codeList');
     },
     // 分数分布
     showData(scope) {

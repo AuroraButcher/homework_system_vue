@@ -32,8 +32,14 @@
       <el-table-column label="序号" type="index" width="80px"></el-table-column>
       <el-table-column label="学号1" prop="id1" width="100px"></el-table-column>
       <el-table-column label="学号2" prop="id2" width="100px"></el-table-column>
-      <el-table-column label="相似度1" prop="similar1" width="100px"></el-table-column>
-      <el-table-column label="相似度2" prop="similar2" width="100px"></el-table-column>
+      <el-table-column label="相似度" width="100px">
+          <template #default="scope">
+            <span v-if="scope.row.similar1>0.9||scope.row.similar2 > 0.9" style="color: red; font-weight: bold">非常相似</span>
+            <span v-else-if="scope.row.similar1>0.8||scope.row.similar2 > 0.8" style="color: rgb(255,115,0); font-weight: bold">很相似</span>
+            <span v-else-if="scope.row.similar1>0.7||scope.row.similar2 > 0.7" style="color: orange; font-weight: bold">一般相似</span>
+            <span v-else style="color: rgba(255,196,0,0.85); font-weight: bold">有点相似</span>
+          </template>
+      </el-table-column>
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link @click="showDetail(scope)">查看内容</el-link>
@@ -108,7 +114,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['homeworkNumber', 'courseNumber'])
+    ...mapState(['homeworkNumber', 'courseNumber']),
+
   },
   methods: {
     // 提交作业详情
@@ -215,7 +222,7 @@ export default {
       let index=[scope.row.id1,scope.row.id2,homeworkId1,homeworkId2];
       this.$store.commit('setIndex',index)
       this.$router.push('/similarCheck')
-    }
+    },
   }
 }
 </script>

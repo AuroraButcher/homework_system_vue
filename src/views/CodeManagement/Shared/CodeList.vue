@@ -16,6 +16,8 @@
         <template #default="scope">
           <el-link type="primary" link @click="submitCode(scope)" v-if="role === 'student'">提交</el-link>
           <el-link type="primary" link style="margin-left: 10px" @click="showSubmissionResult(scope)" v-if="role === 'student'">提交记录</el-link>
+          <el-link type="primary" link style="margin-left: 10px" @click="assignHomework(scope)" v-if="role === 'teacher'">布置作业</el-link>
+          <el-link type="primary" link style="margin-left: 10px" @click="similar(scope)" v-if="role === 'teacher'">代码查重</el-link>
         </template>
       </el-table-column>
     </el-table>
