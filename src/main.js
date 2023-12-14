@@ -22,10 +22,7 @@ app.use(router)
 app.use(ElementPlus)
 // vuex
 app.use(store)
-
 app.use(VueHighlightJS);
 // markdown
-
 app.use(VueMathjax)
-
 app.mount('#app')

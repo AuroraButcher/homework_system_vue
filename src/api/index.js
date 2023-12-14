@@ -665,67 +665,61 @@ const api = {
         })
     },
     //查询恶意评分列表
-    getMalicious(data){
-        return axios.get(path.baseUrl + path.getMalicious,{
-            params:{
-                homeworkId:data.homeworkNumber,
-                pageNo:data.pageNo,
-                pageSize:data.pageSize
+    getMalicious(data) {
+        return axios.get(path.baseUrl + path.getMalicious, {
+            params: {
+                homeworkId: data.homeworkNumber,
+                pageNo: data.pageNo,
+                pageSize: data.pageSize
+            }
+        })
+    },
+//---------------------------代码-----------------------------------------
+    //获得代码题目列表
+    getCodeList(codeInfo) {
+        return axios.get(path.baseUrl + path.getCodeList, {
+            params: {
+                pageNo: codeInfo.currentPage,
+                pageSize: codeInfo.pageSize,
             }
         })
     },
     //获得题面信息
-    getCodeInfo(codeInfoId){
+    getCodeInfo(codeInfoId) {
         return axios.post(path.baseUrl + path.getCodeInfo, null, {
             params: {
-                id:codeInfoId
+                id: codeInfoId
             }
         })
     },
-    //获得题目列表
-    getCodeListForStudent(codeInfo){
-        return axios.get(path.baseUrl + path.getCodeListForStudent,  {
-            params: {
-                pageNo:codeInfo.currentPage,
-                pageSize:codeInfo.pageSize,
-            }
+    //提交并评测代码
+    submitCode(studentNumber, content, codeInfoId) {
+        return axios.post(path.baseUrl + path.submitCode, {
+            studentNumber: studentNumber,
+            content: content,
+            codeInfoId: codeInfoId,
         })
     },
-    getSubmitCodeInfo(codeInfo){
-        return axios.get(path.baseUrl + path.getCodeListForStudent, null, {
+    //获得指定题目的提交评测记录
+    getSubmitHistory(codeInfo) {
+        return axios.get(path.baseUrl + path.getSubmitHistory, {
             params: {
-                pageNo:codeInfo.pageNo,
-                pageSize:codeInfo.pageSize,
-            }
-        })
-    },
-    //获得指定题目的提交列表（学生）
-    getSubmitListForStudent(codeInfo){
-        return axios.get(path.baseUrl + path.getSubmitListForStudent,{
-            params: {
-                studentNumber : codeInfo.studentNumber,
+                studentNumber: codeInfo.studentNumber,
                 codeInfoId: codeInfo.codeInfoId,
-                pageNo:codeInfo.pageNo,
-                pageSize:codeInfo.pageSize
+                pageNo: codeInfo.pageNo,
+                pageSize: codeInfo.pageSize
             }
         })
     },
-    //获得提交的详情
-    getSubmitDetail(codeInfo){
+    //评测详情
+    getSubmitDetail(codeInfo) {
         return axios.get(path.baseUrl + path.getSubmitDetail,{
             params: {
                 id: codeInfo,
             }
         })
     },
-    //提交评测代码
-    submitCode(studentNumber, content, codeInfoId){
-        return axios.post(path.baseUrl + path.submitCode,{
-                studentNumber : studentNumber,
-                content : content,
-                codeInfoId : codeInfoId,
-        })
-    },
+    // 获取普通相似度
     similarWords(data){
         return axios.post(path.baseUrl+path.similarWords,null,{
             params:{
@@ -734,6 +728,7 @@ const api = {
             }
         })
     },
+    // 获取词袋模型+余弦相似度检测
     similarJieba(data){
         return axios.post(path.baseUrl+path.similarJieba,null,{
             params:{
@@ -742,6 +737,7 @@ const api = {
             }
         })
     },
+    // 判定相似作业
     similarSet(data){
         return axios.post(path.baseUrl+path.similarSet,null,{
             params:{

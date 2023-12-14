@@ -58,23 +58,6 @@
         </template>
       </el-upload>
     </div>
-<!--TODO：关于附件删除的相关逻辑-->
-    <!--附件上传-->
-    <!--    <div>
-          <el-upload
-              v-model:file-list="fileList"
-              class="upload-demo"
-              action="http://hyh31.top:3000/homework/addFile"
-              :show-file-list="true"
-          >
-            <el-button type="primary">上传附件</el-button>
-            <template #tip>
-              <div class="el-upload__tip">
-                jpg/png files with a size less than 500kb
-              </div>
-            </template>
-          </el-upload>
-        </div>-->
   </el-card>
 </template>
 

@@ -173,7 +173,7 @@ export default {
         api.addHomework(this.homeworkData).then(response => {
           if (response.data.code === 20000) {
             if (this.fileList.length > 0) {
-              this.homeworkNumber = response.data.data.homework.id
+              this.homeworkNumber = response.data.data.homework.id;
               const param = new FormData();
               param.append('id',this.homeworkNumber)
               param.append('classID',this.homeworkData.classId)

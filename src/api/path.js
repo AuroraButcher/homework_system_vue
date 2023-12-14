@@ -159,23 +159,28 @@ const base = {
     getAnswer: '/answer/get',
     // 下载答案附件
     downloadAnswerFiles: '/answer/download',
-//---------------代码--------------------
+//---------------代码---------------------
+    // 获得代码作业列表
+    getCodeList: '/codeInfo/listForStudent',
+    // 获得题面信息
     getCodeInfo: '/codeInfo/getInfo',
-    getCodeListForStudent: '/codeInfo/listForStudent',
-    getSubmitListForStudent: '/submission/getListForStudent',
-    getSubmitDetail: '/submission/getInfo',
+    //提交并评测代码
     submitCode: '/code/submit',
-    //-------------恶意监测-------------
+    // 获得评测记录
+    getSubmitHistory: '/submission/getListForStudent',
+    // 评测详情
+    getSubmitDetail: '/submission/getInfo',
+//------------恶意监测-----------------
     //获取恶意评分列表
-    getMalicious:'/malicious/getList',
+    getMalicious: '/malicious/getList',
     //恶意评分监测
-    zScore:'/malicious/zScore',
-// --------------------------相似度检测-------------------------
+    zScore: '/malicious/zScore',
+// ---------------相似度检测----------------
     //相似度检测1
-    similarWords:'/similarity/words',
-    // 相似度检测1
-    similarJieba:'/similarity/jieba',
-    // 判定为抄袭
+    similarWords: '/similarity/words',
+    //相似度检测2
+    similarJieba: '/similarity/jieba',
+    //判定为抄袭
     similarSet:'/similarity/setCopy',
 }
 export default base

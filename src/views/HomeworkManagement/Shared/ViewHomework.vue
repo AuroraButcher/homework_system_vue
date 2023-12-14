@@ -7,7 +7,6 @@
       <el-input v-model="homeworkName" placeholder="请输入作业名称" style="width: 220px"></el-input>
       <el-button type="primary" style="margin-left: 10px" @click="search(this.homeworkName)">搜索</el-button>
       <el-button type="primary" style="margin-left: 10px" @click="addHomework()" v-if="role==='teacher'">添加作业</el-button>
-      <el-button type="primary" style="margin-left: 10px" @click="addCodeHomework()" v-if="role==='teacher'">添加代码作业</el-button>
     </div>
     <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="50px"></el-table-column>
@@ -41,10 +40,10 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="互评" width="140px">
+        <el-table-column label="互评" width="200px">
           <template #default="scope">
             <el-link type="primary" link @click="setEvaluation(scope)" v-if="role==='teacher' && compareEnd(scope.row.index)">互评设置</el-link>
-            <el-link type="primary" link @click="malicious(scope)" v-if="role==='teacher' && compareEnd(scope.row.index)">恶意评分检测</el-link>
+            <el-link type="danger" style="margin-left: 10px" link @click="malicious(scope)" v-if="role==='teacher' && compareEnd(scope.row.index)">恶意评分检测</el-link>
             <el-link type="info" link disabled v-if="role==='teacher' && !compareEnd(scope.row.index)">互评设置</el-link>
             <!--开始互评并且是学生-->
             <el-link type="primary" link @click="evaluateHomework(scope)" v-if="review[scope.row.index]===1 && role==='student'">互评作业</el-link>
@@ -318,11 +317,13 @@ export default {
       this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push("/viewAnswer");
     },
+    // 比较开始时间
     compareStart(index){
       const now = new Date()
       const start = new Date(this.tableData[index].start)
       return now>start
     },
+    // 比较结束时间
     compareEnd(index) {
       const now = new Date()
       const end = new Date(this.tableData[index].end)
@@ -332,10 +333,6 @@ export default {
     malicious(scope){
       this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push("/malicious");
-    },
-    // 提交代码作业
-    addCodeHomework() {
-      this.$router.push('/CodeList');
     }
   },
   computed: {

@@ -95,6 +95,12 @@
           <span>查看教授课程</span>
         </el-menu-item>
       </el-sub-menu>
+<!--      <el-menu-item class="el-menu-item" index="/addCodeHomework">
+        <el-icon style="font-size: 32px">
+          <Cpu />
+        </el-icon>
+        <span>代码作业</span>
+      </el-menu-item>-->
       <el-menu-item @click="drawer = true">
         <el-badge>
           <el-icon style="font-size: 32px">
@@ -138,11 +144,9 @@
         </el-menu-item>
       </el-sub-menu>
       <el-menu-item class="el-menu-item" index="/CodeList">
-        <el-badge>
-          <el-icon style="font-size: 32px">
-            <bell/>
-          </el-icon>
-        </el-badge>
+        <el-icon style="font-size: 32px">
+          <Cpu/>
+        </el-icon>
         <span>代码评测</span>
       </el-menu-item>
       <el-menu-item @click="drawer = true">
@@ -172,16 +176,16 @@
 </template>
 
 <script>
-import {Bell, DataAnalysis, EditPen, FolderAdd, HomeFilled, Notebook, Operation, Plus, View} from "@element-plus/icons-vue";
+import {Bell, Cpu, DataAnalysis, EditPen, FolderAdd, HomeFilled, Notebook, Operation, Plus, View} from "@element-plus/icons-vue";
 import {mapState} from "vuex";
 import MessageCard from "./MessageCard.vue";
 
 export default {
-  components: {MessageCard, Bell, DataAnalysis, FolderAdd, View, Plus, EditPen, Notebook, Operation, HomeFilled},
+  components: {Cpu, MessageCard, Bell, DataAnalysis, FolderAdd, View, Plus, EditPen, Notebook, Operation, HomeFilled},
   props: ['isCollapse'],
   data() {
     return {
-      activeTab:'first',
+      activeTab: 'first',
       drawer: null,
     }
   },

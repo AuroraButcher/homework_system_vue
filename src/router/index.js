@@ -34,13 +34,17 @@ import ShowCourseStudent from "../views/CourseManagement/Shared/ShowCourseStuden
 import DiscussionArea from "../views/DiscussionArea/DiscussionArea.vue";
 import SubmitAnswer from "../views/HomeworkManagement/Teacher/SubmitAnswer.vue";
 import ViewAnswer from "../views/HomeworkManagement/Shared/ViewAnswer.vue";
-import ViewCode from "../views/CodeManagement/Shared/DetailedCode.vue"
 import Malicious from "../views/HomeworkManagement/Teacher/Malicious.vue";
-import CodeList from "../views/CodeManagement/Shared/ViewCode.vue"
-import submissionList from "../views/CodeManagement/Shared/SubmitList.vue"
-import submissionDetail from "../views/CodeManagement/Shared/SubmitDetail.vue"
+// TODO 相似度检测
 import similarCheck from "../views/HomeworkManagement/Teacher/SimilarCheck.vue";
+// TODO 教师添加代码作业
+import AddCodeHomework from "../views/CodeManagement/Teacher/AddCodeHomework.vue";
 
+import CodeList from "../views/CodeManagement/Shared/CodeList.vue"
+import DetailCodeInformation from "../views/CodeManagement/Shared/DetailCodeInformation.vue";
+import SubmitCode from "../views/CodeManagement/Student/SubmitCode.vue"
+import submissionResult from "../views/CodeManagement/Shared/SubmitResult.vue"
+import submissionDetail from "../views/CodeManagement/Shared/SubmitDetail.vue"
 //配置信息中需要页面的相关配置
 const routes = [
     // 总界面
@@ -123,57 +127,68 @@ const routes = [
                 name: 'stuEvaluateHomework',
                 meta: {title: "作业互评"},
             },
-            {// 查看优秀作业
+            {
+                // 查看优秀作业
                 path: "/viewExcellent",
                 component: ViewExcellent,
                 name: 'viewExcellent',
                 meta: {title: "优秀作业"},
             },
             {
+                // 优秀作业详情
                 path: "/viewExcellentDetail",
                 component: excellent,
                 name: 'Excellent',
                 meta: {title: "优秀作业详情"},
             },
             {
+                // 讨论区
                 path: "/discussion",
                 component: DiscussionArea,
                 name: 'discussion',
                 meta: {title: "讨论区"},
             },
             {
+                // 查看答案
                 path: "/viewAnswer",
                 component: ViewAnswer,
                 name: 'viewAnswer',
                 meta: {title: "查看答案"},
             },
-            //题面
             {
-                path:"/viewCode",
-                component: ViewCode,
-                name: 'viewCode',
-                meta: {title: "代码"},
-            },
-            //代码列表
-            {
-                path:"/codeList",
+                //代码题目列表
+                path: "/codeList",
                 component: CodeList,
-                name:'codeList',
+                name: 'codeList',
                 meta: {title: '题目列表'},
             },
-            //提交列表
             {
-                path:"/submissionList",
-                component: submissionList,
-                name:"submissionList",
-                meta: {title: '提交记录'}
+                //题面详情
+                path: "/CodeInformation",
+                component: DetailCodeInformation,
+                name: 'CodeInformation',
+                meta: {title: "代码题目"},
             },
-            //详情
             {
-                path:'/submissionDetail',
+                //提交代码界面
+                path: "/submitCode",
+                component: SubmitCode,
+                name: 'submitCode',
+                meta: {title: "提交代码"},
+            },
+            {
+                //提交结果
+                path: "/submissionResult",
+                component: submissionResult,
+                name: "submissionResult",
+                meta: {title: '提交结果'}
+            },
+            {
+                //评测详情
+                path: '/submissionDetail',
                 component: submissionDetail,
                 name:"submissionDetail",
-                meta:{title:'提交详情'}
+                meta: {title: '评测详情'}
             }
         ]
     },
@@ -269,31 +284,40 @@ const routes = [
                 meta: {title: "选修名单"},
             },
             {
+                // 讨论区
                 path: "/discussion",
                 component: DiscussionArea,
                 name: 'discussion',
                 meta: {title: "讨论区"},
             },
             {
+                // 上传答案
                 path: "/submitAnswer",
                 component: SubmitAnswer,
                 name: 'submitAnswer',
                 meta: {title: "上传答案"},
             },
-            //恶意评分检测
             {
+                //恶意评分检测
                 path: "/malicious",
                 component: Malicious,
-                name:"malicious",
+                name: "malicious",
                 meta: {title: "恶意评分检测"},
             },
-            //查看相似作业
             {
-                path:"/similarCheck",
+                //查看相似作业
+                path: "/similarCheck",
                 component: similarCheck,
-                name:"similarCheck",
+                name: "similarCheck",
                 meta: {title: "查看相似作业"},
-            }
+            },
+            {
+                //添加代码作业
+                path: "/addCodeHomework",
+                component: AddCodeHomework,
+                name: "addCodeHomework",
+                meta: {title: "添加代码作业"},
+            },
         ]
     },
     // 管理员端

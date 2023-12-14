@@ -16,7 +16,7 @@ const store = createStore({
         //互评id
         scoreId:null,
         index:null,
-
+        // 代码Id
         codeId: null,
         submissionId: null,
     },
