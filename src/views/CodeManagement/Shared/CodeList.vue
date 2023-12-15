@@ -1,4 +1,20 @@
 <template>
+  <el-dialog v-model="dialog" center>
+    <el-date-picker
+        v-model="time"
+        type="datetimerange"
+        start-placeholder="开始时间"
+        end-placeholder="截止时间"
+        format="YYYY-MM-DD HH:mm:ss"
+        value-format="YYYY-MM-DD hh:mm:ss"
+        date-format="YYYY/MM/DD ddd"
+        time-format="A hh:mm:ss"
+    />
+    <div style="margin-top: 10px">
+      <el-button type="primary" @click="check">确认</el-button>
+      <el-button @click="cancel">取消</el-button>
+    </div>
+  </el-dialog>
   <el-card>
     <template #header>
       <page-header :component='head'/>
@@ -46,6 +62,8 @@ export default {
       head: '题目列表',
       courseName: '',
       key: 1,
+      time:null,
+      dialog:false,
       tableData: [
         {
           "id": null,
@@ -101,6 +119,10 @@ export default {
       //把每一行的索引放进row
       row.index = rowIndex;
     },
+    //布置作业
+    assignHomework(scope){
+      this.dialog=true
+    }
   },
   computed: {
     ...mapState(['role', 'courseNumber'])

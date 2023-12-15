@@ -746,6 +746,10 @@ const api = {
                 studentNumber:data.studentNumber,
             }
         })
+    },
+    //布置作业
+    assignCodeHomework(data){
+        return axios.post(path.baseUrl+path.addCodeHomework, {})
     }
 }
 export default api

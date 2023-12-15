@@ -18,6 +18,7 @@
         </template>
       </el-table-column>
       <el-table-column label="截止时间" prop="end" width="170px"></el-table-column>
+      <el-table-column label="类型" prop="type" v-if="false"></el-table-column>
       <el-table-column label="操作" header-align="center">
         <el-table-column label="作业" width="100px" v-if="role==='teacher'">
           <template #default="scope">
@@ -160,7 +161,7 @@ export default {
         api.stuViewHomework(this.page).then(res=>{
           if (res.data.code === 20000) {
             //设置表数据
-            this.tableData = res.data.data.homeworkInfo;
+            this.tableData = res.data.data.homeworkInfo.records;
             this.submit = res.data.data.isSubmitted;
             this.timeValid = res.data.data.timeValid;
             this.review = res.data.data.review;
