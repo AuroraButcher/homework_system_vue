@@ -26,8 +26,8 @@
           <el-link link @click="showDetailCodeInfo(scope)">{{ scope.row.title }}</el-link>
         </template>
       </el-table-column>
-      <el-table-column label="开始时间" prop="start" width="200px"></el-table-column>
-      <el-table-column label="结束时间" prop="end" width="200px"></el-table-column>
+<!--      <el-table-column label="开始时间" prop="start" width="200px"></el-table-column>
+      <el-table-column label="结束时间" prop="end" width="200px"></el-table-column>-->
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link @click="submitCode(scope)" v-if="role === 'student'">提交</el-link>

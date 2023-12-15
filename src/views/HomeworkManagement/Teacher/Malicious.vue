@@ -9,10 +9,20 @@
       <el-button type="primary" @click="zScore(this.bias2)">比较恶意</el-button>
       <el-button type="primary" @click="zScore(this.bias3)">非常恶意</el-button>
     </div>
+    <div style="margin-bottom: 10px">
+      <span style="font-size: large;">bais值设置</span>
+      <el-input v-model="bias" :placeholder=bias style="width: 100px;margin-left: 10px"></el-input>
+      <el-button type="primary" style="margin-left: 10px" @click="zScore">确认检测</el-button>
+    </div>
+    <div style="margin-bottom: 10px">
+      <span style="font-size: large;">bais值设置</span>
+      <el-input v-model="bias" :placeholder=bias style="width: 100px;margin-left: 10px"></el-input>
+      <el-button type="primary" style="margin-left: 10px" @click="zScore">确认检测</el-button>
+    </div>
     <!--表格-->
     <el-table :data="tableData" border style="width:100%;" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="80px"></el-table-column>
-      <el-table-column label="互评id" prop="studentScoreId" width="100px"></el-table-column>
+      <!--      <el-table-column label="互评id" prop="studentScoreId" width="100px"></el-table-column>-->
       <!--学生作业id-->
       <el-table-column label="学生作业id" prop="homeworkStudentId" width="80px" v-if="false"></el-table-column>
       <el-table-column label="ID" prop="id" width="80px" v-if="false"></el-table-column>
@@ -81,7 +91,6 @@ export default {
               this.tableData[i].score=res.data.data.score.score
             })
           }
-          ElMessage.success('加载成功')
         }else {
           ElMessage.error('加载失败')
         }

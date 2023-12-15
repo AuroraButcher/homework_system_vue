@@ -15,6 +15,9 @@
       <p>实际输出</p>
       <pre v-highlightjs><code class="javascript">{{ userOutput }}</code></pre>
     </div>
+    <div v-else-if="status === 'pending'">
+      <p style="color: red">pending</p>
+    </div>
     <div v-else-if="status === 'ACCEPTED'">
       <p style="color: green">恭喜通过此题</p>
     </div>

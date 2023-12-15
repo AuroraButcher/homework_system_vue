@@ -95,12 +95,6 @@
           <span>查看教授课程</span>
         </el-menu-item>
       </el-sub-menu>
-<!--      <el-menu-item class="el-menu-item" index="/addCodeHomework">
-        <el-icon style="font-size: 32px">
-          <Cpu />
-        </el-icon>
-        <span>代码作业</span>
-      </el-menu-item>-->
       <el-menu-item @click="drawer = true">
         <el-badge>
           <el-icon style="font-size: 32px">
@@ -143,12 +137,6 @@
           <span>查看选修课程</span>
         </el-menu-item>
       </el-sub-menu>
-      <el-menu-item class="el-menu-item" index="/CodeList">
-        <el-icon style="font-size: 32px">
-          <Cpu/>
-        </el-icon>
-        <span>代码评测</span>
-      </el-menu-item>
       <el-menu-item @click="drawer = true">
         <el-badge>
           <el-icon style="font-size: 32px">

@@ -4,13 +4,16 @@
       <page-header :component='head'/>
     </template>
 
-    <el-table :data="tableData" border style="width:100%" :row-class-name="rowClassName" :Key="key">
+    <div>
+      <el-button type="primary" @click="submitCode">提交代码</el-button>
+    </div>
+    <el-table :data="tableData" border style="width:100%;margin-top: 10px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="评测编号" type="index" width="100px"></el-table-column>
       <el-table-column label="评测时间" prop="date" width="200px"></el-table-column>
       <el-table-column label="评测状态" prop="name" width="120px">
         <template #default="scope">
           <p v-if="scope.row.status === 'ACCEPTED'" style="color: green">通过</p>
-          <p v-else-if="scope.row.status === 'pending'" style="color: grey">无代码</p>
+          <p v-else-if="scope.row.status === 'pending'" style="color: grey">pending</p>
           <p v-else-if="scope.row.status === 'WRONG_ANSWER'" style="color: RED">答案错误</p>
           <p v-else-if="scope.row.status === 'TIME_LIMIT_EXCEEDED'" style="color: RED">超过时间限制</p>
           <p v-else-if="scope.row.status === 'MEMORY_LIMIT_EXCEEDED'" style="color: RED">超过内存限制</p>
@@ -101,6 +104,10 @@ export default {
     rowClassName({row, rowIndex}) {
       //把每一行的索引放进row
       row.index = rowIndex;
+    },
+    // 提交代码界面
+    submitCode() {
+      this.$router.push("/submitCode");
     },
   },
   computed: {

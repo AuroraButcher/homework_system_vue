@@ -14,11 +14,17 @@
       <el-table-column label="编号" prop="id" width="50px" v-if="false"></el-table-column>
       <el-table-column label="作业名称" prop="name" width="150px">
         <template #default="scope">
-          <el-link link @click="showDetailInfo(scope)">{{ scope.row.name }}</el-link>
+          <el-link link v-if="scope.row.type === 0" @click="showDetailInfo(scope)">{{ scope.row.name }}</el-link>
+          <el-link link v-else @click="showCodeInfo(scope)">{{ scope.row.name }}</el-link>
         </template>
       </el-table-column>
       <el-table-column label="截止时间" prop="end" width="170px"></el-table-column>
-      <el-table-column label="类型" prop="type" v-if="false"></el-table-column>
+      <el-table-column label="类型" prop="type" width="60px" v-if="true">
+        <template #default="scope">
+          <el-link type="primary" v-if="scope.row.type===0">文本</el-link>
+          <el-link type="danger" v-else>代码</el-link>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" header-align="center">
         <el-table-column label="作业" width="100px" v-if="role==='teacher'">
           <template #default="scope">
@@ -32,13 +38,15 @@
             <el-link type="primary" link disabled v-if="role==='teacher'&&!compareStart(scope.row.index)">尚未开始</el-link>
             <div v-show="role==='student'">
               <!--没交作业、没有截止-->
-              <el-link type="primary" link @click="submitHomework(scope)" v-if="submit[scope.row.index]===0 && timeValid[scope.row.index]===0">提交作业</el-link>
+              <el-link type="primary" link @click="submitHomework(scope)" v-if="submit[scope.row.index]===0 && timeValid[scope.row.index]===0 && scope.row.type === 0">提交作业</el-link>
+              <el-link type="primary" link @click="submitCode(scope)" v-else-if="submit[scope.row.index]===0 && timeValid[scope.row.index]===0 && scope.row.type !== 0">提交代码</el-link>
               <!--没交作业、已经截止-->
               <el-link type="info" link disabled v-else-if="submit[scope.row.index]===0 && timeValid[scope.row.index]===-1">作业已截止</el-link>
               <!--交了作业、已经截止-->
-              <el-link type="warning" link @click="getStudentHWinfo(scope)" v-else-if="submit[scope.row.index]!==0 && timeValid[scope.row.index]===-1">查看作业</el-link>
+              <el-link type="warning" link @click="getStudentHWinfo(scope)" v-else-if="submit[scope.row.index]!==0 && timeValid[scope.row.index]===-1 && scope.row.type === 0">查看作业</el-link>
+              <el-link type="warning" link @click="submitCode(scope)" v-else-if="submit[scope.row.index]!==0 && timeValid[scope.row.index]===-1 && scope.row.type !== 0">查看代码</el-link>
               <!--交了作业、没有截止-->
-              <el-link type="success" link @click="resubmitHomework(scope)" v-else>重新提交</el-link>
+              <el-link type="success" link @click="resubmitHomework(scope)" v-else-if="submit[scope.row.index]!==0 && timeValid[scope.row.index]===0 && scope.row.type === 0">重新提交</el-link>
             </div>
           </template>
         </el-table-column>
@@ -166,7 +174,6 @@ export default {
             this.timeValid = res.data.data.timeValid;
             this.review = res.data.data.review;
             this.total = res.data.data.homeworkInfo.total;
-            console.log(this.page)
           } else {
             ElMessage.error(res.data.message);
           }
@@ -327,12 +334,22 @@ export default {
     compareEnd(index) {
       const now = new Date()
       const end = new Date(this.tableData[index].end)
-      return now>end
+      return now > end
     },
     //恶意评分检测
-    malicious(scope){
+    malicious(scope) {
       this.$store.commit('setHomeworkNumber', scope.row.id);
       this.$router.push("/malicious");
+    },
+    // 查看代码作业详情
+    showCodeInfo(scope) {
+      this.$store.commit('setCodeId', scope.row.type);
+      this.$router.push("/CodeInformation");
+    },
+    // 提交代码
+    submitCode(scope) {
+      this.$store.commit('setCodeId', scope.row.type);
+      this.$router.push("/submissionResult");
     }
   },
   computed: {
