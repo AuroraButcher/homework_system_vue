@@ -3,7 +3,7 @@
     <template #header>
       <page-header :component="head"/>
     </template>
-    <el-divider>代码作业抄袭名单</el-divider>
+    <el-divider content-position="left">代码作业提交名单</el-divider>
     <el-table :data="similarData" border style="width:100%; margin-top: 20px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="80px"></el-table-column>
       <el-table-column label="学号" prop="id" width="100px"></el-table-column>
@@ -13,6 +13,7 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-button type="primary" @click="checkSimilar" style="margin-top: 10px">代码作业查重</el-button>
   </el-card>
 </template>
 
@@ -32,6 +33,7 @@ export default {
       head: '作业提交情况',
       key: 1,
       ex:[],
+      url:null,
       submitNumber:'',
       numberOfStudent:'',
       addExcellent:false,
@@ -53,17 +55,6 @@ export default {
 
   },
   methods: {
-    // 处理页数改变
-    handlePageChange() {
-      api.showCourse(this.page).then(res => {
-        if (res.data.code === 20000) {
-          this.page.total = res.data.data.classInfo.total;
-          this.tableData = res.data.data.classInfo.records;
-        } else {
-          ElMessage.error(res.data.message);
-        }
-      })
-    },
     //获取当前的行数
     rowClassName({row, rowIndex}) {
       //把每一行的索引放进row
@@ -75,6 +66,7 @@ export default {
     getSimilarData(){
       api.similarCode({id:this.codeId}).then(res=>{
         if(res.data.code===20000){
+          this.url=res.data.data.url
           var key;
           for (key in res.data.data.info){
             this.similarData.push({id:key})
@@ -83,6 +75,10 @@ export default {
           ElMessage.error('加载失败')
         }
       })
+    },
+    checkSimilar(){
+      console.log(this.url)
+      window.open(this.url)
     }
   }
 }

@@ -13,7 +13,7 @@
       <el-table-column label="评测状态" prop="name" width="120px">
         <template #default="scope">
           <p v-if="scope.row.status === 'ACCEPTED'" style="color: green">通过</p>
-          <p v-else-if="scope.row.status === 'pending'" style="color: grey">pending</p>
+          <p v-else-if="scope.row.status === 'pending'" style="color: grey">正在评测</p>
           <p v-else-if="scope.row.status === 'WRONG_ANSWER'" style="color: RED">答案错误</p>
           <p v-else-if="scope.row.status === 'TIME_LIMIT_EXCEEDED'" style="color: RED">超过时间限制</p>
           <p v-else-if="scope.row.status === 'MEMORY_LIMIT_EXCEEDED'" style="color: RED">超过内存限制</p>
