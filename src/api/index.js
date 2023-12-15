@@ -747,9 +747,22 @@ const api = {
             }
         })
     },
-    //布置作业
+    //布置代码作业
     assignCodeHomework(data){
-        return axios.post(path.baseUrl+path.addCodeHomework, {})
+        return axios.post(path.baseUrl+path.addCodeHomework, {
+            classId:data.classNumber,
+            start:data.start,
+            end:data.end,
+            type:data.type,
+        })
+    },
+    //代码作业查重
+    similarCode(data){
+        return axios.post(path.baseUrl+path.checkCode,null,{
+            params:{
+                id:data.id
+            }
+        })
     }
 }
 export default api

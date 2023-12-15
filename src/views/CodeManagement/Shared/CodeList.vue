@@ -53,6 +53,7 @@
 import {mapState} from "vuex";
 import api from "../../../api/index.js";
 import PageHeader from "../../Base/PageHeader.vue";
+import {ElMessage} from "element-plus";
 
 export default {
   name: "checkProgram",
@@ -64,6 +65,7 @@ export default {
       key: 1,
       time:null,
       dialog:false,
+      id:null,
       tableData: [
         {
           "id": null,
@@ -121,7 +123,29 @@ export default {
     },
     //布置作业
     assignHomework(scope){
+      this.id=scope.row.id
       this.dialog=true
+    },
+    cancel(){
+      this.dialog=false
+    },
+    check(){
+      const data={
+        classNumber:this.courseNumber,
+        start:this.time[0],
+        end:this.time[1],
+        type:this.id
+      }
+      console.log(data)
+      api.assignCodeHomework(data).then(res=>{
+        if(res.data.code===20000){
+          ElMessage.success('添加成功')
+          this.dialog=false
+        }else {
+          ElMessage.error('添加失败')
+        }
+      })
+
     }
   },
   computed: {
