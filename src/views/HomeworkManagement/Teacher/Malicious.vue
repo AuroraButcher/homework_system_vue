@@ -9,16 +9,6 @@
       <el-button type="primary" @click="zScore(this.bias2)">比较恶意</el-button>
       <el-button type="primary" @click="zScore(this.bias3)">非常恶意</el-button>
     </div>
-    <div style="margin-bottom: 10px">
-      <span style="font-size: large;">bais值设置</span>
-      <el-input v-model="bias" :placeholder=bias style="width: 100px;margin-left: 10px"></el-input>
-      <el-button type="primary" style="margin-left: 10px" @click="zScore">确认检测</el-button>
-    </div>
-    <div style="margin-bottom: 10px">
-      <span style="font-size: large;">bais值设置</span>
-      <el-input v-model="bias" :placeholder=bias style="width: 100px;margin-left: 10px"></el-input>
-      <el-button type="primary" style="margin-left: 10px" @click="zScore">确认检测</el-button>
-    </div>
     <!--表格-->
     <el-table :data="tableData" border style="width:100%;" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="80px"></el-table-column>
@@ -31,6 +21,7 @@
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link @click="change(scope)">批改</el-link>
+          <el-link type="primary" link @click="send(scope)" style="margin-left: 10px">发送警告</el-link>
         </template>
       </el-table-column>
     </el-table>
@@ -120,6 +111,15 @@ export default {
       this.$store.commit('setScoreId',scope.row.studentScoreId)
       this.$router.push('/detailSubmitHomework');
     },
+    send(scope){
+      api.remindMalicious(scope.row.id).then(res=>{
+        if(res.data.code===20000){
+          ElMessage.success('发送成功')
+        }else {
+          ElMessage.error('发送失败')
+        }
+      })
+    }
   }
 }
 </script>

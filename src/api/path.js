@@ -179,6 +179,8 @@ const base = {
     getMalicious: '/malicious/getList',
     //恶意评分监测
     zScore: '/malicious/zScore',
+    //发送警告
+    remindMalicious:'/reminder/score',
 // ---------------相似度检测----------------
     //相似度检测1
     similarWords: '/similarity/words',

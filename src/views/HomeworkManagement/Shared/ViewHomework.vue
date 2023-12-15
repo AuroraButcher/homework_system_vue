@@ -230,8 +230,13 @@ export default {
     },
     // 查看提交情况
     viewSubmitHomework(scope) {
-      this.$store.commit('setHomeworkNumber', scope.row.id);
-      this.$router.push('/homeworkCondition');
+      if(scope.row.type===0){
+        this.$store.commit('setHomeworkNumber', scope.row.id);
+        this.$router.push('/homeworkCondition');
+      }else {
+        this.$store.commit('setCodeId',scope.row.type)
+        this.$router.push('/codeSimilar');
+      }
     },
     // 提交作业
     submitHomework(scope) {

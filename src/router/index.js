@@ -45,6 +45,7 @@ import DetailCodeInformation from "../views/CodeManagement/Shared/DetailCodeInfo
 import SubmitCode from "../views/CodeManagement/Student/SubmitCode.vue"
 import submissionResult from "../views/CodeManagement/Shared/SubmitResult.vue"
 import submissionDetail from "../views/CodeManagement/Shared/SubmitDetail.vue"
+import CodeCondition from "../views/HomeworkManagement/Teacher/CodeCondition.vue";
 //配置信息中需要页面的相关配置
 const routes = [
     // 总界面
@@ -318,6 +319,12 @@ const routes = [
                 name: "addCodeHomework",
                 meta: {title: "添加代码作业"},
             },
+            {
+                path:'/codeSimilar',
+                component: CodeCondition,
+                name: "codeSimilar",
+                meta: {title: "代码作业查重"},
+            }
         ]
     },
     // 管理员端
