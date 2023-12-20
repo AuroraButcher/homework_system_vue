@@ -174,6 +174,8 @@ const base = {
     checkCode:'/code/check',
     //添加代码作业
     addCodeHomework:'/homework/addCodeInfo',
+    //jplag查重结果
+    jplagSimilar:'/code/Jplag',
 //------------恶意监测-----------------
     //获取恶意评分列表
     getMalicious: '/malicious/getList',

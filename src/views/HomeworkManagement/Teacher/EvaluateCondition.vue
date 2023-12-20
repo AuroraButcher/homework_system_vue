@@ -100,7 +100,7 @@ export default {
               if(res1.data.code===20000){
                 this.tableData[i].teaScore=res1.data.data.info.score
               }else if(res1.data.code===20001){
-                ElMessage.error(res1.data.message);
+                //ElMessage.error(res1.data.message);
               } else {
                 ElMessage.error("加载评分失败");
               }
