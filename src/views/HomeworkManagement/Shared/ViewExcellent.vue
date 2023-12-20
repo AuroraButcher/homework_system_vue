@@ -8,7 +8,7 @@
       <el-table-column label="互评号" prop="id" width="100px"/>
       <el-table-column label="作业编号" prop="homeworkId" width="100px"/>
       <el-table-column label="学生作业编号" prop="homeworkStudentId" width="130px"/>
-      <el-table-column label="评语" prop="content" width="800px"/>
+      <el-table-column label="评语" prop="content" width="500px"/>
       <el-table-column fixed="right" label="操作" width="300px">
         <template #default="scope">
           <el-link type="primary" link @click="detail(scope)">详情</el-link>

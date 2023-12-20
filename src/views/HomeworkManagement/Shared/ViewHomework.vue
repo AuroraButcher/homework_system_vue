@@ -4,8 +4,6 @@
       <page-header :component="head"/>
     </template>
     <div class="hang">
-      <el-input v-model="homeworkName" placeholder="请输入作业名称" style="width: 220px"></el-input>
-      <el-button type="primary" style="margin-left: 10px" @click="search(this.homeworkName)">搜索</el-button>
       <el-button type="primary" style="margin-left: 10px" @click="addHomework()" v-if="role==='teacher'">添加作业</el-button>
       <el-button type="primary" style="margin-left: 10px" @click="showCodeHomework(scope)" v-show="role==='teacher'">添加代码作业</el-button>
     </div>

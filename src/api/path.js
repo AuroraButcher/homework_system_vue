@@ -182,13 +182,15 @@ const base = {
     //恶意评分监测
     zScore: '/malicious/zScore',
     //发送警告
-    remindMalicious:'/reminder/score',
+    remindMalicious: '/reminder/score',
 // ---------------相似度检测----------------
     //相似度检测1
     similarWords: '/similarity/words',
     //相似度检测2
     similarJieba: '/similarity/jieba',
     //判定为抄袭
-    similarSet:'/similarity/setCopy',
+    similarSet: '/similarity/setCopy',
+    //未提交作业名单
+    getNotSubmitList: '/homework/showUnSubmitted',
 }
 export default base
