@@ -780,7 +780,7 @@ const api = {
     },
     //发送抄袭警告
     codeRemind(data){
-        return axios.get(path.baseUrl+path.codeRemind,{
+        return axios.post(path.baseUrl+path.codeRemind,null,{
             params:{
                 studentNumber:data.studentNumber,
                 id:data.id
@@ -812,7 +812,6 @@ const api = {
                 pageSize: notSubmit.pageSize,
             }
         })
-    },
     },
 }
 export default api

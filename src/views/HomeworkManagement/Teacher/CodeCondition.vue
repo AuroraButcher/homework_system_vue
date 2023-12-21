@@ -20,7 +20,7 @@
           <el-link link @click="showContent(scope)">{{ scope.row.studentNumber }}</el-link>
         </template>
       </el-table-column>
-      <el-table-column fixed="right" label="操作" v-if="false">
+      <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-link type="primary" link @click="readCode(scope)">查看作业</el-link>
           <el-link type="primary" link @click="sendRemind(scope)" style="margin-left: 10px">发送警告</el-link>
@@ -105,7 +105,7 @@ export default {
       row.index = rowIndex;
     },
     sendRemind(scope){
-      api.codeRemind({studentNumber:scope.row.id,id:this.codeId}).then(res=>{
+      api.codeRemind({studentNumber:scope.row.studentNumber,id:this.codeId}).then(res=>{
         if(res.data.code===20000){
           ElMessage.success('发送成功')
         }else {
