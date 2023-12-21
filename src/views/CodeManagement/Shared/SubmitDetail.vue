@@ -27,6 +27,9 @@
     <div v-else-if="status === 'MEMORY_LIMIT_EXCEEDED'">
       <p style="color: red">内存超限！</p>
     </div>
+    <div v-else-if="status === '被判定为抄袭'">
+      <p style="color: red">被判定为抄袭！</p>
+    </div>
 
     <h1>提交内容:</h1>
     <VAceEditor

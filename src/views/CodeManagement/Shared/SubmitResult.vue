@@ -19,6 +19,7 @@
           <p v-else-if="scope.row.status === 'MEMORY_LIMIT_EXCEEDED'" style="color: RED">超过内存限制</p>
           <p v-else-if="scope.row.status === 'SEGMENTATION_FAULT'" style="color: RED">分段故障</p>
           <p v-else-if="scope.row.status === 'COMPILE_ERROR'" style="color: RED">编译错误</p>
+          <p v-else-if="scope.row.status === '被判定为抄袭'" style="color: RED">被判定为抄袭！</p>
         </template>
       </el-table-column>
       <el-table-column fixed="right" label="操作">
