@@ -771,6 +771,13 @@ const api = {
             }
         })
     },
+    getAc(data){
+        return axios.post(path.baseUrl+path.getAc,null,{
+            params: {
+                id: data.id
+            }
+        })
+    },
     //发送恶意互评警告
     remindMalicious(id) {
         return axios.post(path.baseUrl + path.remindMalicious, null, {

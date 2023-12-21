@@ -176,6 +176,8 @@ const base = {
     addCodeHomework:'/homework/addCodeInfo',
     //jplag查重结果
     jplagSimilar:'/code/Jplag',
+    // 获得通过的代码块，内容
+    getAc:'/code/getAc',
 //------------恶意监测-----------------
     //获取恶意评分列表
     getMalicious: '/malicious/getList',

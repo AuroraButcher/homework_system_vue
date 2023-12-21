@@ -3,16 +3,21 @@
     <template #header>
       <page-header :component="head"/>
     </template>
-    <el-divider content-position="left">代码作业提交名单</el-divider>
+    <el-divider content-position="left">代码评测通过名单</el-divider>
     <el-table :data="similarData" border style="width:100%; margin-top: 20px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="80px"></el-table-column>
-      <el-table-column label="学号" prop="id" width="100px"></el-table-column>
+      <el-table-column label="学号" prop="studentNumber" width="100px">
+        <template #default="scope">
+          <el-link link @click="showContent(scope)">{{ scope.row.studentNumber }}</el-link>
+        </template>
+      </el-table-column>
       <el-table-column fixed="right" label="操作" v-if="false">
         <template #default="scope">
           <el-link type="primary" link @click="sendRemind(scope)">发送警告</el-link>
         </template>
       </el-table-column>
     </el-table>
+
     <el-divider content-position="left">代码作业查重</el-divider>
     <el-table :data="jplagData" border style="width:100%; margin-top: 20px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="80px"></el-table-column>
@@ -27,8 +32,18 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-button type="primary" @click="checkSimilar" style="margin-top: 10px">代码作业查重</el-button>
+    <el-button type="primary" @click="checkSimilar" style="margin-top: 10px">代码作业查重可视化对比</el-button>
   </el-card>
+
+  <el-dialog v-model="isCodeModalVisible" title="详情">
+    <VAceEditor
+        v-model:value="selectedStudentCode"
+        @init="editorInit"
+        :options="editorOptions"
+        lang="c_cpp" theme="textmate"
+        style="width: 100%;height:500px;font-size:16px
+        !important;"/>
+  </el-dialog>
 </template>
 
 <script>
@@ -37,10 +52,12 @@ import api from "../../../api";
 import {mapState} from "vuex";
 import {ElMessage} from "element-plus";
 import AddExcellent from "./addExcellent.vue";
+import { VAceEditor } from 'vue3-ace-editor';
+
 
 export default {
   inject:['reload'],  //注入依赖
-  components: {AddExcellent, PageHeader},
+  components: {AddExcellent, PageHeader, VAceEditor},
   name: "homeworkCondition",
   data() {
     return {
@@ -52,7 +69,10 @@ export default {
       numberOfStudent:'',
       addExcellent:false,
       ExComment:'你好',
-      similarData:[],
+      isCodeModalVisible: false,
+      selectedStudentCode:null,
+      similarData:[
+      ],
       jplagData:[],
       params: {
         classID: null,
@@ -63,6 +83,7 @@ export default {
     }
   },
   created() {
+      this.getAc();
       this.getSimilarData();
       this.getJplagData()
   },
@@ -83,10 +104,10 @@ export default {
       api.similarCode({id:this.codeId}).then(res=>{
         if(res.data.code===20000){
           this.url=res.data.data.url
-          var key;
-          for (key in res.data.data.info){
-            this.similarData.push({id:key})
-          }
+          // var key;
+          // for (key in res.data.data.info){
+          //   this.similarData.push({id:key})
+          // }
         }else {
           ElMessage.error('加载失败')
         }
@@ -102,10 +123,26 @@ export default {
         }
       })
     },
+    getAc(){
+      api.getAc({id:this.codeId}).then(res => {
+        if(res.data.code===20000){
+            this.similarData = res.data.data.info
+            console.log(res.data.data)
+        }else {
+          ElMessage.error('加载失败')
+        }
+      })
+    },
     checkSimilar(){
       console.log(this.url)
       window.open(this.url)
-    }
+    },
+    showContent(scope) {
+      console.log(1)
+      this.selectedStudentCode = scope.row.content;
+      this.isCodeModalVisible = true;
+    },
+
   }
 }
 </script>
