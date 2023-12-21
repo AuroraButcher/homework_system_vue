@@ -176,6 +176,10 @@ const base = {
     addCodeHomework:'/homework/addCodeInfo',
     //jplag查重结果
     jplagSimilar:'/code/Jplag',
+    //代码作业抄袭警告
+    codeRemind:'/code/copy',
+    //获得已通过学生
+    getStudentCode:'/code/getAc',
 //------------恶意监测-----------------
     //获取恶意评分列表
     getMalicious: '/malicious/getList',

@@ -771,6 +771,22 @@ const api = {
             }
         })
     },
+    //发送抄袭警告
+    codeRemind(data){
+        return axios.get(path.baseUrl+path.codeRemind,{
+            params:{
+                studentNumber:data.studentNumber,
+                id:data.id
+            }
+        })
+    },
+    getStudentCode(id){
+        return axios.post(path.baseUrl+path.getStudentCode,null,{
+            params:{
+                id:id
+            }
+        })
+    },
     //发送恶意互评警告
     remindMalicious(id){
         return axios.post(path.baseUrl+path.remindMalicious,null,{
@@ -778,6 +794,6 @@ const api = {
                 maliciousId:id
             }
         })
-    }
+    },
 }
 export default api

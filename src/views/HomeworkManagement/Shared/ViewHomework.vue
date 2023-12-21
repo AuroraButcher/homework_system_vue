@@ -52,37 +52,37 @@
         </el-table-column>
         <el-table-column label="互评" width="200px">
           <template #default="scope">
-            <el-link type="primary" link @click="setEvaluation(scope)" v-if="role==='teacher' && compareEnd(scope.row.index)">互评设置</el-link>
-            <el-link type="danger" style="margin-left: 10px" link @click="malicious(scope)" v-if="role==='teacher' && compareEnd(scope.row.index)">恶意评分检测</el-link>
-            <el-link type="info" link disabled v-if="role==='teacher' && !compareEnd(scope.row.index)">互评设置</el-link>
+            <el-link type="primary" link @click="setEvaluation(scope)" v-if="role==='teacher' && compareEnd(scope.row.index) && scope.row.type === 0">互评设置</el-link>
+            <el-link type="danger" style="margin-left: 10px" link @click="malicious(scope)" v-if="role==='teacher' && compareEnd(scope.row.index)&& scope.row.type === 0">恶意评分检测</el-link>
+            <el-link type="info" link disabled v-if="role==='teacher' && !compareEnd(scope.row.index)&& scope.row.type === 0">互评设置</el-link>
             <!--开始互评并且是学生-->
-            <el-link type="primary" link @click="evaluateHomework(scope)" v-if="review[scope.row.index]===1 && role==='student'">互评作业</el-link>
+            <el-link type="primary" link @click="evaluateHomework(scope)" v-if="review[scope.row.index]===1 && role==='student'&& scope.row.type === 0">互评作业</el-link>
             <!--互评尚未开始-->
-            <el-link type="info" link disabled v-if="review[scope.row.index]===0 && role==='student'">尚未开始</el-link>
+            <el-link type="info" link disabled v-if="review[scope.row.index]===0 && role==='student'&& scope.row.type === 0">尚未开始</el-link>
             <!--互评已经结束-->
-            <el-link type="danger" link disabled v-if="review[scope.row.index]===-1 && role==='student'">已结束</el-link>
+            <el-link type="danger" link disabled v-if="review[scope.row.index]===-1 && role==='student'&& scope.row.type === 0">已结束</el-link>
           </template>
         </el-table-column>
         <el-table-column label="答案" width="100px">
           <template #default="scope">
-            <el-link type="primary" link @click="submitAnswer(scope)" v-if="scope.row.answer===0 && role==='teacher'">上传答案</el-link>
-            <el-link type="success" link @click="viewAnswer(scope)" v-if="scope.row.answer===1 && role==='teacher'">查看答案</el-link>
-            <el-link type="info" link disabled v-if="scope.row.answer===0 && role==='student'">未上传</el-link>
-            <el-link type="success" link @click="viewAnswer(scope)" v-if="scope.row.answer===1 && role==='student'">查看答案</el-link>
+            <el-link type="primary" link @click="submitAnswer(scope)" v-if="scope.row.answer===0 && role==='teacher'&& scope.row.type === 0">上传答案</el-link>
+            <el-link type="success" link @click="viewAnswer(scope)" v-if="scope.row.answer===1 && role==='teacher'&& scope.row.type === 0">查看答案</el-link>
+            <el-link type="info" link disabled v-if="scope.row.answer===0 && role==='student'&& scope.row.type === 0">未上传</el-link>
+            <el-link type="success" link @click="viewAnswer(scope)" v-if="scope.row.answer===1 && role==='student'&& scope.row.type === 0">查看答案</el-link>
           </template>
         </el-table-column>
         <el-table-column label="分数统计" width="100px">
           <template #default="scope">
-            <el-link type="info" link disabled v-if="review[scope.row.index]>=0 && role==='student'">尚未统计</el-link>
-            <el-link type="primary" link @click="showData(scope)" v-if="review[scope.row.index]===-1 && role==='student'">分数分布</el-link>
-            <el-link type="primary" link @click="showData(scope)" v-if="role ==='teacher'">分数分布</el-link>
+            <el-link type="info" link disabled v-if="review[scope.row.index]>=0 && role==='student'&& scope.row.type === 0">尚未统计</el-link>
+            <el-link type="primary" link @click="showData(scope)" v-if="review[scope.row.index]===-1 && role==='student'&& scope.row.type === 0">分数分布</el-link>
+            <el-link type="primary" link @click="showData(scope)" v-if="role ==='teacher'&& scope.row.type === 0">分数分布</el-link>
           </template>
         </el-table-column>
         <el-table-column label="优秀作业" width="120px">
           <template #default="scope">
-            <el-link type="info" link disabled v-if="review[scope.row.index]>=0 && role==='student'">查看优秀作业</el-link>
-            <el-link type="primary" link @click="showExcellent(scope)" v-if="review[scope.row.index]===-1 && role==='student'">查看优秀作业</el-link>
-            <el-link type="primary" link @click="showExcellent(scope)" v-if="role==='teacher'">查看优秀作业</el-link>
+            <el-link type="info" link disabled v-if="review[scope.row.index]>=0 && role==='student'&& scope.row.type === 0">查看优秀作业</el-link>
+            <el-link type="primary" link @click="showExcellent(scope)" v-if="review[scope.row.index]===-1 && role==='student'&& scope.row.type === 0">查看优秀作业</el-link>
+            <el-link type="primary" link @click="showExcellent(scope)" v-if="role==='teacher'&& scope.row.type === 0">查看优秀作业</el-link>
           </template>
         </el-table-column>
         <el-table-column label="讨论区">
