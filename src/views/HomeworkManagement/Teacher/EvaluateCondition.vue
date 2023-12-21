@@ -26,19 +26,20 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-button type="primary" @click="showNotSubmit" style="margin-top: 20px">未交名单</el-button>
     <el-button type="primary" @click="remind" style="margin-top: 20px">一键催交</el-button>
     <el-button type="primary" @click="createGrade" style="margin-top: 20px">生成最终得分</el-button>
     <el-table :data="similarData" border style="width:100%; margin-top: 20px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="80px"></el-table-column>
       <el-table-column label="学号1" prop="id1" width="100px"></el-table-column>
       <el-table-column label="学号2" prop="id2" width="100px"></el-table-column>
-      <el-table-column label="相似度" width="100px">
-          <template #default="scope">
-            <span v-if="scope.row.similar1>0.9||scope.row.similar2 > 0.9" style="color: red; font-weight: bold">非常相似</span>
-            <span v-else-if="scope.row.similar1>0.8||scope.row.similar2 > 0.8" style="color: rgb(255,115,0); font-weight: bold">很相似</span>
-            <span v-else-if="scope.row.similar1>0.7||scope.row.similar2 > 0.7" style="color: orange; font-weight: bold">一般相似</span>
-            <span v-else style="color: rgba(255,196,0,0.85); font-weight: bold">有点相似</span>
-          </template>
+      <el-table-column label="相似度" width="150px">
+        <template #default="scope">
+          <span v-if="scope.row.similar1>0.9||scope.row.similar2 > 0.9" style="color: red; font-weight: bold">相似度大于90%</span>
+          <span v-else-if="scope.row.similar1>0.8||scope.row.similar2 > 0.8" style="color: rgb(255,115,0); font-weight: bold">相似度80%~90%</span>
+          <span v-else-if="scope.row.similar1>0.7||scope.row.similar2 > 0.7" style="color: orange; font-weight: bold">相似度70%~80%</span>
+          <span v-else style="color: rgba(255,196,0,0.85); font-weight: bold">有点相似</span>
+        </template>
       </el-table-column>
       <el-table-column fixed="right" label="操作">
         <template #default="scope">
@@ -47,6 +48,21 @@
       </el-table-column>
     </el-table>
   </el-card>
+
+  <el-dialog title="未交名单" width="40%" v-model="notSubmit">
+    <el-table :data="notSubmitList" border style="width:100%;" :row-class-name="rowClassName" :Key="key">
+      <el-table-column label="序号" type="index" width="80px"></el-table-column>
+      <el-table-column label="学生学号" prop="studentId"></el-table-column>
+      <el-table-column label="状态"><span style="color: red;font-weight: bold;">未交</span></el-table-column>
+    </el-table>
+    <hr style="margin-top: 10px">
+    <el-pagination
+        v-model:current-page="notSubmitPage.pageNo"
+        v-model:page-size="notSubmitPage.pageSize"
+        :total="notSubmitPage.total"
+        @current-change="handlePageChangeNotSubmit"
+        :hide-on-single-page="false"/>
+  </el-dialog>
 </template>
 
 <script>
@@ -74,15 +90,30 @@ export default {
           id: '',
           studentNumber: '1',
           date: '',
-          score:null,
+          score: null,
         }
       ],
-      similarData:[],
+      similarData: [],
       params: {
         classID: null,
         homeworkID: null,
         pageNo: 1,
         pageSize: 10,
+      },
+      notSubmit: false,
+      notSubmitList: [
+        {
+          id: null,
+          classId: null,
+          studentId: null,
+        }
+      ],
+      notSubmitPage: {
+        classID: null,
+        homeworkID: null,
+        pageNo: 1,
+        pageSize: 5,
+        total: null,
       }
     }
   },
@@ -213,15 +244,35 @@ export default {
       let homeworkId1,homeworkId2;
       for(let i=0;i<this.tableData.length;i++){
         if(this.tableData[i].studentNumber===scope.row.id1){
-          homeworkId1=this.tableData[i].id
+          homeworkId1 = this.tableData[i].id
         }
-        if(this.tableData[i].studentNumber===scope.row.id2){
-          homeworkId2=this.tableData[i].id
+        if (this.tableData[i].studentNumber === scope.row.id2) {
+          homeworkId2 = this.tableData[i].id
         }
       }
-      let index=[scope.row.id1,scope.row.id2,homeworkId1,homeworkId2];
-      this.$store.commit('setIndex',index)
+      let index = [scope.row.id1, scope.row.id2, homeworkId1, homeworkId2];
+      this.$store.commit('setIndex', index)
       this.$router.push('/similarCheck')
+    },
+    // 查看未提交作业名单
+    showNotSubmit() {
+      this.notSubmit = true;
+      this.notSubmitPage.classID = this.courseNumber;
+      this.notSubmitPage.homeworkID = this.homeworkNumber;
+      api.getNotSubmitList(this.notSubmitPage).then(res => {
+        if (res.data.code === 20000) {
+          this.notSubmitList = res.data.data.notSubmittedInfo.records;
+          this.notSubmitPage.total = res.data.data.notSubmittedInfo.total;
+        }
+      })
+    },
+    handlePageChangeNotSubmit() {
+      api.getNotSubmitList(this.notSubmitPage).then(res => {
+        if (res.data.code === 20000) {
+          this.notSubmitList = res.data.data.notSubmittedInfo.records;
+          this.notSubmitPage.total = res.data.data.notSubmittedInfo.total;
+        }
+      })
     },
   }
 }

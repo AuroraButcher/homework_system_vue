@@ -771,6 +771,13 @@ const api = {
             }
         })
     },
+    getAc(data){
+        return axios.post(path.baseUrl+path.getAc,null,{
+            params: {
+                id: data.id
+            }
+        })
+    },
     //发送抄袭警告
     codeRemind(data){
         return axios.get(path.baseUrl+path.codeRemind,{
@@ -788,12 +795,24 @@ const api = {
         })
     },
     //发送恶意互评警告
-    remindMalicious(id){
-        return axios.post(path.baseUrl+path.remindMalicious,null,{
-            params:{
-                maliciousId:id
+    remindMalicious(id) {
+        return axios.post(path.baseUrl + path.remindMalicious, null, {
+            params: {
+                maliciousId: id
             }
         })
+    },
+    //未提交名单
+    getNotSubmitList(notSubmit) {
+        return axios.get(path.baseUrl + path.getNotSubmitList, {
+            params: {
+                classID: notSubmit.classID,
+                homeworkID: notSubmit.homeworkID,
+                pageNo: notSubmit.pageNo,
+                pageSize: notSubmit.pageSize,
+            }
+        })
+    },
     },
 }
 export default api

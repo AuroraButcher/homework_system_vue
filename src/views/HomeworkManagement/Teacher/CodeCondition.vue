@@ -12,17 +12,22 @@
     <template #header>
       <page-header :component="head"/>
     </template>
-    <el-divider content-position="left">代码作业提交名单</el-divider>
+    <el-divider content-position="left">代码评测通过名单</el-divider>
     <el-table :data="similarData" border style="width:100%; margin-top: 20px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="80px"></el-table-column>
-      <el-table-column label="学号" prop="studentNumber" width="100px"></el-table-column>
-      <el-table-column fixed="right" label="操作">
+      <el-table-column label="学号" prop="studentNumber" width="100px">
+        <template #default="scope">
+          <el-link link @click="showContent(scope)">{{ scope.row.studentNumber }}</el-link>
+        </template>
+      </el-table-column>
+      <el-table-column fixed="right" label="操作" v-if="false">
         <template #default="scope">
           <el-link type="primary" link @click="readCode(scope)">查看作业</el-link>
           <el-link type="primary" link @click="sendRemind(scope)" style="margin-left: 10px">发送警告</el-link>
         </template>
       </el-table-column>
     </el-table>
+
     <el-divider content-position="left">代码作业查重</el-divider>
     <el-table :data="jplagData" border style="width:100%; margin-top: 20px" :row-class-name="rowClassName" :Key="key">
       <el-table-column label="序号" type="index" width="80px"></el-table-column>
@@ -37,7 +42,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-button type="primary" @click="checkSimilar" style="margin-top: 10px">代码作业查重</el-button>
+    <el-button type="primary" @click="checkSimilar" style="margin-top: 10px">代码作业查重可视化对比</el-button>
   </el-card>
 </template>
 
@@ -129,6 +134,16 @@ export default {
       api.jplagSimilar({id:this.codeId}).then(res=>{
         if(res.data.code===20000){
           this.jplagData=res.data.data.jplag
+        }else {
+          ElMessage.error('加载失败')
+        }
+      })
+    },
+    getAc(){
+      api.getAc({id:this.codeId}).then(res => {
+        if(res.data.code===20000){
+            this.similarData = res.data.data.info
+            console.log(res.data.data)
         }else {
           ElMessage.error('加载失败')
         }
