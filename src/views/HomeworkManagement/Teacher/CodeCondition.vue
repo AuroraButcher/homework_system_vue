@@ -8,6 +8,9 @@
         style="width: 100%;height:500px;font-size:16px
         !important;"/>
   </el-dialog>
+  <el-dialog v-model="showDialog" title="服务器错误" width="50%" >
+    服务器繁忙，请稍后刷新重试！
+  </el-dialog>
   <el-card>
     <template #header>
       <page-header :component="head"/>
@@ -73,6 +76,7 @@ export default {
       url:null,
       submitNumber:'',
       content:'',
+      showDialog:false,
       dialogVisible:false,
       numberOfStudent:'',
       addExcellent:false,
@@ -151,7 +155,13 @@ export default {
     },
     checkSimilar(){
       console.log(this.url)
-      window.open(this.url)
+      if(this.url === null){
+        this.showDialog=true
+      }
+      else
+      {
+        window.open(this.url)
+      }
     },
     readCode(scope){
       this.content=scope.row.content
