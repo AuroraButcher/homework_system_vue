@@ -101,7 +101,6 @@ export default {
   align-items: center;
   border-bottom-style: solid;
   border-width: 2px;
-//background-color: rgb(176 226 255);
 
   .span {
     margin-right: 10px;
